@@ -2,11 +2,12 @@ import re
 import MeCab
 from typing import List, Callable
 from pdf_slides_term.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
+from pdf_slides_term.consts import SYMBOLS
 
 
 class MeCabTagger:
 
-    SYMBOL_REGEX = re.compile(r"[!-/:-@[-`{-~]+")
+    SYMBOL_REGEX = re.compile(rf"[{re.escape(SYMBOLS)}]+")
 
     def __init__(self, *args):
         self._inner_tagger = MeCab.Tagger(*args)

@@ -128,14 +128,14 @@ class TextfulXMLConverter(PDFConverter):
         self._write(enc(text))
 
 
-def pdf_to_xml(pdf_path, xml_path):
-    resource_manager = PDFResourceManager()
+class PDFtoXMLConverter:
+    def pdf_to_xml(self, pdf_path: str, xml_path: str):
+        manager = PDFResourceManager()
+        with open(pdf_path, "rb") as pdf_file, open(xml_path, "wb") as xml_file:
+            converter = TextfulXMLConverter(manager, xml_file, stripcontrol=True)
+            page_interpreter = PDFPageInterpreter(manager, converter)
 
-    with open(pdf_path, "rb") as pdf_file, open(xml_path, "wb") as xml_file:
-        converter = TextfulXMLConverter(resource_manager, xml_file, stripcontrol=True)
-        page_interpreter = PDFPageInterpreter(resource_manager, converter)
+            for page in PDFPage.get_pages(pdf_file, check_extractable=False):
+                page_interpreter.process_page(page)
 
-        for page in PDFPage.get_pages(pdf_file, check_extractable=False):
-            page_interpreter.process_page(page)
-
-        converter.close()
+            converter.close()

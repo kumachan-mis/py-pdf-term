@@ -1,0 +1,39 @@
+import os
+import json
+from glob import glob
+
+from pdf_slides_term.candidates import CandidateTermExtractor
+from scripts.settings import DATASET_DIR
+
+
+XML_DIR = os.path.join(DATASET_DIR, "xml")
+CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
+
+
+def xml_path_to_candidate_path(xml_path):
+    abs_dir_path, xml_file_name = os.path.split(xml_path)
+    rel_dir_path = os.path.relpath(abs_dir_path, XML_DIR)
+    noext_file_name = os.path.splitext(xml_file_name)[0]
+    return os.path.join(CANDIDATE_DIR, rel_dir_path, f"{noext_file_name}.json")
+
+
+if __name__ == "__main__":
+    xml_paths = glob(os.path.join(XML_DIR, "**", "*.xml"), recursive=True)
+    candidate_paths = list(map(xml_path_to_candidate_path, xml_paths))
+
+    extractor = CandidateTermExtractor()
+    for xml_path, candidate_path in zip(xml_paths, candidate_paths):
+        candidate_dir_name = os.path.dirname(candidate_path)
+        os.makedirs(candidate_dir_name, exist_ok=True)
+        candidate_term_list = extractor.extract(xml_path)
+
+        json_object = {
+            "candidate": list(
+                map(
+                    lambda page_candidate_term_list: page_candidate_term_list.to_json(),
+                    candidate_term_list,
+                )
+            )
+        }
+        with open(candidate_path, "w") as candidate_file:
+            json.dump(json_object, candidate_file, ensure_ascii=False, indent=2)
