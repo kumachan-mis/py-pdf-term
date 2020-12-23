@@ -1,6 +1,6 @@
 from abc import ABCMeta
-from dataclasses import dataclass
-from typing import ClassVar
+from dataclasses import dataclass, asdict
+from typing import Dict, ClassVar
 
 
 @dataclass
@@ -8,6 +8,9 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     NUM_ATTR: ClassVar[int] = 1
 
     surface_form: str
+
+    def to_json(self) -> Dict:
+        return asdict(self)
 
 
 @dataclass
@@ -24,3 +27,6 @@ class MeCabMorphemeIPADic(BaseMeCabMorpheme):
     original_form: str
     reading: str
     pronunciation: str
+
+    def to_json(self) -> Dict:
+        return asdict(self)

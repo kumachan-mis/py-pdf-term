@@ -1,7 +1,7 @@
 import os
 from glob import glob
 
-from pdf_slides_term.pdftoxml import pdf_to_xml
+from pdf_slides_term.pdftoxml import PDFtoXMLConverter
 from scripts.settings import DATASET_DIR
 
 
@@ -20,7 +20,8 @@ if __name__ == "__main__":
     pdf_paths = glob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
     xml_paths = list(map(pdf_path_to_xml_path, pdf_paths))
 
+    converter = PDFtoXMLConverter()
     for pdf_path, xml_path in zip(pdf_paths, xml_paths):
         xml_dir_name = os.path.dirname(xml_path)
         os.makedirs(xml_dir_name, exist_ok=True)
-        pdf_to_xml(pdf_path, xml_path)
+        converter.pdf_to_xml(pdf_path, xml_path)
