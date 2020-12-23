@@ -3,7 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,python
 
 ### Project specific settings ###
-
+xml/
 
 ### macOS ###
 # General
