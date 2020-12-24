@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional
 
-from pdf_slides_term.morphemes import BaseMeCabMorpheme
+from pdf_slides_term.morphemes import BaseMorpheme
 
 
 @dataclass
 class TechnicalTerm:
-    morphemes: List[BaseMeCabMorpheme]
+    morphemes: List[BaseMorpheme]
     font_size: Optional[float]
 
     def __str__(self) -> str:

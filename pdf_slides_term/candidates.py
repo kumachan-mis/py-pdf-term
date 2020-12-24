@@ -2,8 +2,8 @@ import re
 from xml.etree import ElementTree
 from typing import List
 
-from pdf_slides_term.morphemes import BaseMeCabMorpheme
-from pdf_slides_term.tagger import MeCabTagger
+from pdf_slides_term.morphemes import BaseMorpheme
+from pdf_slides_term.tokenizer import JanomeTokenizer
 from pdf_slides_term.terms import PageCandidateTermList, TechnicalTerm
 from pdf_slides_term.consts import SYMBOLS
 
@@ -11,7 +11,7 @@ from pdf_slides_term.consts import SYMBOLS
 class CandidateTermExtractor:
     # public
     def __init__(self):
-        self._mecab_tagger = MeCabTagger()
+        self._tokenizer = JanomeTokenizer()
         self._filter = CandidateTermFilter()
 
     def extract(self, xml_path: str) -> List[PageCandidateTermList]:
@@ -30,7 +30,7 @@ class CandidateTermExtractor:
         for text_node in page_node.iter("text"):
             candicate_term_morphemes = []
 
-            morphemes_from_text = self._mecab_tagger.parse(text_node.text)
+            morphemes_from_text = self._tokenizer.tokenize(text_node.text)
             fontsize = float(text_node.get("size"))
             for morpheme in morphemes_from_text:
                 if self._filter.is_part_of_candidate_term(morpheme):
@@ -51,7 +51,7 @@ class CandidateTermExtractor:
 
 
 class CandidateTermFilter:
-    def is_part_of_candidate_term(self, morpheme: BaseMeCabMorpheme) -> bool:
+    def is_part_of_candidate_term(self, morpheme: BaseMorpheme) -> bool:
         if morpheme.pos == "名詞":
             valid_categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "接尾"}
             return (

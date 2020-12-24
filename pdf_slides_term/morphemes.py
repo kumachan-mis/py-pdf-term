@@ -4,7 +4,7 @@ from typing import Dict, ClassVar
 
 
 @dataclass
-class BaseMeCabMorpheme(metaclass=ABCMeta):
+class BaseMorpheme(metaclass=ABCMeta):
     NUM_ATTR: ClassVar[int] = 1
 
     surface_form: str
@@ -14,7 +14,7 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
 
 
 @dataclass
-class MeCabMorphemeIPADic(BaseMeCabMorpheme):
+class MorphemeIPADic(BaseMorpheme):
     NUM_ATTR: ClassVar[int] = 10
 
     surface_form: str
