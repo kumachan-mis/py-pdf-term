@@ -1,8 +1,8 @@
 import re
 import MeCab
 from typing import List, Callable
-from pdf_slides_term.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
-from pdf_slides_term.consts import SYMBOLS
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
+from pdf_slides_term.share.consts import SYMBOLS
 
 
 class MeCabTagger:
@@ -10,7 +10,7 @@ class MeCabTagger:
     SYMBOL_REGEX = re.compile(rf"[{re.escape(SYMBOLS)}]+")
 
     def __init__(self, *args):
-        self._inner_tagger = MeCab.Tagger(*args)
+        self._inner_tagger = MeCab.Tagger(" ".join(args))
 
     def parse(
         self,

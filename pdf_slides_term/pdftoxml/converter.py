@@ -1,4 +1,4 @@
-from re import compile
+import re
 from enum import Enum, auto
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
@@ -9,8 +9,8 @@ from pdfminer.utils import enc
 
 class TextfulXMLConverter(PDFConverter):
 
-    CONTROL = compile(r"[\x00-\x08\x0b-\x0c\x0e-\x1f]")
-    ERROR_TEXT = compile(r"^(\(cid:\d+\))+$")
+    CONTROL = re.compile(r"[\x00-\x08\x0b-\x0c\x0e-\x1f]")
+    ERROR_TEXT = re.compile(r"^(\(cid:\d+\))+$")
 
     # public
     def __init__(

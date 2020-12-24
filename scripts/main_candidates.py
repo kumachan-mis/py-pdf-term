@@ -2,7 +2,7 @@ import os
 import json
 from glob import glob
 
-from pdf_slides_term.candidates import CandidateTermExtractor
+from pdf_slides_term.candidates.extractor import CandidateTermExtractor
 from scripts.settings import DATASET_DIR
 
 
@@ -27,13 +27,6 @@ if __name__ == "__main__":
         os.makedirs(candidate_dir_name, exist_ok=True)
         candidate_term_list = extractor.extract(xml_path)
 
-        json_object = {
-            "candidate": list(
-                map(
-                    lambda page_candidate_term_list: page_candidate_term_list.to_json(),
-                    candidate_term_list,
-                )
-            )
-        }
         with open(candidate_path, "w") as candidate_file:
-            json.dump(json_object, candidate_file, ensure_ascii=False, indent=2)
+            json_obj = candidate_term_list.to_json()
+            json.dump(json_obj, candidate_file, ensure_ascii=False, indent=2)
