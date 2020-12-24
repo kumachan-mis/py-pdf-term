@@ -1,7 +1,7 @@
 import os
 from glob import glob
 
-from pdf_slides_term.pdftoxml import PDFtoXMLConverter
+from pdf_slides_term.pdftoxml.converter import PDFtoXMLConverter
 from scripts.settings import DATASET_DIR
 
 

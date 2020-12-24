@@ -1,14 +1,16 @@
-from sys import argv, stderr
+import sys
+import os
 
-from pdf_slides_term.tagger import MeCabTagger
+from scripts.settings import BASE_DIR
+from pdf_slides_term.mecab.tagger import MeCabTagger
 
 
 if __name__ == "__main__":
-    argc = len(argv)
-    if argc != 2:
-        stderr.write("Usage: python main_tagger.py [text]\n")
+    if len(sys.argv) != 2:
+        sys.stderr.write("Usage: python main_tagger.py [text]\n")
         exit(1)
 
-    results = MeCabTagger().parse(argv[1])
+    rcfile = os.path.join(BASE_DIR, ".mecabrc")
+    results = MeCabTagger("--rcfile", rcfile).parse(sys.argv[1])
     for result in results:
         print(result.surface_form, result.pos, result.category, result.subcategory)
