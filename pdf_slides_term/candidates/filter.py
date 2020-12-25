@@ -5,6 +5,9 @@ from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+
+
 class CandidateTermFilter:
     def is_part_of_candidate_term(self, morpheme: BaseMeCabMorpheme) -> bool:
         if morpheme.pos == "名詞":
@@ -24,10 +27,8 @@ class CandidateTermFilter:
 
     def is_candidate_term(self, term: TechnicalTerm) -> bool:
         term_str = str(term)
-        valid_regex = re.compile(
-            rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX}|[a-zA-Z])+"
-        )
-        invalid_regex = re.compile(rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Z]|[a-z]+")
+        valid_regex = re.compile(rf"({JAPANESE_REGEX}|[A-Za-z ])+")
+        invalid_regex = re.compile(rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Z]|[a-z ]+")
         if (
             valid_regex.fullmatch(term_str) is None
             or invalid_regex.fullmatch(term_str) is not None

@@ -1,5 +1,6 @@
+# https://unicode.org/charts
+
 HIRAGANA_REGEX = r"[\u3040-\u309F]"
 KATAKANA_REGEX = r"[\u30A0-\u30FF]"
 KANJI_REGEX = r"[\u4E00-\u9FFF]"
 SYMBOL_REGEX = r"[\u0020-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F\u00A1-\u00BF]"
-# https://unicode.org/charts
