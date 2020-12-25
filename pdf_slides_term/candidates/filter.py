@@ -11,7 +11,7 @@ JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 class CandidateTermFilter:
     def is_part_of_candidate_term(self, morpheme: BaseMeCabMorpheme) -> bool:
         if morpheme.pos == "名詞":
-            valid_categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "接尾"}
+            valid_categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "ナイ形容詞語幹", "接尾"}
             return (
                 morpheme.category in valid_categories
                 and morpheme.subcategory not in {"助数詞"}
@@ -22,6 +22,8 @@ class CandidateTermFilter:
             return morpheme.category in {"自立"}
         elif morpheme.pos == "形容詞":
             return morpheme.category in {"自立"}
+        elif morpheme.pos == "助詞":
+            return morpheme.category in {"連体化"}
         else:
             return False
 
@@ -41,21 +43,38 @@ class CandidateTermFilter:
             return (
                 morpheme.pos == "名詞"
                 and morpheme.category in {"一般", "サ変接続", "固有名詞"}
-                and morpheme.subcategory not in {"人名", "組織", "地域"}
+                and morpheme.subcategory not in {"人名", "地域"}
             )
 
         for i in range(num_morphemes):
             morpheme = term.morphemes[i]
-            if morpheme.pos not in {"動詞", "形容詞"}:
-                continue
-
-            next_morpheme = term.morphemes[i + 1] if i + 1 < num_morphemes else None
-            is_valid_morpheme = (
-                next_morpheme is not None
-                and next_morpheme.pos == "名詞"
-                and next_morpheme.category in {"接尾"}
-                and next_morpheme.subcategory in {"特殊"}
-            )
+            if morpheme.pos in {"動詞", "形容詞"}:
+                next_morpheme = term.morphemes[i + 1] if i + 1 < num_morphemes else None
+                is_valid_morpheme = (
+                    next_morpheme is not None
+                    and next_morpheme.pos == "名詞"
+                    and next_morpheme.category == "接尾"
+                    and next_morpheme.subcategory == "特殊"
+                )
+            elif morpheme.pos == "助詞":
+                prev_morpheme = term.morphemes[i - 1] if i - 1 >= 0 else None
+                next_morpheme = term.morphemes[i + 1] if i + 1 < num_morphemes else None
+                is_valid_morpheme = (
+                    prev_morpheme is not None
+                    and prev_morpheme.pos in {"名詞", "動詞", "形容詞"}
+                    and not (
+                        prev_morpheme.category == "接尾"
+                        and prev_morpheme.subcategory == "特殊"
+                    )
+                    and next_morpheme is not None
+                    and next_morpheme.pos in {"名詞", "動詞", "形容詞"}
+                    and not (
+                        prev_morpheme.category == "接尾"
+                        and prev_morpheme.subcategory == "特殊"
+                    )
+                )
+            else:
+                is_valid_morpheme = True
 
             if not is_valid_morpheme:
                 return False
