@@ -2,7 +2,10 @@ import re
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
 from pdf_slides_term.share.data import TechnicalTerm
-from pdf_slides_term.share.consts import SYMBOLS
+from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
+
+
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
 class CandidateTermFilter:
@@ -23,8 +26,13 @@ class CandidateTermFilter:
             return False
 
     def is_candidate_term(self, term: TechnicalTerm) -> bool:
-        invalid_term_regex = re.compile(rf"[a-z{re.escape(SYMBOLS)}]*|[A-Z]")
-        if invalid_term_regex.fullmatch(str(term)) is not None:
+        term_str = str(term)
+        valid_regex = re.compile(rf"({JAPANESE_REGEX}|[A-Za-z ])+")
+        invalid_regex = re.compile(rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Z]|[a-z ]+")
+        if (
+            valid_regex.fullmatch(term_str) is None
+            or invalid_regex.fullmatch(term_str) is not None
+        ):
             return False
 
         num_morphemes = len(term.morphemes)
