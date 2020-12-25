@@ -2,13 +2,10 @@ import re
 import MeCab
 from typing import List, Callable
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
-from pdf_slides_term.share.consts import SYMBOLS
+from pdf_slides_term.share.consts import SYMBOL_REGEX
 
 
 class MeCabTagger:
-
-    SYMBOL_REGEX = re.compile(rf"[{re.escape(SYMBOLS)}]+")
-
     def __init__(self, *args):
         self._inner_tagger = MeCab.Tagger(" ".join(args))
 
@@ -36,7 +33,7 @@ class MeCabTagger:
         mecab_line: str,
     ) -> BaseMeCabMorpheme:
         surface_form, csv_attrs = mecab_line.split("\t")
-        if MeCabTagger.SYMBOL_REGEX.fullmatch(surface_form):
+        if re.compile(rf"{SYMBOL_REGEX}+").fullmatch(surface_form):
             attrs = ["記号", "一般"]
             # c.f. https://github.com/taku910/mecab/pull/37
         else:
