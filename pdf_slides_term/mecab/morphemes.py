@@ -5,9 +5,12 @@ from typing import Dict, ClassVar
 
 @dataclass
 class BaseMeCabMorpheme(metaclass=ABCMeta):
-    NUM_ATTR: ClassVar[int] = 1
+    NUM_ATTR: ClassVar[int] = 4
 
     surface_form: str
+    pos: str
+    category: str
+    subcategory: str
 
     def to_json(self) -> Dict:
         return asdict(self)

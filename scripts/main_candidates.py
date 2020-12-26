@@ -21,7 +21,7 @@ if __name__ == "__main__":
     xml_paths = glob(os.path.join(XML_DIR, "**", "*.xml"), recursive=True)
     candidate_paths = list(map(xml_path_to_candidate_path, xml_paths))
 
-    extractor = CandidateTermExtractor()
+    extractor = CandidateTermExtractor(enable_modifying_particle_extension=True)
     for xml_path, candidate_path in zip(xml_paths, candidate_paths):
         candidate_dir_name = os.path.dirname(candidate_path)
         os.makedirs(candidate_dir_name, exist_ok=True)
