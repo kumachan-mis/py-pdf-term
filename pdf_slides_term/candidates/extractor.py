@@ -8,6 +8,7 @@ from pdf_slides_term.candidates.data import (
     PageCandidateTermList,
 )
 from pdf_slides_term.mecab.tagger import MeCabTagger
+from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
 from pdf_slides_term.share.data import TechnicalTerm
 
 
@@ -15,7 +16,8 @@ class CandidateTermExtractor:
     # public
     def __init__(self, modifying_particle_augmentation=False):
         self._mecab_tagger = MeCabTagger()
-        self._filter = CandidateTermFilter()
+        self._candidates_filter = CandidateTermFilter()
+        self._morpheme_filter = MeCabMorphemeFilter()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
     def extract_from_domain(
@@ -43,19 +45,19 @@ class CandidateTermExtractor:
             morphemes_from_text = self._mecab_tagger.parse(text_node.text)
             fontsize = float(text_node.get("size"))
             for morpheme in morphemes_from_text:
-                if self._filter.is_part_of_candidate_term(morpheme):
+                if self._candidates_filter.is_part_of_candidate_term(morpheme):
                     candicate_term_morphemes.append(morpheme)
                     continue
 
                 candidate_term = TechnicalTerm(candicate_term_morphemes, fontsize)
-                if self._filter.is_candidate_term(candidate_term):
+                if self._candidates_filter.is_candidate_term(candidate_term):
                     augmented_terms = self._augment_term_if_enabled(candidate_term)
                     candicate_terms.extend(augmented_terms)
                     candicate_terms.append(candidate_term)
                 candicate_term_morphemes = []
 
             candidate_term = TechnicalTerm(candicate_term_morphemes, fontsize)
-            if self._filter.is_candidate_term(candidate_term):
+            if self._candidates_filter.is_candidate_term(candidate_term):
                 augmented_terms = self._augment_term_if_enabled(candidate_term)
                 candicate_terms.extend(augmented_terms)
                 candicate_terms.append(candidate_term)
@@ -73,7 +75,7 @@ class CandidateTermExtractor:
             + [
                 opsition
                 for opsition in range(num_morphemes)
-                if self._filter.is_modifying_particle(term.morphemes[opsition])
+                if self._morpheme_filter.is_modifying_particle(term.morphemes[opsition])
             ]
             + [num_morphemes]
         )
@@ -86,7 +88,7 @@ class CandidateTermExtractor:
                 j = modifying_particle_positions[index + length]
                 morphemes = term.morphemes[i + 1 : j]
                 augmented_term = TechnicalTerm(morphemes, term.fontsize, True)
-                if self._filter.is_candidate_term(augmented_term):
+                if self._candidates_filter.is_candidate_term(augmented_term):
                     augmented_terms.append(augmented_term)
 
         return augmented_terms

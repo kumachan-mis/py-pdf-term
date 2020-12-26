@@ -81,6 +81,3 @@ class CandidateTermFilter:
                 return False
 
         return True
-
-    def is_modifying_particle(self, morpheme: BaseMeCabMorpheme) -> bool:
-        return morpheme.pos == "助詞" and morpheme.category == "連体化"
