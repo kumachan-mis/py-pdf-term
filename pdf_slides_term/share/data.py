@@ -13,6 +13,7 @@ JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 class TechnicalTerm:
     morphemes: List[BaseMeCabMorpheme]
     fontsize: Optional[float]
+    augmented: bool = False
 
     def __str__(self) -> str:
         num_morphemes = len(self.morphemes)
@@ -33,4 +34,8 @@ class TechnicalTerm:
         return term_str
 
     def to_json(self) -> Dict:
-        return {"term": str(self), "fontsize": self.fontsize}
+        return {
+            "term": str(self),
+            "fontsize": self.fontsize,
+            "augmented": self.augmented,
+        }
