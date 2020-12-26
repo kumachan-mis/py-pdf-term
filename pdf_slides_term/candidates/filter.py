@@ -9,6 +9,7 @@ JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
 class CandidateTermFilter:
+    # public
     def is_part_of_candidate_term(self, morpheme: BaseMeCabMorpheme) -> bool:
         if morpheme.pos == "名詞":
             valid_categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "ナイ形容詞語幹", "接尾"}

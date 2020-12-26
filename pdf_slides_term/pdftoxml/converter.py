@@ -129,6 +129,7 @@ class TextfulXMLConverter(PDFConverter):
 
 
 class PDFtoXMLConverter:
+    # public
     def pdf_to_xml(self, pdf_path: str, xml_path: str):
         manager = PDFResourceManager()
         with open(pdf_path, "rb") as pdf_file, open(xml_path, "wb") as xml_file:

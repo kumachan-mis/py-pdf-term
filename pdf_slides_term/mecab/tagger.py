@@ -6,6 +6,7 @@ from pdf_slides_term.share.consts import SYMBOL_REGEX
 
 
 class MeCabTagger:
+    # public
     def __init__(self, *args):
         self._inner_tagger = MeCab.Tagger(" ".join(args))
 
@@ -27,6 +28,7 @@ class MeCabTagger:
             )
         )
 
+    # private
     def _create_mecab_morpheme(
         self,
         mecab_morpheme_class: Callable[[str], BaseMeCabMorpheme],
