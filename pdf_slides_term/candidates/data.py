@@ -17,12 +17,24 @@ class PageCandidateTermList:
 
 
 @dataclass
-class CandidateTermList:
+class XMLCandidateTermList:
     xml_path: str
     pages: List[PageCandidateTermList]
 
     def to_json(self) -> Dict:
         return {
             "xml_path": self.xml_path,
-            "candicate_terms": list(map(lambda page: page.to_json(), self.pages)),
+            "pages": list(map(lambda page: page.to_json(), self.pages)),
+        }
+
+
+@dataclass
+class DomainCandidateTermList:
+    domain: str
+    xmls: List[XMLCandidateTermList]
+
+    def to_json(self) -> Dict:
+        return {
+            "domain": self.domain,
+            "xmls": list(map(lambda xml: xml.to_json(), self.xmls)),
         }

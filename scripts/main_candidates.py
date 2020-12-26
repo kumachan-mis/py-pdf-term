@@ -25,7 +25,7 @@ if __name__ == "__main__":
     for xml_path, candidate_path in zip(xml_paths, candidate_paths):
         candidate_dir_name = os.path.dirname(candidate_path)
         os.makedirs(candidate_dir_name, exist_ok=True)
-        candidate_term_list = extractor.extract(xml_path)
+        candidate_term_list = extractor.extract_from_xml(xml_path)
 
         with open(candidate_path, "w") as candidate_file:
             json_obj = candidate_term_list.to_json()

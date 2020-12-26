@@ -2,7 +2,11 @@ from xml.etree import ElementTree
 from typing import List
 
 from pdf_slides_term.candidates.filter import CandidateTermFilter
-from pdf_slides_term.candidates.data import PageCandidateTermList, CandidateTermList
+from pdf_slides_term.candidates.data import (
+    DomainCandidateTermList,
+    XMLCandidateTermList,
+    PageCandidateTermList,
+)
 from pdf_slides_term.mecab.tagger import MeCabTagger
 from pdf_slides_term.share.data import TechnicalTerm
 
@@ -14,7 +18,13 @@ class CandidateTermExtractor:
         self._filter = CandidateTermFilter()
         self.enable_modifying_particle_extension = enable_modifying_particle_extension
 
-    def extract(self, xml_path: str) -> CandidateTermList:
+    def extract_from_domain(
+        self, domain: str, xml_paths: List[str]
+    ) -> DomainCandidateTermList:
+        xmls = list(map(self.extract_from_domain, xml_paths))
+        return DomainCandidateTermList(domain, xmls)
+
+    def extract_from_xml(self, xml_path: str) -> XMLCandidateTermList:
         pages = []
         xml_root = ElementTree.parse(xml_path).getroot()
         for page_node in xml_root.iter("page"):
@@ -22,7 +32,7 @@ class CandidateTermExtractor:
             candicate_terms = self._extract_from_page(page_node)
             pages.append(PageCandidateTermList(page_num, candicate_terms))
 
-        return CandidateTermList(xml_path, pages)
+        return XMLCandidateTermList(xml_path, pages)
 
     # private
     def _extract_from_page(self, page_node: ElementTree.Element) -> List[TechnicalTerm]:
