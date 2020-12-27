@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List, Dict
 
 from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
 
 
 @dataclass
@@ -15,6 +16,18 @@ class PageCandidateTermList:
             "candidates": list(map(lambda term: term.to_json(), self.candidates)),
         }
 
+    @classmethod
+    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+        return cls(
+            obj["page_num"],
+            list(
+                map(
+                    lambda item: TechnicalTerm.from_json(item, morpheme_cls),
+                    obj["candidates"],
+                )
+            ),
+        )
+
 
 @dataclass
 class XMLCandidateTermList:
@@ -27,6 +40,18 @@ class XMLCandidateTermList:
             "pages": list(map(lambda page: page.to_json(), self.pages)),
         }
 
+    @classmethod
+    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+        return cls(
+            obj["xml_path"],
+            list(
+                map(
+                    lambda item: PageCandidateTermList.from_json(item, morpheme_cls),
+                    obj["pages"],
+                )
+            ),
+        )
+
 
 @dataclass
 class DomainCandidateTermList:
@@ -38,3 +63,15 @@ class DomainCandidateTermList:
             "domain": self.domain,
             "xmls": list(map(lambda xml: xml.to_json(), self.xmls)),
         }
+
+    @classmethod
+    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+        return cls(
+            obj["domain"],
+            list(
+                map(
+                    lambda item: XMLCandidateTermList.from_json(item, morpheme_cls),
+                    obj["xmls"],
+                )
+            ),
+        )

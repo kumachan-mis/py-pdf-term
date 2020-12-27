@@ -39,3 +39,11 @@ class TechnicalTerm:
             "fontsize": self.fontsize,
             "augmented": self.augmented,
         }
+
+    @classmethod
+    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+        return cls(
+            list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),
+            obj.get("fontsize", 0),
+            obj.get("augmented", False),
+        )

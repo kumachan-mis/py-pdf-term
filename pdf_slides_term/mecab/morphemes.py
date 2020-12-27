@@ -18,6 +18,10 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     def to_json(self) -> Dict:
         return asdict(self)
 
+    @classmethod
+    def from_json(cls, obj: Dict):
+        return cls(**obj)
+
 
 @dataclass
 class MeCabMorphemeIPADic(BaseMeCabMorpheme):
