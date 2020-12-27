@@ -12,9 +12,6 @@ class ScoredTerm:
     def __str__(self) -> str:
         return self.term
 
-    def __hash__(self) -> int:
-        return hash(self.term)
-
     def to_json(self) -> Dict:
         return {"term": self.term, "score": self.score}
 

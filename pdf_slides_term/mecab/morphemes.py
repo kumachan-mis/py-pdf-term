@@ -12,7 +12,7 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     category: str
     subcategory: str
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.surface_form
 
     def to_json(self) -> Dict:

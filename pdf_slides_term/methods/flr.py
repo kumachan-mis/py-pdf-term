@@ -107,19 +107,22 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
     def _create_term_ranking(
         self, domain_candidates: DomainCandidateTermList, scoring_data: FLRScoringData
     ) -> DomainTermRanking:
-        scored_term_set = set()
+        scored_term_dict = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:
                 for candidate in page_candidates.candidates:
-                    if str(candidate) in scored_term_set:
+                    if str(candidate) in scored_term_dict:
                         continue
                     scored_candidate = self._calculate_score(candidate, scoring_data)
-                    scored_term_set.add(scored_candidate)
+                    scored_term_dict[scored_candidate.term] = scored_candidate
 
         term_ranking = DomainTermRanking(
             domain_candidates.domain,
-            sorted(list(scored_term_set), key=lambda scored_term: -scored_term.score),
+            sorted(
+                list(scored_term_dict.values()),
+                key=lambda scored_term: -scored_term.score,
+            ),
         )
         return term_ranking
 
