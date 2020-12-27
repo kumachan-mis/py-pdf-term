@@ -1,5 +1,6 @@
 import os
 from glob import glob
+from typing import List
 
 from pdf_slides_term.pdftoxml.converter import PDFtoXMLConverter
 from scripts.settings import DATASET_DIR
@@ -9,7 +10,7 @@ PDF_DIR = os.path.join(DATASET_DIR, "pdf")
 XML_DIR = os.path.join(DATASET_DIR, "xml")
 
 
-def pdf_path_to_xml_path(pdf_path):
+def pdf_path_to_xml_path(pdf_path: List[str]) -> List[str]:
     abs_dir_path, pdf_file_name = os.path.split(pdf_path)
     rel_dir_path = os.path.relpath(abs_dir_path, PDF_DIR)
     noext_file_name = os.path.splitext(pdf_file_name)[0]

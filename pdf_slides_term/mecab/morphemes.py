@@ -3,7 +3,7 @@ from dataclasses import dataclass, asdict
 from typing import Dict, ClassVar
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseMeCabMorpheme(metaclass=ABCMeta):
     NUM_ATTR: ClassVar[int] = 4
 
@@ -12,11 +12,18 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     category: str
     subcategory: str
 
+    def __str__(self) -> str:
+        return self.surface_form
+
     def to_json(self) -> Dict:
         return asdict(self)
 
+    @classmethod
+    def from_json(cls, obj: Dict):
+        return cls(**obj)
 
-@dataclass
+
+@dataclass(frozen=True)
 class MeCabMorphemeIPADic(BaseMeCabMorpheme):
     NUM_ATTR: ClassVar[int] = 10
 
@@ -30,6 +37,3 @@ class MeCabMorphemeIPADic(BaseMeCabMorpheme):
     original_form: str
     reading: str
     pronunciation: str
-
-    def to_json(self) -> Dict:
-        return asdict(self)

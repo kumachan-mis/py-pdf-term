@@ -1,18 +1,19 @@
 import re
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Dict, Callable
 
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
-@dataclass
+@dataclass(frozen=True)
 class TechnicalTerm:
     morphemes: List[BaseMeCabMorpheme]
-    fontsize: Optional[float]
+    fontsize: float = 0
+    augmented: bool = False
 
     def __str__(self) -> str:
         num_morphemes = len(self.morphemes)
@@ -33,4 +34,20 @@ class TechnicalTerm:
         return term_str
 
     def to_json(self) -> Dict:
-        return {"term": str(self), "fontsize": self.fontsize}
+        return {
+            "morphemes": list(map(lambda morpheme: morpheme.to_json(), self.morphemes)),
+            "fontsize": self.fontsize,
+            "augmented": self.augmented,
+        }
+
+    @classmethod
+    def from_json(
+        cls,
+        obj: Dict,
+        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
+        return cls(
+            list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),
+            obj.get("fontsize", 0),
+            obj.get("augmented", False),
+        )
