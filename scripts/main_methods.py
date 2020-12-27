@@ -1,3 +1,4 @@
+import sys
 import os
 import json
 from glob import iglob
@@ -40,14 +41,24 @@ def fetch_domain_candidates_list() -> List[DomainCandidateTermList]:
 
 
 if __name__ == "__main__":
-    method = FLRMethod()
+    if len(sys.argv) < 2:
+        sys.stderr.write("Usage: python main_methods.py [method_name]\n")
+        exit(1)
+
+    method_name = sys.argv[1]
+    if method_name == "flr":
+        method = FLRMethod()
+        ranking_file_name = f"{method_name}.json"
+    else:
+        sys.stderr.write(f"Error: No method named '{method_name}'\n")
+        exit(1)
 
     domain_candidates_list = fetch_domain_candidates_list()
-    for domain_candidates in domain_candidates_list:
-        ranking_path = os.path.join(METHODS_DIR, domain_candidates.domain, "flr.json")
+    for candidates in domain_candidates_list:
+        ranking_path = os.path.join(METHODS_DIR, candidates.domain, ranking_file_name)
         ranking_dir_name = os.path.dirname(ranking_path)
         os.makedirs(ranking_dir_name, exist_ok=True)
-        term_ranking = method.rank_terms(domain_candidates)
+        term_ranking = method.rank_terms(candidates)
 
         with open(ranking_path, "w") as ranking_file:
             json_obj = term_ranking.to_json()
