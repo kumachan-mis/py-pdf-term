@@ -35,7 +35,7 @@ class TechnicalTerm:
 
     def to_json(self) -> Dict:
         return {
-            "term": str(self),
+            "morphemes": list(map(lambda morpheme: morpheme.to_json(), self.morphemes)),
             "fontsize": self.fontsize,
             "augmented": self.augmented,
         }
