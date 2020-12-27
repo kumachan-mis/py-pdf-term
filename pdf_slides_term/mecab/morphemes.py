@@ -12,6 +12,9 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     category: str
     subcategory: str
 
+    def __str__(self):
+        return self.surface_form
+
     def to_json(self) -> Dict:
         return asdict(self)
 
@@ -30,6 +33,3 @@ class MeCabMorphemeIPADic(BaseMeCabMorpheme):
     original_form: str
     reading: str
     pronunciation: str
-
-    def to_json(self) -> Dict:
-        return asdict(self)

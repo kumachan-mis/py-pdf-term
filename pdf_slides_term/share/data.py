@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
@@ -12,7 +12,7 @@ JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 @dataclass
 class TechnicalTerm:
     morphemes: List[BaseMeCabMorpheme]
-    fontsize: Optional[float]
+    fontsize: float = 0
     augmented: bool = False
 
     def __str__(self) -> str:
