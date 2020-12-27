@@ -1,17 +1,22 @@
 from dataclasses import dataclass
 from typing import List, Dict, Callable
 
-from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
 
-@dataclass
+@dataclass(frozen=True)
 class ScoredTerm:
-    term: TechnicalTerm
+    term: str
     score: float
 
+    def __str__(self) -> str:
+        return self.term
+
+    def __hash__(self) -> int:
+        return hash(self.term)
+
     def to_json(self) -> Dict:
-        return {"term": self.term.to_json(), "score": self.score}
+        return {"term": self.term, "score": self.score}
 
     @classmethod
     def from_json(
@@ -19,10 +24,10 @@ class ScoredTerm:
         obj: Dict,
         morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
-        return cls(TechnicalTerm.from_json(obj["term"], morpheme_cls), obj["score"])
+        return cls(obj["term"], obj["score"])
 
 
-@dataclass
+@dataclass(frozen=True)
 class DomainTermRanking:
     domain: str
     ranking: List[ScoredTerm]

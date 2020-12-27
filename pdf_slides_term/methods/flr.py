@@ -14,6 +14,9 @@ class FLRScoringData:
     term_frequency: Dict[str, int]
     # brute force counting of term occurrences
     # count even if the term occurs as a part of a phrase
+    term_maxsize: Dict[str, float]
+    # max fontsize of the term
+    # default of this is zero
     morpheme_left_frequency: Dict[str, int]
     # number of morphemes connected to the left of the morpheme
     # this of modifying particle is fixed at zero, since the morpheme is meaningless
@@ -49,7 +52,7 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
         return scoring_data
 
     def _init_scoring_data(self) -> FLRScoringData:
-        return FLRScoringData(dict(), dict(), dict())
+        return FLRScoringData(dict(), dict(), dict(), dict())
 
     def _update_scoring_data(
         self, scoring_data: FLRScoringData, candidate: TechnicalTerm
@@ -66,6 +69,10 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
                 sub_candidate_str = str(sub_candidate)
                 scoring_data.term_frequency[sub_candidate_str] = (
                     scoring_data.term_frequency.get(sub_candidate_str, 0) + 1
+                )
+                scoring_data.term_maxsize[sub_candidate_str] = max(
+                    scoring_data.term_maxsize.get(sub_candidate_str, 0),
+                    sub_candidate.fontsize,
                 )
 
         for i in range(num_morphemes):
@@ -87,12 +94,12 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
                     )
             if i < num_morphemes - 1:
                 right_morpheme = candidate.morphemes[i + 1]
-                right_morpheme_str = str(left_morpheme)
+                right_morpheme_str = str(right_morpheme)
                 if not self._morpheme_filter.is_modifying_particle(right_morpheme):
                     scoring_data.morpheme_right_frequency[morpheme_str] = (
                         scoring_data.morpheme_right_frequency.get(morpheme_str, 0) + 1
                     )
-                    scoring_data.morpheme_left_frequency[right_morpheme] = (
+                    scoring_data.morpheme_left_frequency[right_morpheme_str] = (
                         scoring_data.morpheme_left_frequency.get(right_morpheme_str, 0)
                         + 1
                     )
@@ -100,32 +107,37 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
     def _create_term_ranking(
         self, domain_candidates: DomainCandidateTermList, scoring_data: FLRScoringData
     ) -> DomainTermRanking:
-        term_ranking = self._init_term_ranking(domain_candidates.domain)
+        scored_term_set = set()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:
                 for candidate in page_candidates.candidates:
+                    if str(candidate) in scored_term_set:
+                        continue
                     scored_candidate = self._calculate_score(candidate, scoring_data)
-                    term_ranking.ranking.append(scored_candidate)
+                    scored_term_set.add(scored_candidate)
 
-        term_ranking.ranking.sort(key=lambda scored_term: scored_term.score)
+        term_ranking = DomainTermRanking(
+            domain_candidates.domain,
+            sorted(list(scored_term_set), key=lambda scored_term: -scored_term.score),
+        )
         return term_ranking
-
-    def _init_term_ranking(self, domain: str) -> DomainTermRanking:
-        return DomainTermRanking(domain, [])
 
     def _calculate_score(
         self, candidate: TechnicalTerm, scoring_data: FLRScoringData
     ) -> ScoredTerm:
-        term_frequency_score = log10(scoring_data.term_frequency[str(candidate)])
+        candidate_str = str(candidate)
+        term_fontsize_score = log10(scoring_data.term_maxsize[candidate_str])
+        term_frequency_score = log10(scoring_data.term_frequency[candidate_str])
 
         concatenation_score = 0.0
         for morpheme in candidate.morphemes:
             morpheme_str = str(morpheme)
             concatenation_score += 0.5 * (
-                log10(scoring_data.morpheme_left_frequency[morpheme_str])
-                + log10(scoring_data.morpheme_right_frequency[morpheme_str])
+                log10(scoring_data.morpheme_left_frequency.get(morpheme_str, 0) + 1)
+                + log10(scoring_data.morpheme_right_frequency.get(morpheme_str, 0) + 1)
             )
         concatenation_score /= len(candidate.morphemes)
 
-        return ScoredTerm(candidate, term_frequency_score + concatenation_score)
+        score = term_fontsize_score + term_frequency_score + concatenation_score
+        return ScoredTerm(candidate_str, score)

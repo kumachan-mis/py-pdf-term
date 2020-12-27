@@ -9,7 +9,7 @@ from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_R
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
-@dataclass
+@dataclass(frozen=True)
 class TechnicalTerm:
     morphemes: List[BaseMeCabMorpheme]
     fontsize: float = 0

@@ -3,7 +3,7 @@ from dataclasses import dataclass, asdict
 from typing import Dict, ClassVar
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseMeCabMorpheme(metaclass=ABCMeta):
     NUM_ATTR: ClassVar[int] = 4
 
@@ -23,7 +23,7 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
         return cls(**obj)
 
 
-@dataclass
+@dataclass(frozen=True)
 class MeCabMorphemeIPADic(BaseMeCabMorpheme):
     NUM_ATTR: ClassVar[int] = 10
 

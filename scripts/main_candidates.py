@@ -10,7 +10,7 @@ XML_DIR = os.path.join(DATASET_DIR, "xml")
 CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
 
 
-def xml_path_to_candidate_path(xml_path):
+def xml_path_to_candidate_path(xml_path: str) -> str:
     abs_dir_path, xml_file_name = os.path.split(xml_path)
     rel_dir_path = os.path.relpath(abs_dir_path, XML_DIR)
     noext_file_name = os.path.splitext(xml_file_name)[0]

@@ -5,7 +5,7 @@ from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
 
-@dataclass
+@dataclass(frozen=True)
 class PageCandidateTermList:
     page_num: int
     candidates: List[TechnicalTerm]
@@ -33,7 +33,7 @@ class PageCandidateTermList:
         )
 
 
-@dataclass
+@dataclass(frozen=True)
 class XMLCandidateTermList:
     xml_path: str
     pages: List[PageCandidateTermList]
@@ -61,7 +61,7 @@ class XMLCandidateTermList:
         )
 
 
-@dataclass
+@dataclass(frozen=True)
 class DomainCandidateTermList:
     domain: str
     xmls: List[XMLCandidateTermList]
