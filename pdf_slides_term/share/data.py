@@ -1,8 +1,8 @@
 import re
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Callable
 
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
@@ -41,7 +41,11 @@ class TechnicalTerm:
         }
 
     @classmethod
-    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+    def from_json(
+        cls,
+        obj: Dict,
+        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
         return cls(
             list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),
             obj.get("fontsize", 0),

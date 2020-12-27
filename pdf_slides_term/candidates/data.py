@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Callable
 
 from pdf_slides_term.share.data import TechnicalTerm
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
 
 @dataclass
@@ -17,7 +17,11 @@ class PageCandidateTermList:
         }
 
     @classmethod
-    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+    def from_json(
+        cls,
+        obj: Dict,
+        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
         return cls(
             obj["page_num"],
             list(
@@ -41,7 +45,11 @@ class XMLCandidateTermList:
         }
 
     @classmethod
-    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+    def from_json(
+        cls,
+        obj: Dict,
+        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
         return cls(
             obj["xml_path"],
             list(
@@ -65,7 +73,11 @@ class DomainCandidateTermList:
         }
 
     @classmethod
-    def from_json(cls, obj: Dict, morpheme_cls: BaseMeCabMorpheme):
+    def from_json(
+        cls,
+        obj: Dict,
+        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
         return cls(
             obj["domain"],
             list(
