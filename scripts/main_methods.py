@@ -1,6 +1,6 @@
-import sys
 import os
 import json
+from argparse import ArgumentParser
 from glob import iglob
 from typing import List
 
@@ -41,17 +41,15 @@ def fetch_domain_candidates_list() -> List[DomainCandidateTermList]:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        sys.stderr.write("Usage: python main_methods.py [method_name]\n")
-        exit(1)
+    parser = ArgumentParser()
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--flr", help="use FLR method", action="store_true")
+    args = parser.parse_args()
 
-    method_name = sys.argv[1]
-    if method_name == "flr":
-        method = FLRMethod()
+    if args.flr:
+        method_name = "flr"
         ranking_file_name = f"{method_name}.json"
-    else:
-        sys.stderr.write(f"Error: No method named '{method_name}'\n")
-        exit(1)
+        method = FLRMethod()
 
     domain_candidates_list = fetch_domain_candidates_list()
     for candidates in domain_candidates_list:
