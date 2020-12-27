@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pdf-slides_term"
+name = "pdf-slides-term"
 version = "0.0.1"
 description = "A python module for terminology extraction from pdf slides"
 authors = ["Yuya Suwa"]
