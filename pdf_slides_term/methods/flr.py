@@ -21,11 +21,10 @@ class FLRMethod(BaseSingleDomainTermRankingMethod):
     ) -> DomainTermRanking:
         term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
         term_maxsize = self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
-        concat = self._concat_analyzer.analyze(domain_candidates)
+        term_concat = self._concat_analyzer.analyze(domain_candidates)
 
-        domain_term_ranking = self._ranker.rank_terms(
-            domain_candidates,
-            FLRRakingData(term_freq, term_maxsize, concat.left_freq, concat.right_freq),
+        ranking_data = FLRRakingData(
+            term_freq, term_maxsize, term_concat.left_freq, term_concat.right_freq
         )
-
+        domain_term_ranking = self._ranker.rank_terms(domain_candidates, ranking_data)
         return domain_term_ranking
