@@ -5,6 +5,7 @@ from glob import iglob
 from typing import List
 
 from pdf_slides_term.methods.flr import FLRMethod
+from pdf_slides_term.methods.hits import HITSMethod
 from pdf_slides_term.candidates.data import (
     DomainCandidateTermList,
     XMLCandidateTermList,
@@ -52,6 +53,7 @@ if __name__ == "__main__":
         method = FLRMethod()
     elif args.hits:
         method_name = "hits"
+        method = HITSMethod()
 
     ranking_file_name = f"{method_name}.json"
     domain_candidates_list = fetch_domain_candidates_list()
