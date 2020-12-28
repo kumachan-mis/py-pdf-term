@@ -10,9 +10,17 @@ from pdf_slides_term.share.data import TechnicalTerm
 @dataclass
 class FLRRakingData:
     term_freq: Dict[str, int]
+    # brute force counting of term occurrences
+    # count even if the term occurs as a part of a phrase
     term_maxsize: Dict[str, float]
+    # max fontsize of the term
+    # default of this is zero
     left_freq: Dict[str, Dict[str, int]]
+    # number of occurrences of (left, morpheme)
+    # if morpheme or left is a modifying particle, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
+    # number of occurrences of (morpheme, right)
+    # if morpheme or right is a modifying particle, this is fixed at zero
 
 
 class FLRRanker:
