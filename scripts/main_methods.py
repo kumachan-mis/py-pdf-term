@@ -44,13 +44,16 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--flr", help="use FLR method", action="store_true")
+    group.add_argument("--hits", help="use HITS method", action="store_true")
     args = parser.parse_args()
 
     if args.flr:
         method_name = "flr"
-        ranking_file_name = f"{method_name}.json"
         method = FLRMethod()
+    elif args.hits:
+        method_name = "hits"
 
+    ranking_file_name = f"{method_name}.json"
     domain_candidates_list = fetch_domain_candidates_list()
     for candidates in domain_candidates_list:
         ranking_path = os.path.join(METHODS_DIR, candidates.domain, ranking_file_name)
