@@ -14,7 +14,7 @@ class TermCharFont:
 
 class TermCharFontAnalyzer:
     # public
-    def __init__(self, ignore_augmented=True):
+    def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermCharFont:

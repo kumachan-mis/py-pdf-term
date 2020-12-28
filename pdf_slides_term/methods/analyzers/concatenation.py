@@ -18,7 +18,7 @@ class TermConcatenation:
 
 class TermConcatenationAnalyzer:
     # public
-    def __init__(self, ignore_augmented=True):
+    def __init__(self, ignore_augmented: bool = True):
         self._morpheme_filter = MeCabMorphemeFilter()
         self._ignore_augmented = ignore_augmented
 
