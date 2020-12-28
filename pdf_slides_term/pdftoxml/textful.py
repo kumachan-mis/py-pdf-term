@@ -127,13 +127,14 @@ class TextfulXMLConverter(PDFConverter):
     def _get_text(
         self, item: Union[LTPage, LTTextLine, LTTextBox, LTText, LTChar]
     ) -> str:
-        # pyright: reportGeneralTypeIssues=false
-        text = cast(str, item.get_text())
+        text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
         return text if self.ERROR_TEXT.match(text) is None else " "
 
     def _write(self, text: str) -> None:
         if self.codec:
-            text = text.encode(cast(str, self.codec))
+            text = text.encode(
+                cast(str, self.codec)
+            )  # pyright: reportGeneralTypeIssues=false
         cast(BufferedWriter, self.outfp).write(text)
 
     def _write_text(self, text: str) -> None:

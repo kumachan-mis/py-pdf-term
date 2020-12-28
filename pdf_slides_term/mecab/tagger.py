@@ -19,8 +19,9 @@ class MeCabTagger:
         if not text:
             return []
 
-        # pyright: reportUnknownMemberType=false
-        mecab_lines = cast(List[str], self._inner_tagger.parse(text).split("\n"))
+        mecab_lines = cast(
+            List[str], self._inner_tagger.parse(text).split("\n")
+        )  # pyright:reportUnknownMemberType=false
         mecab_lines = mecab_lines[: mecab_lines.index(terminal)]
         return list(
             map(
