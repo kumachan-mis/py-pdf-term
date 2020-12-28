@@ -24,6 +24,10 @@ class FLRRakingData:
 
 
 class FLRRanker:
+    # public
+    def __init__(self):
+        pass
+
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRakingData
     ) -> DomainTermRanking:
@@ -40,6 +44,7 @@ class FLRRanker:
         ranking = sorted(list(scored_term_dict.values()), key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
+    # private
     def _calculate_score(
         self, candidate: TechnicalTerm, ranking_data: FLRRakingData
     ) -> ScoredTerm:
