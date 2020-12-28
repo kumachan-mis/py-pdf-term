@@ -15,11 +15,11 @@ class BaseMeCabMorpheme(metaclass=ABCMeta):
     def __str__(self) -> str:
         return self.surface_form
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, str]:
         return asdict(self)
 
     @classmethod
-    def from_json(cls, obj: Dict):
+    def from_json(cls, obj: Dict[str, str]):
         return cls(**obj)
 
 

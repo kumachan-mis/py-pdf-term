@@ -14,7 +14,7 @@ class TermOccurrence:
 
 class TermOccurrenceAnalyzer:
     # public
-    def __init__(self, ignore_augmented=True):
+    def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermOccurrence:
@@ -23,7 +23,7 @@ class TermOccurrenceAnalyzer:
     def analyze_term_freq(
         self, domain_candidates: DomainCandidateTermList
     ) -> Dict[str, int]:
-        term_freq = dict()
+        term_freq: Dict[str, int] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:

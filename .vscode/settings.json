@@ -8,6 +8,7 @@
   "python.autoComplete.extraPaths": [
     ".venv/lib/python3.9/site-packages",
   ],
+  "python.analysis.typeCheckingMode": "strict",
   "python.analysis.extraPaths": [
     ".venv/lib/python3.9/site-packages"
   ],

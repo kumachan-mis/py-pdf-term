@@ -14,7 +14,7 @@ class TermCharFont:
 
 class TermCharFontAnalyzer:
     # public
-    def __init__(self, ignore_augmented=True):
+    def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermCharFont:
@@ -23,7 +23,7 @@ class TermCharFontAnalyzer:
     def analyze_term_maxsize(
         self, domain_candidates: DomainCandidateTermList
     ) -> Dict[str, float]:
-        term_maxsize = dict()
+        term_maxsize: Dict[str, float] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:

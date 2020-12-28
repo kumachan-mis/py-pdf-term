@@ -31,7 +31,7 @@ class FLRRanker:
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRakingData
     ) -> DomainTermRanking:
-        scored_term_dict = dict()
+        scored_term_dict: Dict[str, ScoredTerm] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:

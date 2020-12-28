@@ -44,7 +44,7 @@ class HITSRanker:
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRakingData
     ) -> DomainTermRanking:
         auth_hub_data = self._create_auth_hub_data(ranking_data)
-        scored_term_dict = dict()
+        scored_term_dict: Dict[str, ScoredTerm] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:
@@ -61,8 +61,12 @@ class HITSRanker:
 
     # private
     def _create_auth_hub_data(self, ranking_data: HITSRakingData) -> HITSAuthHubData:
-        morpheme_auth = {morpheme: 1.0 for morpheme in ranking_data.left_freq}
-        morpheme_hub = {morpheme: 1.0 for morpheme in ranking_data.right_freq}
+        morpheme_auth: Dict[str, float] = {
+            morpheme: 1.0 for morpheme in ranking_data.left_freq
+        }
+        morpheme_hub: Dict[str, float] = {
+            morpheme: 1.0 for morpheme in ranking_data.right_freq
+        }
 
         converged = False
         while not converged:
