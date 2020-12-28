@@ -144,5 +144,7 @@ class HITSRanker:
                     + log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
                 )
 
+        auth_hub_score /= num_morphemes
+
         score = term_maxsize_score + term_freq_score + auth_hub_score
         return ScoredTerm(candidate_str, score)
