@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict, Callable
+from typing import List, Dict, Any, Type
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
@@ -12,14 +12,14 @@ class ScoredTerm:
     def __str__(self) -> str:
         return self.term
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, Any]:
         return {"term": self.term, "score": self.score}
 
     @classmethod
     def from_json(
         cls,
-        obj: Dict,
-        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
         return cls(obj["term"], obj["score"])
 
@@ -29,7 +29,7 @@ class DomainTermRanking:
     domain: str
     ranking: List[ScoredTerm]
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, Any]:
         return {
             "domain": self.domain,
             "ranking": list(map(lambda term: term.to_json(), self.ranking)),
@@ -38,8 +38,8 @@ class DomainTermRanking:
     @classmethod
     def from_json(
         cls,
-        obj: Dict,
-        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
         return cls(
             obj["domain"],

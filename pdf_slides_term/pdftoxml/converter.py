@@ -1,3 +1,5 @@
+# type: ignore
+
 import re
 from enum import Enum, auto
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter

@@ -23,7 +23,7 @@ class TermOccurrenceAnalyzer:
     def analyze_term_freq(
         self, domain_candidates: DomainCandidateTermList
     ) -> Dict[str, int]:
-        term_freq = dict()
+        term_freq: Dict[str, int] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:

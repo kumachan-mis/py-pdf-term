@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict, Callable
+from typing import List, Dict, Any, Type
 
 from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
@@ -10,7 +10,7 @@ class PageCandidateTermList:
     page_num: int
     candidates: List[TechnicalTerm]
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, Any]:
         return {
             "page_num": self.page_num,
             "candidates": list(map(lambda term: term.to_json(), self.candidates)),
@@ -19,8 +19,8 @@ class PageCandidateTermList:
     @classmethod
     def from_json(
         cls,
-        obj: Dict,
-        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
         return cls(
             obj["page_num"],
@@ -38,7 +38,7 @@ class XMLCandidateTermList:
     xml_path: str
     pages: List[PageCandidateTermList]
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, Any]:
         return {
             "xml_path": self.xml_path,
             "pages": list(map(lambda page: page.to_json(), self.pages)),
@@ -47,8 +47,8 @@ class XMLCandidateTermList:
     @classmethod
     def from_json(
         cls,
-        obj: Dict,
-        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
         return cls(
             obj["xml_path"],
@@ -66,7 +66,7 @@ class DomainCandidateTermList:
     domain: str
     xmls: List[XMLCandidateTermList]
 
-    def to_json(self) -> Dict:
+    def to_json(self) -> Dict[str, Any]:
         return {
             "domain": self.domain,
             "xmls": list(map(lambda xml: xml.to_json(), self.xmls)),
@@ -75,8 +75,8 @@ class DomainCandidateTermList:
     @classmethod
     def from_json(
         cls,
-        obj: Dict,
-        morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
         return cls(
             obj["domain"],

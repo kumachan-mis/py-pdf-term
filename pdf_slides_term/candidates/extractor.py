@@ -1,5 +1,5 @@
 from xml.etree import ElementTree
-from typing import List
+from typing import List, cast
 
 from pdf_slides_term.candidates.filter import CandidateTermFilter
 from pdf_slides_term.candidates.data import (
@@ -23,14 +23,14 @@ class CandidateTermExtractor:
     def extract_from_domain(
         self, domain: str, xml_paths: List[str]
     ) -> DomainCandidateTermList:
-        xmls = list(map(self.extract_from_domain, xml_paths))
+        xmls: List[XMLCandidateTermList] = list(map(self.extract_from_xml, xml_paths))
         return DomainCandidateTermList(domain, xmls)
 
     def extract_from_xml(self, xml_path: str) -> XMLCandidateTermList:
         pages = []
         xml_root = ElementTree.parse(xml_path).getroot()
         for page_node in xml_root.iter("page"):
-            page_num = int(page_node.get("id"))
+            page_num = int(cast(str, page_node.get("id")))
             candicate_terms = self._extract_from_page(page_node)
             pages.append(PageCandidateTermList(page_num, candicate_terms))
 
@@ -42,8 +42,8 @@ class CandidateTermExtractor:
         for text_node in page_node.iter("text"):
             candicate_term_morphemes = []
 
-            morphemes_from_text = self._mecab_tagger.parse(text_node.text)
-            fontsize = float(text_node.get("size"))
+            morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
+            fontsize = float(cast(str, text_node.get("size")))
             for morpheme in morphemes_from_text:
                 if self._candidates_filter.is_part_of_candidate_term(morpheme):
                     candicate_term_morphemes.append(morpheme)

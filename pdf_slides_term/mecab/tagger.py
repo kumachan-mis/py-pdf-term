@@ -1,25 +1,26 @@
 import re
 import MeCab
-from typing import List, Callable
+from typing import List, Type, cast
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import SYMBOL_REGEX
 
 
 class MeCabTagger:
     # public
-    def __init__(self, *args):
+    def __init__(self, *args: str):
         self._inner_tagger = MeCab.Tagger(" ".join(args))
 
     def parse(
         self,
         text: str,
-        mecab_morpheme_cls: Callable[[str], BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        mecab_morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
         terminal: str = "EOS",
     ) -> List[BaseMeCabMorpheme]:
         if not text:
             return []
 
-        mecab_lines = self._inner_tagger.parse(text).split("\n")
+        # pyright: reportUnknownMemberType=false
+        mecab_lines = cast(List[str], self._inner_tagger.parse(text).split("\n"))
         mecab_lines = mecab_lines[: mecab_lines.index(terminal)]
         return list(
             map(
@@ -31,7 +32,7 @@ class MeCabTagger:
     # private
     def _create_mecab_morpheme(
         self,
-        mecab_morpheme_cls: Callable[[str], BaseMeCabMorpheme],
+        mecab_morpheme_cls: Type[BaseMeCabMorpheme],
         mecab_line: str,
     ) -> BaseMeCabMorpheme:
         surface_form, csv_attrs = mecab_line.split("\t")
@@ -42,6 +43,7 @@ class MeCabTagger:
             attrs = csv_attrs.split(",")
 
         num_attrs = len(attrs)
+
         if num_attrs < mecab_morpheme_cls.NUM_ATTR - 1:
             attrs.extend(["*"] * (mecab_morpheme_cls.NUM_ATTR - num_attrs - 1))
         elif num_attrs > mecab_morpheme_cls.NUM_ATTR - 1:

@@ -54,6 +54,9 @@ if __name__ == "__main__":
     elif args.hits:
         method_name = "hits"
         method = HITSMethod()
+    else:
+        exit(1)
+        # never reach
 
     ranking_file_name = f"{method_name}.json"
     domain_candidates_list = fetch_domain_candidates_list()

@@ -23,7 +23,7 @@ class TermCharFontAnalyzer:
     def analyze_term_maxsize(
         self, domain_candidates: DomainCandidateTermList
     ) -> Dict[str, float]:
-        term_maxsize = dict()
+        term_maxsize: Dict[str, float] = dict()
 
         for xml_candidates in domain_candidates.xmls:
             for page_candidates in xml_candidates.pages:
