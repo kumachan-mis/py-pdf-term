@@ -8,11 +8,15 @@
   "python.autoComplete.extraPaths": [
     ".venv/lib/python3.9/site-packages",
   ],
+  "python.analysis.extraPaths": [
+    ".venv/lib/python3.9/site-packages"
+  ],
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": ".venv/bin/flake8",
   "python.formatting.provider": "black",
   "python.formatting.blackPath": ".venv/bin/black",
+  "python.languageServer": "Pylance",
 
   "[json]": {
     "editor.formatOnSave": true
