@@ -41,6 +41,8 @@ class TermConcatenationAnalyzer:
             morpheme = candidate.morphemes[i]
             morpheme_str = str(morpheme)
             if self._morpheme_filter.is_modifying_particle(morpheme):
+                term_concat.left_freq[morpheme_str] = dict()
+                term_concat.right_freq[morpheme_str] = dict()
                 continue
 
             if i > 0:
@@ -55,6 +57,12 @@ class TermConcatenationAnalyzer:
                     right = term_concat.right_freq.get(left_morpheme_str, dict())
                     right[morpheme_str] = right.get(morpheme_str, 0) + 1
                     term_concat.right_freq[left_morpheme_str] = right
+                else:
+                    left = term_concat.left_freq.get(morpheme_str, dict())
+                    term_concat.left_freq[morpheme_str] = left
+            else:
+                left = term_concat.left_freq.get(morpheme_str, dict())
+                term_concat.left_freq[morpheme_str] = left
 
             if i < num_morphemes - 1:
                 right_morpheme = candidate.morphemes[i + 1]
@@ -68,3 +76,9 @@ class TermConcatenationAnalyzer:
                     left = term_concat.left_freq.get(right_morpheme_str, dict())
                     left[morpheme_str] = right.get(morpheme_str, 0) + 1
                     term_concat.left_freq[right_morpheme_str] = left
+                else:
+                    right = term_concat.right_freq.get(morpheme_str, dict())
+                    term_concat.right_freq[morpheme_str] = right
+            else:
+                right = term_concat.right_freq.get(morpheme_str, dict())
+                term_concat.right_freq[morpheme_str] = right

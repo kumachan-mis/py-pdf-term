@@ -53,12 +53,11 @@ class FLRRanker:
         term_maxsize_score = log10(ranking_data.term_maxsize[candidate_str])
         term_freq_score = log10(ranking_data.term_freq[candidate_str])
 
-        empty = dict()
         concat_score = 0.0
         for morpheme in candidate.morphemes:
             morpheme_str = str(morpheme)
-            left_score = sum(ranking_data.left_freq.get(morpheme_str, empty).values())
-            right_score = sum(ranking_data.right_freq.get(morpheme_str, empty).values())
+            left_score = sum(ranking_data.left_freq[morpheme_str].values())
+            right_score = sum(ranking_data.right_freq[morpheme_str].values())
             concat_score += 0.5 * (log10(left_score + 1) + log10(right_score + 1))
 
         concat_score /= len(candidate.morphemes)
