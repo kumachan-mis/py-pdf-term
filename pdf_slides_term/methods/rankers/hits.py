@@ -71,7 +71,7 @@ class HITSRanker:
         converged = False
         while not converged:
             new_morpheme_auth = {
-                morpheme: sum(map(lambda hub: morpheme_hub[hub], left.keys()))
+                morpheme: sum(map(lambda hub: morpheme_hub[hub], left.keys()), 0.0)
                 for morpheme, left in ranking_data.left_freq.items()
             }
             auth_norm = sqrt(sum(map(lambda x: x * x, new_morpheme_auth.values())))
@@ -81,7 +81,7 @@ class HITSRanker:
             }
 
             new_morpheme_hub = {
-                morpheme: sum(map(lambda auth: morpheme_auth[auth], right.keys()))
+                morpheme: sum(map(lambda auth: morpheme_auth[auth], right.keys()), 0.0)
                 for morpheme, right in ranking_data.right_freq.items()
             }
             hub_norm = sqrt(sum(map(lambda x: x * x, new_morpheme_hub.values())))
