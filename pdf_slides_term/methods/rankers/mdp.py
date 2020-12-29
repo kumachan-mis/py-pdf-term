@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, List, Callable, Iterable
+from typing import Dict, List, Callable, Iterable, Optional
 
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
@@ -17,7 +17,7 @@ class MDPDomainRankingData:
     num_terms: int = field(init=False)
     # brute force counting of all terms occurrences
     # count even if the term occurs as a part of a phrase
-    term_maxsize: Dict[str, float]
+    term_maxsize: Optional[Dict[str, float]] = None
     # max fontsize of the term
     # default of this is zero
 
@@ -77,8 +77,16 @@ class MDPRanker:
     ) -> float:
         candidate_str = str(candidate)
 
-        our_term_maxsize = our_ranking_data.term_maxsize[candidate_str]
-        their_term_maxsize = their_ranking_data.term_maxsize.get(candidate_str, 0.0)
+        our_term_maxsize = (
+            our_ranking_data.term_maxsize[candidate_str]
+            if our_ranking_data.term_maxsize is not None
+            else 1.0
+        )
+        their_term_maxsize = (
+            their_ranking_data.term_maxsize.get(candidate_str, 0.0)
+            if their_ranking_data.term_maxsize is not None
+            else 1.0
+        )
 
         our_term_freq = our_ranking_data.term_freq[candidate_str]
         their_term_freq = their_ranking_data.term_freq.get(candidate_str, 0)

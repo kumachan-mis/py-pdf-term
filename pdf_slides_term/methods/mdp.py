@@ -2,18 +2,25 @@ from typing import List, Callable, Iterable, Iterator
 
 from pdf_slides_term.methods.base import BaseMultipleDomainTermRankingMethod
 from pdf_slides_term.methods.data import DomainTermRanking
-from pdf_slides_term.methods.analyzers.charfont import TermCharFontAnalyzer
 from pdf_slides_term.methods.analyzers.occurrence import TermOccurrenceAnalyzer
+from pdf_slides_term.methods.analyzers.charfont import TermCharFontAnalyzer
 from pdf_slides_term.methods.rankers.mdp import MDPRanker, MDPDomainRankingData
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 
 
 class MDPMethod(BaseMultipleDomainTermRankingMethod):
     # public
-    def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
+    def __init__(
+        self,
+        compile_scores: Callable[[Iterable[float]], float] = min,
+        consider_charfont: bool = True,
+    ):
         super().__init__()
-        self._char_font_analyzer = TermCharFontAnalyzer()
+
+        self._consider_charfont = consider_charfont
+
         self._occurrence_analyzer = TermOccurrenceAnalyzer()
+        self._char_font_analyzer = TermCharFontAnalyzer()
         self._ranker = MDPRanker(compile_scores=compile_scores)
 
     def rank_terms(
@@ -72,5 +79,9 @@ class MDPMethod(BaseMultipleDomainTermRankingMethod):
         domain_candidates: DomainCandidateTermList,
     ) -> MDPDomainRankingData:
         term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
-        term_maxsize = self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
+        term_maxsize = (
+            self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
+            if self._consider_charfont
+            else None
+        )
         return MDPDomainRankingData(domain_candidates.domain, term_freq, term_maxsize)
