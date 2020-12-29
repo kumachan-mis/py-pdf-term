@@ -2,11 +2,11 @@ import os
 import json
 from argparse import ArgumentParser
 from glob import iglob
-from pdf_slides_term.methods.flrh import FLRHMethod
 from typing import Iterator
 
 from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
+from pdf_slides_term.methods.flrh import FLRHMethod
 from pdf_slides_term.methods.mdp import MDPMethod
 from pdf_slides_term.methods.base import BaseSingleDomainTermRankingMethod
 from pdf_slides_term.candidates.data import (
