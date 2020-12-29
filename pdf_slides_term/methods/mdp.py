@@ -1,4 +1,4 @@
-from typing import List, Iterator
+from typing import List, Callable, Iterable, Iterator
 
 from pdf_slides_term.methods.base import BaseMultipleDomainTermRankingMethod
 from pdf_slides_term.methods.data import DomainTermRanking
@@ -10,11 +10,11 @@ from pdf_slides_term.candidates.data import DomainCandidateTermList
 
 class MDPMethod(BaseMultipleDomainTermRankingMethod):
     # public
-    def __init__(self):
+    def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
         super().__init__()
         self._char_font_analyzer = TermCharFontAnalyzer()
         self._occurrence_analyzer = TermOccurrenceAnalyzer()
-        self._ranker = MDPRanker()
+        self._ranker = MDPRanker(compile_scores=compile_scores)
 
     def rank_terms(
         self, domain_candidates_list: List[DomainCandidateTermList]

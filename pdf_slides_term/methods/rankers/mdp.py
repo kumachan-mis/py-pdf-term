@@ -4,6 +4,7 @@ from typing import Dict, List, Callable, Iterable
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.utils import extended_log10
 
 
 @dataclass(frozen=True)
@@ -82,8 +83,8 @@ class MDPRanker:
         our_term_freq = our_ranking_data.term_freq[candidate_str]
         their_term_freq = their_ranking_data.term_freq.get(candidate_str, 0)
 
-        our_inv_num_terms = 1 / our_ranking_data.num_terms
-        their_inv_num_terms = 1 / their_ranking_data.num_terms
+        our_inum_terms = 1 / our_ranking_data.num_terms
+        their_inum_terms = 1 / their_ranking_data.num_terms
 
         our_term_prob = our_term_freq / our_ranking_data.num_terms
         their_term_prob = their_term_freq / their_ranking_data.num_terms
@@ -91,6 +92,7 @@ class MDPRanker:
             our_ranking_data.num_terms + their_ranking_data.num_terms
         )
 
-        return (
-            our_term_maxsize * our_term_prob - their_term_maxsize * their_term_prob
-        ) / (term_prob * (1.0 - term_prob) * (our_inv_num_terms + their_inv_num_terms))
+        return extended_log10(
+            (our_term_maxsize * our_term_prob - their_term_maxsize * their_term_prob)
+            / (term_prob * (1.0 - term_prob) * (our_inum_terms + their_inum_terms))
+        )
