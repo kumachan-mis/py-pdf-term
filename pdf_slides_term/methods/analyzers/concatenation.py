@@ -6,7 +6,7 @@ from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass
+@dataclass(frozen=True)
 class TermConcatenation:
     left_freq: Dict[str, Dict[str, int]]
     # number of occurrences of (left, morpheme)

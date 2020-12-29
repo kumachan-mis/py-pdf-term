@@ -7,7 +7,7 @@ from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass
+@dataclass(frozen=True)
 class FLRRakingData:
     term_freq: Dict[str, int]
     # brute force counting of term occurrences
