@@ -24,7 +24,7 @@ class HITSRakingData:
 
 
 @dataclass
-class HITSAuthHubData:
+class _HITSAuthHubData:
     morpheme_auth: Dict[str, float]
     # auth value of the morpheme
     # the more morphemes links to, the larger the auth value becomes
@@ -60,7 +60,7 @@ class HITSRanker:
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # private
-    def _create_auth_hub_data(self, ranking_data: HITSRakingData) -> HITSAuthHubData:
+    def _create_auth_hub_data(self, ranking_data: HITSRakingData) -> _HITSAuthHubData:
         morpheme_auth: Dict[str, float] = {
             morpheme: 1.0 for morpheme in ranking_data.left_freq
         }
@@ -106,13 +106,13 @@ class HITSRanker:
             morpheme_auth = new_morpheme_auth
             morpheme_hub = new_morpheme_hub
 
-        return HITSAuthHubData(morpheme_auth, morpheme_hub)
+        return _HITSAuthHubData(morpheme_auth, morpheme_hub)
 
     def _calculate_score(
         self,
         candidate: TechnicalTerm,
         ranking_data: HITSRakingData,
-        auth_hub_data: HITSAuthHubData,
+        auth_hub_data: _HITSAuthHubData,
     ) -> ScoredTerm:
         num_morphemes = len(candidate.morphemes)
         candidate_str = str(candidate)
