@@ -2,6 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 from glob import iglob
+from pdf_slides_term.methods.flrh import FLRHMethod
 from typing import Iterator
 
 from pdf_slides_term.methods.flr import FLRMethod
@@ -45,6 +46,7 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--flr", help="use FLR method", action="store_true")
     group.add_argument("--hits", help="use HITS method", action="store_true")
+    group.add_argument("--flrh", help="use FLRH method", action="store_true")
     group.add_argument("--mdp", help="use MDP method", action="store_true")
     args = parser.parse_args()
 
@@ -54,6 +56,9 @@ if __name__ == "__main__":
     elif args.hits:
         method_name = "hits"
         method = HITSMethod()
+    elif args.flrh:
+        method_name = "flrh"
+        method = FLRHMethod()
     elif args.mdp:
         method_name = "mdp"
         method = MDPMethod(compile_scores=max)
