@@ -1,6 +1,6 @@
 from math import sqrt, log10
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, Optional
 
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
@@ -12,15 +12,15 @@ class HITSRakingData:
     term_freq: Dict[str, int]
     # brute force counting of term occurrences
     # count even if the term occurs as a part of a phrase
-    term_maxsize: Dict[str, float]
-    # max fontsize of the term
-    # default of this is zero
     left_freq: Dict[str, Dict[str, int]]
     # number of occurrences of (left, morpheme)
     # if morpheme or left is a modifying particle, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
     # number of occurrences of (morpheme, right)
     # if morpheme or right is a modifying particle, this is fixed at zero
+    term_maxsize: Optional[Dict[str, float]] = None
+    # max fontsize of the term
+    # default of this is zero
 
 
 @dataclass(frozen=True)
@@ -119,7 +119,11 @@ class HITSRanker:
         if num_morphemes == 0:
             return ScoredTerm(candidate_str, 0.0)
 
-        term_maxsize_score = log10(ranking_data.term_maxsize[candidate_str])
+        term_maxsize_score = (
+            log10(ranking_data.term_maxsize[candidate_str])
+            if ranking_data.term_maxsize is not None
+            else 0.0
+        )
         term_freq_score = log10(ranking_data.term_freq[candidate_str])
 
         if num_morphemes == 1:
