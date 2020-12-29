@@ -5,7 +5,7 @@ from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass
+@dataclass(frozen=True)
 class TermCharFont:
     term_maxsize: Dict[str, float]
     # max fontsize of the term

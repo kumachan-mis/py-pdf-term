@@ -7,7 +7,7 @@ from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass
+@dataclass(frozen=True)
 class HITSRakingData:
     term_freq: Dict[str, int]
     # brute force counting of term occurrences
@@ -23,7 +23,7 @@ class HITSRakingData:
     # if morpheme or right is a modifying particle, this is fixed at zero
 
 
-@dataclass
+@dataclass(frozen=True)
 class _HITSAuthHubData:
     morpheme_auth: Dict[str, float]
     # auth value of the morpheme
