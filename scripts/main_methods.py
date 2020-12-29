@@ -2,7 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 from glob import iglob
-from typing import List
+from typing import Iterator
 
 from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
@@ -18,7 +18,7 @@ METHODS_DIR = os.path.join(DATASET_DIR, "methods")
 METHODS = ["flr"]
 
 
-def fetch_domain_candidates_list() -> List[DomainCandidateTermList]:
+def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
     domains = list(
         filter(
             lambda dir_name: not dir_name.startswith(".")
@@ -27,7 +27,6 @@ def fetch_domain_candidates_list() -> List[DomainCandidateTermList]:
         )
     )
 
-    domain_candidates_list = []
     for domain in domains:
         xmls = []
         json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
@@ -36,9 +35,7 @@ def fetch_domain_candidates_list() -> List[DomainCandidateTermList]:
                 obj = json.load(f)
             xmls.append(XMLCandidateTermList.from_json(obj))
 
-        domain_candidates_list.append(DomainCandidateTermList(domain, xmls))
-
-    return domain_candidates_list
+        yield DomainCandidateTermList(domain, xmls)
 
 
 if __name__ == "__main__":
@@ -59,8 +56,8 @@ if __name__ == "__main__":
         # never reach
 
     ranking_file_name = f"{method_name}.json"
-    domain_candidates_list = fetch_domain_candidates_list()
-    for candidates in domain_candidates_list:
+    domain_candidates_generator = generate_domain_candidates_list()
+    for candidates in domain_candidates_generator:
         ranking_path = os.path.join(METHODS_DIR, candidates.domain, ranking_file_name)
         ranking_dir_name = os.path.dirname(ranking_path)
         os.makedirs(ranking_dir_name, exist_ok=True)
