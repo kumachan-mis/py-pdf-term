@@ -13,7 +13,7 @@ class TermOccurrence:
     term_freq: Dict[str, int]
     # brute force counting of term occurrences
     # count even if the term occurs as a part of a phrase
-    lingu_freq: Dict[Tuple[Tuple[str, str], ...], int]
+    lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int]
     # brute force counting of linguistic sequence occurrences
     # count even if the term occurs as a part of a phrase
     doc_freq: Dict[str, int]
@@ -30,7 +30,7 @@ class TermOccurrenceAnalyzer:
         def update(
             result: Tuple[
                 Dict[str, int],
-                Dict[Tuple[Tuple[str, str], ...], int],
+                Dict[Tuple[Tuple[str, str, str], ...], int],
                 Dict[str, Set[int]],
             ],
             xml_id: int,
@@ -48,7 +48,7 @@ class TermOccurrenceAnalyzer:
             result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
 
             lingu_seq = tuple(
-                (morpheme.pos, morpheme.category)
+                (morpheme.pos, morpheme.category, morpheme.subcategory)
                 for morpheme in sub_candidate.morphemes
             )
             result[1][lingu_seq] = result[1].get(lingu_seq, 0) + 1
@@ -91,16 +91,16 @@ class TermOccurrenceAnalyzer:
 
     def analyze_lingu_freq(
         self, domain_candidates: DomainCandidateTermList
-    ) -> Dict[Tuple[Tuple[str, str], ...], int]:
+    ) -> Dict[Tuple[Tuple[str, str, str], ...], int]:
         def update(
-            lingu_freq: Dict[Tuple[Tuple[str, str], ...], int],
+            lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int],
             xml_id: int,
             page_num: int,
             candidate: TechnicalTerm,
             trange: Tuple[int, int],
         ):
             lingu_seq = tuple(
-                (morpheme.pos, morpheme.category)
+                (morpheme.pos, morpheme.category, morpheme.subcategory)
                 for morpheme in candidate.morphemes[trange[0] : trange[1]]
             )
             lingu_freq[lingu_seq] = lingu_freq.get(lingu_seq, 0) + 1
