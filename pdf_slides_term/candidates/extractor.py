@@ -23,7 +23,7 @@ class CandidateTermExtractor:
     def extract_from_domain(
         self, domain: str, xml_paths: List[str]
     ) -> DomainCandidateTermList:
-        xmls: List[XMLCandidateTermList] = list(map(self.extract_from_xml, xml_paths))
+        xmls = list(map(self.extract_from_xml, xml_paths))
         return DomainCandidateTermList(domain, xmls)
 
     def extract_from_xml(self, xml_path: str) -> XMLCandidateTermList:
