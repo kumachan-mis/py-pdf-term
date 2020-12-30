@@ -2,11 +2,12 @@ import os
 import json
 from argparse import ArgumentParser
 from glob import iglob
-from pdf_slides_term.methods.flrh import FLRHMethod
 from typing import Iterator
 
+from pdf_slides_term.methods.tfidf import TFIDFMethod
 from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
+from pdf_slides_term.methods.flrh import FLRHMethod
 from pdf_slides_term.methods.mdp import MDPMethod
 from pdf_slides_term.methods.base import BaseSingleDomainTermRankingMethod
 from pdf_slides_term.candidates.data import (
@@ -18,7 +19,6 @@ from scripts.settings import DATASET_DIR
 
 CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
 METHODS_DIR = os.path.join(DATASET_DIR, "methods")
-METHODS = ["flr"]
 
 
 def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
@@ -44,13 +44,17 @@ def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
 if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--tfidf", help="use TF-IDF method", action="store_true")
     group.add_argument("--flr", help="use FLR method", action="store_true")
     group.add_argument("--hits", help="use HITS method", action="store_true")
     group.add_argument("--flrh", help="use FLRH method", action="store_true")
     group.add_argument("--mdp", help="use MDP method", action="store_true")
     args = parser.parse_args()
 
-    if args.flr:
+    if args.tfidf:
+        method_name = "tfidf"
+        method = TFIDFMethod()
+    elif args.flr:
         method_name = "flr"
         method = FLRMethod()
     elif args.hits:

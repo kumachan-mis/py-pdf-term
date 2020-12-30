@@ -12,13 +12,13 @@ class MDPDomainRankingData:
     domain: str
     # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of term occurrences
+    # brute force counting of term occurrences in the domain
     # count even if the term occurs as a part of a phrase
     num_terms: int = field(init=False)
-    # brute force counting of all terms occurrences
+    # brute force counting of all terms occurrences in the domain
     # count even if the term occurs as a part of a phrase
     term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term
+    # max fontsize of the term in the domain
     # default of this is zero
 
     def __post_init__(self):
@@ -36,19 +36,16 @@ class MDPRanker:
         ranking_data: MDPDomainRankingData,
         other_ranking_data_list: List[MDPDomainRankingData],
     ) -> DomainTermRanking:
-        scored_term_dict: Dict[str, ScoredTerm] = dict()
-
-        for xml_candidates in domain_candidates.xmls:
-            for page_candidates in xml_candidates.pages:
-                for candidate in page_candidates.candidates:
-                    if str(candidate) in scored_term_dict:
-                        continue
-                    scored_candidate = self._calculate_score(
-                        candidate, ranking_data, other_ranking_data_list
-                    )
-                    scored_term_dict[scored_candidate.term] = scored_candidate
-
-        ranking = sorted(list(scored_term_dict.values()), key=lambda term: -term.score)
+        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        ranking = list(
+            map(
+                lambda candidate: self._calculate_score(
+                    candidate, ranking_data, other_ranking_data_list
+                ),
+                domain_candidates_dict.candidates.values(),
+            )
+        )
+        ranking.sort(key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # private

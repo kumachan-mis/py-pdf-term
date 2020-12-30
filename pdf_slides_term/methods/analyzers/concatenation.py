@@ -9,10 +9,10 @@ from pdf_slides_term.share.data import TechnicalTerm
 @dataclass(frozen=True)
 class TermConcatenation:
     left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (left, morpheme)
+    # number of occurrences of (left, morpheme) in the domain
     # if morpheme or left is a modifying particle, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (morpheme, right)
+    # number of occurrences of (morpheme, right) in the domain
     # if morpheme or right is a modifying particle, this is fixed at zero
 
 

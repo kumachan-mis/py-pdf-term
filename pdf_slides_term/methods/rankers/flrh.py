@@ -15,16 +15,16 @@ from pdf_slides_term.share.data import TechnicalTerm
 @dataclass(frozen=True)
 class FLRHRakingData:
     term_freq: Dict[str, int]
-    # brute force counting of term occurrences
+    # brute force counting of term occurrences in the domain
     # count even if the term occurs as a part of a phrase
     left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (left, morpheme)
+    # number of occurrences of (left, morpheme) in the domain
     # if morpheme or left is a modifying particle, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (morpheme, right)
+    # number of occurrences of (morpheme, right) in the domain
     # if morpheme or right is a modifying particle, this is fixed at zero
     term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term
+    # max fontsize of the term in the domain
     # default of this is zero
 
 
@@ -53,18 +53,16 @@ class FLRHRanker:
         )
 
         auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)
-        scored_term_dict: Dict[str, ScoredTerm] = dict()
-        for xml_candidates in domain_candidates.xmls:
-            for page_candidates in xml_candidates.pages:
-                for candidate in page_candidates.candidates:
-                    if str(candidate) in scored_term_dict:
-                        continue
-                    scored_candidate = self._calculate_score(
-                        candidate, flr_ranking_data, hits_ranking_data, auth_hub_data
-                    )
-                    scored_term_dict[scored_candidate.term] = scored_candidate
-
-        ranking = sorted(list(scored_term_dict.values()), key=lambda term: -term.score)
+        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        ranking = list(
+            map(
+                lambda candidate: self._calculate_score(
+                    candidate, flr_ranking_data, hits_ranking_data, auth_hub_data
+                ),
+                domain_candidates_dict.candidates.values(),
+            )
+        )
+        ranking.sort(key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # public
