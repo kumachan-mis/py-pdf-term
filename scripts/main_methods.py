@@ -18,7 +18,6 @@ from scripts.settings import DATASET_DIR
 
 CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
 METHODS_DIR = os.path.join(DATASET_DIR, "methods")
-METHODS = ["flr"]
 
 
 def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
