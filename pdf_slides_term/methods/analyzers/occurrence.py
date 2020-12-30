@@ -5,9 +5,6 @@ from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-_AnalysisResult = TypeVar("_AnalysisResult")
-
-
 @dataclass(frozen=True)
 class TermOccurrence:
     term_freq: Dict[str, int]
@@ -22,6 +19,8 @@ class TermOccurrence:
 
 
 class TermOccurrenceAnalyzer:
+    _AnalysisResult = TypeVar("_AnalysisResult")
+
     # public
     def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
@@ -35,14 +34,8 @@ class TermOccurrenceAnalyzer:
             ],
             xml_id: int,
             page_num: int,
-            candidate: TechnicalTerm,
-            trange: Tuple[int, int],
+            sub_candidate: TechnicalTerm,
         ):
-            sub_candidate = TechnicalTerm(
-                candidate.morphemes[trange[0] : trange[1]],
-                candidate.fontsize,
-                candidate.augmented,
-            )
             sub_candidate_str = str(sub_candidate)
 
             result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
@@ -75,14 +68,8 @@ class TermOccurrenceAnalyzer:
             term_freq: Dict[str, int],
             xml_id: int,
             page_num: int,
-            candidate: TechnicalTerm,
-            trange: Tuple[int, int],
+            sub_candidate: TechnicalTerm,
         ):
-            sub_candidate = TechnicalTerm(
-                candidate.morphemes[trange[0] : trange[1]],
-                candidate.fontsize,
-                candidate.augmented,
-            )
             sub_candidate_str = str(sub_candidate)
             term_freq[sub_candidate_str] = term_freq.get(sub_candidate_str, 0) + 1
 
@@ -96,12 +83,11 @@ class TermOccurrenceAnalyzer:
             lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int],
             xml_id: int,
             page_num: int,
-            candidate: TechnicalTerm,
-            trange: Tuple[int, int],
+            sub_candidate: TechnicalTerm,
         ):
             lingu_seq = tuple(
                 (morpheme.pos, morpheme.category, morpheme.subcategory)
-                for morpheme in candidate.morphemes[trange[0] : trange[1]]
+                for morpheme in sub_candidate.morphemes
             )
             lingu_freq[lingu_seq] = lingu_freq.get(lingu_seq, 0) + 1
 
@@ -115,26 +101,18 @@ class TermOccurrenceAnalyzer:
             doc_set: Dict[str, Set[int]],
             xml_id: int,
             page_num: int,
-            candidate: TechnicalTerm,
-            trange: Tuple[int, int],
+            sub_candidate: TechnicalTerm,
         ):
-            sub_candidate = TechnicalTerm(
-                candidate.morphemes[trange[0] : trange[1]],
-                candidate.fontsize,
-                candidate.augmented,
-            )
             sub_candidate_str = str(sub_candidate)
             sub_candidate_doc_set = doc_set.get(sub_candidate_str, set())
             sub_candidate_doc_set.add(xml_id)
             doc_set[sub_candidate_str] = sub_candidate_doc_set
 
         doc_set = self._run_brute_force_analysis(domain_candidates, dict(), update)
-
         doc_freq = {
             candidate_str: len(candidate_doc_set)
             for candidate_str, candidate_doc_set in doc_set.items()
         }
-
         return doc_freq
 
     # private
@@ -143,10 +121,11 @@ class TermOccurrenceAnalyzer:
         domain_candidates: DomainCandidateTermList,
         initial_result: _AnalysisResult,
         update_result: Callable[
-            [_AnalysisResult, int, int, TechnicalTerm, Tuple[int, int]],
+            [_AnalysisResult, int, int, TechnicalTerm],
             None,
         ],
     ) -> _AnalysisResult:
+        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         result = initial_result
 
         for xml_id, xml_candidates in enumerate(domain_candidates.xmls):
@@ -159,6 +138,12 @@ class TermOccurrenceAnalyzer:
                     num_morphemes = len(candidate.morphemes)
                     for i in range(num_morphemes):
                         for j in range(i + 1, num_morphemes + 1):
-                            update_result(result, xml_id, page_num, candidate, (i, j))
+                            sub_candidate = TechnicalTerm(
+                                candidate.morphemes[i:j],
+                                candidate.fontsize,
+                                candidate.augmented,
+                            )
+                            if str(sub_candidate) in domain_candidates_dict:
+                                update_result(result, xml_id, page_num, sub_candidate)
 
         return result

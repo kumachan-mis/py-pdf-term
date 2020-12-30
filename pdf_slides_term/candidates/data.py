@@ -6,6 +6,35 @@ from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPAD
 
 
 @dataclass(frozen=True)
+class DomainCandidateTermDict:
+    domain: str
+    candidates: Dict[str, TechnicalTerm]
+
+    def to_json(self) -> Dict[str, Any]:
+        return {
+            "domain": self.domain,
+            "candidates": {
+                candidate_str: candidate.to_json()
+                for candidate_str, candidate in self.candidates.items()
+            },
+        }
+
+    @classmethod
+    def from_json(
+        cls,
+        obj: Dict[str, Any],
+        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+    ):
+        return cls(
+            obj["domain"],
+            {
+                candidate_str: TechnicalTerm.from_json(candidate, morpheme_cls)
+                for candidate_str, candidate in obj["candidates"].items()
+            },
+        )
+
+
+@dataclass(frozen=True)
 class PageCandidateTermList:
     page_num: int
     candidates: List[TechnicalTerm]
@@ -65,6 +94,17 @@ class XMLCandidateTermList:
 class DomainCandidateTermList:
     domain: str
     xmls: List[XMLCandidateTermList]
+
+    def to_domain_candidate_term_dict(self) -> DomainCandidateTermDict:
+        return DomainCandidateTermDict(
+            self.domain,
+            {
+                str(candidate): candidate
+                for xml in self.xmls
+                for page in xml.pages
+                for candidate in page.candidates
+            },
+        )
 
     def to_json(self) -> Dict[str, Any]:
         return {
