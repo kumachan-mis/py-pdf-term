@@ -36,19 +36,12 @@ class MDPRanker:
         ranking_data: MDPDomainRankingData,
         other_ranking_data_list: List[MDPDomainRankingData],
     ) -> DomainTermRanking:
-        scored_term_dict: Dict[str, ScoredTerm] = dict()
-
-        for xml_candidates in domain_candidates.xmls:
-            for page_candidates in xml_candidates.pages:
-                for candidate in page_candidates.candidates:
-                    if str(candidate) in scored_term_dict:
-                        continue
-                    scored_candidate = self._calculate_score(
-                        candidate, ranking_data, other_ranking_data_list
-                    )
-                    scored_term_dict[scored_candidate.term] = scored_candidate
-
-        ranking = sorted(list(scored_term_dict.values()), key=lambda term: -term.score)
+        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        scored_candidates = [
+            self._calculate_score(candidate, ranking_data, other_ranking_data_list)
+            for candidate in domain_candidates_dict.candidates.values()
+        ]
+        ranking = sorted(scored_candidates, key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # private

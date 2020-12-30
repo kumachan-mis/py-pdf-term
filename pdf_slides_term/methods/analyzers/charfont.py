@@ -68,7 +68,7 @@ class TermCharFontAnalyzer:
                                 candidate.fontsize,
                                 candidate.augmented,
                             )
-                            if str(sub_candidate) in domain_candidates_dict:
+                            if str(sub_candidate) in domain_candidates_dict.candidates:
                                 update_result(result, xml_id, page_num, sub_candidate)
 
         return result
