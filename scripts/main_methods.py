@@ -54,7 +54,7 @@ if __name__ == "__main__":
     if args.tfidf:
         method_name = "tfidf"
         method = TFIDFMethod()
-    if args.flr:
+    elif args.flr:
         method_name = "flr"
         method = FLRMethod()
     elif args.hits:
