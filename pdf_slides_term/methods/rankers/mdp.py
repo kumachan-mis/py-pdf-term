@@ -37,7 +37,7 @@ class MDPRanker:
         other_ranking_data_list: List[MDPDomainRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
-        scored_candidates = list(
+        ranking = list(
             map(
                 lambda candidate: self._calculate_score(
                     candidate, ranking_data, other_ranking_data_list
@@ -45,7 +45,7 @@ class MDPRanker:
                 domain_candidates_dict.candidates.values(),
             )
         )
-        ranking = sorted(scored_candidates, key=lambda term: -term.score)
+        ranking.sort(key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # private
