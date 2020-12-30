@@ -54,13 +54,15 @@ class FLRHRanker:
 
         auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
-        scored_candidates = [
-            self._calculate_score(
-                candidate, flr_ranking_data, hits_ranking_data, auth_hub_data
+        ranking = list(
+            map(
+                lambda candidate: self._calculate_score(
+                    candidate, flr_ranking_data, hits_ranking_data, auth_hub_data
+                ),
+                domain_candidates_dict.candidates.values(),
             )
-            for candidate in domain_candidates_dict.candidates.values()
-        ]
-        ranking = sorted(scored_candidates, key=lambda term: -term.score)
+        )
+        ranking.sort(key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # public

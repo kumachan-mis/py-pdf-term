@@ -23,10 +23,12 @@ class MeCabTagger:
             List[str], self._inner_tagger.parse(text).split("\n")
         )  # pyright:reportUnknownMemberType=false
         mecab_lines = mecab_lines[: mecab_lines.index(terminal)]
-        return [
-            self._create_mecab_morpheme(mecab_morpheme_cls, line)
-            for line in mecab_lines
-        ]
+        return list(
+            map(
+                lambda line: self._create_mecab_morpheme(mecab_morpheme_cls, line),
+                mecab_lines,
+            )
+        )
 
     # private
     def _create_mecab_morpheme(
