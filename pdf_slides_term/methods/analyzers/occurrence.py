@@ -53,12 +53,10 @@ class TermOccurrenceAnalyzer:
         term_freq, lingu_freq, doc_set = self._run_brute_force_analysis(
             domain_candidates, (dict(), dict(), dict()), update
         )
-
         doc_freq = {
             candidate_str: len(candidate_doc_set)
             for candidate_str, candidate_doc_set in doc_set.items()
         }
-
         return TermOccurrence(term_freq, lingu_freq, doc_freq)
 
     def analyze_term_freq(
