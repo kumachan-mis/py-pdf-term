@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 from glob import iglob
 from typing import Iterator
 
+from pdf_slides_term.methods.tfidf import TFIDFMethod
 from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
 from pdf_slides_term.methods.flrh import FLRHMethod
@@ -43,12 +44,16 @@ def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
 if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--tfidf", help="use TF-IDF method", action="store_true")
     group.add_argument("--flr", help="use FLR method", action="store_true")
     group.add_argument("--hits", help="use HITS method", action="store_true")
     group.add_argument("--flrh", help="use FLRH method", action="store_true")
     group.add_argument("--mdp", help="use MDP method", action="store_true")
     args = parser.parse_args()
 
+    if args.tfidf:
+        method_name = "tfidf"
+        method = TFIDFMethod()
     if args.flr:
         method_name = "flr"
         method = FLRMethod()

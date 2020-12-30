@@ -8,7 +8,7 @@ from pdf_slides_term.methods.rankers.tfidf import TFIDFRanker, TFIDFDomainRankin
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 
 
-class FLRHMethod(BaseMultipleDomainTermRankingMethod):
+class TFIDFMethod(BaseMultipleDomainTermRankingMethod):
     # public
     def __init__(self, consider_charfont: bool = True):
         super().__init__()
