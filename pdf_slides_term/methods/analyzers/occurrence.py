@@ -11,10 +11,10 @@ _AnalysisResult = TypeVar("_AnalysisResult")
 @dataclass(frozen=True)
 class TermOccurrence:
     term_freq: Dict[str, int]
-    # brute force counting of term occurrences
+    # brute force counting of term occurrences in the domain
     # count even if the term occurs as a part of a phrase
     lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int]
-    # brute force counting of linguistic sequence occurrences
+    # brute force counting of linguistic sequence occurrences in the domain
     # count even if the term occurs as a part of a phrase
     doc_freq: Dict[str, int]
     # number of documents in the domain that contain the term

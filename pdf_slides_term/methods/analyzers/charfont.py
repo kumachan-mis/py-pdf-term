@@ -8,7 +8,7 @@ from pdf_slides_term.share.data import TechnicalTerm
 @dataclass(frozen=True)
 class TermCharFont:
     term_maxsize: Dict[str, float]
-    # max fontsize of the term
+    # max fontsize of the term in the domain
     # default of this is zero
 
 
