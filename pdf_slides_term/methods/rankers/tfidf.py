@@ -12,11 +12,11 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     # public
     def __init__(
         self,
-        tf_mode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
-        idf_mode: Literal["natural", "smooth", "prob", "unary"] = "natural",
+        tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
+        idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
     ):
-        self._tf_mode = tf_mode
-        self._idf_mode = idf_mode
+        self._tfmode = tfmode
+        self._idfmode = idfmode
 
     def rank_terms(
         self,
@@ -67,13 +67,13 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         tf_sum = sum(map(lambda data: data.term_freq.get(candidate_str, 0), all_data))
         ave_tf = tf_sum / len(all_data)
 
-        if self._idf_mode == "natural":
+        if self._idfmode == "natural":
             return tf
-        elif self._tf_mode == "log":
+        elif self._tfmode == "log":
             return 1.0 * log10(tf) if tf > 0.0 else 0.0
-        elif self._tf_mode == "augmented":
+        elif self._tfmode == "augmented":
             return 0.5 + 0.5 * tf / max_tf
-        elif self._tf_mode == "logave":
+        elif self._tfmode == "logave":
             return (1.0 + log10(tf)) / (1.0 + log10(ave_tf)) if tf > 0.0 else 0.0
         else:
             return 1.0 if tf > 0.0 else 0.0
@@ -89,11 +89,11 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         num_docs = sum(map(lambda data: data.num_docs, all_data))
         df = sum(map(lambda data: data.doc_freq.get(candidate_str, 0), all_data))
 
-        if self._idf_mode == "natural":
+        if self._idfmode == "natural":
             return log10(num_docs / df)
-        if self._idf_mode == "smooth":
+        if self._idfmode == "smooth":
             return log10(num_docs / (df + 1)) + 1.0
-        elif self._idf_mode == "prob":
+        elif self._idfmode == "prob":
             return max(log10((num_docs - df) / df), 0.0)
         else:
             return 1.0

@@ -13,9 +13,9 @@ from pdf_slides_term.share.data import TechnicalTerm
 # FLRHRanker is a friend of FLRRanker and HITSRanker
 class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
     # public
-    def __init__(self):
+    def __init__(self, threshold: float = 1e-8):
         self._flr_ranker = FLRRanker()
-        self._hits_ranker = HITSRanker()
+        self._hits_ranker = HITSRanker(threshold=threshold)
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRakingData
