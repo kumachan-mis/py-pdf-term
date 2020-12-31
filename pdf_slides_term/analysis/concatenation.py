@@ -3,7 +3,7 @@ from typing import Dict
 
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
@@ -35,7 +35,7 @@ class TermConcatenationAnalyzer:
         return term_concat
 
     # private
-    def _update_concat(self, term_concat: TermConcatenation, candidate: TechnicalTerm):
+    def _update_concat(self, term_concat: TermConcatenation, candidate: Term):
         num_morphemes = len(candidate.morphemes)
         for i in range(num_morphemes):
             morpheme = candidate.morphemes[i]

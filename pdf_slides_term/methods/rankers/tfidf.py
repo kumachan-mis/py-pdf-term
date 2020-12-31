@@ -5,7 +5,7 @@ from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
 from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 from pdf_slides_term.share.utils import extended_log10
 
 
@@ -39,7 +39,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
 
     def _calculate_score(
         self,
-        candidate: TechnicalTerm,
+        candidate: Term,
         ranking_data: TFIDFRankingData,
         other_ranking_data_list: List[TFIDFRankingData],
     ) -> ScoredTerm:

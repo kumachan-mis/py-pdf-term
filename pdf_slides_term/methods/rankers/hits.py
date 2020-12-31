@@ -6,7 +6,7 @@ from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
 from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
@@ -93,7 +93,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRakingData]):
 
     def _calculate_score(
         self,
-        candidate: TechnicalTerm,
+        candidate: Term,
         ranking_data: HITSRakingData,
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:

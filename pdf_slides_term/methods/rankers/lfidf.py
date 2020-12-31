@@ -5,7 +5,7 @@ from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
 from pdf_slides_term.methods.rankingdata.lfidf import LFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm, LinguSeq
+from pdf_slides_term.share.data import Term, LinguSeq
 from pdf_slides_term.share.utils import extended_log10
 
 
@@ -39,7 +39,7 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
 
     def _calculate_score(
         self,
-        candidate: TechnicalTerm,
+        candidate: Term,
         ranking_data: LFIDFRankingData,
         other_ranking_data_list: List[LFIDFRankingData],
     ) -> ScoredTerm:

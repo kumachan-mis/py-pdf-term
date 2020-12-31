@@ -3,7 +3,7 @@ from typing import Dict
 
 from pdf_slides_term.analysis.runner import AnalysisRunner
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
@@ -30,14 +30,14 @@ class TermCharFontAnalyzer:
             term_maxsize: Dict[str, float],
             xml_id: int,
             page_num: int,
-            sub_candidate: TechnicalTerm,
+            subcandidate: Term,
         ):
-            sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set.candidates:
+            subcandidate_str = str(subcandidate)
+            if subcandidate_str not in domain_candidates_set.candidates:
                 return
 
-            term_maxsize[sub_candidate_str] = max(
-                term_maxsize.get(sub_candidate_str, 0), sub_candidate.fontsize
+            term_maxsize[subcandidate_str] = max(
+                term_maxsize.get(subcandidate_str, 0), subcandidate.fontsize
             )
 
         term_maxsize = self._runner.run_through_subcandidates(

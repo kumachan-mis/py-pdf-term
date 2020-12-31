@@ -1,7 +1,7 @@
 import re
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
@@ -28,7 +28,7 @@ class CandidateTermFilter:
         else:
             return False
 
-    def is_candidate_term(self, term: TechnicalTerm) -> bool:
+    def is_candidate_term(self, term: Term) -> bool:
         term_str = str(term)
         valid_regex = re.compile(rf"({JAPANESE_REGEX}|[A-Za-z ])+")
         invalid_regex = re.compile(rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Z]|[a-z ]+")

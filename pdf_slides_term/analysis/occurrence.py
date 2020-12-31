@@ -3,7 +3,7 @@ from typing import Tuple, Set, Dict
 
 from pdf_slides_term.analysis.runner import AnalysisRunner
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm, LinguSeq
+from pdf_slides_term.share.data import Term, LinguSeq
 
 
 @dataclass(frozen=True)
@@ -40,24 +40,24 @@ class TermOccurrenceAnalyzer:
             ],
             xml_id: int,
             page_num: int,
-            sub_candidate: TechnicalTerm,
+            subcandidate: Term,
         ):
-            sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set.candidates:
+            subcandidate_str = str(subcandidate)
+            if subcandidate_str not in domain_candidates_set.candidates:
                 return
 
-            result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
+            result[0][subcandidate_str] = result[0].get(subcandidate_str, 0) + 1
 
-            sub_lingu_seq = sub_candidate.linguistic_sequence()
+            sub_lingu_seq = subcandidate.linguistic_sequence()
             result[1][sub_lingu_seq] = result[1].get(sub_lingu_seq, 0) + 1
 
-            sub_candidate_doc_term_set = result[2].get(sub_candidate_str, set())
-            sub_candidate_doc_term_set.add(xml_id)
-            result[2][sub_candidate_str] = sub_candidate_doc_term_set
+            subcandidate_doc_term_set = result[2].get(subcandidate_str, set())
+            subcandidate_doc_term_set.add(xml_id)
+            result[2][subcandidate_str] = subcandidate_doc_term_set
 
-            sub_candidate_doc_lingu_set = result[3].get(sub_lingu_seq, set())
-            sub_candidate_doc_lingu_set.add(xml_id)
-            result[3][sub_lingu_seq] = sub_candidate_doc_lingu_set
+            subcandidate_doc_lingu_set = result[3].get(sub_lingu_seq, set())
+            subcandidate_doc_lingu_set.add(xml_id)
+            result[3][sub_lingu_seq] = subcandidate_doc_lingu_set
 
         (
             term_freq,
@@ -83,15 +83,12 @@ class TermOccurrenceAnalyzer:
         domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
 
         def update(
-            term_freq: Dict[str, int],
-            xml_id: int,
-            page_num: int,
-            sub_candidate: TechnicalTerm,
+            term_freq: Dict[str, int], xml_id: int, page_num: int, subcandidate: Term
         ):
-            sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set.candidates:
+            subcandidate_str = str(subcandidate)
+            if subcandidate_str not in domain_candidates_set.candidates:
                 return
-            term_freq[sub_candidate_str] = term_freq.get(sub_candidate_str, 0) + 1
+            term_freq[subcandidate_str] = term_freq.get(subcandidate_str, 0) + 1
 
         term_freq = self._runner.run_through_subcandidates(
             domain_candidates, dict(), update
@@ -107,11 +104,11 @@ class TermOccurrenceAnalyzer:
             lingu_freq: Dict[LinguSeq, int],
             xml_id: int,
             page_num: int,
-            sub_candidate: TechnicalTerm,
+            subcandidate: Term,
         ):
-            if str(sub_candidate) not in domain_candidates_set.candidates:
+            if str(subcandidate) not in domain_candidates_set.candidates:
                 return
-            sub_lingu_seq = sub_candidate.linguistic_sequence()
+            sub_lingu_seq = subcandidate.linguistic_sequence()
             lingu_freq[sub_lingu_seq] = lingu_freq.get(sub_lingu_seq, 0) + 1
 
         lingu_freq = self._runner.run_through_subcandidates(
@@ -128,14 +125,14 @@ class TermOccurrenceAnalyzer:
             doc_term_set: Dict[str, Set[int]],
             xml_id: int,
             page_num: int,
-            sub_candidate: TechnicalTerm,
+            subcandidate: Term,
         ):
-            sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set.candidates:
+            subcandidate_str = str(subcandidate)
+            if subcandidate_str not in domain_candidates_set.candidates:
                 return
-            sub_candidate_doc_term_set = doc_term_set.get(sub_candidate_str, set())
-            sub_candidate_doc_term_set.add(xml_id)
-            doc_term_set[sub_candidate_str] = sub_candidate_doc_term_set
+            subcandidate_doc_term_set = doc_term_set.get(subcandidate_str, set())
+            subcandidate_doc_term_set.add(xml_id)
+            doc_term_set[subcandidate_str] = subcandidate_doc_term_set
 
         doc_term_set = self._runner.run_through_subcandidates(
             domain_candidates, dict(), update
@@ -155,14 +152,14 @@ class TermOccurrenceAnalyzer:
             doc_lingu_set: Dict[LinguSeq, Set[int]],
             xml_id: int,
             page_num: int,
-            sub_candidate: TechnicalTerm,
+            subcandidate: Term,
         ):
-            if str(sub_candidate) not in domain_candidates_set.candidates:
+            if str(subcandidate) not in domain_candidates_set.candidates:
                 return
-            sub_lingu_seq = sub_candidate.linguistic_sequence()
-            sub_candidate_doc_lingu_set = doc_lingu_set.get(sub_lingu_seq, set())
-            sub_candidate_doc_lingu_set.add(xml_id)
-            doc_lingu_set[sub_lingu_seq] = sub_candidate_doc_lingu_set
+            sub_lingu_seq = subcandidate.linguistic_sequence()
+            subcandidate_doc_lingu_set = doc_lingu_set.get(sub_lingu_seq, set())
+            subcandidate_doc_lingu_set.add(xml_id)
+            doc_lingu_set[sub_lingu_seq] = subcandidate_doc_lingu_set
 
         doc_lingu_set = self._runner.run_through_subcandidates(
             domain_candidates, dict(), update
