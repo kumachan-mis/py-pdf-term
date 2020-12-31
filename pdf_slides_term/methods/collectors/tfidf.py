@@ -17,7 +17,7 @@ class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
 
     def collect(self, domain_candidates: DomainCandidateTermList) -> TFIDFRankingData:
         term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
-        doc_freq = self._occurrence_analyzer.analyze_doc_freq(domain_candidates)
+        doc_freq = self._occurrence_analyzer.analyze_doc_term_freq(domain_candidates)
         num_docs = len(domain_candidates.xmls)
         term_maxsize = (
             self._char_font_analyzer.analyze_term_maxsize(domain_candidates)

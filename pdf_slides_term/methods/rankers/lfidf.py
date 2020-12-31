@@ -6,6 +6,7 @@ from pdf_slides_term.methods.rankingdata.lfidf import LFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm, LinguSeq
+from pdf_slides_term.share.utils import extended_log10
 
 
 class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
@@ -46,14 +47,14 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         lingu_seq = candidate.linguistic_sequence()
 
         lf = self._calculate_lf(lingu_seq, ranking_data, other_ranking_data_list)
-        idf = self._calculate_idf(candidate_str, ranking_data, other_ranking_data_list)
+        idf = self._calculate_idf(lingu_seq, ranking_data, other_ranking_data_list)
         term_maxsize = (
             ranking_data.term_maxsize[candidate_str]
             if ranking_data.term_maxsize is not None
             else 1.0
         )
-        score = log10(term_maxsize * lf * idf)
-        return ScoredTerm(str(candidate), score)
+        score = extended_log10(term_maxsize * lf * idf)
+        return ScoredTerm(candidate_str, score)
 
     def _calculate_lf(
         self,
@@ -81,14 +82,14 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
 
     def _calculate_idf(
         self,
-        candidate_str: str,
+        lingu_seq: LinguSeq,
         ranking_data: LFIDFRankingData,
         other_ranking_data_list: List[LFIDFRankingData],
     ) -> float:
         all_data = [ranking_data] + other_ranking_data_list
 
         num_docs = sum(map(lambda data: data.num_docs, all_data))
-        df = sum(map(lambda data: data.doc_freq.get(candidate_str, 0), all_data))
+        df = sum(map(lambda data: data.doc_freq.get(lingu_seq, 0), all_data))
 
         if self._idfmode == "natural":
             return log10(num_docs / df)

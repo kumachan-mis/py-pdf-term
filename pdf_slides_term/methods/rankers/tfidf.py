@@ -6,6 +6,7 @@ from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.utils import extended_log10
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
@@ -51,7 +52,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
             if ranking_data.term_maxsize is not None
             else 1.0
         )
-        score = log10(term_maxsize * tf * idf)
+        score = extended_log10(term_maxsize * tf * idf)
         return ScoredTerm(candidate_str, score)
 
     def _calculate_tf(

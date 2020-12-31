@@ -13,8 +13,11 @@ class TermOccurrence:
     lingu_freq: Dict[LinguSeq, int]
     # brute force counting of linguistic sequence occurrences in the domain
     # count even if the term occurs as a part of a phrase
-    doc_freq: Dict[str, int]
+    doc_term_freq: Dict[str, int]
     # number of documents in the domain that contain the term
+    # count even if the term occurs as a part of a phrase
+    doc_lingu_freq: Dict[LinguSeq, int]
+    # number of documents in the domain that contain the linguistic sequence
     # count even if the term occurs as a part of a phrase
 
 
@@ -27,7 +30,12 @@ class TermOccurrenceAnalyzer:
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermOccurrence:
         def update(
-            result: Tuple[Dict[str, int], Dict[LinguSeq, int], Dict[str, Set[int]]],
+            result: Tuple[
+                Dict[str, int],
+                Dict[LinguSeq, int],
+                Dict[str, Set[int]],
+                Dict[LinguSeq, Set[int]],
+            ],
             xml_id: int,
             page_num: int,
             sub_candidate: TechnicalTerm,
@@ -35,21 +43,34 @@ class TermOccurrenceAnalyzer:
             sub_candidate_str = str(sub_candidate)
             result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
 
-            lingu_seq = sub_candidate.linguistic_sequence()
-            result[1][lingu_seq] = result[1].get(lingu_seq, 0) + 1
+            sub_lingu_seq = sub_candidate.linguistic_sequence()
+            result[1][sub_lingu_seq] = result[1].get(sub_lingu_seq, 0) + 1
 
-            sub_candidate_doc_set = result[2].get(sub_candidate_str, set())
-            sub_candidate_doc_set.add(xml_id)
-            result[2][sub_candidate_str] = sub_candidate_doc_set
+            sub_candidate_doc_term_set = result[2].get(sub_candidate_str, set())
+            sub_candidate_doc_term_set.add(xml_id)
+            result[2][sub_candidate_str] = sub_candidate_doc_term_set
 
-        term_freq, lingu_freq, doc_set = self._run_brute_force_analysis(
-            domain_candidates, (dict(), dict(), dict()), update
+            sub_candidate_doc_lingu_set = result[3].get(sub_lingu_seq, set())
+            sub_candidate_doc_lingu_set.add(xml_id)
+            result[3][sub_lingu_seq] = sub_candidate_doc_lingu_set
+
+        (
+            term_freq,
+            lingu_freq,
+            doc_term_set,
+            doc_lingu_set,
+        ) = self._run_brute_force_analysis(
+            domain_candidates, (dict(), dict(), dict(), dict()), update
         )
-        doc_freq = {
-            candidate_str: len(candidate_doc_set)
-            for candidate_str, candidate_doc_set in doc_set.items()
+        doc_term_freq = {
+            candidate_str: len(candidate_doc_term_set)
+            for candidate_str, candidate_doc_term_set in doc_term_set.items()
         }
-        return TermOccurrence(term_freq, lingu_freq, doc_freq)
+        doc_lingu_freq = {
+            lingu_seq: len(candidate_doc_lingu_set)
+            for lingu_seq, candidate_doc_lingu_set in doc_lingu_set.items()
+        }
+        return TermOccurrence(term_freq, lingu_freq, doc_term_freq, doc_lingu_freq)
 
     def analyze_term_freq(
         self, domain_candidates: DomainCandidateTermList
@@ -75,32 +96,55 @@ class TermOccurrenceAnalyzer:
             page_num: int,
             sub_candidate: TechnicalTerm,
         ):
-            lingu_seq = sub_candidate.linguistic_sequence()
-            lingu_freq[lingu_seq] = lingu_freq.get(lingu_seq, 0) + 1
+            sub_lingu_seq = sub_candidate.linguistic_sequence()
+            lingu_freq[sub_lingu_seq] = lingu_freq.get(sub_lingu_seq, 0) + 1
 
         lingu_freq = self._run_brute_force_analysis(domain_candidates, dict(), update)
         return lingu_freq
 
-    def analyze_doc_freq(
+    def analyze_doc_term_freq(
         self, domain_candidates: DomainCandidateTermList
     ) -> Dict[str, int]:
         def update(
-            doc_set: Dict[str, Set[int]],
+            doc_term_set: Dict[str, Set[int]],
             xml_id: int,
             page_num: int,
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-            sub_candidate_doc_set = doc_set.get(sub_candidate_str, set())
-            sub_candidate_doc_set.add(xml_id)
-            doc_set[sub_candidate_str] = sub_candidate_doc_set
+            sub_candidate_doc_term_set = doc_term_set.get(sub_candidate_str, set())
+            sub_candidate_doc_term_set.add(xml_id)
+            doc_term_set[sub_candidate_str] = sub_candidate_doc_term_set
 
-        doc_set = self._run_brute_force_analysis(domain_candidates, dict(), update)
-        doc_freq = {
-            candidate_str: len(candidate_doc_set)
-            for candidate_str, candidate_doc_set in doc_set.items()
+        doc_term_set = self._run_brute_force_analysis(domain_candidates, dict(), update)
+        doc_term_freq = {
+            candidate_str: len(candidate_doc_term_set)
+            for candidate_str, candidate_doc_term_set in doc_term_set.items()
         }
-        return doc_freq
+        return doc_term_freq
+
+    def analyze_doc_lingu_freq(
+        self, domain_candidates: DomainCandidateTermList
+    ) -> Dict[LinguSeq, int]:
+        def update(
+            doc_lingu_set: Dict[LinguSeq, Set[int]],
+            xml_id: int,
+            page_num: int,
+            sub_candidate: TechnicalTerm,
+        ):
+            sub_lingu_seq = sub_candidate.linguistic_sequence()
+            sub_candidate_doc_lingu_set = doc_lingu_set.get(sub_lingu_seq, set())
+            sub_candidate_doc_lingu_set.add(xml_id)
+            doc_lingu_set[sub_lingu_seq] = sub_candidate_doc_lingu_set
+
+        doc_lingu_set = self._run_brute_force_analysis(
+            domain_candidates, dict(), update
+        )
+        doc_lingu_freq = {
+            lingu_seq: len(candidate_doc_lingu_set)
+            for lingu_seq, candidate_doc_lingu_set in doc_lingu_set.items()
+        }
+        return doc_lingu_freq
 
     # private
     def _run_brute_force_analysis(
