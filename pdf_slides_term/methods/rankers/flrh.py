@@ -6,7 +6,7 @@ from pdf_slides_term.methods.rankers.hits import HITSRanker, HITSAuthHubData
 from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 # pyright:reportPrivateUsage=false
@@ -51,7 +51,7 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
     # public
     def _calculate_score(
         self,
-        candidate: TechnicalTerm,
+        candidate: Term,
         flr_ranking_data: FLRRakingData,
         hits_ranking_data: HITSRakingData,
         auth_hub_data: HITSAuthHubData,

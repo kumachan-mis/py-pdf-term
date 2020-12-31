@@ -1,7 +1,7 @@
 from typing import Callable, TypeVar
 
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 AnalysisResult = TypeVar("AnalysisResult")
 
@@ -14,7 +14,7 @@ class AnalysisRunner:
         self,
         domain_candidates: DomainCandidateTermList,
         initial_result: AnalysisResult,
-        update_result: Callable[[AnalysisResult, int, int, TechnicalTerm], None],
+        update_result: Callable[[AnalysisResult, int, int, Term], None],
     ) -> AnalysisResult:
         result = initial_result
 
@@ -32,7 +32,7 @@ class AnalysisRunner:
         self,
         domain_candidates: DomainCandidateTermList,
         initial_result: AnalysisResult,
-        update_result: Callable[[AnalysisResult, int, int, TechnicalTerm], None],
+        update_result: Callable[[AnalysisResult, int, int, Term], None],
     ) -> AnalysisResult:
         result = initial_result
 
@@ -46,11 +46,11 @@ class AnalysisRunner:
                     num_morphemes = len(candidate.morphemes)
                     for i in range(num_morphemes):
                         for j in range(i + 1, num_morphemes + 1):
-                            sub_candidate = TechnicalTerm(
+                            subcandidate = Term(
                                 candidate.morphemes[i:j],
                                 candidate.fontsize,
                                 candidate.augmented,
                             )
-                            update_result(result, xml_id, page_num, sub_candidate)
+                            update_result(result, xml_id, page_num, subcandidate)
 
         return result

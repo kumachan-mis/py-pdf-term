@@ -4,7 +4,7 @@ from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
 from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRakingData]):
@@ -27,7 +27,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRakingData]):
 
     # private
     def _calculate_score(
-        self, candidate: TechnicalTerm, ranking_data: FLRRakingData
+        self, candidate: Term, ranking_data: FLRRakingData
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 

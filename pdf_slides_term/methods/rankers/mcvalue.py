@@ -3,7 +3,7 @@ from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
 from pdf_slides_term.methods.rankingdata.mcvalue import MCValueRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 from pdf_slides_term.share.utils import extended_log10
 
 
@@ -29,7 +29,7 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRakingData]):
 
     # private
     def _calculate_score(
-        self, candidate: TechnicalTerm, ranking_data: MCValueRakingData
+        self, candidate: Term, ranking_data: MCValueRakingData
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 

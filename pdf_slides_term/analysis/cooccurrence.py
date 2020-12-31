@@ -3,7 +3,7 @@ from typing import Set, Dict
 
 from pdf_slides_term.analysis.runner import AnalysisRunner
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
@@ -31,7 +31,7 @@ class TermCooccurrenceAnalyzer:
             container_terms: Dict[str, Set[str]],
             xml_id: int,
             page_num: int,
-            candidate: TechnicalTerm,
+            candidate: Term,
         ):
             candidate_str = str(candidate)
             container_terms[candidate_str] = container_terms.get(candidate_str, set())
@@ -40,18 +40,18 @@ class TermCooccurrenceAnalyzer:
             for i in range(num_morphemes):
                 jstart, jstop = i + 1, (num_morphemes + 1 if i > 0 else num_morphemes)
                 for j in range(jstart, jstop):
-                    sub_candidate = TechnicalTerm(
+                    subcandidate = Term(
                         candidate.morphemes[i:j],
                         candidate.fontsize,
                         candidate.augmented,
                     )
-                    sub_candidate_str = str(sub_candidate)
-                    if sub_candidate_str not in domain_candidates_set.candidates:
+                    subcandidate_str = str(subcandidate)
+                    if subcandidate_str not in domain_candidates_set.candidates:
                         continue
 
-                    container_term_set = container_terms.get(sub_candidate_str, set())
+                    container_term_set = container_terms.get(subcandidate_str, set())
                     container_term_set.add(candidate_str)
-                    container_terms[sub_candidate_str] = container_term_set
+                    container_terms[subcandidate_str] = container_term_set
 
         container_terms = self._runner.run_through_candidates(
             domain_candidates, dict(), update

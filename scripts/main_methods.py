@@ -19,14 +19,10 @@ from pdf_slides_term.candidates.data import (
     DomainCandidateTermList,
     XMLCandidateTermList,
 )
-from scripts.settings import DATASET_DIR
+from scripts.settings import CANDIDATE_DIR, METHODS_DIR
 
 
-CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
-METHODS_DIR = os.path.join(DATASET_DIR, "methods")
-
-
-def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
+def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
     domains = list(
         filter(
             lambda dir_name: not dir_name.startswith(".")
@@ -83,7 +79,7 @@ if __name__ == "__main__":
         raise RuntimeError("unreachable statement")
 
     file_name = f"{method_name}.json"
-    domain_candidates_generator = generate_domain_candidates_list()
+    domain_candidates_generator = generate_domain_candidates()
 
     # pyright:reportUnnecessaryIsInstance=false
     if isinstance(method, BaseSingleDomainRankingMethod):

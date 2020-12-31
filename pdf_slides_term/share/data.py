@@ -13,7 +13,7 @@ LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 
 @dataclass(frozen=True)
-class TechnicalTerm:
+class Term:
     morphemes: List[BaseMeCabMorpheme]
     fontsize: float = 0.0
     augmented: bool = False
