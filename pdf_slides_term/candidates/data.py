@@ -1,8 +1,21 @@
-from dataclasses import dataclass
-from typing import List, Dict, Any, Type
+from dataclasses import dataclass, asdict
+from typing import List, Set, Dict, Any, Type
 
 from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
+
+
+@dataclass(frozen=True)
+class DomainCandidateTermSet:
+    domain: str
+    candidates: Set[str]
+
+    def to_json(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_json(cls, obj: Dict[str, Any]):
+        return cls(**obj)
 
 
 @dataclass(frozen=True)
@@ -96,10 +109,27 @@ class DomainCandidateTermList:
     xmls: List[XMLCandidateTermList]
 
     def to_domain_candidate_term_dict(self) -> DomainCandidateTermDict:
-        return DomainCandidateTermDict(
+        candidates: Dict[str, TechnicalTerm] = dict()
+        for xml in self.xmls:
+            for page in xml.pages:
+                for candidate in page.candidates:
+                    candidate_str = str(candidate)
+                    candidate_in_dict = candidates.get(
+                        candidate_str, TechnicalTerm(candidate.morphemes, 0.0, True)
+                    )
+                    candidates[candidate_str] = TechnicalTerm(
+                        candidate.morphemes,
+                        max(candidate.fontsize, candidate_in_dict.fontsize),
+                        candidate.augmented and candidate_in_dict.augmented,
+                    )
+
+        return DomainCandidateTermDict(self.domain, candidates)
+
+    def to_domain_candidate_term_set(self) -> DomainCandidateTermSet:
+        return DomainCandidateTermSet(
             self.domain,
             {
-                str(candidate): candidate
+                str(candidate)
                 for xml in self.xmls
                 for page in xml.pages
                 for candidate in page.candidates
