@@ -18,4 +18,4 @@ class TFIDFRankingData(BaseRankingData):
     # number of documents in the domain
     term_maxsize: Optional[Dict[str, float]] = None
     # max fontsize of the term in the domain
-    # default of this is zero
+    # default of this is 1.0

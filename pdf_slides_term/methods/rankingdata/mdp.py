@@ -16,7 +16,7 @@ class MDPRankingData(BaseRankingData):
     # count even if the term occurs as a part of a phrase
     term_maxsize: Optional[Dict[str, float]] = None
     # max fontsize of the term in the domain
-    # default of this is zero
+    # default of this is 1.0
 
     def __post_init__(self):
         object.__setattr__(self, "num_terms", sum(self.term_freq.values()))
