@@ -33,7 +33,7 @@ class TermCharFontAnalyzer:
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set:
+            if sub_candidate_str not in domain_candidates_set.candidates:
                 return
 
             term_maxsize[sub_candidate_str] = max(

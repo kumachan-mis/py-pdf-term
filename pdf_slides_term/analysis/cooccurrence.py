@@ -42,7 +42,7 @@ class TermCooccurrenceAnalyzer:
                         candidate.augmented,
                     )
                     sub_candidate_str = str(sub_candidate)
-                    if sub_candidate_str not in domain_candidates_set:
+                    if sub_candidate_str not in domain_candidates_set.candidates:
                         return
 
                     container_term_freq = container_term_freqs.get(

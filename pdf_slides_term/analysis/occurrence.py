@@ -43,7 +43,7 @@ class TermOccurrenceAnalyzer:
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set:
+            if sub_candidate_str not in domain_candidates_set.candidates:
                 return
 
             result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
@@ -89,7 +89,7 @@ class TermOccurrenceAnalyzer:
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set:
+            if sub_candidate_str not in domain_candidates_set.candidates:
                 return
             term_freq[sub_candidate_str] = term_freq.get(sub_candidate_str, 0) + 1
 
@@ -109,7 +109,7 @@ class TermOccurrenceAnalyzer:
             page_num: int,
             sub_candidate: TechnicalTerm,
         ):
-            if str(sub_candidate) not in domain_candidates_set:
+            if str(sub_candidate) not in domain_candidates_set.candidates:
                 return
             sub_lingu_seq = sub_candidate.linguistic_sequence()
             lingu_freq[sub_lingu_seq] = lingu_freq.get(sub_lingu_seq, 0) + 1
@@ -131,7 +131,7 @@ class TermOccurrenceAnalyzer:
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-            if sub_candidate_str not in domain_candidates_set:
+            if sub_candidate_str not in domain_candidates_set.candidates:
                 return
             sub_candidate_doc_term_set = doc_term_set.get(sub_candidate_str, set())
             sub_candidate_doc_term_set.add(xml_id)
@@ -157,7 +157,7 @@ class TermOccurrenceAnalyzer:
             page_num: int,
             sub_candidate: TechnicalTerm,
         ):
-            if str(sub_candidate) not in domain_candidates_set:
+            if str(sub_candidate) not in domain_candidates_set.candidates:
                 return
             sub_lingu_seq = sub_candidate.linguistic_sequence()
             sub_candidate_doc_lingu_set = doc_lingu_set.get(sub_lingu_seq, set())
