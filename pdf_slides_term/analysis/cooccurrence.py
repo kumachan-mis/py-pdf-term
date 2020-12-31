@@ -45,11 +45,11 @@ class TermCooccurrenceAnalyzer:
                     if sub_candidate_str not in domain_candidates_set.candidates:
                         continue
 
-                    container_term_freq = container_freqs.get(sub_candidate_str, dict())
-                    container_term_freq[candidate_str] = (
-                        container_term_freq.get(candidate_str, 0) + 1
+                    container_freq = container_freqs.get(sub_candidate_str, dict())
+                    container_freq[candidate_str] = (
+                        container_freq.get(candidate_str, 0) + 1
                     )
-                    container_freqs[sub_candidate_str] = container_term_freq
+                    container_freqs[sub_candidate_str] = container_freq
 
         container_freqs = self._runner.run_through_candidates(
             domain_candidates, dict(), update
