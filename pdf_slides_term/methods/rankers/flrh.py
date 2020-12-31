@@ -1,9 +1,9 @@
 from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.collectors.flrh import FLRHRakingData
+from pdf_slides_term.methods.rankingdata.flrh import FLRHRakingData
 from pdf_slides_term.methods.rankers.flr import FLRRanker
-from pdf_slides_term.methods.collectors.flr import FLRRakingData
+from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
 from pdf_slides_term.methods.rankers.hits import HITSRanker, HITSAuthHubData
-from pdf_slides_term.methods.collectors.hits import HITSRakingData
+from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
@@ -21,12 +21,14 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRakingData
     ) -> DomainTermRanking:
         flr_ranking_data = FLRRakingData(
+            ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
             ranking_data.term_maxsize,
         )
         hits_ranking_data = HITSRakingData(
+            ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,

@@ -1,7 +1,7 @@
 from typing import List, Callable, Iterable
 
 from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
-from pdf_slides_term.methods.collectors.mdp import MDPRankingData
+from pdf_slides_term.methods.rankingdata.mdp import MDPRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm

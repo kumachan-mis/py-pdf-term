@@ -2,7 +2,7 @@ from math import log10
 from typing import List, Literal
 
 from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
-from pdf_slides_term.methods.collectors.tfidf import TFIDFRankingData
+from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm

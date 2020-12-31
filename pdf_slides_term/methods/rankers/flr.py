@@ -1,7 +1,7 @@
 from math import log10
 
 from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.collectors.flr import FLRRakingData
+from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm

@@ -1,10 +1,9 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Generic, TypeVar
+from typing import List, Generic
 
+from pdf_slides_term.methods.rankingdata.base import RankingData
 from pdf_slides_term.methods.data import DomainTermRanking
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-
-RankingData = TypeVar("RankingData")
 
 
 class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):

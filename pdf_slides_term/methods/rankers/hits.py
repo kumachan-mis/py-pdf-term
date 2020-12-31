@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Dict
 
 from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.collectors.hits import HITSRakingData
+from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
