@@ -9,6 +9,7 @@ from pdf_slides_term.candidates.data import (
 )
 from pdf_slides_term.mecab.tagger import MeCabTagger
 from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
+from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 
 
@@ -38,9 +39,9 @@ class CandidateTermExtractor:
 
     # private
     def _extract_from_page(self, page_node: ElementTree.Element) -> List[Term]:
-        candicate_terms = []
+        candicate_terms: List[Term] = []
         for text_node in page_node.iter("text"):
-            candicate_term_morphemes = []
+            candicate_term_morphemes: List[BaseMeCabMorpheme] = []
 
             morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
             fontsize = float(cast(str, text_node.get("size")))

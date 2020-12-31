@@ -3,11 +3,7 @@ import json
 from glob import glob
 
 from pdf_slides_term.candidates.extractor import CandidateTermExtractor
-from scripts.settings import DATASET_DIR
-
-
-XML_DIR = os.path.join(DATASET_DIR, "xml")
-CANDIDATE_DIR = os.path.join(DATASET_DIR, "candidate")
+from scripts.settings import XML_DIR, CANDIDATE_DIR
 
 
 def xml_path_to_candidate_path(xml_path: str) -> str:
