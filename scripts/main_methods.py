@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 from glob import iglob
 from typing import Iterator
 
+from pdf_slides_term.methods.mcvalue import MCValueMethod
 from pdf_slides_term.methods.tfidf import TFIDFMethod
 from pdf_slides_term.methods.lfidf import LFIDFMethod
 from pdf_slides_term.methods.flr import FLRMethod
@@ -48,6 +49,7 @@ def generate_domain_candidates_list() -> Iterator[DomainCandidateTermList]:
 if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--mcvalue", help="use MC-Value method", action="store_true")
     group.add_argument("--tfidf", help="use TF-IDF method", action="store_true")
     group.add_argument("--lfidf", help="use LF-IDF method", action="store_true")
     group.add_argument("--flr", help="use FLR method", action="store_true")
@@ -56,7 +58,10 @@ if __name__ == "__main__":
     group.add_argument("--mdp", help="use MDP method", action="store_true")
     args = parser.parse_args()
 
-    if args.tfidf:
+    if args.mcvalue:
+        method_name = "mcvalue"
+        method = MCValueMethod()
+    elif args.tfidf:
         method_name = "tfidf"
         method = TFIDFMethod()
     elif args.lfidf:
@@ -75,8 +80,7 @@ if __name__ == "__main__":
         method_name = "mdp"
         method = MDPMethod(compile_scores=max)
     else:
-        exit(1)
-        # never reach
+        raise RuntimeError("unreachable statement")
 
     file_name = f"{method_name}.json"
     domain_candidates_generator = generate_domain_candidates_list()

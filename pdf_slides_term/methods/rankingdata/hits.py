@@ -19,4 +19,4 @@ class HITSRakingData(BaseRankingData):
     # if morpheme or right is a modifying particle, this is fixed at zero
     term_maxsize: Optional[Dict[str, float]] = None
     # max fontsize of the term in the domain
-    # default of this is zero
+    # default of this is 1.0
