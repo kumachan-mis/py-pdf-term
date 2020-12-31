@@ -1,31 +1,14 @@
-from dataclasses import dataclass, field
-from typing import Dict, List, Callable, Iterable, Optional
+from typing import List, Callable, Iterable
 
+from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
+from pdf_slides_term.methods.rankingdata.mdp import MDPRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 from pdf_slides_term.share.utils import extended_log10
 
 
-@dataclass(frozen=True)
-class MDPDomainRankingData:
-    domain: str
-    # unique domain name
-    term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
-    num_terms: int = field(init=False)
-    # brute force counting of all terms occurrences in the domain
-    # count even if the term occurs as a part of a phrase
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is zero
-
-    def __post_init__(self):
-        object.__setattr__(self, "num_terms", sum(self.term_freq.values()))
-
-
-class MDPRanker:
+class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     # public
     def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
         self._compile_scores = compile_scores
@@ -33,8 +16,8 @@ class MDPRanker:
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: MDPDomainRankingData,
-        other_ranking_data_list: List[MDPDomainRankingData],
+        ranking_data: MDPRankingData,
+        other_ranking_data_list: List[MDPRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -52,8 +35,8 @@ class MDPRanker:
     def _calculate_score(
         self,
         candidate: TechnicalTerm,
-        ranking_data: MDPDomainRankingData,
-        other_ranking_data_list: List[MDPDomainRankingData],
+        ranking_data: MDPRankingData,
+        other_ranking_data_list: List[MDPRankingData],
     ) -> ScoredTerm:
         score = self._compile_scores(
             map(
@@ -69,8 +52,8 @@ class MDPRanker:
     def _calculate_zvalue(
         self,
         candidate: TechnicalTerm,
-        our_ranking_data: MDPDomainRankingData,
-        their_ranking_data: MDPDomainRankingData,
+        our_ranking_data: MDPRankingData,
+        their_ranking_data: MDPRankingData,
     ) -> float:
         candidate_str = str(candidate)
 

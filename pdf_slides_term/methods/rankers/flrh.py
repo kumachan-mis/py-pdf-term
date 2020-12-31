@@ -1,36 +1,17 @@
-from dataclasses import dataclass
-from typing import Optional, Dict
-
-from pdf_slides_term.methods.rankers.flr import FLRRanker, FLRRakingData
-from pdf_slides_term.methods.rankers.hits import (
-    HITSRanker,
-    HITSRakingData,
-    HITSAuthHubData,
-)
+from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
+from pdf_slides_term.methods.rankingdata.flrh import FLRHRakingData
+from pdf_slides_term.methods.rankers.flr import FLRRanker
+from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
+from pdf_slides_term.methods.rankers.hits import HITSRanker, HITSAuthHubData
+from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass(frozen=True)
-class FLRHRakingData:
-    term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
-    left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (left, morpheme) in the domain
-    # if morpheme or left is a modifying particle, this is fixed at zero
-    right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (morpheme, right) in the domain
-    # if morpheme or right is a modifying particle, this is fixed at zero
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is zero
-
-
 # pyright:reportPrivateUsage=false
 # FLRHRanker is a friend of FLRRanker and HITSRanker
-class FLRHRanker:
+class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
     # public
     def __init__(self):
         self._flr_ranker = FLRRanker()
@@ -40,12 +21,14 @@ class FLRHRanker:
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRakingData
     ) -> DomainTermRanking:
         flr_ranking_data = FLRRakingData(
+            ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
             ranking_data.term_maxsize,
         )
         hits_ranking_data = HITSRakingData(
+            ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
