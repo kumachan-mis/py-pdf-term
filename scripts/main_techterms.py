@@ -45,11 +45,13 @@ def generate_domain_term_ranking(method_name: str) -> Iterator[DomainTermRanking
         yield DomainTermRanking.from_json(obj)
 
 
-def xml_path_to_techterm_path(xml_path: str) -> str:
+def xml_path_to_techterm_path(xml_path: str, method_name: str) -> str:
     abs_dir_path, xml_file_name = os.path.split(xml_path)
     rel_dir_path = os.path.relpath(abs_dir_path, XML_DIR)
     noext_file_name = os.path.splitext(xml_file_name)[0]
-    return os.path.join(TECHTERM_DIR, rel_dir_path, f"{noext_file_name}.json")
+    return os.path.join(
+        TECHTERM_DIR, rel_dir_path, noext_file_name, f"{method_name}.json"
+    )
 
 
 if __name__ == "__main__":
@@ -93,7 +95,9 @@ if __name__ == "__main__":
         )
 
         for xml_techterm_list in domain_techterm_list.xmls:
-            techterm_path = xml_path_to_techterm_path(xml_techterm_list.xml_path)
+            techterm_path = xml_path_to_techterm_path(
+                xml_techterm_list.xml_path, method_name
+            )
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)
 
