@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Tuple, Set, Dict, Callable, TypeVar
 
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import TechnicalTerm, LinguSeq
 
 
 @dataclass(frozen=True)
@@ -10,7 +10,7 @@ class TermOccurrence:
     term_freq: Dict[str, int]
     # brute force counting of term occurrences in the domain
     # count even if the term occurs as a part of a phrase
-    lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int]
+    lingu_freq: Dict[LinguSeq, int]
     # brute force counting of linguistic sequence occurrences in the domain
     # count even if the term occurs as a part of a phrase
     doc_freq: Dict[str, int]
@@ -27,11 +27,7 @@ class TermOccurrenceAnalyzer:
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermOccurrence:
         def update(
-            result: Tuple[
-                Dict[str, int],
-                Dict[Tuple[Tuple[str, str, str], ...], int],
-                Dict[str, Set[int]],
-            ],
+            result: Tuple[Dict[str, int], Dict[LinguSeq, int], Dict[str, Set[int]]],
             xml_id: int,
             page_num: int,
             sub_candidate: TechnicalTerm,
@@ -76,9 +72,9 @@ class TermOccurrenceAnalyzer:
 
     def analyze_lingu_freq(
         self, domain_candidates: DomainCandidateTermList
-    ) -> Dict[Tuple[Tuple[str, str, str], ...], int]:
+    ) -> Dict[LinguSeq, int]:
         def update(
-            lingu_freq: Dict[Tuple[Tuple[str, str, str], ...], int],
+            lingu_freq: Dict[LinguSeq, int],
             xml_id: int,
             page_num: int,
             sub_candidate: TechnicalTerm,
