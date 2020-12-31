@@ -1,30 +1,14 @@
 from math import log10
-from dataclasses import dataclass
-from typing import List, Dict, Optional, Literal
+from typing import List, Literal
 
+from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
+from pdf_slides_term.methods.collectors.tfidf import TFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass(frozen=True)
-class TFIDFDomainRankingData:
-    domain: str
-    # unique domain name
-    term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
-    doc_freq: Dict[str, int]
-    # number of documents in the domain that contain the term
-    # count even if the term occurs as a part of a phrase
-    num_docs: int
-    # number of documents in the domain
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is zero
-
-
-class TFIDFRanker:
+class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     # public
     def __init__(
         self,
@@ -37,8 +21,8 @@ class TFIDFRanker:
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: TFIDFDomainRankingData,
-        other_ranking_data_list: List[TFIDFDomainRankingData],
+        ranking_data: TFIDFRankingData,
+        other_ranking_data_list: List[TFIDFRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -55,8 +39,8 @@ class TFIDFRanker:
     def _calculate_score(
         self,
         candidate: TechnicalTerm,
-        ranking_data: TFIDFDomainRankingData,
-        other_ranking_data_list: List[TFIDFDomainRankingData],
+        ranking_data: TFIDFRankingData,
+        other_ranking_data_list: List[TFIDFRankingData],
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 
@@ -73,8 +57,8 @@ class TFIDFRanker:
     def _calculate_tf(
         self,
         candidate_str: str,
-        ranking_data: TFIDFDomainRankingData,
-        other_ranking_data_list: List[TFIDFDomainRankingData],
+        ranking_data: TFIDFRankingData,
+        other_ranking_data_list: List[TFIDFRankingData],
     ) -> float:
         all_data = [ranking_data] + other_ranking_data_list
 
@@ -97,8 +81,8 @@ class TFIDFRanker:
     def _calculate_idf(
         self,
         candidate_str: str,
-        ranking_data: TFIDFDomainRankingData,
-        other_ranking_data_list: List[TFIDFDomainRankingData],
+        ranking_data: TFIDFRankingData,
+        other_ranking_data_list: List[TFIDFRankingData],
     ) -> float:
         all_data = [ranking_data] + other_ranking_data_list
 

@@ -9,7 +9,10 @@ from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
 from pdf_slides_term.methods.flrh import FLRHMethod
 from pdf_slides_term.methods.mdp import MDPMethod
-from pdf_slides_term.methods.base import BaseSingleDomainTermRankingMethod
+from pdf_slides_term.methods.base import (
+    BaseSingleDomainRankingMethod,
+    BaseMultiDomainRankingMethod,
+)
 from pdf_slides_term.candidates.data import (
     DomainCandidateTermList,
     XMLCandidateTermList,
@@ -73,7 +76,8 @@ if __name__ == "__main__":
     file_name = f"{method_name}.json"
     domain_candidates_generator = generate_domain_candidates_list()
 
-    if isinstance(method, BaseSingleDomainTermRankingMethod):
+    # pyright:reportUnnecessaryIsInstance=false
+    if isinstance(method, BaseSingleDomainRankingMethod):
         for candidates in domain_candidates_generator:
             ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
             ranking_dir_name = os.path.dirname(ranking_path)
@@ -83,7 +87,7 @@ if __name__ == "__main__":
             with open(ranking_path, "w") as ranking_file:
                 json_obj = term_ranking.to_json()
                 json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
-    else:
+    elif isinstance(method, BaseMultiDomainRankingMethod):
         domain_candidates_list = list(domain_candidates_generator)
         term_ranking_generator = method.rank_terms(domain_candidates_list)
         for term_ranking in term_ranking_generator:

@@ -1,29 +1,13 @@
 from math import log10
-from dataclasses import dataclass
-from typing import Optional, Dict
 
+from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
+from pdf_slides_term.methods.collectors.flr import FLRRakingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
 from pdf_slides_term.share.data import TechnicalTerm
 
 
-@dataclass(frozen=True)
-class FLRRakingData:
-    term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
-    left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (left, morpheme) in the domain
-    # if morpheme or left is a modifying particle, this is fixed at zero
-    right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (morpheme, right) in the domain
-    # if morpheme or right is a modifying particle, this is fixed at zero
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is zero
-
-
-class FLRRanker:
+class FLRRanker(BaseSingleDomainRanker[FLRRakingData]):
     # public
     def __init__(self):
         pass
