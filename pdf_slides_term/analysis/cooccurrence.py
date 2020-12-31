@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Set, Dict
 
 from pdf_slides_term.analysis.runner import AnalysisRunner
 from pdf_slides_term.candidates.data import DomainCandidateTermList
@@ -8,9 +8,10 @@ from pdf_slides_term.share.data import TechnicalTerm
 
 @dataclass(frozen=True)
 class TermCooccurrence:
-    container_freqs: Dict[str, Dict[str, int]]
-    # brute force counting of occurrences of (term, container) in the domain
-    # (term, container) is valid iff the container contains the term as a subsequence
+    container_terms: Dict[str, Set[str]]
+    # set of containers of the term in the domain
+    # (term, container) is valid iff the container contains the term
+    # as a proper subsequence
 
 
 class TermCooccurrenceAnalyzer:
@@ -19,23 +20,26 @@ class TermCooccurrenceAnalyzer:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermCooccurrence:
-        return TermCooccurrence(self.analyze_container_freqs(domain_candidates))
+        return TermCooccurrence(self.analyze_container_terms(domain_candidates))
 
-    def analyze_container_freqs(
+    def analyze_container_terms(
         self, domain_candidates: DomainCandidateTermList
-    ) -> Dict[str, Dict[str, int]]:
+    ) -> Dict[str, Set[str]]:
         domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
 
         def update(
-            container_freqs: Dict[str, Dict[str, int]],
+            container_terms: Dict[str, Set[str]],
             xml_id: int,
             page_num: int,
             candidate: TechnicalTerm,
         ):
             candidate_str = str(candidate)
+            container_terms[candidate_str] = container_terms.get(candidate_str, set())
+
             num_morphemes = len(candidate.morphemes)
             for i in range(num_morphemes):
-                for j in range(i + 1, num_morphemes + 1):
+                jstart, jstop = i + 1, (num_morphemes + 1 if i > 0 else num_morphemes)
+                for j in range(jstart, jstop):
                     sub_candidate = TechnicalTerm(
                         candidate.morphemes[i:j],
                         candidate.fontsize,
@@ -45,13 +49,11 @@ class TermCooccurrenceAnalyzer:
                     if sub_candidate_str not in domain_candidates_set.candidates:
                         continue
 
-                    container_freq = container_freqs.get(sub_candidate_str, dict())
-                    container_freq[candidate_str] = (
-                        container_freq.get(candidate_str, 0) + 1
-                    )
-                    container_freqs[sub_candidate_str] = container_freq
+                    container_term_set = container_terms.get(sub_candidate_str, set())
+                    container_term_set.add(candidate_str)
+                    container_terms[sub_candidate_str] = container_term_set
 
-        container_freqs = self._runner.run_through_candidates(
+        container_terms = self._runner.run_through_candidates(
             domain_candidates, dict(), update
         )
-        return container_freqs
+        return container_terms

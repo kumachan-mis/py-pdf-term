@@ -19,7 +19,7 @@ class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRakingData]):
 
     def collect(self, domain_candidates: DomainCandidateTermList) -> MCValueRakingData:
         term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
-        container_freqs = self._cooccurrence_analyzer.analyze_container_freqs(
+        container_terms = self._cooccurrence_analyzer.analyze_container_terms(
             domain_candidates
         )
         term_maxsize = (
@@ -28,5 +28,5 @@ class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRakingData]):
             else None
         )
         return MCValueRakingData(
-            domain_candidates.domain, term_freq, container_freqs, term_maxsize
+            domain_candidates.domain, term_freq, container_terms, term_maxsize
         )

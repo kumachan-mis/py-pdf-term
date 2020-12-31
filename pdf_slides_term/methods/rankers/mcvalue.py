@@ -34,11 +34,21 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRakingData]):
         candidate_str = str(candidate)
 
         term_freq = ranking_data.term_freq[candidate_str]
-        container_freqs = ranking_data.container_freqs[candidate_str]
-        container_freq_ave = sum(container_freqs.values()) / len(container_freqs)
+        container_terms = ranking_data.container_terms[candidate_str]
+        num_containers = len(container_terms)
+        container_freq = sum(
+            map(
+                lambda container: ranking_data.term_freq[container],
+                container_terms,
+            )
+        )
 
         term_len_score = log10(len(candidate.morphemes))
-        freq_score = extended_log10(term_freq - container_freq_ave)
+        freq_score = extended_log10(
+            term_freq - container_freq / num_containers
+            if num_containers > 0
+            else term_freq
+        )
         term_maxsize_score = (
             log10(ranking_data.term_maxsize[candidate_str])
             if ranking_data.term_maxsize is not None
