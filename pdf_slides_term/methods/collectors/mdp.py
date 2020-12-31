@@ -26,6 +26,7 @@ class MDPRankingData:
 
 
 class MDPRankingDataCollector(BaseRankingDataCollector[MDPRankingData]):
+    # public
     def __init__(self, collect_charfont: bool = True):
         super().__init__()
 

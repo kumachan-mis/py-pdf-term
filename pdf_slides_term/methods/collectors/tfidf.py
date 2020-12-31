@@ -25,6 +25,7 @@ class TFIDFRankingData:
 
 
 class MDPRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
+    # public
     def __init__(self, collect_charfont: bool = True):
         super().__init__()
 

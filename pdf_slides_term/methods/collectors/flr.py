@@ -25,6 +25,7 @@ class FLRRakingData:
 
 
 class FLRRankingDataCollector(BaseRankingDataCollector[FLRRakingData]):
+    # public
     def __init__(self, collect_charfont: bool = True):
         super().__init__()
 
