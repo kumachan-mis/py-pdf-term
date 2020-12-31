@@ -33,13 +33,9 @@ class TermOccurrenceAnalyzer:
             sub_candidate: TechnicalTerm,
         ):
             sub_candidate_str = str(sub_candidate)
-
             result[0][sub_candidate_str] = result[0].get(sub_candidate_str, 0) + 1
 
-            lingu_seq = tuple(
-                (morpheme.pos, morpheme.category, morpheme.subcategory)
-                for morpheme in sub_candidate.morphemes
-            )
+            lingu_seq = sub_candidate.linguistic_sequence()
             result[1][lingu_seq] = result[1].get(lingu_seq, 0) + 1
 
             sub_candidate_doc_set = result[2].get(sub_candidate_str, set())
@@ -79,10 +75,7 @@ class TermOccurrenceAnalyzer:
             page_num: int,
             sub_candidate: TechnicalTerm,
         ):
-            lingu_seq = tuple(
-                (morpheme.pos, morpheme.category, morpheme.subcategory)
-                for morpheme in sub_candidate.morphemes
-            )
+            lingu_seq = sub_candidate.linguistic_sequence()
             lingu_freq[lingu_seq] = lingu_freq.get(lingu_seq, 0) + 1
 
         lingu_freq = self._run_brute_force_analysis(domain_candidates, dict(), update)
