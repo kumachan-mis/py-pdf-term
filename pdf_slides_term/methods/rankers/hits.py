@@ -23,7 +23,7 @@ class HITSAuthHubData:
 
 class HITSRanker(BaseSingleDomainRanker[HITSRakingData]):
     # public
-    def __init__(self, threshold=1e-8):
+    def __init__(self, threshold: float = 1e-8):
         self._threshold = threshold
 
     def rank_terms(

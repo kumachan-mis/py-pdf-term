@@ -1,12 +1,15 @@
 import re
 from dataclasses import dataclass
-from typing import List, Dict, Any, Type
+from typing import List, Tuple, Dict, Any, Type
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+
+
+LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 
 @dataclass(frozen=True)
@@ -32,6 +35,12 @@ class TechnicalTerm:
             term_str += self.morphemes[i].surface_form
 
         return term_str
+
+    def linguistic_sequence(self) -> LinguSeq:
+        return tuple(
+            (morpheme.pos, morpheme.category, morpheme.subcategory)
+            for morpheme in self.morphemes
+        )
 
     def to_json(self) -> Dict[str, Any]:
         return {

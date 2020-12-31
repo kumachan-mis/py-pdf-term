@@ -2,14 +2,14 @@ from math import log10
 from typing import List, Literal
 
 from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
-from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
+from pdf_slides_term.methods.rankingdata.lfidf import LFIDFRankingData
 from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.share.data import TechnicalTerm
+from pdf_slides_term.share.data import TechnicalTerm, LinguSeq
 from pdf_slides_term.share.utils import extended_log10
 
 
-class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
+class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
     # public
     def __init__(
         self,
@@ -22,8 +22,8 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data: LFIDFRankingData,
+        other_ranking_data_list: List[LFIDFRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -40,55 +40,56 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     def _calculate_score(
         self,
         candidate: TechnicalTerm,
-        ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data: LFIDFRankingData,
+        other_ranking_data_list: List[LFIDFRankingData],
     ) -> ScoredTerm:
         candidate_str = str(candidate)
+        lingu_seq = candidate.linguistic_sequence()
 
-        tf = self._calculate_tf(candidate_str, ranking_data, other_ranking_data_list)
-        idf = self._calculate_idf(candidate_str, ranking_data, other_ranking_data_list)
+        lf = self._calculate_lf(lingu_seq, ranking_data, other_ranking_data_list)
+        idf = self._calculate_idf(lingu_seq, ranking_data, other_ranking_data_list)
         term_maxsize = (
             ranking_data.term_maxsize[candidate_str]
             if ranking_data.term_maxsize is not None
             else 1.0
         )
-        score = extended_log10(term_maxsize * tf * idf)
+        score = extended_log10(term_maxsize * lf * idf)
         return ScoredTerm(candidate_str, score)
 
-    def _calculate_tf(
+    def _calculate_lf(
         self,
-        candidate_str: str,
-        ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        lingu_seq: LinguSeq,
+        ranking_data: LFIDFRankingData,
+        other_ranking_data_list: List[LFIDFRankingData],
     ) -> float:
         all_data = [ranking_data] + other_ranking_data_list
 
-        tf = ranking_data.term_freq[candidate_str]
-        max_tf = max(map(lambda data: data.term_freq.get(candidate_str, 0), all_data))
-        tf_sum = sum(map(lambda data: data.term_freq.get(candidate_str, 0), all_data))
-        ave_tf = tf_sum / len(all_data)
+        lf = ranking_data.lingu_freq[lingu_seq]
+        max_lf = max(map(lambda data: data.lingu_freq.get(lingu_seq, 0), all_data))
+        lf_sum = sum(map(lambda data: data.lingu_freq.get(lingu_seq, 0), all_data))
+        ave_lf = lf_sum / len(all_data)
 
         if self._idfmode == "natural":
-            return tf
+            return lf
         elif self._tfmode == "log":
-            return 1.0 * log10(tf) if tf > 0.0 else 0.0
+            return 1.0 * log10(lf) if lf > 0.0 else 0.0
         elif self._tfmode == "augmented":
-            return 0.5 + 0.5 * tf / max_tf
+            return 0.5 + 0.5 * lf / max_lf
         elif self._tfmode == "logave":
-            return (1.0 + log10(tf)) / (1.0 + log10(ave_tf)) if tf > 0.0 else 0.0
+            return (1.0 + log10(lf)) / (1.0 + log10(ave_lf)) if lf > 0.0 else 0.0
         else:
-            return 1.0 if tf > 0.0 else 0.0
+            return 1.0 if lf > 0.0 else 0.0
 
     def _calculate_idf(
         self,
-        candidate_str: str,
-        ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        lingu_seq: LinguSeq,
+        ranking_data: LFIDFRankingData,
+        other_ranking_data_list: List[LFIDFRankingData],
     ) -> float:
         all_data = [ranking_data] + other_ranking_data_list
 
         num_docs = sum(map(lambda data: data.num_docs, all_data))
-        df = sum(map(lambda data: data.doc_freq.get(candidate_str, 0), all_data))
+        df = sum(map(lambda data: data.doc_freq.get(lingu_seq, 0), all_data))
 
         if self._idfmode == "natural":
             return log10(num_docs / df)

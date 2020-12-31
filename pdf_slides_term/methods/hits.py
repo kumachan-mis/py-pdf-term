@@ -6,7 +6,7 @@ from pdf_slides_term.methods.rankers.hits import HITSRanker
 
 class HITSMethod(BaseSingleDomainRankingMethod[HITSRakingData]):
     # public
-    def __init__(self, consider_charfont: bool = True):
+    def __init__(self, threshold: float = 1e-8, consider_charfont: bool = True):
         collector = HITSRankingDataCollector(collect_charfont=consider_charfont)
-        ranker = HITSRanker()
+        ranker = HITSRanker(threshold=threshold)
         super().__init__(collector, ranker)
