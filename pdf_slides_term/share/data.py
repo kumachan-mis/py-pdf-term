@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Any, Type, Hashable
+from typing import List, Tuple, Dict, Any, Type
 
 from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
@@ -9,7 +9,7 @@ from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_R
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
-LinguSeq: Type[Hashable] = Tuple[Tuple[str, str, str], ...]
+LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 
 @dataclass(frozen=True)

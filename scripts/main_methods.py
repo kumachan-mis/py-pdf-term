@@ -5,6 +5,7 @@ from glob import iglob
 from typing import Iterator
 
 from pdf_slides_term.methods.tfidf import TFIDFMethod
+from pdf_slides_term.methods.lfidf import LFIDFMethod
 from pdf_slides_term.methods.flr import FLRMethod
 from pdf_slides_term.methods.hits import HITSMethod
 from pdf_slides_term.methods.flrh import FLRHMethod
@@ -48,6 +49,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--tfidf", help="use TF-IDF method", action="store_true")
+    group.add_argument("--lfidf", help="use LF-IDF method", action="store_true")
     group.add_argument("--flr", help="use FLR method", action="store_true")
     group.add_argument("--hits", help="use HITS method", action="store_true")
     group.add_argument("--flrh", help="use FLRH method", action="store_true")
@@ -57,6 +59,9 @@ if __name__ == "__main__":
     if args.tfidf:
         method_name = "tfidf"
         method = TFIDFMethod()
+    elif args.lfidf:
+        method_name = "lfidf"
+        method = LFIDFMethod()
     elif args.flr:
         method_name = "flr"
         method = FLRMethod()
