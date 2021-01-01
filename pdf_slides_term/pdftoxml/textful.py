@@ -1,5 +1,5 @@
 import re
-from io import BufferedWriter
+from io import BufferedWriter, BytesIO
 from enum import Enum, auto
 from typing import Any, Union, Optional, cast
 
@@ -19,7 +19,7 @@ class TextfulXMLConverter(PDFConverter):
     def __init__(
         self,
         rsrcmgr: PDFResourceManager,
-        outfp: BufferedWriter,
+        outfp: Union[BufferedWriter, BytesIO],
         codec: str = "utf-8",
         pageno: int = 1,
         laparams: Optional[LAParams] = None,
@@ -30,16 +30,7 @@ class TextfulXMLConverter(PDFConverter):
         )  # pyright:reportUnknownMemberType=false
         self._stripcontrol = stripcontrol
 
-        self._write_header()
-
-    def receive_layout(self, ltpage: LTPage) -> None:
-        self._render(ltpage)
-
-    def close(self) -> None:
-        self._write_footer()
-
-    # private
-    def _write_header(self) -> None:
+    def write_header(self) -> None:
         if self.codec:
             codec: str = self.codec
             self._write('<?xml version="1.0" encoding="%s" ?>\n' % codec)
@@ -47,9 +38,13 @@ class TextfulXMLConverter(PDFConverter):
             self._write('<?xml version="1.0" ?>\n')
         self._write("<pages>\n")
 
-    def _write_footer(self):
+    def receive_layout(self, ltpage: LTPage) -> None:
+        self._render(ltpage)
+
+    def write_footer(self):
         self._write("</pages>\n")
 
+    # private
     def _render(self, item: Any):
         if isinstance(item, LTPage):
             pageid: str = item.pageid
@@ -136,7 +131,7 @@ class TextfulXMLConverter(PDFConverter):
             text = text.encode(
                 cast(str, self.codec)
             )  # pyright: reportGeneralTypeIssues=false
-        cast(BufferedWriter, self.outfp).write(text)
+        cast(Union[BufferedWriter, BytesIO], self.outfp).write(text)
 
     def _write_text(self, text: str) -> None:
         if self._stripcontrol:

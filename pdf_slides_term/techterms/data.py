@@ -16,21 +16,21 @@ class PageTechnicalTermList:
 
 
 @dataclass
-class XMLTechnicalTermList:
-    xml_path: str
+class PDFTechnicalTermList:
+    pdf_path: str
     pages: List[PageTechnicalTermList]
 
     def to_json(self) -> Dict[str, Any]:
         return {
-            "xml_path": self.xml_path,
+            "pdf_path": self.pdf_path,
             "pages": list(map(lambda page: page.to_json(), self.pages)),
         }
 
     @classmethod
     def from_json(cls, obj: Dict[str, Any]):
-        xml_path, pages = obj["xml_path"], obj["pages"]
+        pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
-            xml_path,
+            pdf_path,
             list(map(lambda item: PageTechnicalTermList.from_json(item), pages)),
         )
 
@@ -38,20 +38,20 @@ class XMLTechnicalTermList:
 @dataclass(frozen=True)
 class DomainTechnicalTermList:
     domain: str
-    xmls: List[XMLTechnicalTermList]
+    pdfs: List[PDFTechnicalTermList]
 
     def to_json(self) -> Dict[str, Any]:
         return {
             "domain": self.domain,
-            "xmls": list(map(lambda xml: xml.to_json(), self.xmls)),
+            "pdfs": list(map(lambda pdf: pdf.to_json(), self.pdfs)),
         }
 
     @classmethod
     def from_json(cls, obj: Dict[str, Any]):
-        domain, xmls = obj["domain"], obj["xmls"]
+        domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,
-            list(map(lambda item: XMLTechnicalTermList.from_json(item), xmls)),
+            list(map(lambda item: PDFTechnicalTermList.from_json(item), pdfs)),
         )
 
 

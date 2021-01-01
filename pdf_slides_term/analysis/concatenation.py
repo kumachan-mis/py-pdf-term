@@ -25,8 +25,8 @@ class TermConcatenationAnalyzer:
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermConcatenation:
         term_concat = TermConcatenation(dict(), dict())
 
-        for xml_candidates in domain_candidates.xmls:
-            for page_candidates in xml_candidates.pages:
+        for pdf_candidates in domain_candidates.pdfs:
+            for page_candidates in pdf_candidates.pages:
                 for candidate in page_candidates.candidates:
                     if self._ignore_augmented and candidate.augmented:
                         continue

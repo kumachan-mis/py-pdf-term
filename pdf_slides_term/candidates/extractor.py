@@ -1,8 +1,14 @@
-from xml.etree import ElementTree
+from xml.etree.ElementTree import parse, fromstring, Element
 from typing import List, cast
 
 from .filter import CandidateTermFilter
-from .data import DomainCandidateTermList, XMLCandidateTermList, PageCandidateTermList
+from .data import (
+    PDFnXMLPath,
+    PDFnXMLContent,
+    DomainCandidateTermList,
+    PDFCandidateTermList,
+    PageCandidateTermList,
+)
 from pdf_slides_term.mecab import MeCabTagger, MeCabMorphemeFilter, BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 
@@ -15,26 +21,43 @@ class CandidateTermExtractor:
         self._morpheme_filter = MeCabMorphemeFilter()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
-    def extract_from_domain(
-        self, domain: str, xml_paths: List[str]
+    def extract_from_domain_files(
+        self, domain: str, pdfnxmls: List[PDFnXMLPath]
     ) -> DomainCandidateTermList:
-        xmls = list(map(self.extract_from_xml, xml_paths))
+        xmls = list(map(self.extract_from_xml_file, pdfnxmls))
         return DomainCandidateTermList(domain, xmls)
 
-    def extract_from_xml(self, xml_path: str) -> XMLCandidateTermList:
-        pages = []
-        xml_root = ElementTree.parse(xml_path).getroot()
-        for page_node in xml_root.iter("page"):
-            page_num = int(cast(str, page_node.get("id")))
-            candicate_terms = self._extract_from_page(page_node)
-            pages.append(PageCandidateTermList(page_num, candicate_terms))
+    def extract_from_xml_file(self, pdfnxml: PDFnXMLPath) -> PDFCandidateTermList:
+        xml_root = parse(pdfnxml.xml_path).getroot()
+        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
+        return xml_candidates
 
-        return XMLCandidateTermList(xml_path, pages)
+    def extract_from_domain_contents(
+        self, domain: str, pdfnxmls: List[PDFnXMLContent]
+    ) -> DomainCandidateTermList:
+        xmls = list(map(self.extract_from_xml_content, pdfnxmls))
+        return DomainCandidateTermList(domain, xmls)
+
+    def extract_from_xml_content(self, pdfnxml: PDFnXMLContent) -> PDFCandidateTermList:
+        xml_root = fromstring(pdfnxml.xml_content)
+        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
+        return xml_candidates
 
     # private
-    def _extract_from_page(self, page_node: ElementTree.Element) -> List[Term]:
+    def _extract_from_xmlroot(
+        self, pdf_path: str, xml_root: Element
+    ) -> PDFCandidateTermList:
+        page_candidates: List[PageCandidateTermList] = []
+        for page in xml_root.iter("page"):
+            page_candidates.append(self._extract_from_page(page))
+
+        return PDFCandidateTermList(pdf_path, page_candidates)
+
+    def _extract_from_page(self, page: Element) -> PageCandidateTermList:
+        page_num = int(cast(str, page.get("id")))
+
         candicate_terms: List[Term] = []
-        for text_node in page_node.iter("text"):
+        for text_node in page.iter("text"):
             candicate_term_morphemes: List[BaseMeCabMorpheme] = []
 
             morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
@@ -58,7 +81,7 @@ class CandidateTermExtractor:
                 candicate_terms.append(candidate_term)
             candicate_term_morphemes = []
 
-        return candicate_terms
+        return PageCandidateTermList(page_num, candicate_terms)
 
     def _augment_term_if_enabled(self, term: Term) -> List[Term]:
         if not self.modifying_particle_augmentation:

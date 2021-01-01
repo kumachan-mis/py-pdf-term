@@ -1,54 +1,13 @@
 import os
 import json
 from argparse import ArgumentParser
-from glob import iglob
-from typing import List, Iterator
 
-from .settings import XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
 from pdf_slides_term.techterms import TechnicalTermExtractor
-from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
-from pdf_slides_term.methods import DomainTermRanking
-
-
-def get_domains() -> List[str]:
-    return list(
-        filter(
-            lambda dir_name: not dir_name.startswith(".")
-            and os.path.isdir(os.path.join(CANDIDATE_DIR, dir_name)),
-            os.listdir(CANDIDATE_DIR),
-        )
-    )
-
-
-def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
-    domains = get_domains()
-    for domain in domains:
-        xmls = []
-        json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
-        for json_path in iglob(json_path_pattern, recursive=True):
-            with open(json_path, "r") as f:
-                obj = json.load(f)
-            xmls.append(XMLCandidateTermList.from_json(obj))
-
-        yield DomainCandidateTermList(domain, xmls)
-
-
-def generate_domain_term_ranking(method_name: str) -> Iterator[DomainTermRanking]:
-    domains = get_domains()
-    for domain in domains:
-        json_path = os.path.join(METHODS_DIR, domain, f"{method_name}.json")
-        with open(json_path, "r") as f:
-            obj = json.load(f)
-        yield DomainTermRanking.from_json(obj)
-
-
-def xml_path_to_techterm_path(xml_path: str, method_name: str) -> str:
-    abs_dir_path, xml_file_name = os.path.split(xml_path)
-    rel_dir_path = os.path.relpath(abs_dir_path, XML_DIR)
-    noext_file_name = os.path.splitext(xml_file_name)[0]
-    return os.path.join(
-        TECHTERM_DIR, rel_dir_path, noext_file_name, f"{method_name}.json"
-    )
+from scripts.utils import (
+    generate_domain_candidates,
+    generate_domain_term_ranking,
+    pdf_to_techterm_path,
+)
 
 
 if __name__ == "__main__":
@@ -82,22 +41,24 @@ if __name__ == "__main__":
 
     extractor = TechnicalTermExtractor()
 
-    domain_candidates_generator = generate_domain_candidates()
-    domain_term_ranking_generator = generate_domain_term_ranking(method_name)
-    for domain_candidates, domain_term_ranking in zip(
-        domain_candidates_generator, domain_term_ranking_generator
-    ):
+    domain_candidates_list = generate_domain_candidates()
+    domain_term_ranking_list = generate_domain_term_ranking(method_name)
+    ziped_list = zip(domain_candidates_list, domain_term_ranking_list)
+
+    for domain_candidates, domain_term_ranking in ziped_list:
         domain_techterm_list = extractor.extract_from_domain(
             domain_candidates, domain_term_ranking
         )
 
-        for xml_techterm_list in domain_techterm_list.xmls:
-            techterm_path = xml_path_to_techterm_path(
-                xml_techterm_list.xml_path, method_name
+        for pdf_techterm_list in domain_techterm_list.pdfs:
+            techterm_path = pdf_to_techterm_path(
+                pdf_techterm_list.pdf_path, method_name
             )
+            print(f"main_techterms.py: creating {techterm_path} ...")
+
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)
 
             with open(techterm_path, "w") as techterm_file:
-                json_obj = xml_techterm_list.to_json()
+                json_obj = pdf_techterm_list.to_json()
                 json.dump(json_obj, techterm_file, ensure_ascii=False, indent=2)
