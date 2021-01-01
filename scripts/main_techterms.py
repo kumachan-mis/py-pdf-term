@@ -54,6 +54,8 @@ if __name__ == "__main__":
             techterm_path = pdf_to_techterm_path(
                 pdf_techterm_list.pdf_path, method_name
             )
+            print(f"main_techterms.py: creating {techterm_path} ...")
+
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)
 
