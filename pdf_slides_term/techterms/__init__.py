@@ -1,9 +1,9 @@
 from .extractor import TechnicalTermExtractor
-from .data import DomainTechnicalTermList, XMLTechnicalTermList, PageTechnicalTermList
+from .data import DomainTechnicalTermList, PDFTechnicalTermList, PageTechnicalTermList
 
 __all__ = [
     "TechnicalTermExtractor",
     "DomainTechnicalTermList",
-    "XMLTechnicalTermList",
+    "PDFTechnicalTermList",
     "PageTechnicalTermList",
 ]

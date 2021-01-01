@@ -38,7 +38,7 @@ class TermOccurrenceAnalyzer:
                 Dict[str, Set[int]],
                 Dict[LinguSeq, Set[int]],
             ],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             subcandidate: Term,
         ):
@@ -52,11 +52,11 @@ class TermOccurrenceAnalyzer:
             result[1][sub_lingu_seq] = result[1].get(sub_lingu_seq, 0) + 1
 
             subcandidate_doc_term_set = result[2].get(subcandidate_str, set())
-            subcandidate_doc_term_set.add(xml_id)
+            subcandidate_doc_term_set.add(pdf_id)
             result[2][subcandidate_str] = subcandidate_doc_term_set
 
             subcandidate_doc_lingu_set = result[3].get(sub_lingu_seq, set())
-            subcandidate_doc_lingu_set.add(xml_id)
+            subcandidate_doc_lingu_set.add(pdf_id)
             result[3][sub_lingu_seq] = subcandidate_doc_lingu_set
 
         (
@@ -83,7 +83,7 @@ class TermOccurrenceAnalyzer:
         domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
 
         def update(
-            term_freq: Dict[str, int], xml_id: int, page_num: int, subcandidate: Term
+            term_freq: Dict[str, int], pdf_id: int, page_num: int, subcandidate: Term
         ):
             subcandidate_str = str(subcandidate)
             if subcandidate_str not in domain_candidates_set.candidates:
@@ -102,7 +102,7 @@ class TermOccurrenceAnalyzer:
 
         def update(
             lingu_freq: Dict[LinguSeq, int],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             subcandidate: Term,
         ):
@@ -123,7 +123,7 @@ class TermOccurrenceAnalyzer:
 
         def update(
             doc_term_set: Dict[str, Set[int]],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             subcandidate: Term,
         ):
@@ -131,7 +131,7 @@ class TermOccurrenceAnalyzer:
             if subcandidate_str not in domain_candidates_set.candidates:
                 return
             subcandidate_doc_term_set = doc_term_set.get(subcandidate_str, set())
-            subcandidate_doc_term_set.add(xml_id)
+            subcandidate_doc_term_set.add(pdf_id)
             doc_term_set[subcandidate_str] = subcandidate_doc_term_set
 
         doc_term_set = self._runner.run_through_subcandidates(
@@ -150,7 +150,7 @@ class TermOccurrenceAnalyzer:
 
         def update(
             doc_lingu_set: Dict[LinguSeq, Set[int]],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             subcandidate: Term,
         ):
@@ -158,7 +158,7 @@ class TermOccurrenceAnalyzer:
                 return
             sub_lingu_seq = subcandidate.linguistic_sequence()
             subcandidate_doc_lingu_set = doc_lingu_set.get(sub_lingu_seq, set())
-            subcandidate_doc_lingu_set.add(xml_id)
+            subcandidate_doc_lingu_set.add(pdf_id)
             doc_lingu_set[sub_lingu_seq] = subcandidate_doc_lingu_set
 
         doc_lingu_set = self._runner.run_through_subcandidates(

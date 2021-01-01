@@ -1,27 +1,20 @@
 import os
 import json
-from glob import glob
 
-from pdf_slides_term.candidates import CandidateTermExtractor
-from scripts.settings import XML_DIR, CANDIDATE_DIR
-
-
-def xml_path_to_candidate_path(xml_path: str) -> str:
-    abs_dir_path, xml_file_name = os.path.split(xml_path)
-    rel_dir_path = os.path.relpath(abs_dir_path, XML_DIR)
-    noext_file_name = os.path.splitext(xml_file_name)[0]
-    return os.path.join(CANDIDATE_DIR, rel_dir_path, f"{noext_file_name}.json")
-
+from pdf_slides_term.candidates import PDFnXMLPath, CandidateTermExtractor
+from scripts.utils import generate_pdf_path, pdf_to_xml_path, pdf_to_candidate_path
 
 if __name__ == "__main__":
-    xml_paths = glob(os.path.join(XML_DIR, "**", "*.xml"), recursive=True)
-    candidate_paths = list(map(xml_path_to_candidate_path, xml_paths))
-
     extractor = CandidateTermExtractor(modifying_particle_augmentation=True)
-    for xml_path, candidate_path in zip(xml_paths, candidate_paths):
+    pdf_paths = generate_pdf_path()
+    for pdf_path in pdf_paths:
+        xml_path = pdf_to_xml_path(pdf_path)
+        pdfnxml = PDFnXMLPath(pdf_path, xml_path)
+        candidate_term_list = extractor.extract_from_xml_file(pdfnxml)
+
+        candidate_path = pdf_to_candidate_path(pdf_path)
         candidate_dir_name = os.path.dirname(candidate_path)
         os.makedirs(candidate_dir_name, exist_ok=True)
-        candidate_term_list = extractor.extract_from_xml_file(xml_path)
 
         with open(candidate_path, "w") as candidate_file:
             json_obj = candidate_term_list.to_json()

@@ -29,7 +29,7 @@ class TermCooccurrenceAnalyzer:
 
         def update(
             container_terms: Dict[str, Set[str]],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             candidate: Term,
         ):

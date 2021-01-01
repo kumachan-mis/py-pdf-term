@@ -6,6 +6,32 @@ from pdf_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
+class PDFnXMLPath:
+    pdf_path: str
+    xml_path: str
+
+    def to_json(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_json(cls, obj: Dict[str, Any]):
+        return cls(**obj)
+
+
+@dataclass(frozen=True)
+class PDFnXMLContent:
+    pdf_path: str
+    xml_content: str
+
+    def to_json(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_json(cls, obj: Dict[str, Any]):
+        return cls(**obj)
+
+
+@dataclass(frozen=True)
 class DomainCandidateTermSet:
     domain: str
     candidates: Set[str]
@@ -73,13 +99,13 @@ class PageCandidateTermList:
 
 
 @dataclass(frozen=True)
-class XMLCandidateTermList:
-    xml_path: str
+class PDFCandidateTermList:
+    pdf_path: str
     pages: List[PageCandidateTermList]
 
     def to_json(self) -> Dict[str, Any]:
         return {
-            "xml_path": self.xml_path,
+            "pdf_path": self.pdf_path,
             "pages": list(map(lambda page: page.to_json(), self.pages)),
         }
 
@@ -89,9 +115,9 @@ class XMLCandidateTermList:
         obj: Dict[str, Any],
         morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
-        xml_path, pages = obj["xml_path"], obj["pages"]
+        pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
-            xml_path,
+            pdf_path,
             list(
                 map(
                     lambda item: PageCandidateTermList.from_json(item, morpheme_cls),
@@ -104,12 +130,12 @@ class XMLCandidateTermList:
 @dataclass(frozen=True)
 class DomainCandidateTermList:
     domain: str
-    xmls: List[XMLCandidateTermList]
+    pdfs: List[PDFCandidateTermList]
 
     def to_domain_candidate_term_dict(self) -> DomainCandidateTermDict:
         candidates: Dict[str, Term] = dict()
-        for xml in self.xmls:
-            for page in xml.pages:
+        for pdf in self.pdfs:
+            for page in pdf.pages:
                 for candidate in page.candidates:
                     candidate_str = str(candidate)
                     candidate_in_dict = candidates.get(
@@ -128,8 +154,8 @@ class DomainCandidateTermList:
             self.domain,
             {
                 str(candidate)
-                for xml in self.xmls
-                for page in xml.pages
+                for pdf in self.pdfs
+                for page in pdf.pages
                 for candidate in page.candidates
             },
         )
@@ -137,7 +163,7 @@ class DomainCandidateTermList:
     def to_json(self) -> Dict[str, Any]:
         return {
             "domain": self.domain,
-            "xmls": list(map(lambda xml: xml.to_json(), self.xmls)),
+            "pdfs": list(map(lambda pdf: pdf.to_json(), self.pdfs)),
         }
 
     @classmethod
@@ -146,13 +172,13 @@ class DomainCandidateTermList:
         obj: Dict[str, Any],
         morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
     ):
-        domain, xmls = obj["domain"], obj["xmls"]
+        domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,
             list(
                 map(
-                    lambda item: XMLCandidateTermList.from_json(item, morpheme_cls),
-                    xmls,
+                    lambda item: PDFCandidateTermList.from_json(item, morpheme_cls),
+                    pdfs,
                 )
             ),
         )

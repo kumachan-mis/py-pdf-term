@@ -1,8 +1,14 @@
-from xml.etree.ElementTree import parse, ElementTree, Element
+from xml.etree.ElementTree import parse, fromstring, Element
 from typing import List, cast
 
 from .filter import CandidateTermFilter
-from .data import DomainCandidateTermList, XMLCandidateTermList, PageCandidateTermList
+from .data import (
+    PDFnXMLPath,
+    PDFnXMLContent,
+    DomainCandidateTermList,
+    PDFCandidateTermList,
+    PageCandidateTermList,
+)
 from pdf_slides_term.mecab import MeCabTagger, MeCabMorphemeFilter, BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 
@@ -16,26 +22,36 @@ class CandidateTermExtractor:
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
     def extract_from_domain_files(
-        self, domain: str, xml_paths: List[str]
+        self, domain: str, pdfnxmls: List[PDFnXMLPath]
     ) -> DomainCandidateTermList:
-        xmls = list(map(self.extract_from_xml_file, xml_paths))
+        xmls = list(map(self.extract_from_xml_file, pdfnxmls))
         return DomainCandidateTermList(domain, xmls)
 
-    def extract_from_xml_file(self, xml_path: str) -> XMLCandidateTermList:
-        xml_tree = parse(xml_path)
-        xml_candidates = self._extract_from_xmltree(xml_path, xml_tree)
+    def extract_from_xml_file(self, pdfnxml: PDFnXMLPath) -> PDFCandidateTermList:
+        xml_root = parse(pdfnxml.xml_path).getroot()
+        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
+        return xml_candidates
+
+    def extract_from_domain_contents(
+        self, domain: str, pdfnxmls: List[PDFnXMLContent]
+    ) -> DomainCandidateTermList:
+        xmls = list(map(self.extract_from_xml_content, pdfnxmls))
+        return DomainCandidateTermList(domain, xmls)
+
+    def extract_from_xml_content(self, pdfnxml: PDFnXMLContent) -> PDFCandidateTermList:
+        xml_root = fromstring(pdfnxml.xml_content)
+        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
         return xml_candidates
 
     # private
-    def _extract_from_xmltree(
-        self, xml_path: str, xml_tree: ElementTree
-    ) -> XMLCandidateTermList:
-        xml_root = xml_tree.getroot()
+    def _extract_from_xmlroot(
+        self, pdf_path: str, xml_root: Element
+    ) -> PDFCandidateTermList:
         page_candidates: List[PageCandidateTermList] = []
         for page in xml_root.iter("page"):
             page_candidates.append(self._extract_from_page(page))
 
-        return XMLCandidateTermList(xml_path, page_candidates)
+        return PDFCandidateTermList(pdf_path, page_candidates)
 
     def _extract_from_page(self, page: Element) -> PageCandidateTermList:
         page_num = int(cast(str, page.get("id")))

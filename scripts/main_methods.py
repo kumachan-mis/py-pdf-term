@@ -1,8 +1,6 @@
 import os
 import json
 from argparse import ArgumentParser
-from glob import iglob
-from typing import Iterator
 
 from pdf_slides_term.methods import (
     BaseSingleDomainRankingMethod,
@@ -15,28 +13,8 @@ from pdf_slides_term.methods import (
     FLRHMethod,
     MDPMethod,
 )
-from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
-from scripts.settings import CANDIDATE_DIR, METHODS_DIR
-
-
-def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
-    domains = list(
-        filter(
-            lambda dir_name: not dir_name.startswith(".")
-            and os.path.isdir(os.path.join(CANDIDATE_DIR, dir_name)),
-            os.listdir(CANDIDATE_DIR),
-        )
-    )
-
-    for domain in domains:
-        xmls = []
-        json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
-        for json_path in iglob(json_path_pattern, recursive=True):
-            with open(json_path, "r") as f:
-                obj = json.load(f)
-            xmls.append(XMLCandidateTermList.from_json(obj))
-
-        yield DomainCandidateTermList(domain, xmls)
+from scripts.settings import METHODS_DIR
+from scripts.utils import generate_domain_candidates
 
 
 if __name__ == "__main__":
@@ -76,11 +54,11 @@ if __name__ == "__main__":
         raise RuntimeError("unreachable statement")
 
     file_name = f"{method_name}.json"
-    domain_candidates_generator = generate_domain_candidates()
+    domain_candidates_list = generate_domain_candidates()
 
     # pyright:reportUnnecessaryIsInstance=false
     if isinstance(method, BaseSingleDomainRankingMethod):
-        for candidates in domain_candidates_generator:
+        for candidates in domain_candidates_list:
             ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
             ranking_dir_name = os.path.dirname(ranking_path)
             os.makedirs(ranking_dir_name, exist_ok=True)
@@ -90,9 +68,9 @@ if __name__ == "__main__":
                 json_obj = term_ranking.to_json()
                 json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
     elif isinstance(method, BaseMultiDomainRankingMethod):
-        domain_candidates_list = list(domain_candidates_generator)
-        term_ranking_generator = method.rank_terms(domain_candidates_list)
-        for term_ranking in term_ranking_generator:
+        domain_candidates_list = list(domain_candidates_list)
+        term_ranking_list = method.rank_terms(domain_candidates_list)
+        for term_ranking in term_ranking_list:
             ranking_path = os.path.join(METHODS_DIR, term_ranking.domain, file_name)
             ranking_dir_name = os.path.dirname(ranking_path)
             os.makedirs(ranking_dir_name, exist_ok=True)

@@ -28,7 +28,7 @@ class TermCharFontAnalyzer:
 
         def update(
             term_maxsize: Dict[str, float],
-            xml_id: int,
+            pdf_id: int,
             page_num: int,
             subcandidate: Term,
         ):

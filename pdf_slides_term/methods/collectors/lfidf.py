@@ -17,7 +17,7 @@ class LFIDFRankingDataCollector(BaseRankingDataCollector[LFIDFRankingData]):
     def collect(self, domain_candidates: DomainCandidateTermList) -> LFIDFRankingData:
         lingu_freq = self._occurrence_analyzer.analyze_lingu_freq(domain_candidates)
         doc_freq = self._occurrence_analyzer.analyze_doc_lingu_freq(domain_candidates)
-        num_docs = len(domain_candidates.xmls)
+        num_docs = len(domain_candidates.pdfs)
         term_maxsize = (
             self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
             if self._collect_charfont

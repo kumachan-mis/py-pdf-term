@@ -1,12 +1,12 @@
 from .data import (
     DomainTechnicalTermList,
-    XMLTechnicalTermList,
+    PDFTechnicalTermList,
     PageTechnicalTermList,
     DomainTermScoreDict,
 )
 from pdf_slides_term.candidates import (
     DomainCandidateTermList,
-    XMLCandidateTermList,
+    PDFCandidateTermList,
     PageCandidateTermList,
 )
 from pdf_slides_term.share.utils import remove_duplicated_items
@@ -22,26 +22,26 @@ class CandidateSelector:
         domain_candidates: DomainCandidateTermList,
         domain_term_scores: DomainTermScoreDict,
     ) -> DomainTechnicalTermList:
-        xmls = list(
+        pdfs = list(
             map(
-                lambda xml: self.select_from_xml(xml, domain_term_scores),
-                domain_candidates.xmls,
+                lambda pdfs: self.select_from_pdf(pdfs, domain_term_scores),
+                domain_candidates.pdfs,
             )
         )
-        return DomainTechnicalTermList(domain_candidates.domain, xmls)
+        return DomainTechnicalTermList(domain_candidates.domain, pdfs)
 
-    def select_from_xml(
+    def select_from_pdf(
         self,
-        xml_candidates: XMLCandidateTermList,
+        pdf_candidates: PDFCandidateTermList,
         domain_term_scores: DomainTermScoreDict,
-    ) -> XMLTechnicalTermList:
+    ) -> PDFTechnicalTermList:
         pages = list(
             map(
                 lambda page: self._select_from_page(page, domain_term_scores),
-                xml_candidates.pages,
+                pdf_candidates.pages,
             )
         )
-        return XMLTechnicalTermList(xml_candidates.xml_path, pages)
+        return PDFTechnicalTermList(pdf_candidates.pdf_path, pages)
 
     # private
     def _select_from_page(

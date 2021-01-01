@@ -18,13 +18,13 @@ class AnalysisRunner:
     ) -> AnalysisResult:
         result = initial_result
 
-        for xml_id, xml_candidates in enumerate(domain_candidates.xmls):
-            for page_candidates in xml_candidates.pages:
+        for pdf_id, pdf_candidates in enumerate(domain_candidates.pdfs):
+            for page_candidates in pdf_candidates.pages:
                 page_num = page_candidates.page_num
                 for candidate in page_candidates.candidates:
                     if self._ignore_augmented and candidate.augmented:
                         continue
-                    update_result(result, xml_id, page_num, candidate)
+                    update_result(result, pdf_id, page_num, candidate)
 
         return result
 
@@ -36,8 +36,8 @@ class AnalysisRunner:
     ) -> AnalysisResult:
         result = initial_result
 
-        for xml_id, xml_candidates in enumerate(domain_candidates.xmls):
-            for page_candidates in xml_candidates.pages:
+        for pdf_id, pdf_candidates in enumerate(domain_candidates.pdfs):
+            for page_candidates in pdf_candidates.pages:
                 page_num = page_candidates.page_num
                 for candidate in page_candidates.candidates:
                     if self._ignore_augmented and candidate.augmented:
@@ -51,6 +51,6 @@ class AnalysisRunner:
                                 candidate.fontsize,
                                 candidate.augmented,
                             )
-                            update_result(result, xml_id, page_num, subcandidate)
+                            update_result(result, pdf_id, page_num, subcandidate)
 
         return result
