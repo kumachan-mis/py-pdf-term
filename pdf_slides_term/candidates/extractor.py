@@ -1,4 +1,4 @@
-from xml.etree import ElementTree
+from xml.etree.ElementTree import parse, ElementTree, Element
 from typing import List, cast
 
 from .filter import CandidateTermFilter
@@ -15,26 +15,33 @@ class CandidateTermExtractor:
         self._morpheme_filter = MeCabMorphemeFilter()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
-    def extract_from_domain(
+    def extract_from_domain_files(
         self, domain: str, xml_paths: List[str]
     ) -> DomainCandidateTermList:
-        xmls = list(map(self.extract_from_xml, xml_paths))
+        xmls = list(map(self.extract_from_xml_file, xml_paths))
         return DomainCandidateTermList(domain, xmls)
 
-    def extract_from_xml(self, xml_path: str) -> XMLCandidateTermList:
-        pages = []
-        xml_root = ElementTree.parse(xml_path).getroot()
-        for page_node in xml_root.iter("page"):
-            page_num = int(cast(str, page_node.get("id")))
-            candicate_terms = self._extract_from_page(page_node)
-            pages.append(PageCandidateTermList(page_num, candicate_terms))
-
-        return XMLCandidateTermList(xml_path, pages)
+    def extract_from_xml_file(self, xml_path: str) -> XMLCandidateTermList:
+        xml_tree = parse(xml_path)
+        xml_candidates = self._extract_from_xmltree(xml_path, xml_tree)
+        return xml_candidates
 
     # private
-    def _extract_from_page(self, page_node: ElementTree.Element) -> List[Term]:
+    def _extract_from_xmltree(
+        self, xml_path: str, xml_tree: ElementTree
+    ) -> XMLCandidateTermList:
+        xml_root = xml_tree.getroot()
+        page_candidates: List[PageCandidateTermList] = []
+        for page in xml_root.iter("page"):
+            page_candidates.append(self._extract_from_page(page))
+
+        return XMLCandidateTermList(xml_path, page_candidates)
+
+    def _extract_from_page(self, page: Element) -> PageCandidateTermList:
+        page_num = int(cast(str, page.get("id")))
+
         candicate_terms: List[Term] = []
-        for text_node in page_node.iter("text"):
+        for text_node in page.iter("text"):
             candicate_term_morphemes: List[BaseMeCabMorpheme] = []
 
             morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
@@ -58,7 +65,7 @@ class CandidateTermExtractor:
                 candicate_terms.append(candidate_term)
             candicate_term_morphemes = []
 
-        return candicate_terms
+        return PageCandidateTermList(page_num, candicate_terms)
 
     def _augment_term_if_enabled(self, term: Term) -> List[Term]:
         if not self.modifying_particle_augmentation:
