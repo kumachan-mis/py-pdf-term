@@ -62,9 +62,10 @@ if __name__ == "__main__":
             ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
             print(f"main_methods.py: creating {ranking_path} ...")
 
+            term_ranking = method.rank_terms(candidates)
+
             ranking_dir_name = os.path.dirname(ranking_path)
             os.makedirs(ranking_dir_name, exist_ok=True)
-            term_ranking = method.rank_terms(candidates)
 
             with open(ranking_path, "w") as ranking_file:
                 json_obj = term_ranking.to_json()

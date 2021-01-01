@@ -38,8 +38,10 @@ if __name__ == "__main__":
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
             print(f"main_pdftoxml.py: {pdf_name} → {xml_name}")
+
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
+
             converter.convert_between_path(pdf_path, xml_path)
 
     elif args.type == "stream":
@@ -50,11 +52,12 @@ if __name__ == "__main__":
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
             print(f"main_pdftoxml.py: {pdf_name} →　BytesIO →　{xml_name}")
 
-            xml_dir_name = os.path.dirname(xml_path)
-            os.makedirs(xml_dir_name, exist_ok=True)
             xml_stream = BytesIO()
             with open(pdf_path, "rb") as pdf_file:
                 converter.convert_between_stream(pdf_file, xml_stream)
+
+            xml_dir_name = os.path.dirname(xml_path)
+            os.makedirs(xml_dir_name, exist_ok=True)
             with open(xml_path, "w") as xml_file:
                 xml_file.write(xml_stream.getvalue().decode("utf-8"))
             xml_stream.close()
