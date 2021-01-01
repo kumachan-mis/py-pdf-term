@@ -1,8 +1,8 @@
 import os
 from glob import glob
 
-from pdf_slides_term.pdftoxml.converter import PDFtoXMLConverter
-from scripts.settings import PDF_DIR, XML_DIR
+from .settings import PDF_DIR, XML_DIR
+from pdf_slides_term.pdftoxml import PDFtoXMLConverter
 
 
 def pdf_path_to_xml_path(pdf_path: str) -> str:

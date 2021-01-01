@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Optional
 
-from pdf_slides_term.methods.rankingdata.base import BaseRankingData
+from .base import BaseRankingData
 from pdf_slides_term.share.data import LinguSeq
 
 

@@ -1,14 +1,8 @@
-from pdf_slides_term.techterms.data import (
-    DomainTechnicalTermList,
-    XMLTechnicalTermList,
-)
-from pdf_slides_term.techterms.converter import RankingToScoreDictConverter
-from pdf_slides_term.techterms.selector import CandidateSelector
-from pdf_slides_term.candidates.data import (
-    DomainCandidateTermList,
-    XMLCandidateTermList,
-)
-from pdf_slides_term.methods.data import DomainTermRanking
+from .data import DomainTechnicalTermList, XMLTechnicalTermList
+from .converter import RankingToScoreDictConverter
+from .selector import CandidateSelector
+from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
+from pdf_slides_term.methods import DomainTermRanking
 
 
 class TechnicalTermExtractor:

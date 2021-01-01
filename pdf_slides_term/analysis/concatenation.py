@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Dict
 
-from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
+from pdf_slides_term.candidates import DomainCandidateTermList
+from pdf_slides_term.mecab import MeCabMorphemeFilter
 from pdf_slides_term.share.data import Term
 
 

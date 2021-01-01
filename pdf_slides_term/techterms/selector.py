@@ -1,10 +1,10 @@
-from pdf_slides_term.techterms.data import (
+from .data import (
     DomainTechnicalTermList,
     XMLTechnicalTermList,
     PageTechnicalTermList,
     DomainTermScoreDict,
 )
-from pdf_slides_term.candidates.data import (
+from pdf_slides_term.candidates import (
     DomainCandidateTermList,
     XMLCandidateTermList,
     PageCandidateTermList,

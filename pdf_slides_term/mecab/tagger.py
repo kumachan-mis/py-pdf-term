@@ -1,7 +1,7 @@
 import re
 import MeCab
 from typing import List, Type, cast
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
+from .morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import SYMBOL_REGEX
 
 

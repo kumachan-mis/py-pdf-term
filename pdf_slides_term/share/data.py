@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import List, Tuple, Dict, Any, Type
 
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
+from pdf_slides_term.mecab import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 

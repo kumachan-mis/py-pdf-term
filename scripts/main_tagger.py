@@ -1,7 +1,8 @@
 import os
 from argparse import ArgumentParser
-from scripts.settings import BASE_DIR
-from pdf_slides_term.mecab.tagger import MeCabTagger
+
+from .settings import BASE_DIR
+from pdf_slides_term.mecab import MeCabTagger
 
 
 if __name__ == "__main__":

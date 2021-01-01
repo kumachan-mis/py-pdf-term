@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional, Dict
 
-from pdf_slides_term.methods.rankingdata.base import BaseRankingData
+from .base import BaseRankingData
 
 
 @dataclass(frozen=True)

@@ -2,8 +2,8 @@ import os
 import json
 from glob import glob
 
-from pdf_slides_term.candidates.extractor import CandidateTermExtractor
-from scripts.settings import XML_DIR, CANDIDATE_DIR
+from .settings import XML_DIR, CANDIDATE_DIR
+from pdf_slides_term.candidates import CandidateTermExtractor
 
 
 def xml_path_to_candidate_path(xml_path: str) -> str:

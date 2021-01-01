@@ -1,10 +1,10 @@
-from pdf_slides_term.methods.base import BaseSingleDomainRankingMethod
-from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
-from pdf_slides_term.methods.collectors.hits import HITSRankingDataCollector
-from pdf_slides_term.methods.rankers.hits import HITSRanker
+from .base import BaseSingleDomainRankingMethod
+from .rankingdata import HITSRankingData
+from .collectors import HITSRankingDataCollector
+from .rankers import HITSRanker
 
 
-class HITSMethod(BaseSingleDomainRankingMethod[HITSRakingData]):
+class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8, consider_charfont: bool = True):
         collector = HITSRankingDataCollector(collect_charfont=consider_charfont)

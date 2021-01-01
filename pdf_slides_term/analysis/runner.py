@@ -1,6 +1,6 @@
 from typing import Callable, TypeVar
 
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 
 AnalysisResult = TypeVar("AnalysisResult")

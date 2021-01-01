@@ -1,14 +1,11 @@
 from abc import ABCMeta
 from typing import List, Iterator, Generic
 
-from pdf_slides_term.methods.collectors.base import BaseRankingDataCollector
-from pdf_slides_term.methods.rankers.base import (
-    BaseSingleDomainRanker,
-    BaseMultiDomainRanker,
-)
-from pdf_slides_term.methods.rankingdata.base import RankingData
-from pdf_slides_term.methods.data import DomainTermRanking
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .collectors import BaseRankingDataCollector
+from .rankers import BaseSingleDomainRanker, BaseMultiDomainRanker
+from .data import DomainTermRanking
+from .rankingdata.base import RankingData
+from pdf_slides_term.candidates import DomainCandidateTermList
 
 
 class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):

@@ -1,8 +1,7 @@
-from pdf_slides_term.methods.collectors.base import BaseRankingDataCollector
-from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
-from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.analysis.occurrence import TermOccurrenceAnalyzer
-from pdf_slides_term.analysis.charfont import TermCharFontAnalyzer
+from .base import BaseRankingDataCollector
+from ..rankingdata import TFIDFRankingData
+from pdf_slides_term.candidates import DomainCandidateTermList
+from pdf_slides_term.analysis import TermOccurrenceAnalyzer, TermCharFontAnalyzer
 
 
 class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):

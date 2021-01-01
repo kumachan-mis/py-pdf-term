@@ -1,12 +1,14 @@
-from pdf_slides_term.methods.collectors.base import BaseRankingDataCollector
-from pdf_slides_term.methods.rankingdata.mcvalue import MCValueRakingData
-from pdf_slides_term.candidates.data import DomainCandidateTermList
-from pdf_slides_term.analysis.occurrence import TermOccurrenceAnalyzer
-from pdf_slides_term.analysis.cooccurrence import TermCooccurrenceAnalyzer
-from pdf_slides_term.analysis.charfont import TermCharFontAnalyzer
+from .base import BaseRankingDataCollector
+from ..rankingdata import MCValueRankingData
+from pdf_slides_term.candidates import DomainCandidateTermList
+from pdf_slides_term.analysis import (
+    TermOccurrenceAnalyzer,
+    TermCooccurrenceAnalyzer,
+    TermCharFontAnalyzer,
+)
 
 
-class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRakingData]):
+class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRankingData]):
     # public
     def __init__(self, collect_charfont: bool = True):
         super().__init__()
@@ -17,7 +19,7 @@ class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRakingData]):
         self._cooccurrence_analyzer = TermCooccurrenceAnalyzer()
         self._char_font_analyzer = TermCharFontAnalyzer()
 
-    def collect(self, domain_candidates: DomainCandidateTermList) -> MCValueRakingData:
+    def collect(self, domain_candidates: DomainCandidateTermList) -> MCValueRankingData:
         term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
         container_terms = self._cooccurrence_analyzer.analyze_container_terms(
             domain_candidates
@@ -27,6 +29,6 @@ class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRakingData]):
             if self._collect_charfont
             else None
         )
-        return MCValueRakingData(
+        return MCValueRankingData(
             domain_candidates.domain, term_freq, container_terms, term_maxsize
         )

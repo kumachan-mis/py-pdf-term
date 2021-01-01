@@ -1,10 +1,10 @@
-from pdf_slides_term.methods.base import BaseSingleDomainRankingMethod
-from pdf_slides_term.methods.rankingdata.flrh import FLRHRakingData
-from pdf_slides_term.methods.collectors.flrh import FLRHRankingDataCollector
-from pdf_slides_term.methods.rankers.flrh import FLRHRanker
+from .base import BaseSingleDomainRankingMethod
+from .rankingdata import FLRHRankingData
+from .collectors import FLRHRankingDataCollector
+from .rankers import FLRHRanker
 
 
-class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRakingData]):
+class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8, consider_charfont: bool = True):
         collector = FLRHRankingDataCollector(collect_charfont=consider_charfont)

@@ -1,4 +1,4 @@
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from .morphemes import BaseMeCabMorpheme
 
 
 class MeCabMorphemeFilter:

@@ -1,13 +1,13 @@
 from math import log10
-from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.rankingdata.mcvalue import MCValueRakingData
-from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .base import BaseSingleDomainRanker
+from ..rankingdata import MCValueRankingData
+from ..data import DomainTermRanking, ScoredTerm
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 from pdf_slides_term.share.utils import extended_log10
 
 
-class MCValueRanker(BaseSingleDomainRanker[MCValueRakingData]):
+class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
     # public
     def __init__(self):
         pass
@@ -15,7 +15,7 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRakingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: MCValueRakingData,
+        ranking_data: MCValueRankingData,
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -29,7 +29,7 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRakingData]):
 
     # private
     def _calculate_score(
-        self, candidate: Term, ranking_data: MCValueRakingData
+        self, candidate: Term, ranking_data: MCValueRankingData
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 

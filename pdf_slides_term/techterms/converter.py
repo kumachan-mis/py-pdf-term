@@ -1,5 +1,5 @@
-from pdf_slides_term.techterms.data import DomainTermScoreDict
-from pdf_slides_term.methods.data import DomainTermRanking
+from .data import DomainTermScoreDict
+from pdf_slides_term.methods import DomainTermRanking
 
 
 class RankingToScoreDictConverter:
