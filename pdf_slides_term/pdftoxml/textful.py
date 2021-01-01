@@ -2,6 +2,7 @@ import re
 from io import BufferedWriter
 from enum import Enum, auto
 from typing import Any, Union, Optional, cast
+
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.converter import PDFConverter
 from pdfminer.layout import LTPage, LTText, LTChar, LTTextLine, LTTextBox

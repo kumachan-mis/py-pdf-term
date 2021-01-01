@@ -1,8 +1,8 @@
 from dataclasses import dataclass, asdict
 from typing import List, Set, Dict, Any, Type
 
+from pdf_slides_term.mecab import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from pdf_slides_term.share.data import Term
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
 
 @dataclass(frozen=True)

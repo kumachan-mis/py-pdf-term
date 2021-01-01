@@ -1,6 +1,7 @@
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
-from pdf_slides_term.pdftoxml.textful import TextfulXMLConverter
+
+from .textful import TextfulXMLConverter
 
 
 class PDFtoXMLConverter:

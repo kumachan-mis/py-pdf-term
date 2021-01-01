@@ -1,15 +1,9 @@
 from xml.etree import ElementTree
 from typing import List, cast
 
-from pdf_slides_term.candidates.filter import CandidateTermFilter
-from pdf_slides_term.candidates.data import (
-    DomainCandidateTermList,
-    XMLCandidateTermList,
-    PageCandidateTermList,
-)
-from pdf_slides_term.mecab.tagger import MeCabTagger
-from pdf_slides_term.mecab.filter import MeCabMorphemeFilter
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from .filter import CandidateTermFilter
+from .data import DomainCandidateTermList, XMLCandidateTermList, PageCandidateTermList
+from pdf_slides_term.mecab import MeCabTagger, MeCabMorphemeFilter, BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 
 

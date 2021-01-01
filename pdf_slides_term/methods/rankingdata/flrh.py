@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional, Dict
 
-from pdf_slides_term.methods.rankingdata.base import BaseRankingData
+from .base import BaseRankingData
 
 
 @dataclass(frozen=True)
-class FLRHRakingData(BaseRankingData):
+class FLRHRankingData(BaseRankingData):
     domain: str
     # unique domain name
     term_freq: Dict[str, int]

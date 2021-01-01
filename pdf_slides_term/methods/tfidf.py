@@ -1,9 +1,9 @@
 from typing import Literal
 
-from pdf_slides_term.methods.base import BaseMultiDomainRankingMethod
-from pdf_slides_term.methods.rankingdata.tfidf import TFIDFRankingData
-from pdf_slides_term.methods.collectors.tfidf import TFIDFRankingDataCollector
-from pdf_slides_term.methods.rankers.tfidf import TFIDFRanker
+from .base import BaseMultiDomainRankingMethod
+from .rankingdata import TFIDFRankingData
+from .collectors import TFIDFRankingDataCollector
+from .rankers import TFIDFRanker
 
 
 class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):

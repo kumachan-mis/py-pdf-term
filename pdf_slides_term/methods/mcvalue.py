@@ -1,10 +1,10 @@
-from pdf_slides_term.methods.base import BaseSingleDomainRankingMethod
-from pdf_slides_term.methods.rankingdata.mcvalue import MCValueRakingData
-from pdf_slides_term.methods.collectors.mcvalue import MCValueRankingDataCollector
-from pdf_slides_term.methods.rankers.mcvalue import MCValueRanker
+from .base import BaseSingleDomainRankingMethod
+from .rankingdata import MCValueRankingData
+from .collectors import MCValueRankingDataCollector
+from .rankers import MCValueRanker
 
 
-class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRakingData]):
+class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRankingData]):
     # public
     def __init__(self, consider_charfont: bool = True):
         collector = MCValueRankingDataCollector(collect_charfont=consider_charfont)

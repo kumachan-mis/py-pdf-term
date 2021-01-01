@@ -2,10 +2,10 @@ from math import sqrt, log10
 from dataclasses import dataclass
 from typing import Dict
 
-from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
-from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .base import BaseSingleDomainRanker
+from ..rankingdata import HITSRankingData
+from ..data import DomainTermRanking, ScoredTerm
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 
 
@@ -21,13 +21,13 @@ class HITSAuthHubData:
     # initial hub value is 1.0
 
 
-class HITSRanker(BaseSingleDomainRanker[HITSRakingData]):
+class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._threshold = threshold
 
     def rank_terms(
-        self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRakingData
+        self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
     ) -> DomainTermRanking:
         auth_hub_data = self._create_auth_hub_data(ranking_data)
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
@@ -43,7 +43,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRakingData]):
         return DomainTermRanking(domain_candidates.domain, ranking)
 
     # private
-    def _create_auth_hub_data(self, ranking_data: HITSRakingData) -> HITSAuthHubData:
+    def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:
         morpheme_auth: Dict[str, float] = {
             morpheme: 1.0 for morpheme in ranking_data.left_freq
         }
@@ -94,7 +94,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRakingData]):
     def _calculate_score(
         self,
         candidate: Term,
-        ranking_data: HITSRakingData,
+        ranking_data: HITSRankingData,
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:
         num_morphemes = len(candidate.morphemes)

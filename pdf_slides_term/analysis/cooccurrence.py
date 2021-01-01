@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Set, Dict
 
-from pdf_slides_term.analysis.runner import AnalysisRunner
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .runner import AnalysisRunner
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 
 

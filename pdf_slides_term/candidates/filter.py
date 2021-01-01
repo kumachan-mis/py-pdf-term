@@ -1,6 +1,6 @@
 import re
 
-from pdf_slides_term.mecab.morphemes import BaseMeCabMorpheme
+from pdf_slides_term.mecab import BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 from pdf_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 

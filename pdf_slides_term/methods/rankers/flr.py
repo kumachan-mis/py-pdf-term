@@ -1,19 +1,19 @@
 from math import log10
 
-from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
-from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .base import BaseSingleDomainRanker
+from ..rankingdata import FLRRankingData
+from ..data import DomainTermRanking, ScoredTerm
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 
 
-class FLRRanker(BaseSingleDomainRanker[FLRRakingData]):
+class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
     # public
     def __init__(self):
         pass
 
     def rank_terms(
-        self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRakingData
+        self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRankingData
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -27,7 +27,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRakingData]):
 
     # private
     def _calculate_score(
-        self, candidate: Term, ranking_data: FLRRakingData
+        self, candidate: Term, ranking_data: FLRRankingData
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 

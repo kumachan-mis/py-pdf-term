@@ -1,33 +1,31 @@
-from pdf_slides_term.methods.rankers.base import BaseSingleDomainRanker
-from pdf_slides_term.methods.rankingdata.flrh import FLRHRakingData
-from pdf_slides_term.methods.rankers.flr import FLRRanker
-from pdf_slides_term.methods.rankingdata.flr import FLRRakingData
-from pdf_slides_term.methods.rankers.hits import HITSRanker, HITSAuthHubData
-from pdf_slides_term.methods.rankingdata.hits import HITSRakingData
-from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .base import BaseSingleDomainRanker
+from .flr import FLRRanker
+from .hits import HITSRanker, HITSAuthHubData
+from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
+from ..data import DomainTermRanking, ScoredTerm
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term
 
 
 # pyright:reportPrivateUsage=false
 # FLRHRanker is a friend of FLRRanker and HITSRanker
-class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
+class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._flr_ranker = FLRRanker()
         self._hits_ranker = HITSRanker(threshold=threshold)
 
     def rank_terms(
-        self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRakingData
+        self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRankingData
     ) -> DomainTermRanking:
-        flr_ranking_data = FLRRakingData(
+        flr_ranking_data = FLRRankingData(
             ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
             ranking_data.term_maxsize,
         )
-        hits_ranking_data = HITSRakingData(
+        hits_ranking_data = HITSRankingData(
             ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
@@ -52,8 +50,8 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRakingData]):
     def _calculate_score(
         self,
         candidate: Term,
-        flr_ranking_data: FLRRakingData,
-        hits_ranking_data: HITSRakingData,
+        flr_ranking_data: FLRRankingData,
+        hits_ranking_data: HITSRankingData,
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:
         flr_score = self._flr_ranker._calculate_score(candidate, flr_ranking_data).score

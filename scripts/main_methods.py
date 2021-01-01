@@ -4,22 +4,19 @@ from argparse import ArgumentParser
 from glob import iglob
 from typing import Iterator
 
-from pdf_slides_term.methods.mcvalue import MCValueMethod
-from pdf_slides_term.methods.tfidf import TFIDFMethod
-from pdf_slides_term.methods.lfidf import LFIDFMethod
-from pdf_slides_term.methods.flr import FLRMethod
-from pdf_slides_term.methods.hits import HITSMethod
-from pdf_slides_term.methods.flrh import FLRHMethod
-from pdf_slides_term.methods.mdp import MDPMethod
-from pdf_slides_term.methods.base import (
+from .settings import CANDIDATE_DIR, METHODS_DIR
+from pdf_slides_term.methods import (
     BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
+    MCValueMethod,
+    TFIDFMethod,
+    LFIDFMethod,
+    FLRMethod,
+    HITSMethod,
+    FLRHMethod,
+    MDPMethod,
 )
-from pdf_slides_term.candidates.data import (
-    DomainCandidateTermList,
-    XMLCandidateTermList,
-)
-from scripts.settings import CANDIDATE_DIR, METHODS_DIR
+from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
 
 
 def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:

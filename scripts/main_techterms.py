@@ -4,13 +4,10 @@ from argparse import ArgumentParser
 from glob import iglob
 from typing import List, Iterator
 
-from pdf_slides_term.techterms.extractor import TechnicalTermExtractor
-from pdf_slides_term.candidates.data import (
-    DomainCandidateTermList,
-    XMLCandidateTermList,
-)
-from pdf_slides_term.methods.data import DomainTermRanking
-from scripts.settings import XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
+from .settings import XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
+from pdf_slides_term.techterms import TechnicalTermExtractor
+from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
+from pdf_slides_term.methods import DomainTermRanking
 
 
 def get_domains() -> List[str]:

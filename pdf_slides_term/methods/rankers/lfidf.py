@@ -1,10 +1,10 @@
 from math import log10
 from typing import List, Literal
 
-from pdf_slides_term.methods.rankers.base import BaseMultiDomainRanker
-from pdf_slides_term.methods.rankingdata.lfidf import LFIDFRankingData
-from pdf_slides_term.methods.data import DomainTermRanking, ScoredTerm
-from pdf_slides_term.candidates.data import DomainCandidateTermList
+from .base import BaseMultiDomainRanker
+from ..rankingdata import LFIDFRankingData
+from ..data import DomainTermRanking, ScoredTerm
+from pdf_slides_term.candidates import DomainCandidateTermList
 from pdf_slides_term.share.data import Term, LinguSeq
 from pdf_slides_term.share.utils import extended_log10
 
