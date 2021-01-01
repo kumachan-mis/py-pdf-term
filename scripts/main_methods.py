@@ -4,7 +4,6 @@ from argparse import ArgumentParser
 from glob import iglob
 from typing import Iterator
 
-from .settings import CANDIDATE_DIR, METHODS_DIR
 from pdf_slides_term.methods import (
     BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
@@ -17,6 +16,7 @@ from pdf_slides_term.methods import (
     MDPMethod,
 )
 from pdf_slides_term.candidates import DomainCandidateTermList, XMLCandidateTermList
+from scripts.settings import CANDIDATE_DIR, METHODS_DIR
 
 
 def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
