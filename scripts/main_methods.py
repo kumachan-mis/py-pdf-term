@@ -14,8 +14,9 @@ from py_slides_term.methods import (
     MDPMethod,
 )
 from scripts.settings import METHODS_DIR
-from scripts.utils import get_domains, generate_domain_candidates
+from scripts.utils import relpath_from_basedir, get_domains, generate_domain_candidates
 
+script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -61,7 +62,7 @@ if __name__ == "__main__":
     if isinstance(method, BaseSingleDomainRankingMethod):
         for candidates in domain_candidates_list:
             ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
-            print(f"main_methods.py: creating {ranking_path} ...")
+            print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
 
             term_ranking = method.rank_terms(candidates)
 
@@ -72,13 +73,13 @@ if __name__ == "__main__":
                 json_obj = term_ranking.to_json()
                 json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
     elif isinstance(method, BaseMultiDomainRankingMethod):
-        print("main_methods.py: preprocessing ...")
+        print(f"{script_name}: preprocessing ...")
 
         domain_candidates_list = list(domain_candidates_list)
         term_ranking_list = method.rank_terms(domain_candidates_list)
         for term_ranking in term_ranking_list:
             ranking_path = os.path.join(METHODS_DIR, term_ranking.domain, file_name)
-            print(f"main_methods.py: creating {ranking_path} ...")
+            print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
 
             ranking_dir_name = os.path.dirname(ranking_path)
             os.makedirs(ranking_dir_name, exist_ok=True)

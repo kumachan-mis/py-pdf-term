@@ -4,12 +4,14 @@ from argparse import ArgumentParser
 
 from py_slides_term.techterms import TechnicalTermExtractor
 from scripts.utils import (
+    relpath_from_basedir,
     get_domains,
     generate_domain_candidates,
     generate_domain_term_ranking,
     pdf_to_techterm_path,
 )
 
+script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -56,7 +58,7 @@ if __name__ == "__main__":
             techterm_path = pdf_to_techterm_path(
                 pdf_techterm_list.pdf_path, method_name
             )
-            print(f"main_techterms.py: creating {techterm_path} ...")
+            print(f"{script_name}: creating {relpath_from_basedir(techterm_path)} ...")
 
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)

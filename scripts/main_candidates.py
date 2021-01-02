@@ -2,14 +2,21 @@ import os
 import json
 
 from py_slides_term.candidates import PDFnXMLPath, CandidateTermExtractor
-from scripts.utils import generate_pdf_path, pdf_to_xml_path, pdf_to_candidate_path
+from scripts.utils import (
+    relpath_from_basedir,
+    generate_pdf_path,
+    pdf_to_xml_path,
+    pdf_to_candidate_path,
+)
+
+script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
     extractor = CandidateTermExtractor(modifying_particle_augmentation=True)
     pdf_paths = generate_pdf_path()
     for pdf_path in pdf_paths:
         candidate_path = pdf_to_candidate_path(pdf_path)
-        print(f"main_candidates.py: creating {candidate_path} ...")
+        print(f"{script_name}: creating {relpath_from_basedir(candidate_path)} ...")
 
         xml_path = pdf_to_xml_path(pdf_path)
         pdfnxml = PDFnXMLPath(pdf_path, xml_path)

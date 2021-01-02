@@ -3,9 +3,20 @@ import json
 from glob import iglob
 from typing import List, Iterator, Iterable
 
-from scripts.settings import PDF_DIR, XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
+from scripts.settings import (
+    BASE_DIR,
+    PDF_DIR,
+    XML_DIR,
+    CANDIDATE_DIR,
+    METHODS_DIR,
+    TECHTERM_DIR,
+)
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_slides_term.methods import DomainTermRanking
+
+
+def relpath_from_basedir(path: str) -> str:
+    return os.path.relpath(path, BASE_DIR)
 
 
 def generate_pdf_path() -> Iterator[str]:
