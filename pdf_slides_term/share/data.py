@@ -24,7 +24,7 @@ class Term:
             return ""
 
         japanese_regex = re.compile(rf"{JAPANESE_REGEX}*")
-        symbol_regex = re.compile("-")
+        hyphen_regex = re.compile("-")
 
         term_str = str(self.morphemes[0])
         for i in range(1, num_morphemes):
@@ -34,8 +34,8 @@ class Term:
                 japanese_regex.fullmatch(prev_morpheme_str) is None
                 or japanese_regex.fullmatch(morpheme_str) is None
             ) and (
-                symbol_regex.fullmatch(prev_morpheme_str) is None
-                and symbol_regex.fullmatch(morpheme_str) is None
+                hyphen_regex.fullmatch(prev_morpheme_str) is None
+                and hyphen_regex.fullmatch(morpheme_str) is None
             ):
                 term_str += " "
 
