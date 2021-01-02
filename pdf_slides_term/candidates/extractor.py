@@ -25,14 +25,12 @@ class CandidateTermExtractor:
     # public
     def __init__(
         self,
-        morpheme_filters: Iterable[BaseCandidateMorphemeFilter],
-        term_filters: Iterable[BaseCandidateTermFilter],
+        morpheme_filters: Iterable[BaseCandidateMorphemeFilter] = [],
+        term_filters: Iterable[BaseCandidateTermFilter] = [],
         modifying_particle_augmentation: bool = False,
     ):
         self._mecab_tagger = MeCabTagger()
-        self._filter = CandidateFilter(
-            morpheme_filters=morpheme_filters, term_filters=term_filters
-        )
+        self._filter = CandidateFilter(morpheme_filters, term_filters)
         self._classifier = MeCabMorphemeClassifier()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
