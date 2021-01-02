@@ -92,8 +92,8 @@ class CandidateTermExtractor:
 
             morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
             fontsize = float(cast(str, text_node.get("size")))
-            for morpheme in morphemes_from_text:
-                if self._filter.is_partof_candidate(morpheme):
+            for idx, morpheme in enumerate(morphemes_from_text):
+                if self._filter.is_partof_candidate(morphemes_from_text, idx):
                     candicate_term_morphemes.append(morpheme)
                     continue
 
@@ -131,9 +131,9 @@ class CandidateTermExtractor:
 
         augmented_terms = []
         for length in range(1, num_positions - 1):
-            for index in range(num_positions - length):
-                i = modifying_particle_positions[index]
-                j = modifying_particle_positions[index + length]
+            for idx in range(num_positions - length):
+                i = modifying_particle_positions[idx]
+                j = modifying_particle_positions[idx + length]
                 morphemes = term.morphemes[i + 1 : j]
                 augmented_term = Term(morphemes, term.fontsize, True)
                 if self._filter.is_candidate(augmented_term):

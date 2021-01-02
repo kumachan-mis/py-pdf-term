@@ -8,8 +8,8 @@ class RankingToScoreDictConverter:
         self._acceptance_rate = acceptance_rate
 
     def convert(self, domain_term_ranking: DomainTermRanking) -> DomainTermScoreDict:
-        threshold_index = int(self._acceptance_rate * len(domain_term_ranking.ranking))
-        threshold = domain_term_ranking.ranking[threshold_index].score
+        threshold_idx = int(self._acceptance_rate * len(domain_term_ranking.ranking))
+        threshold = domain_term_ranking.ranking[threshold_idx].score
         term_scores = {
             scored_term.term: scored_term.score
             for scored_term in domain_term_ranking.ranking

@@ -26,7 +26,7 @@ class SymbolLikeFilter(BaseCandidateTermFilter):
 
         if num_morphemes == 1:
             morpheme_str = str(scoped_term.morphemes[0])
-            phonetic_regex.fullmatch(morpheme_str) is not None
+            return phonetic_regex.fullmatch(morpheme_str) is not None
 
         def phonetic_char_appears_continuously_at(i: int) -> bool:
             if i == num_morphemes - 1:

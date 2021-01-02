@@ -24,15 +24,22 @@ class Term:
             return ""
 
         japanese_regex = re.compile(rf"{JAPANESE_REGEX}*")
-        term_str = self.morphemes[0].surface_form
+        symbol_regex = re.compile("-")
+
+        term_str = str(self.morphemes[0])
         for i in range(1, num_morphemes):
+            prev_morpheme_str = str(self.morphemes[i - 1])
+            morpheme_str = str(self.morphemes[i])
             if (
-                japanese_regex.fullmatch(self.morphemes[i - 1].surface_form) is None
-                or japanese_regex.fullmatch(self.morphemes[i].surface_form) is None
+                japanese_regex.fullmatch(prev_morpheme_str) is None
+                or japanese_regex.fullmatch(morpheme_str) is None
+            ) and (
+                symbol_regex.fullmatch(prev_morpheme_str) is None
+                and symbol_regex.fullmatch(morpheme_str) is None
             ):
                 term_str += " "
 
-            term_str += self.morphemes[i].surface_form
+            term_str += morpheme_str
 
         return term_str
 

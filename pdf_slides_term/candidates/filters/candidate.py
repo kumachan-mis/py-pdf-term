@@ -17,13 +17,15 @@ class CandidateFilter:
         self._morpheme_filters = morpheme_filters
         self._term_filters = term_filters
 
-    def is_partof_candidate(self, morpheme: BaseMeCabMorpheme) -> bool:
+    def is_partof_candidate(self, morphemes: List[BaseMeCabMorpheme], idx: int) -> bool:
+        morpheme = morphemes[idx]
         if all(map(lambda mf: not mf.inscope(morpheme), self._morpheme_filters)):
             return False
 
         return all(
             map(
-                lambda mf: not mf.inscope(morpheme) or mf.is_partof_candidate(morpheme),
+                lambda mf: not mf.inscope(morpheme)
+                or mf.is_partof_candidate(morphemes, idx),
                 self._morpheme_filters,
             )
         )
