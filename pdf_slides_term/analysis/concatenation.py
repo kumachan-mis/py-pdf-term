@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Dict
 
 from pdf_slides_term.candidates import DomainCandidateTermList
-from pdf_slides_term.mecab import MeCabMorphemeFilter
+from pdf_slides_term.mecab import MeCabMorphemeClassifier
 from pdf_slides_term.share.data import Term
 
 
@@ -19,7 +19,7 @@ class TermConcatenation:
 class TermConcatenationAnalyzer:
     # public
     def __init__(self, ignore_augmented: bool = True):
-        self._morpheme_filter = MeCabMorphemeFilter()
+        self._classifier = MeCabMorphemeClassifier()
         self._ignore_augmented = ignore_augmented
 
     def analyze(self, domain_candidates: DomainCandidateTermList) -> TermConcatenation:
@@ -40,7 +40,7 @@ class TermConcatenationAnalyzer:
         for i in range(num_morphemes):
             morpheme = candidate.morphemes[i]
             morpheme_str = str(morpheme)
-            if self._morpheme_filter.is_modifying_particle(morpheme):
+            if self._classifier.is_modifying_particle(morpheme):
                 term_concat.left_freq[morpheme_str] = dict()
                 term_concat.right_freq[morpheme_str] = dict()
                 continue
@@ -49,7 +49,7 @@ class TermConcatenationAnalyzer:
                 left_morpheme = candidate.morphemes[i - 1]
                 left_morpheme_str = str(left_morpheme)
 
-                if not self._morpheme_filter.is_modifying_particle(left_morpheme):
+                if not self._classifier.is_modifying_particle(left_morpheme):
                     left = term_concat.left_freq.get(morpheme_str, dict())
                     left[left_morpheme_str] = left.get(left_morpheme_str, 0) + 1
                     term_concat.left_freq[morpheme_str] = left
@@ -68,7 +68,7 @@ class TermConcatenationAnalyzer:
                 right_morpheme = candidate.morphemes[i + 1]
                 right_morpheme_str = str(right_morpheme)
 
-                if not self._morpheme_filter.is_modifying_particle(right_morpheme):
+                if not self._classifier.is_modifying_particle(right_morpheme):
                     right = term_concat.right_freq.get(morpheme_str, dict())
                     right[right_morpheme_str] = right.get(right_morpheme_str, 0) + 1
                     term_concat.right_freq[morpheme_str] = right

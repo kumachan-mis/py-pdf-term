@@ -12,6 +12,4 @@ class BaseRankingDataCollector(Generic[RankingData], metaclass=ABCMeta):
 
     @abstractmethod
     def collect(self, domain_candidates: DomainCandidateTermList) -> RankingData:
-        raise NotImplementedError(
-            f"{self.__class__.__name__}.collect() is not implemented"
-        )
+        raise NotImplementedError(f"{self.__class__.__name__}.collect()")

@@ -1,4 +1,5 @@
 from .extractor import CandidateTermExtractor
+from .filters import BaseCandidateMorphemeFilter, BaseCandidateTermFilter
 from .data import (
     PDFnXMLPath,
     PDFnXMLContent,
@@ -10,9 +11,11 @@ from .data import (
 )
 
 __all__ = [
+    "CandidateTermExtractor",
+    "BaseCandidateMorphemeFilter",
+    "BaseCandidateTermFilter",
     "PDFnXMLPath",
     "PDFnXMLContent",
-    "CandidateTermExtractor",
     "PageCandidateTermList",
     "PDFCandidateTermList",
     "DomainCandidateTermList",
