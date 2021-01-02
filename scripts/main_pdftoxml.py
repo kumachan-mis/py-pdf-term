@@ -2,7 +2,7 @@ import os
 from io import BytesIO
 from argparse import ArgumentParser
 
-from pdf_slides_term.pdftoxml import PDFtoXMLConverter
+from py_slides_term.pdftoxml import PDFtoXMLConverter
 from scripts.utils import generate_pdf_path, pdf_to_xml_path
 
 

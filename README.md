@@ -1,2 +1,3 @@
-# pdf-slides-term
-A python module for terminology extraction from pdf slides
+# py-slides-term
+A python module for terminology extraction from presentation slides
+

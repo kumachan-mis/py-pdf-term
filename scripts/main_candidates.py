@@ -1,7 +1,7 @@
 import os
 import json
 
-from pdf_slides_term.candidates import PDFnXMLPath, CandidateTermExtractor
+from py_slides_term.candidates import PDFnXMLPath, CandidateTermExtractor
 from scripts.utils import generate_pdf_path, pdf_to_xml_path, pdf_to_candidate_path
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 
-from pdf_slides_term.techterms import TechnicalTermExtractor
+from py_slides_term.techterms import TechnicalTermExtractor
 from scripts.utils import (
     generate_domain_candidates,
     generate_domain_term_ranking,

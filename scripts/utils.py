@@ -4,8 +4,8 @@ from glob import iglob
 from typing import List, Iterator
 
 from scripts.settings import PDF_DIR, XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
-from pdf_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from pdf_slides_term.methods import DomainTermRanking
+from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
+from py_slides_term.methods import DomainTermRanking
 
 
 def generate_pdf_path() -> Iterator[str]:

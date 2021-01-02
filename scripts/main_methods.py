@@ -2,7 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 
-from pdf_slides_term.methods import (
+from py_slides_term.methods import (
     BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
     MCValueMethod,
