@@ -1,10 +1,15 @@
 from xml.etree.ElementTree import parse, fromstring, Element
-from typing import List, Iterable, cast
+from typing import List, Optional, cast
 
 from .filters import (
     CandidateFilter,
     BaseCandidateMorphemeFilter,
+    JapaneseMorphemeFilter,
+    EnglishMorphemeFilter,
     BaseCandidateTermFilter,
+    ConcatenationFilter,
+    SymbolLikeFilter,
+    ProperNounFilter,
 )
 from .data import (
     PDFnXMLPath,
@@ -25,10 +30,22 @@ class CandidateTermExtractor:
     # public
     def __init__(
         self,
-        morpheme_filters: Iterable[BaseCandidateMorphemeFilter] = [],
-        term_filters: Iterable[BaseCandidateTermFilter] = [],
+        morpheme_filters: Optional[List[BaseCandidateMorphemeFilter]] = None,
+        term_filters: Optional[List[BaseCandidateTermFilter]] = None,
         modifying_particle_augmentation: bool = False,
     ):
+        if morpheme_filters is None:
+            morpheme_filters = [
+                JapaneseMorphemeFilter(),
+                EnglishMorphemeFilter(),
+            ]
+        if term_filters is None:
+            term_filters = [
+                ConcatenationFilter(),
+                SymbolLikeFilter(),
+                ProperNounFilter(),
+            ]
+
         self._mecab_tagger = MeCabTagger()
         self._filter = CandidateFilter(morpheme_filters, term_filters)
         self._classifier = MeCabMorphemeClassifier()

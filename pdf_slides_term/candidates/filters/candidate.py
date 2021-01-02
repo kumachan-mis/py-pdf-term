@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import List
 
 from .morpheme import BaseCandidateMorphemeFilter
 from .term import BaseCandidateTermFilter
@@ -11,8 +11,8 @@ class CandidateFilter:
 
     def __init__(
         self,
-        morpheme_filters: Iterable[BaseCandidateMorphemeFilter],
-        term_filters: Iterable[BaseCandidateTermFilter],
+        morpheme_filters: List[BaseCandidateMorphemeFilter],
+        term_filters: List[BaseCandidateTermFilter],
     ):
         self._morpheme_filters = morpheme_filters
         self._term_filters = term_filters
