@@ -31,11 +31,19 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         elif scoped_morpheme.pos == "助詞":
             return scoped_morpheme.category in {"連体化"}
         elif scoped_morpheme.pos == "記号":
+            scoped_morpheme_str = str(scoped_morpheme)
             regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")
-            return (
-                0 < idx < len(morphemes) - 1
-                and regex.match(str(morphemes[idx - 1])) is None
-                and regex.match(str(morphemes[idx + 1])) is None
-            )
-        else:
-            return False
+            if scoped_morpheme_str == "-":
+                return (
+                    0 < idx < len(morphemes) - 1
+                    and regex.match(str(morphemes[idx - 1])) is None
+                    and regex.match(str(morphemes[idx + 1])) is None
+                )
+            elif scoped_morpheme_str == "・":
+                return (
+                    0 < idx < len(morphemes) - 1
+                    and regex.match(str(morphemes[idx - 1])) is not None
+                    and regex.match(str(morphemes[idx + 1])) is not None
+                )
+
+        return False

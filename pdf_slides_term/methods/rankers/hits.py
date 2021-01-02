@@ -6,6 +6,7 @@ from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
 from ..data import DomainTermRanking, ScoredTerm
 from pdf_slides_term.candidates import DomainCandidateTermList
+from pdf_slides_term.mecab import MeCabMorphemeClassifier, BaseMeCabMorpheme
 from pdf_slides_term.share.data import Term
 
 
@@ -25,6 +26,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._threshold = threshold
+        self._classifier = MeCabMorphemeClassifier()
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
@@ -97,8 +99,15 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         ranking_data: HITSRankingData,
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:
-        num_morphemes = len(candidate.morphemes)
         candidate_str = str(candidate)
+        num_morphemes = len(candidate.morphemes)
+        num_meaningless_morphemes = sum(
+            map(
+                lambda morpheme: 1 if self._is_meaningless_morpheme(morpheme) else 0,
+                candidate.morphemes,
+            )
+        )
+
         if num_morphemes == 0:
             return ScoredTerm(candidate_str, 0.0)
 
@@ -120,6 +129,9 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
         auth_hub_score = 0.0
         for i, morpheme in enumerate(candidate.morphemes):
+            if self._is_meaningless_morpheme(morpheme):
+                continue
+
             morpheme_str = str(morpheme)
             if i == 0:
                 auth_hub_score += log10(auth_hub_data.morpheme_hub[morpheme_str] + 1.0)
@@ -131,7 +143,12 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
                     + log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
                 )
 
-        auth_hub_score /= num_morphemes
+        auth_hub_score /= num_morphemes - num_meaningless_morphemes
 
         score = term_maxsize_score + term_freq_score + auth_hub_score
         return ScoredTerm(candidate_str, score)
+
+    def _is_meaningless_morpheme(self, morpheme: BaseMeCabMorpheme) -> bool:
+        is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
+        is_symbol = self._classifier.is_symbol(morpheme)
+        return is_modifying_particle or is_symbol

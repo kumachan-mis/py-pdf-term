@@ -26,7 +26,7 @@ class ConcatenationFilter(BaseCandidateTermFilter):
     def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def invalid_hyphen_appears_at(i: int) -> bool:
+        def invalid_connector_symbol_appears_at(i: int) -> bool:
             if scoped_term.morphemes[i].pos != "記号":
                 return False
             return (
@@ -36,7 +36,7 @@ class ConcatenationFilter(BaseCandidateTermFilter):
                 or scoped_term.morphemes[i + 1].pos == "記号"
             )
 
-        return any(map(invalid_hyphen_appears_at, range(num_morphemes)))
+        return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
 
     def _has_invalid_modifying_particle(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)

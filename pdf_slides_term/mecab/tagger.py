@@ -19,6 +19,7 @@ class MeCabTagger:
         if not text:
             return []
 
+        text = text.replace("・", " ・ ")
         mecab_lines = cast(
             List[str], self._inner_tagger.parse(text).split("\n")
         )  # pyright:reportUnknownMemberType=false
