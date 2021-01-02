@@ -6,10 +6,12 @@ HIRAGANA_REGEX = r"[\u3040-\u309F]"
 # Katakana
 KATAKANA_REGEX = r"[\u30A0-\u30FF]"
 
+# CJK Radicals Supplement
+# Kangxi Radicals
 # CJK Unified Ideographs Extension A
 # CJK Unified Ideographs
 # CJK Compatibility Ideographs
-KANJI_REGEX = r"[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]"
+KANJI_REGEX = r"[\u2E80-\u2EFF\u2F00-\u2FDF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]"
 
 SYMBOL_REGEX = (
     "["
@@ -28,8 +30,10 @@ SYMBOL_REGEX = (
             "\u1D00-\u1DFF",
             # General Punctuation - Miscellaneous Symbols and Arrows
             "\u2010-\u2BFF",
-            # Supplemental Punctuation - CJK Symbols and Punctuation
-            "\u2E00-\u303F",
+            # Supplemental Punctuation
+            "\u2E00-\u2E7F",
+            # Ideographic Description Characters - CJK Symbols and Punctuation
+            "\u2FF0-\u303F"
             # Bopomofo - CJK Strokes
             "\u3100-\u31EF",
             # Enclosed CJK Letters and Months - CJK Compatibility

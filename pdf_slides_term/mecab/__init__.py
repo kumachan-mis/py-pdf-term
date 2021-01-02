@@ -1,10 +1,10 @@
 from .tagger import MeCabTagger
-from .filter import MeCabMorphemeFilter
+from .classifier import MeCabMorphemeClassifier
 from .morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 
 __all__ = [
     "MeCabTagger",
-    "MeCabMorphemeFilter",
+    "MeCabMorphemeClassifier",
     "BaseMeCabMorpheme",
     "MeCabMorphemeIPADic",
 ]

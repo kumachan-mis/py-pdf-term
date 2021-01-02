@@ -1,7 +1,16 @@
 from xml.etree.ElementTree import parse, fromstring, Element
-from typing import List, cast
+from typing import List, Optional, cast
 
-from .filter import CandidateTermFilter
+from .filters import (
+    CandidateFilter,
+    BaseCandidateMorphemeFilter,
+    JapaneseMorphemeFilter,
+    EnglishMorphemeFilter,
+    BaseCandidateTermFilter,
+    ConcatenationFilter,
+    SymbolLikeFilter,
+    ProperNounFilter,
+)
 from .data import (
     PDFnXMLPath,
     PDFnXMLContent,
@@ -9,16 +18,37 @@ from .data import (
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from pdf_slides_term.mecab import MeCabTagger, MeCabMorphemeFilter, BaseMeCabMorpheme
+from pdf_slides_term.mecab import (
+    MeCabTagger,
+    MeCabMorphemeClassifier,
+    BaseMeCabMorpheme,
+)
 from pdf_slides_term.share.data import Term
 
 
 class CandidateTermExtractor:
     # public
-    def __init__(self, modifying_particle_augmentation=False):
+    def __init__(
+        self,
+        morpheme_filters: Optional[List[BaseCandidateMorphemeFilter]] = None,
+        term_filters: Optional[List[BaseCandidateTermFilter]] = None,
+        modifying_particle_augmentation: bool = False,
+    ):
+        if morpheme_filters is None:
+            morpheme_filters = [
+                JapaneseMorphemeFilter(),
+                EnglishMorphemeFilter(),
+            ]
+        if term_filters is None:
+            term_filters = [
+                ConcatenationFilter(),
+                SymbolLikeFilter(),
+                ProperNounFilter(),
+            ]
+
         self._mecab_tagger = MeCabTagger()
-        self._candidates_filter = CandidateTermFilter()
-        self._morpheme_filter = MeCabMorphemeFilter()
+        self._filter = CandidateFilter(morpheme_filters, term_filters)
+        self._classifier = MeCabMorphemeClassifier()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
     def extract_from_domain_files(
@@ -62,20 +92,20 @@ class CandidateTermExtractor:
 
             morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
             fontsize = float(cast(str, text_node.get("size")))
-            for morpheme in morphemes_from_text:
-                if self._candidates_filter.is_part_of_candidate_term(morpheme):
+            for idx, morpheme in enumerate(morphemes_from_text):
+                if self._filter.is_partof_candidate(morphemes_from_text, idx):
                     candicate_term_morphemes.append(morpheme)
                     continue
 
                 candidate_term = Term(candicate_term_morphemes, fontsize)
-                if self._candidates_filter.is_candidate_term(candidate_term):
+                if self._filter.is_candidate(candidate_term):
                     augmented_terms = self._augment_term_if_enabled(candidate_term)
                     candicate_terms.extend(augmented_terms)
                     candicate_terms.append(candidate_term)
                 candicate_term_morphemes = []
 
             candidate_term = Term(candicate_term_morphemes, fontsize)
-            if self._candidates_filter.is_candidate_term(candidate_term):
+            if self._filter.is_candidate(candidate_term):
                 augmented_terms = self._augment_term_if_enabled(candidate_term)
                 candicate_terms.extend(augmented_terms)
                 candicate_terms.append(candidate_term)
@@ -93,7 +123,7 @@ class CandidateTermExtractor:
             + [
                 opsition
                 for opsition in range(num_morphemes)
-                if self._morpheme_filter.is_modifying_particle(term.morphemes[opsition])
+                if self._classifier.is_modifying_particle(term.morphemes[opsition])
             ]
             + [num_morphemes]
         )
@@ -101,12 +131,12 @@ class CandidateTermExtractor:
 
         augmented_terms = []
         for length in range(1, num_positions - 1):
-            for index in range(num_positions - length):
-                i = modifying_particle_positions[index]
-                j = modifying_particle_positions[index + length]
+            for idx in range(num_positions - length):
+                i = modifying_particle_positions[idx]
+                j = modifying_particle_positions[idx + length]
                 morphemes = term.morphemes[i + 1 : j]
                 augmented_term = Term(morphemes, term.fontsize, True)
-                if self._candidates_filter.is_candidate_term(augmented_term):
+                if self._filter.is_candidate(augmented_term):
                     augmented_terms.append(augmented_term)
 
         return augmented_terms
