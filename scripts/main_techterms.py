@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 
 from py_slides_term.techterms import TechnicalTermExtractor
 from scripts.utils import (
+    get_domains,
     generate_domain_candidates,
     generate_domain_term_ranking,
     pdf_to_techterm_path,
@@ -41,8 +42,9 @@ if __name__ == "__main__":
 
     extractor = TechnicalTermExtractor()
 
-    domain_candidates_list = generate_domain_candidates()
-    domain_term_ranking_list = generate_domain_term_ranking(method_name)
+    domains = get_domains()
+    domain_candidates_list = generate_domain_candidates(domains)
+    domain_term_ranking_list = generate_domain_term_ranking(method_name, domains)
     ziped_list = zip(domain_candidates_list, domain_term_ranking_list)
 
     for domain_candidates, domain_term_ranking in ziped_list:

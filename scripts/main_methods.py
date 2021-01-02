@@ -14,7 +14,7 @@ from py_slides_term.methods import (
     MDPMethod,
 )
 from scripts.settings import METHODS_DIR
-from scripts.utils import generate_domain_candidates
+from scripts.utils import get_domains, generate_domain_candidates
 
 
 if __name__ == "__main__":
@@ -54,7 +54,8 @@ if __name__ == "__main__":
         raise RuntimeError("unreachable statement")
 
     file_name = f"{method_name}.json"
-    domain_candidates_list = generate_domain_candidates()
+    domains = get_domains()
+    domain_candidates_list = generate_domain_candidates(domains)
 
     # pyright:reportUnnecessaryIsInstance=false
     if isinstance(method, BaseSingleDomainRankingMethod):
