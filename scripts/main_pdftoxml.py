@@ -2,9 +2,10 @@ import os
 from io import BytesIO
 from argparse import ArgumentParser
 
-from pdf_slides_term.pdftoxml import PDFtoXMLConverter
+from py_slides_term.pdftoxml import PDFtoXMLConverter
 from scripts.utils import generate_pdf_path, pdf_to_xml_path
 
+script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -32,12 +33,12 @@ if __name__ == "__main__":
     pdf_paths = generate_pdf_path()
 
     if args.type == "file":
-        print("main_pdftoxml.py: file to file conversion")
+        print(f"{script_name}: file to file conversion")
 
         for pdf_path in pdf_paths:
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
-            print(f"main_pdftoxml.py: {pdf_name} → {xml_name}")
+            print(f"{script_name}: {pdf_name} → {xml_name}")
 
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
@@ -45,12 +46,12 @@ if __name__ == "__main__":
             converter.convert_between_path(pdf_path, xml_path)
 
     elif args.type == "stream":
-        print("main_pdftoxml.py: stream to stream conversion")
+        print(f"{script_name}: stream to stream conversion")
 
         for pdf_path in pdf_paths:
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
-            print(f"main_pdftoxml.py: {pdf_name} →　BytesIO →　{xml_name}")
+            print(f"{script_name}: {pdf_name} →　BytesIO →　{xml_name}")
 
             xml_stream = BytesIO()
             with open(pdf_path, "rb") as pdf_file:

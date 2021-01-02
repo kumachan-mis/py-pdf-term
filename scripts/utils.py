@@ -1,11 +1,22 @@
 import os
 import json
 from glob import iglob
-from typing import List, Iterator
+from typing import List, Iterator, Iterable
 
-from scripts.settings import PDF_DIR, XML_DIR, CANDIDATE_DIR, METHODS_DIR, TECHTERM_DIR
-from pdf_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from pdf_slides_term.methods import DomainTermRanking
+from scripts.settings import (
+    BASE_DIR,
+    PDF_DIR,
+    XML_DIR,
+    CANDIDATE_DIR,
+    METHODS_DIR,
+    TECHTERM_DIR,
+)
+from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
+from py_slides_term.methods import DomainTermRanking
+
+
+def relpath_from_basedir(path: str) -> str:
+    return os.path.relpath(path, BASE_DIR)
 
 
 def generate_pdf_path() -> Iterator[str]:
@@ -45,8 +56,9 @@ def get_domains() -> List[str]:
     )
 
 
-def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
-    domains = get_domains()
+def generate_domain_candidates(
+    domains: Iterable[str],
+) -> Iterator[DomainCandidateTermList]:
     for domain in domains:
         pdfs = []
         json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
@@ -58,8 +70,9 @@ def generate_domain_candidates() -> Iterator[DomainCandidateTermList]:
         yield DomainCandidateTermList(domain, pdfs)
 
 
-def generate_domain_term_ranking(method_name: str) -> Iterator[DomainTermRanking]:
-    domains = get_domains()
+def generate_domain_term_ranking(
+    method_name: str, domains: Iterable[str]
+) -> Iterator[DomainTermRanking]:
     for domain in domains:
         json_path = os.path.join(METHODS_DIR, domain, f"{method_name}.json")
         with open(json_path, "r") as f:

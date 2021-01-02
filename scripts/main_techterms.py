@@ -2,13 +2,16 @@ import os
 import json
 from argparse import ArgumentParser
 
-from pdf_slides_term.techterms import TechnicalTermExtractor
+from py_slides_term.techterms import TechnicalTermExtractor
 from scripts.utils import (
+    relpath_from_basedir,
+    get_domains,
     generate_domain_candidates,
     generate_domain_term_ranking,
     pdf_to_techterm_path,
 )
 
+script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -41,8 +44,9 @@ if __name__ == "__main__":
 
     extractor = TechnicalTermExtractor()
 
-    domain_candidates_list = generate_domain_candidates()
-    domain_term_ranking_list = generate_domain_term_ranking(method_name)
+    domains = get_domains()
+    domain_candidates_list = generate_domain_candidates(domains)
+    domain_term_ranking_list = generate_domain_term_ranking(method_name, domains)
     ziped_list = zip(domain_candidates_list, domain_term_ranking_list)
 
     for domain_candidates, domain_term_ranking in ziped_list:
@@ -54,7 +58,7 @@ if __name__ == "__main__":
             techterm_path = pdf_to_techterm_path(
                 pdf_techterm_list.pdf_path, method_name
             )
-            print(f"main_techterms.py: creating {techterm_path} ...")
+            print(f"{script_name}: creating {relpath_from_basedir(techterm_path)} ...")
 
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)

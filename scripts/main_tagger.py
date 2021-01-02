@@ -1,7 +1,7 @@
 import os
 from argparse import ArgumentParser
 
-from pdf_slides_term.mecab import MeCabTagger
+from py_slides_term.mecab import MeCabTagger
 from scripts.settings import BASE_DIR
 
 
