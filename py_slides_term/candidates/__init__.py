@@ -9,8 +9,6 @@ from .filters import (
     ProperNounFilter,
 )
 from .data import (
-    PDFnXMLPath,
-    PDFnXMLContent,
     PageCandidateTermList,
     PDFCandidateTermList,
     DomainCandidateTermList,
@@ -27,8 +25,6 @@ __all__ = [
     "ConcatenationFilter",
     "SymbolLikeFilter",
     "ProperNounFilter",
-    "PDFnXMLPath",
-    "PDFnXMLContent",
     "PageCandidateTermList",
     "PDFCandidateTermList",
     "DomainCandidateTermList",

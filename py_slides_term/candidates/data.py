@@ -6,32 +6,6 @@ from py_slides_term.share.data import Term
 
 
 @dataclass(frozen=True)
-class PDFnXMLPath:
-    pdf_path: str
-    xml_path: str
-
-    def to_json(self) -> Dict[str, Any]:
-        return asdict(self)
-
-    @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
-        return cls(**obj)
-
-
-@dataclass(frozen=True)
-class PDFnXMLContent:
-    pdf_path: str
-    xml_content: str
-
-    def to_json(self) -> Dict[str, Any]:
-        return asdict(self)
-
-    @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
-        return cls(**obj)
-
-
-@dataclass(frozen=True)
 class DomainCandidateTermSet:
     domain: str
     candidates: Set[str]

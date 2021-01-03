@@ -11,13 +11,8 @@ from .filters import (
     SymbolLikeFilter,
     ProperNounFilter,
 )
-from .data import (
-    PDFnXMLPath,
-    PDFnXMLContent,
-    DomainCandidateTermList,
-    PDFCandidateTermList,
-    PageCandidateTermList,
-)
+from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
+from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLContent
 from py_slides_term.mecab import (
     MeCabTagger,
     MeCabMorphemeClassifier,

@@ -1,5 +1,4 @@
 import os
-from io import BytesIO
 from argparse import ArgumentParser
 
 from py_slides_term.pdftoxml import PDFtoXMLConverter
@@ -19,12 +18,12 @@ if __name__ == "__main__":
         const="file",
     )
     group.add_argument(
-        "-s",
-        "--stream",
-        help="use stream to stream conversion",
+        "-c",
+        "--content",
+        help="use file to content conversion",
         action="store_const",
         dest="type",
-        const="stream",
+        const="content",
     )
     parser.set_defaults(type="file")
     args = parser.parse_args()
@@ -43,25 +42,22 @@ if __name__ == "__main__":
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
 
-            converter.convert_between_path(pdf_path, xml_path)
+            converter.convert_as_file(pdf_path, xml_path)
 
-    elif args.type == "stream":
-        print(f"{script_name}: stream to stream conversion")
+    elif args.type == "content":
+        print(f"{script_name}: file to content conversion")
 
         for pdf_path in pdf_paths:
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
-            print(f"{script_name}: {pdf_name} →　BytesIO →　{xml_name}")
+            print(f"{script_name}: {pdf_name} →　{xml_name}")
 
-            xml_stream = BytesIO()
-            with open(pdf_path, "rb") as pdf_file:
-                converter.convert_between_stream(pdf_file, xml_stream)
+            pdfnxml = converter.convert_as_content(pdf_path)
 
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
             with open(xml_path, "w") as xml_file:
-                xml_file.write(xml_stream.getvalue().decode("utf-8"))
-            xml_stream.close()
+                xml_file.write(pdfnxml.xml_content)
 
     else:
         raise RuntimeError("unreachable statement")
