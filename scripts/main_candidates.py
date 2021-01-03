@@ -1,7 +1,8 @@
 import os
 import json
 
-from py_slides_term.candidates import PDFnXMLPath, CandidateTermExtractor
+from py_slides_term.pdftoxml import PDFnXMLPath
+from py_slides_term.candidates import CandidateTermExtractor
 from scripts.utils import (
     relpath_from_basedir,
     generate_pdf_path,
