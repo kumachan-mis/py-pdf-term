@@ -6,7 +6,12 @@ from .configs import (
     RankingMethodConfig,
     TechnicalTermConfig,
 )
-from .mappers import CandidateFilterMapper, RankingMethodMapper
+from .mappers import (
+    CandidateMorphemeFilterMapper,
+    CandidateTermFilterMapper,
+    SingleDomainRankingMethodMapper,
+    MultiDomainRankingMethodMapper,
+)
 from .data import DomainPDFList
 
 __all__ = [
@@ -16,7 +21,9 @@ __all__ = [
     "CandidateConfig",
     "RankingMethodConfig",
     "TechnicalTermConfig",
-    "CandidateFilterMapper",
-    "RankingMethodMapper",
+    "CandidateMorphemeFilterMapper",
+    "CandidateTermFilterMapper",
+    "SingleDomainRankingMethodMapper",
+    "MultiDomainRankingMethodMapper",
     "DomainPDFList",
 ]

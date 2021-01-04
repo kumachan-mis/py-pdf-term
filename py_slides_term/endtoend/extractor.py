@@ -6,7 +6,12 @@ from .configs import (
     RankingMethodConfig,
     TechnicalTermConfig,
 )
-from .mappers import CandidateFilterMapper, RankingMethodMapper
+from .mappers import (
+    CandidateMorphemeFilterMapper,
+    CandidateTermFilterMapper,
+    SingleDomainRankingMethodMapper,
+    MultiDomainRankingMethodMapper,
+)
 from .cache import PySlidesTermCache, DEFAULT_CACHE_DIR
 from .data import DomainPDFList
 from py_slides_term.pdftoxml import PDFtoXMLConverter
@@ -32,8 +37,10 @@ class PySlidesTermExtractor:
         candidates_config: Optional[CandidateConfig] = None,
         method_config: Optional[RankingMethodConfig] = None,
         techterm_config: Optional[TechnicalTermConfig] = None,
-        filter_mapper: Optional[CandidateFilterMapper] = None,
-        method_mapper: Optional[RankingMethodMapper] = None,
+        morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
+        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
+        single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
+        multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if xml_config is None:
@@ -51,8 +58,12 @@ class PySlidesTermExtractor:
         self._techterm_config = techterm_config
 
         self._xml = self.create_xml(xml_config)
-        self._candidates = self.create_candidates(candidates_config, filter_mapper)
-        self._method = self.create_method(method_config, method_mapper)
+        self._candidates = self.create_candidates(
+            candidates_config, morpheme_filter_mapper, term_filter_mapper
+        )
+        self._method = self.create_method(
+            method_config, single_method_mapper, multi_method_mapper
+        )
         self._techterm = self.create_techterm(techterm_config)
 
         self._cache = PySlidesTermCache(cache_dir)
@@ -71,16 +82,19 @@ class PySlidesTermExtractor:
     def create_candidates(
         cls,
         config: Optional[CandidateConfig] = None,
-        filter_mapper: Optional[CandidateFilterMapper] = None,
+        morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
+        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
     ) -> CandidateTermExtractor:
         if config is None:
             config = CandidateConfig()
-        if filter_mapper is None:
-            filter_mapper = CandidateFilterMapper.default_mapper()
+        if morpheme_filter_mapper is None:
+            morpheme_filter_mapper = CandidateMorphemeFilterMapper.default_mapper()
+        if term_filter_mapper is None:
+            term_filter_mapper = CandidateTermFilterMapper.default_mapper()
 
         morpheme_filters: List[BaseCandidateMorphemeFilter] = []
         for cls_name in config.morpheme_filters:
-            morpheme_filter_cls = filter_mapper.find_morpheme_filter_cls(cls_name)
+            morpheme_filter_cls = morpheme_filter_mapper.find(cls_name)
             if morpheme_filter_cls is None:
                 raise ValueError(f"morpheme filter named '{cls_name}' not found")
 
@@ -88,7 +102,7 @@ class PySlidesTermExtractor:
 
         term_filters: List[BaseCandidateTermFilter] = []
         for cls_name in config.term_filters:
-            term_filter_cls = filter_mapper.find_term_filter_cls(cls_name)
+            term_filter_cls = term_filter_mapper.find(cls_name)
             if term_filter_cls is None:
                 raise ValueError(f"term filter named '{cls_name}' not found")
 
@@ -104,17 +118,20 @@ class PySlidesTermExtractor:
     def create_method(
         cls,
         config: Optional[RankingMethodConfig] = None,
-        method_mapper: Optional[RankingMethodMapper] = None,
+        single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
+        multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
     ) -> Union[BaseSingleDomainRankingMethod[Any], BaseMultiDomainRankingMethod[Any]]:
         if config is None:
             config = RankingMethodConfig()
-        if method_mapper is None:
-            method_mapper = RankingMethodMapper.default_mapper()
+        if single_method_mapper is None:
+            single_method_mapper = SingleDomainRankingMethodMapper.default_mapper()
+        if multi_method_mapper is None:
+            multi_method_mapper = MultiDomainRankingMethodMapper.default_mapper()
 
         if config.method_type == "single":
-            method_cls = method_mapper.find_single_domain_method_cls(config.method)
+            method_cls = single_method_mapper.find(config.method)
         elif config.method_type == "multi":
-            method_cls = method_mapper.find_multi_domain_method_cls(config.method)
+            method_cls = multi_method_mapper.find(config.method)
         else:
             raise ValueError(f"method type '{config.method_type}' is unknown")
 
