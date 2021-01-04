@@ -40,7 +40,7 @@ class CandidateConfig(BaseConfig):
 
 @dataclass(frozen=True)
 class RankingMethodConfig(BaseConfig):
-    type: Literal["single", "multi"] = "single"
+    method_type: Literal["single", "multi"] = "single"
     method: str = "py_slides_term.methods.MCValueMethod"
     hyper_params: Dict[str, Any] = field(default_factory=dict)
 

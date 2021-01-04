@@ -111,12 +111,12 @@ class PySlidesTermExtractor:
         if method_mapper is None:
             method_mapper = RankingMethodMapper.default_mapper()
 
-        if config.type == "single":
+        if config.method_type == "single":
             method_cls = method_mapper.find_single_domain_method_cls(config.method)
-        elif config.type == "multi":
+        elif config.method_type == "multi":
             method_cls = method_mapper.find_multi_domain_method_cls(config.method)
         else:
-            raise ValueError(f"method type '{config.type}' is unknown")
+            raise ValueError(f"method type '{config.method_type}' is unknown")
 
         if method_cls is None:
             raise ValueError(f"method named '{config.method}' not found")
