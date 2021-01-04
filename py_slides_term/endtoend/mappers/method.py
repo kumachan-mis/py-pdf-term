@@ -1,16 +1,14 @@
 from typing import Dict, Any, Union, Type
 
-from py_slides_term.methods.single import (
+from py_slides_term.methods import (
     BaseSingleDomainRankingMethod,
+    BaseMultiDomainRankingMethod,
     MCValueMethod,
+    TFIDFMethod,
+    LFIDFMethod,
     FLRMethod,
     HITSMethod,
     FLRHMethod,
-)
-from py_slides_term.methods.multi import (
-    BaseMultiDomainRankingMethod,
-    TFIDFMethod,
-    LFIDFMethod,
     MDPMethod,
 )
 
@@ -55,26 +53,26 @@ class RankingMethodMapper:
         default = cls()
 
         default.add_single_domain_method_cls(
-            "py_slides_term.methods.single.MCValueMethod", MCValueMethod
+            "py_slides_term.methods.MCValueMethod", MCValueMethod
         )
         default.add_single_domain_method_cls(
-            "py_slides_term.methods.single.FLRMethod", FLRMethod
+            "py_slides_term.methods.FLRMethod", FLRMethod
         )
         default.add_single_domain_method_cls(
-            "py_slides_term.methods..single.HITSMethod", HITSMethod
+            "py_slides_term.methods.HITSMethod", HITSMethod
         )
         default.add_single_domain_method_cls(
-            "py_slides_term.methods.single.FLRHMethod", FLRHMethod
+            "py_slides_term.methods.FLRHMethod", FLRHMethod
         )
 
         default.add_multi_domain_method_cls(
-            "py_slides_term.methods.multi.TFIDFMethod", TFIDFMethod
+            "py_slides_term.methods.TFIDFMethod", TFIDFMethod
         )
         default.add_multi_domain_method_cls(
-            "py_slides_term.methods.multi.LFIDFMethod", LFIDFMethod
+            "py_slides_term.methods.LFIDFMethod", LFIDFMethod
         )
         default.add_multi_domain_method_cls(
-            "py_slides_term.methods.multi.MDPMethod", MDPMethod
+            "py_slides_term.methods.MDPMethod", MDPMethod
         )
 
         return default

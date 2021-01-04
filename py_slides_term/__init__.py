@@ -1,13 +1,14 @@
-from .endtoend.extractor import PySlidesTermExtractor
-from .endtoend.configs import (
+from .endtoend import (
+    PySlidesTermExtractor,
     XMLConfig,
     CandidateConfig,
     RankingMethodConfig,
     TechnicalTermConfig,
+    CandidateFilterMapper,
+    RankingMethodMapper,
+    DomainPDFList,
 )
-from .endtoend.mappers import CandidateFilterMapper, RankingMethodMapper
-from .endtoend.data import DomainPDFList
-from .techterms.data import DomainTechnicalTermList, PDFTechnicalTermList
+from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
 
 __all__ = [
     "PySlidesTermExtractor",

@@ -2,17 +2,15 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term.methods.single import (
+from py_slides_term.methods import (
     BaseSingleDomainRankingMethod,
+    BaseMultiDomainRankingMethod,
     MCValueMethod,
+    TFIDFMethod,
+    LFIDFMethod,
     FLRMethod,
     HITSMethod,
     FLRHMethod,
-)
-from py_slides_term.methods.multi import (
-    BaseMultiDomainRankingMethod,
-    TFIDFMethod,
-    LFIDFMethod,
     MDPMethod,
 )
 from scripts.settings import METHODS_DIR

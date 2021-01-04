@@ -1,5 +1,5 @@
 from .data import DomainTermScoreDict
-from py_slides_term.methods.data import DomainTermRanking
+from py_slides_term.methods import DomainTermRanking
 
 
 class RankingToScoreDictConverter:

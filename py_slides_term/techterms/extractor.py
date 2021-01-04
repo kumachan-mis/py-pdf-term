@@ -2,7 +2,7 @@ from .data import DomainTechnicalTermList, PDFTechnicalTermList
 from .converter import RankingToScoreDictConverter
 from .selector import CandidateSelector
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods.data import DomainTermRanking
+from py_slides_term.methods import DomainTermRanking
 
 
 class TechnicalTermExtractor:

@@ -23,15 +23,15 @@ class XMLConfig(BaseConfig):
 class CandidateConfig(BaseConfig):
     morpheme_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.filters.morpheme.JapaneseMorphemeFilter",
-            "py_slides_term.candidates.filters.morpheme.EnglishMorphemeFilter",
+            "py_slides_term.candidates.JapaneseMorphemeFilter",
+            "py_slides_term.candidates.EnglishMorphemeFilter",
         ]
     )
     term_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.filters.term.ConcatenationFilter",
-            "py_slides_term.candidates.filters.term.SymbolLikeFilter",
-            "py_slides_term.candidates.filters.term.ProperNounFilter",
+            "py_slides_term.candidates.ConcatenationFilter",
+            "py_slides_term.candidates.SymbolLikeFilter",
+            "py_slides_term.candidates.ProperNounFilter",
         ]
     )
     modifying_particle_augmentation: bool = False
@@ -41,7 +41,7 @@ class CandidateConfig(BaseConfig):
 @dataclass(frozen=True)
 class RankingMethodConfig(BaseConfig):
     type: Literal["single", "multi"] = "single"
-    method: str = "py_slides_term.methods.single.MCValueMethod"
+    method: str = "py_slides_term.methods.MCValueMethod"
     hyper_params: Dict[str, Any] = field(default_factory=dict)
 
 

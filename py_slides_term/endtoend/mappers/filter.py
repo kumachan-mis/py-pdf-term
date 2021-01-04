@@ -1,6 +1,6 @@
 from typing import Dict, Union, Type
 
-from py_slides_term.candidates.filters import (
+from py_slides_term.candidates import (
     BaseCandidateMorphemeFilter,
     BaseCandidateTermFilter,
     JapaneseMorphemeFilter,
@@ -47,25 +47,20 @@ class CandidateFilterMapper:
         default = cls()
 
         default.add_morpheme_filter_cls(
-            "py_slides_term.candidates.filters.morpheme.JapaneseMorphemeFilter",
-            JapaneseMorphemeFilter,
+            "py_slides_term.candidates.JapaneseMorphemeFilter", JapaneseMorphemeFilter
         )
         default.add_morpheme_filter_cls(
-            "py_slides_term.candidates.filters.morpheme.EnglishMorphemeFilter",
-            EnglishMorphemeFilter,
+            "py_slides_term.candidates.EnglishMorphemeFilter", EnglishMorphemeFilter
         )
 
         default.add_term_filter_cls(
-            "py_slides_term.candidates.filters.term.ConcatenationFilter",
-            ConcatenationFilter,
+            "py_slides_term.candidates.ConcatenationFilter", ConcatenationFilter
         )
         default.add_term_filter_cls(
-            "py_slides_term.candidates.filters.term.SymbolLikeFilter",
-            SymbolLikeFilter,
+            "py_slides_term.candidates.SymbolLikeFilter", SymbolLikeFilter
         )
         default.add_term_filter_cls(
-            "py_slides_term.candidates.filters.term.ProperNounFilter",
-            ProperNounFilter,
+            "py_slides_term.candidates.ProperNounFilter", ProperNounFilter
         )
 
         return default

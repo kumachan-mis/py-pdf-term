@@ -12,7 +12,7 @@ from scripts.settings import (
     TECHTERM_DIR,
 )
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods.data import DomainTermRanking
+from py_slides_term.methods import DomainTermRanking
 
 
 def relpath_from_basedir(path: str) -> str:

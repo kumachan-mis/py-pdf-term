@@ -12,19 +12,16 @@ from .data import DomainPDFList
 from py_slides_term.pdftoxml import PDFtoXMLConverter
 from py_slides_term.candidates import (
     CandidateTermExtractor,
+    BaseCandidateMorphemeFilter,
+    BaseCandidateTermFilter,
     DomainCandidateTermList,
     PDFCandidateTermList,
 )
-from py_slides_term.candidates.filters import (
-    BaseCandidateMorphemeFilter,
-    BaseCandidateTermFilter,
+from py_slides_term.methods import (
+    BaseSingleDomainRankingMethod,
+    BaseMultiDomainRankingMethod,
 )
-from py_slides_term.methods.single import BaseSingleDomainRankingMethod
-from py_slides_term.methods.multi import BaseMultiDomainRankingMethod
-from py_slides_term.techterms.extractor import (
-    TechnicalTermExtractor,
-    PDFTechnicalTermList,
-)
+from py_slides_term.techterms import TechnicalTermExtractor, PDFTechnicalTermList
 
 
 class PySlidesTermExtractor:
