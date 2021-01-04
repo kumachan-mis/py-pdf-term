@@ -1,5 +1,5 @@
 from typing import List, Dict, Any, Literal
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 
 
 @dataclass(frozen=True)
@@ -21,15 +21,19 @@ class XMLConfig(BaseConfig):
 
 @dataclass(frozen=True)
 class CandidateConfig(BaseConfig):
-    morpheme_filters: List[str] = [
-        "py_slides_term.candidates.filters.JapaneseMorphemeFilter",
-        "py_slides_term.candidates.filters.EnglishMorphemeFilter",
-    ]
-    term_filters: List[str] = [
-        "py_slides_term.candidates.filters.ConcatenationFilter",
-        "py_slides_term.candidates.filters.SymbolLikeFilter",
-        "py_slides_term.candidates.filters.ProperNounFilter",
-    ]
+    morpheme_filters: List[str] = field(
+        default_factory=lambda: [
+            "py_slides_term.candidates.filters.morpheme.JapaneseMorphemeFilter",
+            "py_slides_term.candidates.filters.morpheme.EnglishMorphemeFilter",
+        ]
+    )
+    term_filters: List[str] = field(
+        default_factory=lambda: [
+            "py_slides_term.candidates.filters.term.ConcatenationFilter",
+            "py_slides_term.candidates.filters.term.SymbolLikeFilter",
+            "py_slides_term.candidates.filters.term.ProperNounFilter",
+        ]
+    )
     modifying_particle_augmentation: bool = False
     use_cache: bool = True
 
@@ -37,8 +41,8 @@ class CandidateConfig(BaseConfig):
 @dataclass(frozen=True)
 class RankingMethodConfig(BaseConfig):
     type: Literal["single", "multi"] = "single"
-    method: str = "py_slides_term.methods.single.MCValue"
-    hyper_params: Dict[str, Any] = dict()
+    method: str = "py_slides_term.methods.single.MCValueMethod"
+    hyper_params: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

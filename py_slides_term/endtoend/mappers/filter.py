@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Union, Type
+from typing import Dict, Union, Type
 
 from py_slides_term.candidates.filters import (
     BaseCandidateMorphemeFilter,
@@ -19,20 +19,14 @@ class CandidateFilterMapper:
         self._term_filter_clses: Dict[str, Type[BaseCandidateTermFilter]] = dict()
 
     def add_morpheme_filter_cls(
-        self,
-        filter_cls: Type[BaseCandidateMorphemeFilter],
-        name: Optional[str] = None,
+        self, name: str, filter_cls: Type[BaseCandidateMorphemeFilter]
     ):
         if name is None:
             name = f"{filter_cls.__module__}.{filter_cls.__name__}"
 
         self._morpheme_filter_clses[name] = filter_cls
 
-    def add_term_filter_cls(
-        self,
-        filter_cls: Type[BaseCandidateTermFilter],
-        name: Optional[str] = None,
-    ):
+    def add_term_filter_cls(self, name: str, filter_cls: Type[BaseCandidateTermFilter]):
         if name is None:
             name = f"{filter_cls.__module__}.{filter_cls.__name__}"
 
@@ -52,11 +46,26 @@ class CandidateFilterMapper:
     def default_mapper(cls):
         default = cls()
 
-        default.add_morpheme_filter_cls(JapaneseMorphemeFilter)
-        default.add_morpheme_filter_cls(EnglishMorphemeFilter)
+        default.add_morpheme_filter_cls(
+            "py_slides_term.candidates.filters.morpheme.JapaneseMorphemeFilter",
+            JapaneseMorphemeFilter,
+        )
+        default.add_morpheme_filter_cls(
+            "py_slides_term.candidates.filters.morpheme.EnglishMorphemeFilter",
+            EnglishMorphemeFilter,
+        )
 
-        default.add_term_filter_cls(ConcatenationFilter)
-        default.add_term_filter_cls(SymbolLikeFilter)
-        default.add_term_filter_cls(ProperNounFilter)
+        default.add_term_filter_cls(
+            "py_slides_term.candidates.filters.term.ConcatenationFilter",
+            ConcatenationFilter,
+        )
+        default.add_term_filter_cls(
+            "py_slides_term.candidates.filters.term.SymbolLikeFilter",
+            SymbolLikeFilter,
+        )
+        default.add_term_filter_cls(
+            "py_slides_term.candidates.filters.term.ProperNounFilter",
+            ProperNounFilter,
+        )
 
         return default

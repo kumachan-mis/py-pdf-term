@@ -7,8 +7,8 @@ from .configs import BaseConfig, XMLConfig, CandidateConfig
 from py_slides_term.pdftoxml import PDFnXMLContent
 from py_slides_term.candidates import PDFCandidateTermList
 
-DEFAULT_CACHE_DIR = os.path.join(
-    os.path.dirname(__file__), "..", "__py_slides_term_cache__"
+DEFAULT_CACHE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "__py_slides_term_cache__")
 )
 
 
@@ -35,6 +35,7 @@ class PySlidesTermCache:
         file_name = self._create_file_name(pdfnxml.pdf_path, "xml")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
+        os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
         with open(cache_file_path, "w") as xml_file:
             xml_file.write(pdfnxml.xml_content)
 
@@ -60,6 +61,7 @@ class PySlidesTermCache:
         file_name = self._create_file_name(candidates.pdf_path, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
+        os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
         with open(cache_file_path, "w") as json_file:
             json.dump(candidates.to_json(), json_file, ensure_ascii=False, indent=2)
 

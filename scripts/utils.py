@@ -1,7 +1,7 @@
 import os
 import json
 from glob import iglob
-from typing import List, Iterator, Iterable
+from typing import List, Optional, Iterator, Iterable
 
 from scripts.settings import (
     BASE_DIR,
@@ -19,8 +19,11 @@ def relpath_from_basedir(path: str) -> str:
     return os.path.relpath(path, BASE_DIR)
 
 
-def generate_pdf_path() -> Iterator[str]:
-    return iglob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
+def generate_pdf_path(domain: Optional[str] = None) -> Iterator[str]:
+    if domain is None:
+        return iglob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
+    else:
+        return iglob(os.path.join(PDF_DIR, domain, "**", "*.pdf"), recursive=True)
 
 
 def pdf_to_xml_path(pdf_path: str) -> str:

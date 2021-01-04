@@ -7,6 +7,7 @@ dataset/*
 !dataset/pdf/
 dataset/pdf/*
 !dataset/pdf/.gitkeep
+__py_slides_term_cache__/
 
 
 ### macOS ###
