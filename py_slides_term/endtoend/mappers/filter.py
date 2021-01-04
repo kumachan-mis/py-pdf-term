@@ -44,23 +44,19 @@ class CandidateFilterMapper:
 
     @classmethod
     def default_mapper(cls):
-        default = cls()
+        module_path = "py_slides_term.candidates"
+        default_mapper = cls()
 
-        default.add_morpheme_filter_cls(
-            "py_slides_term.candidates.JapaneseMorphemeFilter", JapaneseMorphemeFilter
-        )
-        default.add_morpheme_filter_cls(
-            "py_slides_term.candidates.EnglishMorphemeFilter", EnglishMorphemeFilter
-        )
+        morpheme_filter_clses = [JapaneseMorphemeFilter, EnglishMorphemeFilter]
+        for filter_cls in morpheme_filter_clses:
+            default_mapper.add_morpheme_filter_cls(
+                f"{module_path}.{filter_cls.__name__}", filter_cls
+            )
 
-        default.add_term_filter_cls(
-            "py_slides_term.candidates.ConcatenationFilter", ConcatenationFilter
-        )
-        default.add_term_filter_cls(
-            "py_slides_term.candidates.SymbolLikeFilter", SymbolLikeFilter
-        )
-        default.add_term_filter_cls(
-            "py_slides_term.candidates.ProperNounFilter", ProperNounFilter
-        )
+        term_filter_clses = [ConcatenationFilter, SymbolLikeFilter, ProperNounFilter]
+        for filter_cls in term_filter_clses:
+            default_mapper.add_term_filter_cls(
+                f"{module_path}.{filter_cls.__name__}", filter_cls
+            )
 
-        return default
+        return default_mapper

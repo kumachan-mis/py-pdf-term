@@ -50,29 +50,19 @@ class RankingMethodMapper:
 
     @classmethod
     def default_mapper(cls):
-        default = cls()
+        module_path = "py_slides_term.methods"
+        default_mapper = cls()
 
-        default.add_single_domain_method_cls(
-            "py_slides_term.methods.MCValueMethod", MCValueMethod
-        )
-        default.add_single_domain_method_cls(
-            "py_slides_term.methods.FLRMethod", FLRMethod
-        )
-        default.add_single_domain_method_cls(
-            "py_slides_term.methods.HITSMethod", HITSMethod
-        )
-        default.add_single_domain_method_cls(
-            "py_slides_term.methods.FLRHMethod", FLRHMethod
-        )
+        single_domain_clses = [MCValueMethod, FLRMethod, HITSMethod, FLRHMethod]
+        for method_cls in single_domain_clses:
+            default_mapper.add_single_domain_method_cls(
+                f"{module_path}.{method_cls.__name__}", method_cls
+            )
 
-        default.add_multi_domain_method_cls(
-            "py_slides_term.methods.TFIDFMethod", TFIDFMethod
-        )
-        default.add_multi_domain_method_cls(
-            "py_slides_term.methods.LFIDFMethod", LFIDFMethod
-        )
-        default.add_multi_domain_method_cls(
-            "py_slides_term.methods.MDPMethod", MDPMethod
-        )
+        multi_domain_clses = [TFIDFMethod, LFIDFMethod, MDPMethod]
+        for method_cls in multi_domain_clses:
+            default_mapper.add_multi_domain_method_cls(
+                f"{module_path}.{method_cls.__name__}", method_cls
+            )
 
-        return default
+        return default_mapper
