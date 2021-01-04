@@ -1,9 +1,9 @@
 from typing import Callable, Iterable
 
 from .base import BaseMultiDomainRankingMethod
-from .rankingdata import MDPRankingData
-from .collectors import MDPRankingDataCollector
-from .rankers import MDPRanker
+from ..rankingdata import MDPRankingData
+from ..collectors import MDPRankingDataCollector
+from ..rankers import MDPRanker
 
 
 class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):

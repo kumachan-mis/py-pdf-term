@@ -1,8 +1,11 @@
 import os
 import json
 from glob import iglob
-from typing import List, Iterator, Iterable
+from typing import List, Optional, Iterator, Iterable
 
+from py_slides_term import DomainPDFList
+from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
+from py_slides_term.methods import DomainTermRanking
 from scripts.settings import (
     BASE_DIR,
     PDF_DIR,
@@ -11,16 +14,17 @@ from scripts.settings import (
     METHODS_DIR,
     TECHTERM_DIR,
 )
-from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods import DomainTermRanking
 
 
 def relpath_from_basedir(path: str) -> str:
     return os.path.relpath(path, BASE_DIR)
 
 
-def generate_pdf_path() -> Iterator[str]:
-    return iglob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
+def generate_pdf_path(domain: Optional[str] = None) -> Iterator[str]:
+    if domain is None:
+        return iglob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
+    else:
+        return iglob(os.path.join(PDF_DIR, domain, "**", "*.pdf"), recursive=True)
 
 
 def pdf_to_xml_path(pdf_path: str) -> str:
@@ -54,6 +58,11 @@ def get_domains() -> List[str]:
             os.listdir(PDF_DIR),
         )
     )
+
+
+def generate_domain_pdfs(domains: Iterable[str]) -> Iterable[DomainPDFList]:
+    for domain in domains:
+        yield DomainPDFList(domain, list(generate_pdf_path(domain)))
 
 
 def generate_domain_candidates(

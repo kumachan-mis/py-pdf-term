@@ -1,6 +1,8 @@
 import re
-import MeCab
 from typing import List, Type, cast
+
+import MeCab
+
 from .morphemes import BaseMeCabMorpheme, MeCabMorphemeIPADic
 from py_slides_term.share.consts import SYMBOL_REGEX
 

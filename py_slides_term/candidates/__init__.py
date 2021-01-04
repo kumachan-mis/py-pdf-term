@@ -1,5 +1,6 @@
 from .extractor import CandidateTermExtractor
 from .filters import (
+    CandidateFilter,
     BaseCandidateMorphemeFilter,
     JapaneseMorphemeFilter,
     EnglishMorphemeFilter,
@@ -18,6 +19,7 @@ from .data import (
 
 __all__ = [
     "CandidateTermExtractor",
+    "CandidateFilter",
     "BaseCandidateMorphemeFilter",
     "JapaneseMorphemeFilter",
     "EnglishMorphemeFilter",

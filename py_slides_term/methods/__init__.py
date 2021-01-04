@@ -1,11 +1,16 @@
-from .base import BaseSingleDomainRankingMethod, BaseMultiDomainRankingMethod
-from .mcvalue import MCValueMethod
-from .tfidf import TFIDFMethod
-from .lfidf import LFIDFMethod
-from .flr import FLRMethod
-from .hits import HITSMethod
-from .flrh import FLRHMethod
-from .mdp import MDPMethod
+from .single import (
+    BaseSingleDomainRankingMethod,
+    MCValueMethod,
+    FLRMethod,
+    HITSMethod,
+    FLRHMethod,
+)
+from .multi import (
+    BaseMultiDomainRankingMethod,
+    TFIDFMethod,
+    LFIDFMethod,
+    MDPMethod,
+)
 from .data import DomainTermRanking, ScoredTerm
 
 __all__ = [

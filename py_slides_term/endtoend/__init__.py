@@ -1,17 +1,17 @@
-from .endtoend import (
-    PySlidesTermExtractor,
+from .extractor import PySlidesTermExtractor
+from .configs import (
+    BaseConfig,
     XMLConfig,
     CandidateConfig,
     RankingMethodConfig,
     TechnicalTermConfig,
-    CandidateFilterMapper,
-    RankingMethodMapper,
-    DomainPDFList,
 )
-from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
+from .mappers import CandidateFilterMapper, RankingMethodMapper
+from .data import DomainPDFList
 
 __all__ = [
     "PySlidesTermExtractor",
+    "BaseConfig",
     "XMLConfig",
     "CandidateConfig",
     "RankingMethodConfig",
@@ -19,6 +19,4 @@ __all__ = [
     "CandidateFilterMapper",
     "RankingMethodMapper",
     "DomainPDFList",
-    "DomainTechnicalTermList",
-    "PDFTechnicalTermList",
 ]

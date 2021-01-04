@@ -30,7 +30,7 @@ class TextfulXMLConverter(PDFConverter):
         )  # pyright:reportUnknownMemberType=false
         self._stripcontrol = stripcontrol
 
-    def write_header(self) -> None:
+    def write_header(self):
         if self.codec:
             codec: str = self.codec
             self._write('<?xml version="1.0" encoding="%s" ?>\n' % codec)
@@ -38,7 +38,7 @@ class TextfulXMLConverter(PDFConverter):
             self._write('<?xml version="1.0" ?>\n')
         self._write("<pages>\n")
 
-    def receive_layout(self, ltpage: LTPage) -> None:
+    def receive_layout(self, ltpage: LTPage):
         self._render(ltpage)
 
     def write_footer(self):
@@ -70,7 +70,7 @@ class TextfulXMLConverter(PDFConverter):
             self._write_text(cast(str, item.get_text()))
             self._write("</text>\n")
 
-    def _render_children(self, item: Union[LTPage, LTTextLine, LTTextBox]) -> None:
+    def _render_children(self, item: Union[LTPage, LTTextLine, LTTextBox]):
         class State(Enum):
             CHAR = auto()
             NON_CHAR = auto()
@@ -126,14 +126,14 @@ class TextfulXMLConverter(PDFConverter):
         text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
         return text if self.ERROR_TEXT.match(text) is None else " "
 
-    def _write(self, text: str) -> None:
+    def _write(self, text: str):
         if self.codec:
             text = text.encode(
                 cast(str, self.codec)
             )  # pyright: reportGeneralTypeIssues=false
         cast(Union[BufferedWriter, BytesIO], self.outfp).write(text)
 
-    def _write_text(self, text: str) -> None:
+    def _write_text(self, text: str):
         if self._stripcontrol:
             text = self.CONTROL.sub("", text)
         self._write(enc(text))
