@@ -1,7 +1,7 @@
 from .base import BaseSingleDomainRankingMethod
-from ..rankingdata import HITSRankingData
-from ..collectors import HITSRankingDataCollector
-from ..rankers import HITSRanker
+from .rankingdata import HITSRankingData
+from .collectors import HITSRankingDataCollector
+from .rankers import HITSRanker
 
 
 class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):

@@ -1,12 +1,12 @@
 from typing import Literal
 
 from .base import BaseMultiDomainRankingMethod
-from ..rankingdata import TFIDFRankingData
-from ..collectors import TFIDFRankingDataCollector
-from ..rankers import TFIDFRanker
+from .rankingdata import LFIDFRankingData
+from .collectors import LFIDFRankingDataCollector
+from .rankers import LFIDFRanker
 
 
-class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
+class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
     # public
     def __init__(
         self,
@@ -14,6 +14,6 @@ class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
         consider_charfont: bool = True,
     ):
-        collector = TFIDFRankingDataCollector(collect_charfont=consider_charfont)
-        ranker = TFIDFRanker(tfmode=tfmode, idfmode=idfmode)
+        collector = LFIDFRankingDataCollector(collect_charfont=consider_charfont)
+        ranker = LFIDFRanker(tfmode=tfmode, idfmode=idfmode)
         super().__init__(collector, ranker)

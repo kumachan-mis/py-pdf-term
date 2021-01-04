@@ -1,7 +1,7 @@
 from .base import BaseSingleDomainRankingMethod
-from ..rankingdata import FLRHRankingData
-from ..collectors import FLRHRankingDataCollector
-from ..rankers import FLRHRanker
+from .rankingdata import FLRHRankingData
+from .collectors import FLRHRankingDataCollector
+from .rankers import FLRHRanker
 
 
 class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
