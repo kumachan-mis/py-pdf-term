@@ -6,7 +6,7 @@ authors = ["Yuya Suwa"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.7"
 mecab-python3 = "^1.0.3"
 "pdfminer.six" = "^20201018"
 
