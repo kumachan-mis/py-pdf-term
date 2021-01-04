@@ -185,9 +185,9 @@ class PySlidesTermExtractor:
             filter(lambda pdf: pdf.pdf_path == pdf_path, domain_candidates.pdfs)
         )
         ranking = self._method.rank_terms(domain_candidates)
-        techterms = self._techterm.extract_from_pdf(pdf_candidates, ranking)
+        pdf_techterms = self._techterm.extract_from_pdf(pdf_candidates, ranking)
 
-        return techterms
+        return pdf_techterms
 
     def _run_multi_domain_method(
         self,
@@ -220,9 +220,9 @@ class PySlidesTermExtractor:
             filter(lambda pdf: pdf.pdf_path == pdf_path, domain_candidates.pdfs)
         )
         ranking = self._method.rank_domain_terms(domain, domain_candidates_list)
-        techterms = self._techterm.extract_from_pdf(pdf_candidates, ranking)
+        pdf_techterms = self._techterm.extract_from_pdf(pdf_candidates, ranking)
 
-        return techterms
+        return pdf_techterms
 
     def _create_domain_candidates(
         self, domain_pdfs: DomainPDFList

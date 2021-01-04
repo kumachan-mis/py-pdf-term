@@ -36,6 +36,7 @@ class PySlidesTermCache:
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
+
         with open(cache_file_path, "w") as xml_file:
             xml_file.write(pdfnxml.xml_content)
 
@@ -62,6 +63,7 @@ class PySlidesTermCache:
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
+
         with open(cache_file_path, "w") as json_file:
             json.dump(candidates.to_json(), json_file, ensure_ascii=False, indent=2)
 

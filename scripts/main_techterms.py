@@ -50,19 +50,17 @@ if __name__ == "__main__":
     ziped_list = zip(domain_candidates_list, domain_term_ranking_list)
 
     for domain_candidates, domain_term_ranking in ziped_list:
-        domain_techterm_list = extractor.extract_from_domain(
+        domain_techterms = extractor.extract_from_domain(
             domain_candidates, domain_term_ranking
         )
 
-        for pdf_techterm_list in domain_techterm_list.pdfs:
-            techterm_path = pdf_to_techterm_path(
-                pdf_techterm_list.pdf_path, method_name
-            )
+        for pdf_techterms in domain_techterms.pdfs:
+            techterm_path = pdf_to_techterm_path(pdf_techterms.pdf_path, method_name)
             print(f"{script_name}: creating {relpath_from_basedir(techterm_path)} ...")
 
             techterm_dir_name = os.path.dirname(techterm_path)
             os.makedirs(techterm_dir_name, exist_ok=True)
 
             with open(techterm_path, "w") as techterm_file:
-                json_obj = pdf_techterm_list.to_json()
+                json_obj = pdf_techterms.to_json()
                 json.dump(json_obj, techterm_file, ensure_ascii=False, indent=2)
