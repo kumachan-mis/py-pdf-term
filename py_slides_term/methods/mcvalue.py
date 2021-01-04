@@ -1,7 +1,7 @@
 from .base import BaseSingleDomainRankingMethod
-from ..rankingdata import MCValueRankingData
-from ..collectors import MCValueRankingDataCollector
-from ..rankers import MCValueRanker
+from .rankingdata import MCValueRankingData
+from .collectors import MCValueRankingDataCollector
+from .rankers import MCValueRanker
 
 
 class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRankingData]):
