@@ -4,6 +4,10 @@ version = "0.0.1"
 description = "A python module for terminology extraction from presentation slides"
 authors = ["Yuya Suwa"]
 license = "MIT License"
+readme = "README.md"
+homepage = "https://github.com/kumachan-mis/py-slides-term"
+repository = "https://github.com/kumachan-mis/py-slides-term"
+keywords = ["terminology extraction", "technical term", "pdf"]
 
 [tool.poetry.dependencies]
 python = ">=3.7"
