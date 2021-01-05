@@ -3,7 +3,7 @@ import json
 from typing import Union
 
 from py_slides_term.candidates import PDFCandidateTermList
-from .util import create_dir_name, create_file_name
+from .util import create_dir_name_from_config, create_file_name_from_path
 from ..configs import CandidateLayerConfig
 
 
@@ -14,8 +14,8 @@ class CandidateLayerCache:
     def load(
         self, pdf_path: str, config: CandidateLayerConfig
     ) -> Union[PDFCandidateTermList, None]:
-        dir_name = create_dir_name(config)
-        file_name = create_file_name(pdf_path, "json")
+        dir_name = create_dir_name_from_config(config)
+        file_name = create_file_name_from_path(pdf_path, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         if not os.path.isfile(cache_file_path):
@@ -27,8 +27,8 @@ class CandidateLayerCache:
         return PDFCandidateTermList.from_json(obj)
 
     def store(self, candidates: PDFCandidateTermList, config: CandidateLayerConfig):
-        dir_name = create_dir_name(config)
-        file_name = create_file_name(candidates.pdf_path, "json")
+        dir_name = create_dir_name_from_config(config)
+        file_name = create_file_name_from_path(candidates.pdf_path, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)

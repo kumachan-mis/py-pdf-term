@@ -1,8 +1,8 @@
 import os
 import json
-from typing import Dict, Any, Callable, Union, Generic
+from typing import List, Dict, Any, Union, Callable, Generic
 
-from .util import create_dir_name, create_file_name
+from .util import create_dir_name_from_config, create_file_name_from_paths
 from ..configs import RankingMethodLayerConfig
 from py_slides_term.methods.rankingdata.base import RankingData
 
@@ -13,12 +13,12 @@ class RankingMethodLayerCache(Generic[RankingData]):
 
     def load(
         self,
-        domain: str,
+        pdf_paths: List[str],
         config: RankingMethodLayerConfig,
         from_json: Callable[[Dict[str, Any]], RankingData],
     ) -> Union[RankingData, None]:
-        dir_name = create_dir_name(config)
-        file_name = create_file_name(domain, "json")
+        dir_name = create_dir_name_from_config(config)
+        file_name = create_file_name_from_paths(pdf_paths, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         if not os.path.isfile(cache_file_path):
@@ -29,9 +29,14 @@ class RankingMethodLayerCache(Generic[RankingData]):
 
         return from_json(obj)
 
-    def store(self, ranking_data: RankingData, config: RankingMethodLayerConfig):
-        dir_name = create_dir_name(config)
-        file_name = create_file_name(ranking_data.domain, "json")
+    def store(
+        self,
+        pdf_paths: List[str],
+        ranking_data: RankingData,
+        config: RankingMethodLayerConfig,
+    ):
+        dir_name = create_dir_name_from_config(config)
+        file_name = create_file_name_from_paths(pdf_paths, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
 
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
