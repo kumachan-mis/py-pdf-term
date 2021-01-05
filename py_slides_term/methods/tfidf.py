@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Dict, Any, Literal
 
 from .base import BaseMultiDomainRankingMethod
 from .rankingdata import TFIDFRankingData
@@ -17,3 +17,7 @@ class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
         collector = TFIDFRankingDataCollector(collect_charfont=consider_charfont)
         ranker = TFIDFRanker(tfmode=tfmode, idfmode=idfmode)
         super().__init__(collector, ranker)
+
+    @classmethod
+    def collect_data_from_json(cls, obj: Dict[str, Any]) -> TFIDFRankingData:
+        return TFIDFRankingData(**obj)

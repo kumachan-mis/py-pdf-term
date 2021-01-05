@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Set, Dict, Optional
+from typing import Set, Dict, Any, Optional
 
 from .base import BaseRankingData
 
@@ -18,3 +18,23 @@ class MCValueRankingData(BaseRankingData):
     term_maxsize: Optional[Dict[str, float]] = None
     # max fontsize of the term in the domain
     # default of this is 1.0
+
+    def to_json(self) -> Dict[str, Any]:
+        container_terms = {
+            term: list(containers) for term, containers in self.container_terms.items()
+        }
+        return {
+            "domain": self.domain,
+            "term_freq": self.term_freq,
+            "container_terms": container_terms,
+            "term_maxsize": self.term_maxsize,
+        }
+
+    @classmethod
+    def from_json(cls, obj: Dict[str, Any]):
+        container_terms = {
+            term: set(containers) for term, containers in obj["container_terms"].items()
+        }
+        return MCValueRankingData(
+            obj["domain"], obj["term_freq"], container_terms, obj["term_maxsize"]
+        )

@@ -22,14 +22,19 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: List[TFIDFRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        ranking_data = next(
+            filter(
+                lambda item: item.domain == domain_candidates.domain,
+                ranking_data_list,
+            )
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
-                    candidate, ranking_data, other_ranking_data_list
+                    candidate, ranking_data, ranking_data_list
                 ),
                 domain_candidates_dict.candidates.values(),
             )
@@ -41,12 +46,12 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         self,
         candidate: Term,
         ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: List[TFIDFRankingData],
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 
-        tf = self._calculate_tf(candidate_str, ranking_data, other_ranking_data_list)
-        idf = self._calculate_idf(candidate_str, ranking_data, other_ranking_data_list)
+        tf = self._calculate_tf(candidate_str, ranking_data, ranking_data_list)
+        idf = self._calculate_idf(candidate_str, ranking_data, ranking_data_list)
         term_maxsize = (
             ranking_data.term_maxsize[candidate_str]
             if ranking_data.term_maxsize is not None
@@ -57,16 +62,18 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
 
     def _calculate_tf(
         self,
-        candidate_str: str,
+        candidate: str,
         ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: List[TFIDFRankingData],
     ) -> float:
-        all_data = [ranking_data] + other_ranking_data_list
-
-        tf = ranking_data.term_freq[candidate_str]
-        max_tf = max(map(lambda data: data.term_freq.get(candidate_str, 0), all_data))
-        tf_sum = sum(map(lambda data: data.term_freq.get(candidate_str, 0), all_data))
-        ave_tf = tf_sum / len(all_data)
+        tf = ranking_data.term_freq[candidate]
+        max_tf = max(
+            map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
+        )
+        tf_sum = sum(
+            map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
+        )
+        ave_tf = tf_sum / len(ranking_data_list)
 
         if self._idfmode == "natural":
             return tf
@@ -81,14 +88,12 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
 
     def _calculate_idf(
         self,
-        candidate_str: str,
+        candidate: str,
         ranking_data: TFIDFRankingData,
-        other_ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: List[TFIDFRankingData],
     ) -> float:
-        all_data = [ranking_data] + other_ranking_data_list
-
-        num_docs = sum(map(lambda data: data.num_docs, all_data))
-        df = sum(map(lambda data: data.doc_freq.get(candidate_str, 0), all_data))
+        num_docs = sum(map(lambda data: data.num_docs, ranking_data_list))
+        df = sum(map(lambda data: data.doc_freq.get(candidate, 0), ranking_data_list))
 
         if self._idfmode == "natural":
             return log10(num_docs / df)

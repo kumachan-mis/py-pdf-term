@@ -16,10 +16,21 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: MDPRankingData,
-        other_ranking_data_list: List[MDPRankingData],
+        ranking_data_list: List[MDPRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        ranking_data = next(
+            filter(
+                lambda item: item.domain == domain_candidates.domain,
+                ranking_data_list,
+            )
+        )
+        other_ranking_data_list = list(
+            filter(
+                lambda item: item.domain != domain_candidates.domain,
+                ranking_data_list,
+            )
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(

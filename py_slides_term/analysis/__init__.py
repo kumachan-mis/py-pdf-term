@@ -1,15 +1,22 @@
-from .occurrence import TermOccurrenceAnalyzer, TermOccurrence
-from .cooccurrence import TermCooccurrenceAnalyzer, TermCooccurrence
-from .concatenation import TermConcatenationAnalyzer, TermConcatenation
-from .charfont import TermCharFontAnalyzer, TermCharFont
+from .occurrences import (
+    TermOccurrenceAnalyzer,
+    LinguOccurrenceAnalyzer,
+    DomainTermOccurrence,
+    DomainLinguOccurrence,
+)
+from .cooccurrences import ContainerTermsAnalyzer, DomainContainerTerms
+from .concats import TermLeftRightFrequencyAnalyzer, DomainLeftRightFrequency
+from .charfonts import TermMaxsizeAnalyzer, DomainTermMaxsize
 
 __all__ = [
     "TermOccurrenceAnalyzer",
-    "TermOccurrence",
-    "TermCooccurrenceAnalyzer",
-    "TermCooccurrence",
-    "TermConcatenationAnalyzer",
-    "TermConcatenation",
-    "TermCharFontAnalyzer",
-    "TermCharFont",
+    "LinguOccurrenceAnalyzer",
+    "ContainerTermsAnalyzer",
+    "TermLeftRightFrequencyAnalyzer",
+    "TermMaxsizeAnalyzer",
+    "DomainTermOccurrence",
+    "DomainLinguOccurrence",
+    "DomainContainerTerms",
+    "DomainLeftRightFrequency",
+    "DomainTermMaxsize",
 ]

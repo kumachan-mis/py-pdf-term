@@ -1,7 +1,7 @@
 from .base import BaseRankingDataCollector
 from ..rankingdata import LFIDFRankingData
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.analysis import TermOccurrenceAnalyzer, TermCharFontAnalyzer
+from py_slides_term.analysis import LinguOccurrenceAnalyzer, TermMaxsizeAnalyzer
 
 
 class LFIDFRankingDataCollector(BaseRankingDataCollector[LFIDFRankingData]):
@@ -11,18 +11,21 @@ class LFIDFRankingDataCollector(BaseRankingDataCollector[LFIDFRankingData]):
 
         self._collect_charfont = collect_charfont
 
-        self._occurrence_analyzer = TermOccurrenceAnalyzer()
-        self._char_font_analyzer = TermCharFontAnalyzer()
+        self._linguocc_analyzer = LinguOccurrenceAnalyzer()
+        self._maxsize_analyzer = TermMaxsizeAnalyzer()
 
     def collect(self, domain_candidates: DomainCandidateTermList) -> LFIDFRankingData:
-        lingu_freq = self._occurrence_analyzer.analyze_lingu_freq(domain_candidates)
-        doc_freq = self._occurrence_analyzer.analyze_doc_lingu_freq(domain_candidates)
+        linguocc = self._linguocc_analyzer.analyze(domain_candidates)
         num_docs = len(domain_candidates.pdfs)
-        term_maxsize = (
-            self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
+        maxsize = (
+            self._maxsize_analyzer.analyze(domain_candidates)
             if self._collect_charfont
             else None
         )
         return LFIDFRankingData(
-            domain_candidates.domain, lingu_freq, doc_freq, num_docs, term_maxsize
+            domain_candidates.domain,
+            linguocc.lingu_freq,
+            linguocc.doc_lingu_freq,
+            num_docs,
+            maxsize.term_maxsize if maxsize is not None else None,
         )

@@ -3,8 +3,8 @@ from ..rankingdata import FLRRankingData
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.analysis import (
     TermOccurrenceAnalyzer,
-    TermConcatenationAnalyzer,
-    TermCharFontAnalyzer,
+    TermLeftRightFrequencyAnalyzer,
+    TermMaxsizeAnalyzer,
 )
 
 
@@ -15,22 +15,22 @@ class FLRRankingDataCollector(BaseRankingDataCollector[FLRRankingData]):
 
         self._collect_charfont = collect_charfont
 
-        self._occurrence_analyzer = TermOccurrenceAnalyzer()
-        self._concat_analyzer = TermConcatenationAnalyzer()
-        self._char_font_analyzer = TermCharFontAnalyzer()
+        self._termocc_analyzer = TermOccurrenceAnalyzer()
+        self._lrfreq_analyzer = TermLeftRightFrequencyAnalyzer()
+        self._maxsize_analyzer = TermMaxsizeAnalyzer()
 
     def collect(self, domain_candidates: DomainCandidateTermList) -> FLRRankingData:
-        term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
-        term_concat = self._concat_analyzer.analyze(domain_candidates)
-        term_maxsize = (
-            self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
+        termocc = self._termocc_analyzer.analyze(domain_candidates)
+        lrfreq = self._lrfreq_analyzer.analyze(domain_candidates)
+        maxsize = (
+            self._maxsize_analyzer.analyze(domain_candidates)
             if self._collect_charfont
             else None
         )
         return FLRRankingData(
             domain_candidates.domain,
-            term_freq,
-            term_concat.left_freq,
-            term_concat.right_freq,
-            term_maxsize,
+            termocc.term_freq,
+            lrfreq.left_freq,
+            lrfreq.right_freq,
+            maxsize.term_maxsize if maxsize is not None else None,
         )

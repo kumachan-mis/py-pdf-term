@@ -22,14 +22,19 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: LFIDFRankingData,
-        other_ranking_data_list: List[LFIDFRankingData],
+        ranking_data_list: List[LFIDFRankingData],
     ) -> DomainTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        ranking_data = next(
+            filter(
+                lambda item: item.domain == domain_candidates.domain,
+                ranking_data_list,
+            )
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
-                    candidate, ranking_data, other_ranking_data_list
+                    candidate, ranking_data, ranking_data_list
                 ),
                 domain_candidates_dict.candidates.values(),
             )
@@ -41,13 +46,13 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         self,
         candidate: Term,
         ranking_data: LFIDFRankingData,
-        other_ranking_data_list: List[LFIDFRankingData],
+        ranking_data_list: List[LFIDFRankingData],
     ) -> ScoredTerm:
         candidate_str = str(candidate)
         lingu_seq = candidate.linguistic_sequence()
 
-        lf = self._calculate_lf(lingu_seq, ranking_data, other_ranking_data_list)
-        idf = self._calculate_idf(lingu_seq, ranking_data, other_ranking_data_list)
+        lf = self._calculate_lf(lingu_seq, ranking_data, ranking_data_list)
+        idf = self._calculate_idf(lingu_seq, ranking_data, ranking_data_list)
         term_maxsize = (
             ranking_data.term_maxsize[candidate_str]
             if ranking_data.term_maxsize is not None
@@ -60,14 +65,16 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         self,
         lingu_seq: LinguSeq,
         ranking_data: LFIDFRankingData,
-        other_ranking_data_list: List[LFIDFRankingData],
+        ranking_data_list: List[LFIDFRankingData],
     ) -> float:
-        all_data = [ranking_data] + other_ranking_data_list
-
         lf = ranking_data.lingu_freq[lingu_seq]
-        max_lf = max(map(lambda data: data.lingu_freq.get(lingu_seq, 0), all_data))
-        lf_sum = sum(map(lambda data: data.lingu_freq.get(lingu_seq, 0), all_data))
-        ave_lf = lf_sum / len(all_data)
+        max_lf = max(
+            map(lambda data: data.lingu_freq.get(lingu_seq, 0), ranking_data_list)
+        )
+        lf_sum = sum(
+            map(lambda data: data.lingu_freq.get(lingu_seq, 0), ranking_data_list)
+        )
+        ave_lf = lf_sum / len(ranking_data_list)
 
         if self._idfmode == "natural":
             return lf
@@ -84,12 +91,10 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         self,
         lingu_seq: LinguSeq,
         ranking_data: LFIDFRankingData,
-        other_ranking_data_list: List[LFIDFRankingData],
+        ranking_data_list: List[LFIDFRankingData],
     ) -> float:
-        all_data = [ranking_data] + other_ranking_data_list
-
-        num_docs = sum(map(lambda data: data.num_docs, all_data))
-        df = sum(map(lambda data: data.doc_freq.get(lingu_seq, 0), all_data))
+        num_docs = sum(map(lambda data: data.num_docs, ranking_data_list))
+        df = sum(map(lambda data: data.doc_freq.get(lingu_seq, 0), ranking_data_list))
 
         if self._idfmode == "natural":
             return log10(num_docs / df)
