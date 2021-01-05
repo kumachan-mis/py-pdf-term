@@ -1,7 +1,7 @@
 from typing import Any, List, Literal, Optional
 
-from ..caches import RankingMethodLayerCache, DEFAULT_CACHE_DIR
-from ..configs import RankingMethodLayerConfig
+from ..caches import MethodLayerCache, DEFAULT_CACHE_DIR
+from ..configs import MethodLayerConfig
 from ..mappers import SingleDomainRankingMethodMapper, MultiDomainRankingMethodMapper
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.methods import (
@@ -11,17 +11,17 @@ from py_slides_term.methods import (
 )
 
 
-class RankingMethodLayer:
+class MethodLayer:
     # public
     def __init__(
         self,
-        config: Optional[RankingMethodLayerConfig] = None,
+        config: Optional[MethodLayerConfig] = None,
         single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
-            config = RankingMethodLayerConfig()
+            config = MethodLayerConfig()
         if single_method_mapper is None:
             single_method_mapper = SingleDomainRankingMethodMapper.default_mapper()
         if multi_method_mapper is None:
@@ -45,7 +45,7 @@ class RankingMethodLayer:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
         self._method = method_cls(**config.hyper_params)
-        self._cache = RankingMethodLayerCache[Any](cache_dir=cache_dir)
+        self._cache = MethodLayerCache[Any](cache_dir=cache_dir)
         self._config = config
 
     def process(

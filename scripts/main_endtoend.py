@@ -2,7 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term import PySlidesTermExtractor, RankingMethodLayerConfig
+from py_slides_term import PySlidesTermExtractor, MethodLayerConfig
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,
@@ -27,43 +27,43 @@ if __name__ == "__main__":
     if args.mcvalue:
         method_type = "single"
         method_name = "mcvalue"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.MCValueMethod"
         )
     elif args.tfidf:
         method_type = "multi"
         method_name = "tfidf"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.TFIDFMethod"
         )
     elif args.lfidf:
         method_type = "multi"
         method_name = "lfidf"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.LFIDFMethod"
         )
     elif args.flr:
         method_type = "single"
         method_name = "flr"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.FLRMethod"
         )
     elif args.hits:
         method_type = "single"
         method_name = "hits"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.HITSMethod"
         )
     elif args.flrh:
         method_type = "single"
         method_name = "flrh"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.FLRHMethod"
         )
     elif args.mdp:
         method_type = "multi"
         method_name = "mdp"
-        method_config = RankingMethodLayerConfig(
+        method_config = MethodLayerConfig(
             method_type=method_type, method="py_slides_term.methods.MDPMethod"
         )
     else:

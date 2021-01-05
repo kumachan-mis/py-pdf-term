@@ -3,18 +3,18 @@ import json
 from typing import List, Dict, Any, Union, Callable, Generic
 
 from .util import create_dir_name_from_config, create_file_name_from_paths
-from ..configs import RankingMethodLayerConfig
+from ..configs import MethodLayerConfig
 from py_slides_term.methods.rankingdata.base import RankingData
 
 
-class RankingMethodLayerCache(Generic[RankingData]):
+class MethodLayerCache(Generic[RankingData]):
     def __init__(self, cache_dir: str):
         self._cache_dir = cache_dir
 
     def load(
         self,
         pdf_paths: List[str],
-        config: RankingMethodLayerConfig,
+        config: MethodLayerConfig,
         from_json: Callable[[Dict[str, Any]], RankingData],
     ) -> Union[RankingData, None]:
         dir_name = create_dir_name_from_config(config)
@@ -33,7 +33,7 @@ class RankingMethodLayerCache(Generic[RankingData]):
         self,
         pdf_paths: List[str],
         ranking_data: RankingData,
-        config: RankingMethodLayerConfig,
+        config: MethodLayerConfig,
     ):
         dir_name = create_dir_name_from_config(config)
         file_name = create_file_name_from_paths(pdf_paths, "json")

@@ -3,7 +3,7 @@ from typing import List, Optional
 from .configs import (
     XMLLayerConfig,
     CandidateLayerConfig,
-    RankingMethodLayerConfig,
+    MethodLayerConfig,
     TechnicalTermLayerConfig,
 )
 from .mappers import (
@@ -12,7 +12,7 @@ from .mappers import (
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
 )
-from .layers import XMLLayer, CandidateLayer, RankingMethodLayer, TechnicalTermLayer
+from .layers import XMLLayer, CandidateLayer, MethodLayer, TechnicalTermLayer
 from .caches import DEFAULT_CACHE_DIR
 from .data import DomainPDFList
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
@@ -24,7 +24,7 @@ class PySlidesTermExtractor:
         self,
         xml_config: Optional[XMLLayerConfig] = None,
         candidate_config: Optional[CandidateLayerConfig] = None,
-        method_config: Optional[RankingMethodLayerConfig] = None,
+        method_config: Optional[MethodLayerConfig] = None,
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
@@ -36,7 +36,7 @@ class PySlidesTermExtractor:
         self._candidate_layer = CandidateLayer(
             candidate_config, morpheme_filter_mapper, term_filter_mapper, cache_dir
         )
-        self._method_layer = RankingMethodLayer(
+        self._method_layer = MethodLayer(
             method_config, single_method_mapper, multi_method_mapper, cache_dir
         )
         self._techterm_layer = TechnicalTermLayer(techterm_config)
