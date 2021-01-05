@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-from typing import Dict, Any, TypeVar, Type
+from typing import Dict, Any, TypeVar
 
 
 @dataclass(frozen=True)
@@ -11,7 +11,7 @@ class BaseRankingData:
         return asdict(self)
 
     @classmethod
-    def from_json(cls: Type["RankingData"], obj: Dict[str, Any]) -> "RankingData":
+    def from_json(cls, obj: Dict[str, Any]):
         return cls(**obj)
 
 
