@@ -98,13 +98,15 @@ class RankingMethodLayer:
             )
 
         ranking_data = None
+        cache_miss = False
         if self._config.use_cache:
             ranking_data = self._cache.load(
                 domain, self._config, self._method.collect_data_from_json
             )
         if ranking_data is None:
             ranking_data = self._method.collect_data(single_domain_candidates)
-        if self._config.use_cache:
+            cache_miss = True
+        if self._config.use_cache and cache_miss:
             self._cache.store(ranking_data, self._config)
 
         term_ranking = self._method.rank_terms(single_domain_candidates, ranking_data)
@@ -127,13 +129,17 @@ class RankingMethodLayer:
         ranking_data_list: List[Any] = []
         for domain_candidates in multi_domain_candidates:
             ranking_data = None
+            cache_miss = False
             if self._config.use_cache:
                 ranking_data = self._cache.load(
-                    domain, self._config, self._method.collect_data_from_json
+                    domain_candidates.domain,
+                    self._config,
+                    self._method.collect_data_from_json,
                 )
             if ranking_data is None:
                 ranking_data = self._method.collect_data(domain_candidates)
-            if self._config.use_cache:
+                cache_miss = True
+            if self._config.use_cache and cache_miss:
                 self._cache.store(ranking_data, self._config)
 
             ranking_data_list.append(ranking_data)

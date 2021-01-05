@@ -52,11 +52,13 @@ class CandidateLayer:
 
     def process(self, pdfnxml: PDFnXMLContent) -> PDFCandidateTermList:
         candidates = None
+        cache_miss = False
         if self._config.use_cache:
             candidates = self._cache.load(pdfnxml.pdf_path, self._config)
         if candidates is None:
             candidates = self._extractor.extract_from_xml_content(pdfnxml)
-        if self._config.use_cache:
+            cache_miss = True
+        if self._config.use_cache and cache_miss:
             self._cache.store(candidates, self._config)
 
         return candidates
