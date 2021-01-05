@@ -44,20 +44,8 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         )
 
         for domain_candidates in domain_candidates_list:
-            ranking_data = next(
-                filter(
-                    lambda item: item.domain == domain_candidates.domain,
-                    ranking_data_list,
-                ),
-            )
-            other_ranking_data_list = list(
-                filter(
-                    lambda item: item.domain != domain_candidates.domain,
-                    ranking_data_list,
-                )
-            )
             domain_term_ranking = self._ranker.rank_terms(
-                domain_candidates, ranking_data, other_ranking_data_list
+                domain_candidates, ranking_data_list
             )
             yield domain_term_ranking
 
@@ -68,19 +56,15 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
             filter(lambda item: item.domain == domain, domain_candidates_list),
             None,
         )
-        other_domain_candidates_list = list(
-            filter(lambda item: item.domain != domain, domain_candidates_list)
-        )
 
         if domain_candidates is None:
             raise ValueError(f"candidate term list in '{domain}' is not provided")
 
-        ranking_data = self._data_collector.collect(domain_candidates)
-        other_ranking_data_list = list(
-            map(self._data_collector.collect, other_domain_candidates_list)
+        ranking_data_list = list(
+            map(self._data_collector.collect, domain_candidates_list)
         )
 
         domain_term_ranking = self._ranker.rank_terms(
-            domain_candidates, ranking_data, other_ranking_data_list
+            domain_candidates, ranking_data_list
         )
         return domain_term_ranking
