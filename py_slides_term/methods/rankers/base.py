@@ -13,7 +13,9 @@ class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
 
     @abstractmethod
     def rank_terms(
-        self, domain_candidates: DomainCandidateTermList, ranking_data: RankingData
+        self,
+        domain_candidates: DomainCandidateTermList,
+        ranking_data: RankingData,
     ) -> DomainTermRanking:
         raise NotImplementedError(f"{self.__class__.__name__}.rank_terms()")
 
