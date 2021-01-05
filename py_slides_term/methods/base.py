@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Any, Generic, Optional
+from typing import List, Dict, Any, Generic, Iterator, Optional
 
 from .collectors import BaseRankingDataCollector
 from .rankers import BaseSingleDomainRanker, BaseMultiDomainRanker
@@ -49,6 +49,22 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         self._ranker = ranker
 
     def rank_terms(
+        self,
+        domain_candidates_list: List[DomainCandidateTermList],
+        ranking_data_list: Optional[List[RankingData]] = None,
+    ) -> Iterator[DomainTermRanking]:
+        if ranking_data_list is None:
+            ranking_data_list = list(
+                map(self._data_collector.collect, domain_candidates_list)
+            )
+
+        for domain_candidates in domain_candidates_list:
+            domain_term_ranking = self._ranker.rank_terms(
+                domain_candidates, ranking_data_list
+            )
+            yield domain_term_ranking
+
+    def rank_domain_terms(
         self,
         domain: str,
         domain_candidates_list: List[DomainCandidateTermList],
