@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, Type, TypeVar
 from dataclasses import dataclass, asdict
 
 
@@ -10,5 +10,8 @@ class BaseLayerConfig:
         return asdict(self)
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_json(cls: Type["LayerConfig"], obj: Dict[str, Any]) -> "LayerConfig":
         return cls(**obj)
+
+
+LayerConfig = TypeVar("LayerConfig", bound=BaseLayerConfig)
