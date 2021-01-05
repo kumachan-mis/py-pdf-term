@@ -1,4 +1,4 @@
-from .base import BaseRankingData
+from .base import RankingData, BaseRankingData
 from .mcvalue import MCValueRankingData
 from .tfidf import TFIDFRankingData
 from .lfidf import LFIDFRankingData
@@ -8,6 +8,7 @@ from .flrh import FLRHRankingData
 from .mdp import MDPRankingData
 
 __all__ = [
+    "RankingData",
     "BaseRankingData",
     "MCValueRankingData",
     "TFIDFRankingData",

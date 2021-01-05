@@ -1,11 +1,12 @@
 from .xml import XMLLayerCache
 from .candidate import CandidateLayerCache
-from .method import MethodLayerCache
+from .method import MethodLayerRankingCache, MethodLayerDataCache
 from .consts import DEFAULT_CACHE_DIR
 
 __all__ = [
     "XMLLayerCache",
     "CandidateLayerCache",
-    "MethodLayerCache",
+    "MethodLayerRankingCache",
+    "MethodLayerDataCache",
     "DEFAULT_CACHE_DIR",
 ]

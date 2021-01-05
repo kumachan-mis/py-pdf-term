@@ -1,6 +1,6 @@
 from typing import Any, List, Literal, Optional
 
-from ..caches import MethodLayerCache, DEFAULT_CACHE_DIR
+from ..caches import MethodLayerRankingCache, MethodLayerDataCache, DEFAULT_CACHE_DIR
 from ..configs import MethodLayerConfig
 from ..mappers import SingleDomainRankingMethodMapper, MultiDomainRankingMethodMapper
 from py_slides_term.candidates import DomainCandidateTermList
@@ -45,7 +45,8 @@ class MethodLayer:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
         self._method = method_cls(**config.hyper_params)
-        self._cache = MethodLayerCache[Any](cache_dir=cache_dir)
+        self._ranking_cache = MethodLayerRankingCache(cache_dir=cache_dir)
+        self._data_cache = MethodLayerDataCache[Any](cache_dir=cache_dir)
         self._config = config
 
     def process(
@@ -98,19 +99,27 @@ class MethodLayer:
             )
 
         pdf_paths = list(map(lambda item: item.pdf_path, single_domain_candidates.pdfs))
+        if self._config.use_cache:
+            term_ranking = self._ranking_cache.load(pdf_paths, self._config)
+            if term_ranking is not None:
+                return term_ranking
+
         ranking_data = None
         cache_miss = False
         if self._config.use_cache:
-            ranking_data = self._cache.load(
+            ranking_data = self._data_cache.load(
                 pdf_paths, self._config, self._method.collect_data_from_json
             )
         if ranking_data is None:
             ranking_data = self._method.collect_data(single_domain_candidates)
             cache_miss = True
         if self._config.use_cache and cache_miss:
-            self._cache.store(pdf_paths, ranking_data, self._config)
+            self._data_cache.store(pdf_paths, ranking_data, self._config)
 
         term_ranking = self._method.rank_terms(single_domain_candidates, ranking_data)
+        if self._config.use_cache:
+            self._ranking_cache.store(pdf_paths, term_ranking, self._config)
+
         return term_ranking
 
     def _run_multi_domain_method(
@@ -121,32 +130,45 @@ class MethodLayer:
         if not isinstance(self._method, BaseMultiDomainRankingMethod):
             raise RuntimeError("unreachable statement")
 
-        domains = set(map(lambda item: item.domain, multi_domain_candidates))
-        if domain not in domains:
+        domain_candidates = next(
+            filter(lambda item: item.domain == domain, multi_domain_candidates),
+            None,
+        )
+        if domain_candidates is None:
             raise ValueError(
                 f"'multi_domain_candidates' does not contain domain '{domain}'"
             )
 
-        ranking_data_list: List[Any] = []
-        for domain_candidates in multi_domain_candidates:
+        if self._config.use_cache:
             pdf_paths = list(map(lambda item: item.pdf_path, domain_candidates.pdfs))
+            term_ranking = self._ranking_cache.load(pdf_paths, self._config)
+            if term_ranking is not None:
+                return term_ranking
+
+        ranking_data_list: List[Any] = []
+        for _domain_candidates in multi_domain_candidates:
+            pdf_paths = list(map(lambda item: item.pdf_path, _domain_candidates.pdfs))
             ranking_data = None
             cache_miss = False
             if self._config.use_cache:
-                ranking_data = self._cache.load(
+                ranking_data = self._data_cache.load(
                     pdf_paths,
                     self._config,
                     self._method.collect_data_from_json,
                 )
             if ranking_data is None:
-                ranking_data = self._method.collect_data(domain_candidates)
+                ranking_data = self._method.collect_data(_domain_candidates)
                 cache_miss = True
             if self._config.use_cache and cache_miss:
-                self._cache.store(pdf_paths, ranking_data, self._config)
+                self._data_cache.store(pdf_paths, ranking_data, self._config)
 
             ranking_data_list.append(ranking_data)
 
         term_ranking = self._method.rank_domain_terms(
             domain, multi_domain_candidates, ranking_data_list
         )
+
+        pdf_paths = list(map(lambda item: item.pdf_path, domain_candidates.pdfs))
+        if self._config.use_cache:
+            self._ranking_cache.store(pdf_paths, term_ranking, self._config)
         return term_ranking
