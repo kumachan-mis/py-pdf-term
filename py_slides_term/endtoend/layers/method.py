@@ -133,6 +133,8 @@ class RankingMethodLayer:
                 )
             if ranking_data is None:
                 ranking_data = self._method.collect_data(domain_candidates)
+            if self._config.use_cache:
+                self._cache.store(ranking_data, self._config)
 
             ranking_data_list.append(ranking_data)
 

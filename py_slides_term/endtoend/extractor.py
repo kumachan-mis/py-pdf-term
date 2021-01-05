@@ -125,7 +125,9 @@ class PySlidesTermExtractor:
                 pdf_candidates = self._candidate_layer.process(pdfnxml)
                 pdf_candidates_list.append(pdf_candidates)
 
-            domain_candidates = DomainCandidateTermList(domain, pdf_candidates_list)
+            domain_candidates = DomainCandidateTermList(
+                domain_pdfs.domain, pdf_candidates_list
+            )
             domain_candidates_list.append(domain_candidates)
 
         domain_candidates = next(
