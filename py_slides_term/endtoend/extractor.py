@@ -86,8 +86,8 @@ class PySlidesTermExtractor:
             raise ValueError(f"single_domain_pdfs does not contain '{pdf_path}'")
 
         pdf_candidates_list: List[PDFCandidateTermList] = []
-        for pdf_path in single_domain_pdfs.pdf_paths:
-            pdfnxml = self._xml_layer.process(pdf_path)
+        for _pdf_path in single_domain_pdfs.pdf_paths:
+            pdfnxml = self._xml_layer.process(_pdf_path)
             pdf_candidates = self._candidate_layer.process(pdfnxml)
             pdf_candidates_list.append(pdf_candidates)
 
@@ -120,8 +120,8 @@ class PySlidesTermExtractor:
         domain_candidates_list: List[DomainCandidateTermList] = []
         for domain_pdfs in multi_domain_pdfs:
             pdf_candidates_list: List[PDFCandidateTermList] = []
-            for pdf_path in domain_pdfs.pdf_paths:
-                pdfnxml = self._xml_layer.process(pdf_path)
+            for _pdf_path in domain_pdfs.pdf_paths:
+                pdfnxml = self._xml_layer.process(_pdf_path)
                 pdf_candidates = self._candidate_layer.process(pdfnxml)
                 pdf_candidates_list.append(pdf_candidates)
 
