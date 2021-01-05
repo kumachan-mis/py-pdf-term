@@ -28,15 +28,15 @@ class RankingMethodLayer:
             multi_method_mapper = MultiDomainRankingMethodMapper.default_mapper()
 
         if config.method_type == "single":
-            method = single_method_mapper.find(config.method)
-            if method is None:
+            method_cls = single_method_mapper.find(config.method)
+            if method_cls is None:
                 raise ValueError(
                     "cannot find single-domain"
                     f" ranking method named '{config.method}'"
                 )
         elif config.method_type == "multi":
-            method = multi_method_mapper.find(config.method)
-            if method is None:
+            method_cls = multi_method_mapper.find(config.method)
+            if method_cls is None:
                 raise ValueError(
                     "cannot find multi-domain"
                     f" ranking method named '{config.method}'"
@@ -44,7 +44,7 @@ class RankingMethodLayer:
         else:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
-        self._method = method(**config.hyper_params)
+        self._method = method_cls(**config.hyper_params)
         self._cache = RankingMethodLayerCache[Any](cache_dir=cache_dir)
         self._config = config
 
@@ -104,6 +104,8 @@ class RankingMethodLayer:
             )
         if ranking_data is None:
             ranking_data = self._method.collect_data(single_domain_candidates)
+        if self._config.use_cache:
+            self._cache.store(ranking_data, self._config)
 
         term_ranking = self._method.rank_terms(single_domain_candidates, ranking_data)
         return term_ranking

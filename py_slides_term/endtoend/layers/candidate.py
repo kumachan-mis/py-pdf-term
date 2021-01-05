@@ -30,17 +30,17 @@ class CandidateLayer:
 
         morpheme_filters: List[BaseCandidateMorphemeFilter] = []
         for filter_name in config.morpheme_filters:
-            morpheme_filter = morheme_filter_mapper.find(filter_name)
-            if morpheme_filter is None:
+            morpheme_filter_cls = morheme_filter_mapper.find(filter_name)
+            if morpheme_filter_cls is None:
                 raise ValueError(f"cannot find morpheme filter named '{filter_name}'")
-            morpheme_filters.append(morpheme_filter)
+            morpheme_filters.append(morpheme_filter_cls())
 
         term_filters: List[BaseCandidateTermFilter] = []
         for filter_name in config.term_filters:
-            term_filter = term_filter_mapper.find(filter_name)
-            if term_filter is None:
+            term_filter_cls = term_filter_mapper.find(filter_name)
+            if term_filter_cls is None:
                 raise ValueError(f"cannot find term filter named '{filter_name}'")
-            term_filters.append(term_filter)
+            term_filters.append(term_filter_cls())
 
         self._extractor = CandidateTermExtractor(
             morpheme_filters=morpheme_filters,
