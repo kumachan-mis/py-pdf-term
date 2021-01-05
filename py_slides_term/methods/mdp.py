@@ -1,4 +1,4 @@
-from typing import Callable, Iterable
+from typing import Dict, Any, Callable, Iterable
 
 from .base import BaseMultiDomainRankingMethod
 from .rankingdata import MDPRankingData
@@ -16,3 +16,7 @@ class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):
         collector = MDPRankingDataCollector(collect_charfont=consider_charfont)
         ranker = MDPRanker(compile_scores=compile_scores)
         super().__init__(collector, ranker)
+
+    @classmethod
+    def collect_data_from_json(cls, obj: Dict[str, Any]) -> MDPRankingData:
+        return MDPRankingData(**obj)

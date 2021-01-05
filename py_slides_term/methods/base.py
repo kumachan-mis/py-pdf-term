@@ -1,5 +1,5 @@
-from abc import ABCMeta
-from typing import List, Generic, Optional
+from abc import ABCMeta, abstractmethod
+from typing import List, Dict, Any, Generic, Optional
 
 from .collectors import BaseRankingDataCollector
 from .rankers import BaseSingleDomainRanker, BaseMultiDomainRanker
@@ -31,6 +31,11 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     def collect_data(self, domain_candidates: DomainCandidateTermList) -> RankingData:
         ranking_data = self._data_collector.collect(domain_candidates)
         return ranking_data
+
+    @classmethod
+    @abstractmethod
+    def collect_data_from_json(cls, obj: Dict[str, Any]) -> RankingData:
+        raise NotImplementedError(f"{cls.__name__}.collect_data_from_json()")
 
 
 class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
@@ -70,3 +75,8 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     def collect_data(self, domain_candidates: DomainCandidateTermList) -> RankingData:
         ranking_data = self._data_collector.collect(domain_candidates)
         return ranking_data
+
+    @classmethod
+    @abstractmethod
+    def collect_data_from_json(cls, obj: Dict[str, Any]) -> RankingData:
+        raise NotImplementedError(f"{cls.__name__}.collect_data_from_json()")
