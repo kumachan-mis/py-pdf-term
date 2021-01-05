@@ -1,10 +1,10 @@
 from .extractor import PySlidesTermExtractor
 from .configs import (
-    BaseConfig,
-    XMLConfig,
-    CandidateConfig,
-    RankingMethodConfig,
-    TechnicalTermConfig,
+    BaseLayerConfig,
+    XMLLayerConfig,
+    CandidateLayerConfig,
+    RankingMethodLayerConfig,
+    TechnicalTermLayerConfig,
 )
 from .mappers import (
     CandidateMorphemeFilterMapper,
@@ -16,11 +16,11 @@ from .data import DomainPDFList
 
 __all__ = [
     "PySlidesTermExtractor",
-    "BaseConfig",
-    "XMLConfig",
-    "CandidateConfig",
-    "RankingMethodConfig",
-    "TechnicalTermConfig",
+    "BaseLayerConfig",
+    "XMLLayerConfig",
+    "CandidateLayerConfig",
+    "RankingMethodLayerConfig",
+    "TechnicalTermLayerConfig",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
     "SingleDomainRankingMethodMapper",
