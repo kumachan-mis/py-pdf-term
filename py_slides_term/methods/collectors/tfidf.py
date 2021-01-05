@@ -1,7 +1,7 @@
 from .base import BaseRankingDataCollector
 from ..rankingdata import TFIDFRankingData
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.analysis import TermOccurrenceAnalyzer, TermCharFontAnalyzer
+from py_slides_term.analysis import TermOccurrenceAnalyzer, TermMaxsizeAnalyzer
 
 
 class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
@@ -11,18 +11,21 @@ class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
 
         self._collect_charfont = collect_charfont
 
-        self._occurrence_analyzer = TermOccurrenceAnalyzer()
-        self._char_font_analyzer = TermCharFontAnalyzer()
+        self._termocc_analyzer = TermOccurrenceAnalyzer()
+        self._maxsize_analyzer = TermMaxsizeAnalyzer()
 
     def collect(self, domain_candidates: DomainCandidateTermList) -> TFIDFRankingData:
-        term_freq = self._occurrence_analyzer.analyze_term_freq(domain_candidates)
-        doc_freq = self._occurrence_analyzer.analyze_doc_term_freq(domain_candidates)
+        termocc = self._termocc_analyzer.analyze(domain_candidates)
         num_docs = len(domain_candidates.pdfs)
-        term_maxsize = (
-            self._char_font_analyzer.analyze_term_maxsize(domain_candidates)
+        maxsize = (
+            self._maxsize_analyzer.analyze(domain_candidates)
             if self._collect_charfont
             else None
         )
         return TFIDFRankingData(
-            domain_candidates.domain, term_freq, doc_freq, num_docs, term_maxsize
+            domain_candidates.domain,
+            termocc.term_freq,
+            termocc.doc_term_freq,
+            num_docs,
+            maxsize.term_maxsize if maxsize is not None else None,
         )
