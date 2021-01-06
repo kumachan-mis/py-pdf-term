@@ -1,5 +1,6 @@
 import os
 from argparse import ArgumentParser
+from xml.etree.ElementTree import tostring
 
 from py_slides_term.pdftoxml import PDFtoXMLConverter
 from scripts.utils import generate_pdf_path, pdf_to_xml_path
@@ -56,8 +57,9 @@ if __name__ == "__main__":
 
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
-            with open(xml_path, "w") as xml_file:
-                xml_file.write(pdfnxml.xml_content)
+            with open(xml_path, "wb") as xml_file:
+                xml_content = tostring(pdfnxml.xml_root, encoding="utf-8")
+                xml_file.write(xml_content)
 
     else:
         raise RuntimeError("unreachable statement")

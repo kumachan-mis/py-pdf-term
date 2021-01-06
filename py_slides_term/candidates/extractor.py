@@ -1,4 +1,4 @@
-from xml.etree.ElementTree import parse, fromstring, Element
+from xml.etree.ElementTree import parse, Element
 from typing import List, Optional, cast
 
 from .filters import (
@@ -12,7 +12,7 @@ from .filters import (
     ProperNounFilter,
 )
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
-from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLContent
+from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.mecab import (
     MeCabTagger,
     MeCabMorphemeClassifier,
@@ -57,15 +57,14 @@ class CandidateTermExtractor:
         xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
         return xml_candidates
 
-    def extract_from_domain_contents(
-        self, domain: str, pdfnxmls: List[PDFnXMLContent]
+    def extract_from_domain_elements(
+        self, domain: str, pdfnxmls: List[PDFnXMLElement]
     ) -> DomainCandidateTermList:
-        xmls = list(map(self.extract_from_xml_content, pdfnxmls))
+        xmls = list(map(self.extract_from_xml_element, pdfnxmls))
         return DomainCandidateTermList(domain, xmls)
 
-    def extract_from_xml_content(self, pdfnxml: PDFnXMLContent) -> PDFCandidateTermList:
-        xml_root = fromstring(pdfnxml.xml_content)
-        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, xml_root)
+    def extract_from_xml_element(self, pdfnxml: PDFnXMLElement) -> PDFCandidateTermList:
+        xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, pdfnxml.xml_root)
         return xml_candidates
 
     # private

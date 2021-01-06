@@ -1,10 +1,11 @@
 from io import BytesIO
+from xml.etree.ElementTree import fromstring
 
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 
 from .textful import TextfulXMLConverter
-from .data import PDFnXMLPath, PDFnXMLContent
+from .data import PDFnXMLPath, PDFnXMLElement
 
 
 class PDFtoXMLConverter:
@@ -24,7 +25,7 @@ class PDFtoXMLConverter:
 
         return PDFnXMLPath(pdf_path, xml_path)
 
-    def convert_as_content(self, pdf_path: str) -> PDFnXMLContent:
+    def convert_as_content(self, pdf_path: str) -> PDFnXMLElement:
         manager = PDFResourceManager()
 
         with open(pdf_path, "rb") as pdf_file, BytesIO() as xml_stream:
@@ -37,6 +38,6 @@ class PDFtoXMLConverter:
                 page_interpreter.process_page(page)
             converter.write_footer()
 
-            xml_content = xml_stream.getvalue().decode("utf-8")
+            xml_element = fromstring(xml_stream.getvalue().decode("utf-8"))
 
-        return PDFnXMLContent(pdf_path, xml_content)
+        return PDFnXMLElement(pdf_path, xml_element)
