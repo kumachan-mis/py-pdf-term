@@ -1,8 +1,8 @@
 from .converter import PDFtoXMLConverter
-from .data import PDFnXMLPath, PDFnXMLContent
+from .data import PDFnXMLPath, PDFnXMLElement
 
 __all__ = [
     "PDFtoXMLConverter",
     "PDFnXMLPath",
-    "PDFnXMLContent",
+    "PDFnXMLElement",
 ]

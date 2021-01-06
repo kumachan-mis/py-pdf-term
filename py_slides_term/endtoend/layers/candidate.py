@@ -74,7 +74,7 @@ class CandidateLayer:
                 return candidates
 
         pdfnxml = self._xml_layer.create_pdfnxml(pdf_path)
-        candidates = self._extractor.extract_from_xml_content(pdfnxml)
+        candidates = self._extractor.extract_from_xml_element(pdfnxml)
 
         if self._config.use_cache:
             self._cache.store(candidates, self._config)

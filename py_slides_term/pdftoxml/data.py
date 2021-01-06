@@ -1,4 +1,5 @@
 from dataclasses import dataclass, asdict
+from xml.etree.ElementTree import Element
 from typing import Dict, Any
 
 
@@ -16,9 +17,9 @@ class PDFnXMLPath:
 
 
 @dataclass(frozen=True)
-class PDFnXMLContent:
+class PDFnXMLElement:
     pdf_path: str
-    xml_content: str
+    xml_root: Element
 
     def to_json(self) -> Dict[str, Any]:
         return asdict(self)

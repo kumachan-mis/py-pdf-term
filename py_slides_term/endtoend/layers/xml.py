@@ -2,7 +2,7 @@ from typing import Optional
 
 from ..caches import XMLLayerCache, DEFAULT_CACHE_DIR
 from ..configs import XMLLayerConfig
-from py_slides_term.pdftoxml import PDFtoXMLConverter, PDFnXMLContent
+from py_slides_term.pdftoxml import PDFtoXMLConverter, PDFnXMLElement
 
 
 class XMLLayer:
@@ -19,7 +19,7 @@ class XMLLayer:
         self._cache = XMLLayerCache(cache_dir=cache_dir)
         self._config = config
 
-    def create_pdfnxml(self, pdf_path: str) -> PDFnXMLContent:
+    def create_pdfnxml(self, pdf_path: str) -> PDFnXMLElement:
         if self._config.use_cache:
             pdfnxml = self._cache.load(pdf_path, self._config)
             if pdfnxml is not None:
