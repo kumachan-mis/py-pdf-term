@@ -25,7 +25,7 @@ class PDFtoXMLConverter:
 
         return PDFnXMLPath(pdf_path, xml_path)
 
-    def convert_as_content(self, pdf_path: str) -> PDFnXMLElement:
+    def convert_as_element(self, pdf_path: str) -> PDFnXMLElement:
         manager = PDFResourceManager()
 
         with open(pdf_path, "rb") as pdf_file, BytesIO() as xml_stream:
