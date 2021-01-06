@@ -19,12 +19,12 @@ if __name__ == "__main__":
         const="file",
     )
     group.add_argument(
-        "-c",
-        "--content",
-        help="use file to content conversion",
+        "-e",
+        "--element",
+        help="use file to element conversion",
         action="store_const",
         dest="type",
-        const="content",
+        const="element",
     )
     parser.set_defaults(type="file")
     args = parser.parse_args()
@@ -45,15 +45,15 @@ if __name__ == "__main__":
 
             converter.convert_as_file(pdf_path, xml_path)
 
-    elif args.type == "content":
-        print(f"{script_name}: file to content conversion")
+    elif args.type == "element":
+        print(f"{script_name}: file to element conversion")
 
         for pdf_path in pdf_paths:
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
             print(f"{script_name}: {pdf_name} →　{xml_name}")
 
-            pdfnxml = converter.convert_as_content(pdf_path)
+            pdfnxml = converter.convert_as_element(pdf_path)
 
             xml_dir_name = os.path.dirname(xml_path)
             os.makedirs(xml_dir_name, exist_ok=True)
