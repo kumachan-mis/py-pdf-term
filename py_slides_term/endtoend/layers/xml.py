@@ -19,15 +19,15 @@ class XMLLayer:
         self._cache = XMLLayerCache(cache_dir=cache_dir)
         self._config = config
 
-    def process(self, pdf_path: str) -> PDFnXMLContent:
-        pdfnxml = None
-        cache_miss = False
+    def create_pdfnxml(self, pdf_path: str) -> PDFnXMLContent:
         if self._config.use_cache:
             pdfnxml = self._cache.load(pdf_path, self._config)
-        if pdfnxml is None:
-            pdfnxml = self._converter.convert_as_content(pdf_path)
-            cache_miss = True
-        if self._config.use_cache and cache_miss:
+            if pdfnxml is not None:
+                return pdfnxml
+
+        pdfnxml = self._converter.convert_as_content(pdf_path)
+
+        if self._config.use_cache:
             self._cache.store(pdfnxml, self._config)
 
         return pdfnxml
