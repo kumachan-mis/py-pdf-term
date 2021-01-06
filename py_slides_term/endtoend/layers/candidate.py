@@ -69,7 +69,7 @@ class CandidateLayer:
         if self._config.use_cache:
             candidates = self._cache.load(pdf_path, self._config)
             if candidates is not None:
-                if self._config.remove_lower_layer_cache_when_completed:
+                if self._config.remove_lower_layer_cache:
                     self._xml_layer.remove_cache(pdf_path)
                 return candidates
 
@@ -78,7 +78,7 @@ class CandidateLayer:
 
         if self._config.use_cache:
             self._cache.store(candidates, self._config)
-            if self._config.remove_lower_layer_cache_when_completed:
+            if self._config.remove_lower_layer_cache:
                 self._xml_layer.remove_cache(pdf_path)
 
         return candidates
