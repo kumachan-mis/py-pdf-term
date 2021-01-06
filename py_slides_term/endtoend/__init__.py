@@ -3,7 +3,7 @@ from .configs import (
     BaseLayerConfig,
     XMLLayerConfig,
     CandidateLayerConfig,
-    RankingMethodLayerConfig,
+    MethodLayerConfig,
     TechnicalTermLayerConfig,
 )
 from .mappers import (
@@ -19,7 +19,7 @@ __all__ = [
     "BaseLayerConfig",
     "XMLLayerConfig",
     "CandidateLayerConfig",
-    "RankingMethodLayerConfig",
+    "MethodLayerConfig",
     "TechnicalTermLayerConfig",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",

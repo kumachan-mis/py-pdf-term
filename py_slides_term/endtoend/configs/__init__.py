@@ -1,7 +1,7 @@
 from .base import BaseLayerConfig
 from .xml import XMLLayerConfig
 from .candidate import CandidateLayerConfig
-from .method import RankingMethodLayerConfig
+from .method import MethodLayerConfig
 from .techterm import TechnicalTermLayerConfig
 
 __all__ = [
@@ -9,6 +9,6 @@ __all__ = [
     "XMLLayerConfig",
     "CandidateLayerConfig",
     "AnalysisLayerConfig",
-    "RankingMethodLayerConfig",
+    "MethodLayerConfig",
     "TechnicalTermLayerConfig",
 ]
