@@ -6,7 +6,8 @@ from ..configs import BaseLayerConfig
 
 
 def create_dir_name_from_config(config: BaseLayerConfig, prefix: str = "") -> str:
-    return f"{prefix}{sha256(json.dumps(config.to_json()).encode()).hexdigest()}"
+    config_json = json.dumps(config.to_json_without_cache())
+    return f"{prefix}{sha256(config_json.encode()).hexdigest()}"
 
 
 def create_file_name_from_path(file_path: str, ext: str, prefix: str = "") -> str:

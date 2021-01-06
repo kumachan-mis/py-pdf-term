@@ -10,3 +10,4 @@ class MethodLayerConfig(BaseLayerConfig):
     method: str = "py_slides_term.methods.MCValueMethod"
     hyper_params: Dict[str, Any] = field(default_factory=dict)
     use_cache: bool = True
+    remove_lower_layer_cache: bool = True

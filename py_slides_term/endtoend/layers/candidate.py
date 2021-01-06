@@ -69,6 +69,8 @@ class CandidateLayer:
         if self._config.use_cache:
             candidates = self._cache.load(pdf_path, self._config)
             if candidates is not None:
+                if self._config.remove_lower_layer_cache:
+                    self._xml_layer.remove_cache(pdf_path)
                 return candidates
 
         pdfnxml = self._xml_layer.create_pdfnxml(pdf_path)
@@ -76,5 +78,7 @@ class CandidateLayer:
 
         if self._config.use_cache:
             self._cache.store(candidates, self._config)
+            if self._config.remove_lower_layer_cache:
+                self._xml_layer.remove_cache(pdf_path)
 
         return candidates

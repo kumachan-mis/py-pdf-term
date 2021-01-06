@@ -21,3 +21,4 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     modifying_particle_augmentation: bool = False
     use_cache: bool = True
+    remove_lower_layer_cache: bool = True

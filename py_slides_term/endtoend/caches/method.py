@@ -1,5 +1,7 @@
 import os
 import json
+from glob import glob
+from shutil import rmtree
 from typing import List, Dict, Any, Union, Callable, Generic
 
 from .util import create_dir_name_from_config, create_file_name_from_paths
@@ -84,3 +86,18 @@ class MethodLayerDataCache(Generic[RankingData]):
 
         with open(cache_file_path, "w") as json_file:
             json.dump(ranking_data.to_json(), json_file, ensure_ascii=False, indent=2)
+
+    def remove(self, pdf_paths: List[str], config: MethodLayerConfig):
+        dir_name = create_dir_name_from_config(config, prefix="data")
+        file_name = create_file_name_from_paths(pdf_paths, "json")
+        cache_dir_path = os.path.join(self._cache_dir, dir_name)
+        cache_file_path = os.path.join(cache_dir_path, file_name)
+
+        if not os.path.isfile(cache_file_path):
+            return
+
+        os.remove(cache_file_path)
+
+        cache_file_paths = glob(os.path.join(cache_dir_path, "*.json"))
+        if not cache_file_paths:
+            rmtree(cache_dir_path)

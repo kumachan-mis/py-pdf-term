@@ -98,6 +98,8 @@ class MethodLayer:
         if self._config.use_cache:
             term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
             if term_ranking is not None:
+                if self._config.remove_lower_layer_cache:
+                    self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
                 return term_ranking
 
         domain_candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
@@ -106,6 +108,8 @@ class MethodLayer:
 
         if self._config.use_cache:
             self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+            if self._config.remove_lower_layer_cache:
+                self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
 
         return term_ranking
 
@@ -126,6 +130,8 @@ class MethodLayer:
         if self._config.use_cache:
             term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
             if term_ranking is not None:
+                if self._config.remove_lower_layer_cache:
+                    self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
                 return term_ranking
 
         domain_candidates_list: List[DomainCandidateTermList] = []
@@ -142,6 +148,8 @@ class MethodLayer:
 
         if self._config.use_cache:
             self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+            if self._config.remove_lower_layer_cache:
+                self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
 
         return term_ranking
 

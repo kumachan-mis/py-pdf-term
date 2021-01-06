@@ -31,3 +31,6 @@ class XMLLayer:
             self._cache.store(pdfnxml, self._config)
 
         return pdfnxml
+
+    def remove_cache(self, pdf_path: str):
+        self._cache.remove(pdf_path, self._config)
