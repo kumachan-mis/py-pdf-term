@@ -10,6 +10,7 @@ from py_slides_term.share.consts import SYMBOL_REGEX
 class JanomeTokenizer:
     # public
     def __init__(self):
+        self._space_regex = re.compile(r"\s+")
         self._inner_tokenizer = Tokenizer()
 
     def tokenize(
@@ -22,7 +23,11 @@ class JanomeTokenizer:
             return []
 
         text = text.replace("・", " ・ ")
-        tokens = cast(Iterable[Token], self._inner_tokenizer.tokenize(text))
+        # pyright:reportGeneralTypeIssues=false
+        tokens = filter(
+            lambda token: self._space_regex.fullmatch(token.surface) is None,
+            cast(Iterable[Token], self._inner_tokenizer.tokenize(text)),
+        )
         return list(
             map(lambda token: self._create_morpheme(morpheme_cls, token), tokens)
         )
