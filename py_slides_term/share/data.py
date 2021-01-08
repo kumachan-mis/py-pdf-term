@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import List, Tuple, Dict, Any, Type
 
-from py_slides_term.mecab import BaseMeCabMorpheme, MeCabMorphemeIPADic
+from py_slides_term.morphemes import BaseMorpheme, MorphemeIPADic
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
@@ -14,7 +14,7 @@ LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 @dataclass(frozen=True)
 class Term:
-    morphemes: List[BaseMeCabMorpheme]
+    morphemes: List[BaseMorpheme]
     fontsize: float = 0.0
     augmented: bool = False
 
@@ -60,7 +60,7 @@ class Term:
     def from_json(
         cls,
         obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMeCabMorpheme] = MeCabMorphemeIPADic,
+        morpheme_cls: Type[BaseMorpheme] = MorphemeIPADic,
     ):
         return cls(
             list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),

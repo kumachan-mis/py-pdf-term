@@ -6,7 +6,7 @@ from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
 from ..data import DomainTermRanking, ScoredTerm
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.mecab import MeCabMorphemeClassifier, BaseMeCabMorpheme
+from py_slides_term.morphemes import MorphemeClassifier, BaseMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -26,7 +26,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._threshold = threshold
-        self._classifier = MeCabMorphemeClassifier()
+        self._classifier = MorphemeClassifier()
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
@@ -148,7 +148,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         score = term_maxsize_score + term_freq_score + auth_hub_score
         return ScoredTerm(candidate_str, score)
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMeCabMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
         is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
         is_symbol = self._classifier.is_symbol(morpheme)
         return is_modifying_particle or is_symbol

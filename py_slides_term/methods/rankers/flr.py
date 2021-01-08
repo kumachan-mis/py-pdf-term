@@ -4,14 +4,14 @@ from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
 from ..data import DomainTermRanking, ScoredTerm
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.mecab import MeCabMorphemeClassifier, BaseMeCabMorpheme
+from py_slides_term.morphemes import MorphemeClassifier, BaseMorpheme
 from py_slides_term.share.data import Term
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
     # public
     def __init__(self):
-        self._classifier = MeCabMorphemeClassifier()
+        self._classifier = MorphemeClassifier()
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRankingData
@@ -61,7 +61,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
         score = term_maxsize_score + term_freq_score + concat_score
         return ScoredTerm(candidate_str, score)
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMeCabMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
         is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
         is_symbol = self._classifier.is_symbol(morpheme)
         return is_modifying_particle or is_symbol

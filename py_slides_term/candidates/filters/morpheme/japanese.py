@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.mecab import BaseMeCabMorpheme
+from py_slides_term.morphemes import BaseMorpheme
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
@@ -10,11 +10,11 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
         pass
 
-    def inscope(self, morpheme: BaseMeCabMorpheme) -> bool:
+    def inscope(self, morpheme: BaseMorpheme) -> bool:
         regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+|\-")
         return regex.fullmatch(str(morpheme)) is not None
 
-    def is_partof_candidate(self, morphemes: List[BaseMeCabMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
         if scoped_morpheme.pos == "名詞":
             categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "ナイ形容詞語幹", "接尾"}

@@ -13,10 +13,10 @@ from .filters import (
 )
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.mecab import (
-    MeCabTagger,
-    MeCabMorphemeClassifier,
-    BaseMeCabMorpheme,
+from py_slides_term.morphemes import (
+    JanomeTokenizer,
+    MorphemeClassifier,
+    BaseMorpheme,
 )
 from py_slides_term.share.data import Term
 
@@ -41,9 +41,9 @@ class CandidateTermExtractor:
                 ProperNounFilter(),
             ]
 
-        self._mecab_tagger = MeCabTagger()
+        self._tokenizer = JanomeTokenizer()
         self._filter = CandidateFilter(morpheme_filters, term_filters)
-        self._classifier = MeCabMorphemeClassifier()
+        self._classifier = MorphemeClassifier()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
     def extract_from_domain_files(
@@ -82,9 +82,9 @@ class CandidateTermExtractor:
 
         candicate_terms: List[Term] = []
         for text_node in page.iter("text"):
-            candicate_term_morphemes: List[BaseMeCabMorpheme] = []
+            candicate_term_morphemes: List[BaseMorpheme] = []
 
-            morphemes_from_text = self._mecab_tagger.parse(cast(str, text_node.text))
+            morphemes_from_text = self._tokenizer.tokenize(cast(str, text_node.text))
             fontsize = float(cast(str, text_node.get("size")))
             for idx, morpheme in enumerate(morphemes_from_text):
                 if self._filter.is_partof_candidate(morphemes_from_text, idx):
