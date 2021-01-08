@@ -1,7 +1,7 @@
 import re
 
 from .base import BaseCandidateTermFilter
-from py_slides_term.mecab import BaseMeCabMorpheme
+from py_slides_term.morphemes import BaseMorpheme
 from py_slides_term.share.data import Term
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
@@ -18,7 +18,7 @@ class ProperNounFilter(BaseCandidateTermFilter):
         return not self._is_region_or_person(scoped_term)
 
     def _is_region_or_person(self, scoped_term: Term) -> bool:
-        def is_region_or_person_morpheme(morpheme: BaseMeCabMorpheme) -> bool:
+        def is_region_or_person_morpheme(morpheme: BaseMorpheme) -> bool:
             return (
                 morpheme.pos == "名詞"
                 and morpheme.category == "固有名詞"

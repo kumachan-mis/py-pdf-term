@@ -2,7 +2,7 @@ from typing import List
 
 from .morpheme import BaseCandidateMorphemeFilter
 from .term import BaseCandidateTermFilter
-from py_slides_term.mecab import BaseMeCabMorpheme
+from py_slides_term.morphemes import BaseMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -17,7 +17,7 @@ class CandidateFilter:
         self._morpheme_filters = morpheme_filters
         self._term_filters = term_filters
 
-    def is_partof_candidate(self, morphemes: List[BaseMeCabMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
         morpheme = morphemes[idx]
         if all(map(lambda mf: not mf.inscope(morpheme), self._morpheme_filters)):
             return False
