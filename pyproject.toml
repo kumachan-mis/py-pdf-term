@@ -12,7 +12,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.7"
 "pdfminer.six" = "^20201018"
-Janome = "^0.4.1"
+spacy = "^2.3.5"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
