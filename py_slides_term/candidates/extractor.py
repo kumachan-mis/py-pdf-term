@@ -14,7 +14,7 @@ from .filters import (
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.morphemes import (
-    JanomeTokenizer,
+    SpaCyTokenizer,
     MorphemeClassifier,
     BaseMorpheme,
 )
@@ -41,7 +41,7 @@ class CandidateTermExtractor:
                 ProperNounFilter(),
             ]
 
-        self._tokenizer = JanomeTokenizer()
+        self._tokenizer = SpaCyTokenizer()
         self._filter = CandidateFilter(morpheme_filters, term_filters)
         self._classifier = MorphemeClassifier()
         self.modifying_particle_augmentation = modifying_particle_augmentation

@@ -1,10 +1,10 @@
-from .tokenizer import JanomeTokenizer
+from .tokenizer import SpaCyTokenizer
 from .classifier import MorphemeClassifier
-from .data import BaseMorpheme, MorphemeIPADic
+from .data import BaseMorpheme, MorphemeSpaCyDic
 
 __all__ = [
-    "JanomeTokenizer",
+    "SpaCyTokenizer",
     "MorphemeClassifier",
     "BaseMorpheme",
-    "MorphemeIPADic",
+    "MorphemeSpaCyDic",
 ]

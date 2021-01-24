@@ -1,5 +1,7 @@
 # http://www.shurey.com/js/works/unicode.html
 
+ALPHABET_REGEX = r"[A-Za-z]"
+
 # Hiragana
 HIRAGANA_REGEX = r"[\u3040-\u309F]"
 
@@ -52,3 +54,11 @@ SYMBOL_REGEX = (
     )
     + "]"
 )
+
+FULLWIDTH_SYMBOL_REGEX = r"[\uFF00-\uFF0F\uFF1A-\uFF20\uFF3B-\uFF40\uFF5B-\uFF65\uFF70]"
+
+NUMBER_REGEX = r"[0-9]"
+
+FULLWIDTH_NUMBER_REGEX = r"[０-９]"
+
+HYPHEN_REGEX = r"-"
