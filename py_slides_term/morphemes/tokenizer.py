@@ -65,8 +65,8 @@ class SpaCyTokenizer:
     def _create_english_morpheme(self, token: Any) -> MorphemeSpaCyDic:
         return MorphemeSpaCyDic(
             token.text,
+            token.pos_,
             token.tag_,
-            "*",
             "*",
             "*",
             token.pos_,
