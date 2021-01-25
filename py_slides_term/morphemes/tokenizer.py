@@ -1,10 +1,11 @@
 import re
-from typing import List, Any, Type
+from typing import List, Any
 import ja_core_news_sm
 import en_core_web_sm
 
 from .data import BaseMorpheme, MorphemeSpaCyDic
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
+
 
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
@@ -16,12 +17,7 @@ class SpaCyTokenizer:
         self._ja_model = ja_core_news_sm.load()
         self._en_model = en_core_web_sm.load()
 
-    def tokenize(
-        self,
-        text: str,
-        morpheme_cls: Type[BaseMorpheme] = MorphemeSpaCyDic,
-        terminal: str = "EOS",
-    ) -> List[BaseMorpheme]:
+    def tokenize(self, text: str) -> List[BaseMorpheme]:
         if not text:
             return []
 
@@ -29,7 +25,7 @@ class SpaCyTokenizer:
 
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
-        if japanese_regex.match(text):
+        if japanese_regex.search(text):
             return list(
                 map(
                     lambda token: self._create_japanese_morpheme(token),

@@ -2,13 +2,13 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.morphemes import BaseMorpheme
+from py_slides_term.morphemes import BaseMorpheme, MorphemeClassifier
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
-        pass
+        self._classifiter = MorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
         regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+|\-")
@@ -16,21 +16,43 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
+
         if scoped_morpheme.pos == "名詞":
-            categories = {"一般", "サ変接続", "固有名詞", "形容動詞語幹", "ナイ形容詞語幹", "接尾"}
-            return (
-                scoped_morpheme.category in categories
-                and scoped_morpheme.subcategory not in {"助数詞"}
-            )
-        elif scoped_morpheme.pos == "接頭詞":
-            return scoped_morpheme.category in {"名詞接続"}
+            if scoped_morpheme.category == "普通名詞":
+                return scoped_morpheme.subcategory in {
+                    "一般",
+                    "サ変可能",
+                    "形状詞可能",
+                    "サ変形状詞可能",
+                } or (
+                    scoped_morpheme.subcategory == "助数詞可能"
+                    and idx > 0
+                    and morphemes[idx - 1].pos == "名詞"
+                    and morphemes[idx - 1].category != "数詞"
+                )
+            elif scoped_morpheme.category == "固有名詞":
+                return True
+        elif scoped_morpheme.pos == "形状詞":
+            return scoped_morpheme.category in {"一般"}
         elif scoped_morpheme.pos == "動詞":
-            return scoped_morpheme.category in {"自立"}
+            return scoped_morpheme.category in {"一般"}
         elif scoped_morpheme.pos == "形容詞":
-            return scoped_morpheme.category in {"自立"}
+            return scoped_morpheme.category in {"一般"}
+        elif scoped_morpheme.pos == "接頭辞":
+            return True
+        elif scoped_morpheme.pos == "接尾辞":
+            return (
+                (
+                    scoped_morpheme.category == "名詞的"
+                    and scoped_morpheme.subcategory in {"一般", "サ変可能", "形状詞可能"}
+                )
+                or scoped_morpheme.category == "形状詞的"
+                or scoped_morpheme.category == "動詞的"
+                or scoped_morpheme.category == "形容詞的"
+            )
         elif scoped_morpheme.pos == "助詞":
-            return scoped_morpheme.category in {"連体化"}
-        elif scoped_morpheme.pos == "記号":
+            return self._classifiter.is_modifying_particle(scoped_morpheme)
+        elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
             regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")
             if scoped_morpheme_str == "-":
