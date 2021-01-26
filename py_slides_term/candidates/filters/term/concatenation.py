@@ -105,7 +105,7 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
     def is_candidate(self, scoped_term: Term) -> bool:
         return (
             self._is_norn_phrase(scoped_term)
-            and not self._has_invalid_connector_symbol(scoped_term)
+            and not self._has_invalid_connector_punct(scoped_term)
             and not self._has_invalid_adposition(scoped_term)
         )
 
@@ -113,20 +113,20 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
         return scoped_term.morphemes[num_morphemes - 1].pos == "NOUN"
 
-    def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
+    def _has_invalid_connector_punct(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def invalid_connector_symbol_appears_at(i: int) -> bool:
-            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
+        def invalid_connector_punct_appears_at(i: int) -> bool:
+            if not self._classifier.is_connector_punct(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
-                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
+                or self._classifier.is_connector_punct(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_punct(scoped_term.morphemes[i + 1])
             )
 
-        return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
+        return any(map(invalid_connector_punct_appears_at, range(num_morphemes)))
 
     def _has_invalid_adposition(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
@@ -143,3 +143,37 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
             )
 
         return any(map(invalid_adposition_appears_at, range(num_morphemes)))
+
+    def _has_invalid_adjective(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+
+        def invalid_adjective_appears_at(i: int) -> bool:
+            if scoped_term.morphemes[i].pos != "VERB":
+                return False
+
+            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
+                "NOUN",
+                "PROPN",
+                "ADJ",
+                "VERB",
+                "PUNCT",
+            }
+
+        return any(map(invalid_adjective_appears_at, range(num_morphemes)))
+
+    def _has_invalid_participle(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+
+        def invalid_participle_appears_at(i: int) -> bool:
+            if scoped_term.morphemes[i].pos != "ADJ":
+                return False
+
+            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
+                "NOUN",
+                "PROPN",
+                "ADJ",
+                "VERB",
+                "PUNCT",
+            }
+
+        return any(map(invalid_participle_appears_at, range(num_morphemes)))
