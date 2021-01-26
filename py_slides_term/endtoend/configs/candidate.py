@@ -14,7 +14,8 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     term_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.ConcatenationFilter",
+            "py_slides_term.candidates.JapaneseConcatenationFilter",
+            "py_slides_term.candidates.EnglishConcatenationFilter",
             "py_slides_term.candidates.SymbolLikeFilter",
             "py_slides_term.candidates.ProperNounFilter",
         ]

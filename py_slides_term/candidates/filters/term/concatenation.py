@@ -1,14 +1,17 @@
 import re
 
 from .base import BaseCandidateTermFilter
-from py_slides_term.morphemes import MorphemeClassifier
+from py_slides_term.morphemes import (
+    JapaneseMorphemeClassifier,
+    EnglishMorphemeClassifier,
+)
 from py_slides_term.share.data import Term
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
-class ConcatenationFilter(BaseCandidateTermFilter):
+class JapaneseConcatenationFilter(BaseCandidateTermFilter):
     def __init__(self):
-        self._classifier = MorphemeClassifier()
+        self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, term: Term) -> bool:
         japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
@@ -89,3 +92,15 @@ class ConcatenationFilter(BaseCandidateTermFilter):
             return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos != "接尾辞"
 
         return any(map(adjverb_without_nounization_appears_at, range(num_morphemes)))
+
+
+class EnglishConcatenationFilter(BaseCandidateTermFilter):
+    def __init__(self):
+        self._classifier = EnglishMorphemeClassifier()
+
+    def inscope(self, term: Term) -> bool:
+        regex = re.compile(r"[A-Za-z\- ]+")
+        return regex.fullmatch(str(term)) is not None
+
+    def is_candidate(self, scoped_term: Term) -> bool:
+        return True

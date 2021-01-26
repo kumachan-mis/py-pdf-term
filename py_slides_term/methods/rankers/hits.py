@@ -1,12 +1,13 @@
 from math import sqrt, log10
 from dataclasses import dataclass
+from py_slides_term.morphemes.classifier import EnglishMorphemeClassifier
 from typing import Dict
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
 from ..data import DomainTermRanking, ScoredTerm
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import MorphemeClassifier, BaseMorpheme
+from py_slides_term.morphemes import JapaneseMorphemeClassifier, BaseMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -26,7 +27,8 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._threshold = threshold
-        self._classifier = MorphemeClassifier()
+        self._ja_classifier = JapaneseMorphemeClassifier()
+        self._en_classifier = EnglishMorphemeClassifier()
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
@@ -149,6 +151,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         return ScoredTerm(candidate_str, score)
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
-        is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
-        is_symbol = self._classifier.is_symbol(morpheme)
-        return is_modifying_particle or is_symbol
+        is_modifying_particle = self._ja_classifier.is_modifying_particle(morpheme)
+        is_ja_symbol = self._ja_classifier.is_symbol(morpheme)
+        is_en_symbol = self._en_classifier.is_symbol(morpheme)
+        return is_modifying_particle or is_ja_symbol or is_en_symbol

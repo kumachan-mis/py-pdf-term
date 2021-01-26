@@ -7,7 +7,8 @@ from .filters import (
     JapaneseMorphemeFilter,
     EnglishMorphemeFilter,
     BaseCandidateTermFilter,
-    ConcatenationFilter,
+    JapaneseConcatenationFilter,
+    EnglishConcatenationFilter,
     SymbolLikeFilter,
     ProperNounFilter,
 )
@@ -15,7 +16,7 @@ from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTe
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.morphemes import (
     SpaCyTokenizer,
-    MorphemeClassifier,
+    JapaneseMorphemeClassifier,
     BaseMorpheme,
 )
 from py_slides_term.share.data import Term
@@ -36,14 +37,15 @@ class CandidateTermExtractor:
             ]
         if term_filters is None:
             term_filters = [
-                ConcatenationFilter(),
+                JapaneseConcatenationFilter(),
+                EnglishConcatenationFilter(),
                 SymbolLikeFilter(),
                 ProperNounFilter(),
             ]
 
         self._tokenizer = SpaCyTokenizer()
         self._filter = CandidateFilter(morpheme_filters, term_filters)
-        self._classifier = MorphemeClassifier()
+        self._ja_classifier = JapaneseMorphemeClassifier()
         self.modifying_particle_augmentation = modifying_particle_augmentation
 
     def extract_from_domain_files(
@@ -117,7 +119,7 @@ class CandidateTermExtractor:
             + [
                 opsition
                 for opsition in range(num_morphemes)
-                if self._classifier.is_modifying_particle(term.morphemes[opsition])
+                if self._ja_classifier.is_modifying_particle(term.morphemes[opsition])
             ]
             + [num_morphemes]
         )

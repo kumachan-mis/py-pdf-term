@@ -3,7 +3,7 @@ from typing import Dict
 
 from ..share import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import MorphemeClassifier, BaseMorpheme
+from py_slides_term.morphemes import JapaneseMorphemeClassifier, BaseMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -25,7 +25,7 @@ class TermLeftRightFrequencyAnalyzer:
     # public
     def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
-        self._classifier = MorphemeClassifier()
+        self._classifier = JapaneseMorphemeClassifier()
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(

@@ -2,13 +2,13 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.morphemes import BaseMorpheme, MorphemeClassifier
+from py_slides_term.morphemes import BaseMorpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
-        self._classifier = MorphemeClassifier()
+        self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
         regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+|\-")
