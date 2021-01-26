@@ -152,6 +152,6 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
         is_modifying_particle = self._ja_classifier.is_modifying_particle(morpheme)
-        is_ja_symbol = self._ja_classifier.is_symbol(morpheme)
-        is_en_symbol = self._en_classifier.is_symbol(morpheme)
-        return is_modifying_particle or is_ja_symbol or is_en_symbol
+        is_ja_connector_punct = self._ja_classifier.is_connector_punct(morpheme)
+        is_en_connector_punct = self._en_classifier.is_connector_punct(morpheme)
+        return is_modifying_particle or is_ja_connector_punct or is_en_connector_punct

@@ -112,5 +112,5 @@ class TermLeftRightFrequencyAnalyzer:
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
         is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
-        is_symbol = self._classifier.is_symbol(morpheme)
-        return is_modifying_particle or is_symbol
+        is_connector_punct = self._classifier.is_connector_punct(morpheme)
+        return is_modifying_particle or is_connector_punct

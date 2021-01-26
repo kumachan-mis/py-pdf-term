@@ -32,13 +32,13 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_connector_symbol_appears_at(i: int) -> bool:
-            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
+            if not self._classifier.is_connector_punct(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
-                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
+                or self._classifier.is_connector_punct(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_punct(scoped_term.morphemes[i + 1])
             )
 
         return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
