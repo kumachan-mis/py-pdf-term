@@ -8,7 +8,7 @@ from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_RE
 
 class ProperNounFilter(BaseCandidateTermFilter):
     def __init__(self):
-        self._classifiter = MorphemeClassifier()
+        self._classifier = MorphemeClassifier()
 
     def inscope(self, term: Term) -> bool:
         regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")
@@ -23,6 +23,6 @@ class ProperNounFilter(BaseCandidateTermFilter):
                 morpheme.pos == "名詞"
                 and morpheme.category == "固有名詞"
                 and morpheme.subcategory in {"人名", "地名"}
-            ) or self._classifiter.is_modifying_particle(morpheme)
+            ) or self._classifier.is_modifying_particle(morpheme)
 
         return all(map(is_region_or_person_morpheme, scoped_term.morphemes))

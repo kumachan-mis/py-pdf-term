@@ -8,7 +8,7 @@ from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_RE
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
-        self._classifiter = MorphemeClassifier()
+        self._classifier = MorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
         regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+|\-")
@@ -51,7 +51,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
                 or scoped_morpheme.category == "形容詞的"
             )
         elif scoped_morpheme.pos == "助詞":
-            return self._classifiter.is_modifying_particle(scoped_morpheme)
+            return self._classifier.is_modifying_particle(scoped_morpheme)
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
             regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")

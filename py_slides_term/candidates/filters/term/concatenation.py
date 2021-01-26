@@ -8,7 +8,7 @@ from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_RE
 
 class ConcatenationFilter(BaseCandidateTermFilter):
     def __init__(self):
-        self._classifiter = MorphemeClassifier()
+        self._classifier = MorphemeClassifier()
 
     def inscope(self, term: Term) -> bool:
         japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
@@ -29,13 +29,13 @@ class ConcatenationFilter(BaseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_connector_symbol_appears_at(i: int) -> bool:
-            if not self._classifiter.is_connector_symbol(scoped_term.morphemes[i]):
+            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or self._classifiter.is_connector_symbol(scoped_term.morphemes[i - 1])
-                or self._classifiter.is_connector_symbol(scoped_term.morphemes[i + 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
             )
 
         return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
@@ -45,7 +45,7 @@ class ConcatenationFilter(BaseCandidateTermFilter):
         phonetic_regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-])")
 
         def invalid_modifying_particle_appears_at(i: int) -> bool:
-            if not self._classifiter.is_modifying_particle(scoped_term.morphemes[i]):
+            if not self._classifier.is_modifying_particle(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0

@@ -14,5 +14,19 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         return regex.fullmatch(str(morpheme)) is not None
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
-        # TODO: use English dictionary
-        return True
+        scoped_morpheme = morphemes[idx]
+
+        if scoped_morpheme.pos == "NOUN":
+            return True
+        elif scoped_morpheme.pos == "PROPN":
+            return True
+        elif scoped_morpheme.pos == "ADJ":
+            return True
+        elif scoped_morpheme.pos == "VERB":
+            return scoped_morpheme.category in {"VBG", "VBN"}
+        elif scoped_morpheme.pos == "ADP":
+            return scoped_morpheme.category == "IN"
+        elif scoped_morpheme.pos == "PUNCT":
+            return scoped_morpheme.category == "HYPH"
+
+        return False
