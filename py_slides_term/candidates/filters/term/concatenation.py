@@ -103,4 +103,43 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
         return regex.fullmatch(str(term)) is not None
 
     def is_candidate(self, scoped_term: Term) -> bool:
-        return True
+        return (
+            self._is_norn_phrase(scoped_term)
+            and not self._has_invalid_connector_symbol(scoped_term)
+            and not self._has_invalid_adposition(scoped_term)
+        )
+
+    def _is_norn_phrase(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+        return scoped_term.morphemes[num_morphemes - 1].pos == "NOUN"
+
+    def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+
+        def invalid_connector_symbol_appears_at(i: int) -> bool:
+            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
+                return False
+            return (
+                i == 0
+                or i == num_morphemes - 1
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
+            )
+
+        return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
+
+    def _has_invalid_adposition(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+
+        def invalid_adposition_appears_at(i: int) -> bool:
+            if scoped_term.morphemes[i].pos != "ADP":
+                return False
+
+            return (
+                i == 0
+                or i == num_morphemes - 1
+                or scoped_term.morphemes[i - 1].pos == "ADP"
+                or scoped_term.morphemes[i + 1].pos == "ADP"
+            )
+
+        return any(map(invalid_adposition_appears_at, range(num_morphemes)))
