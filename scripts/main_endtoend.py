@@ -2,7 +2,11 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term import PySlidesTermExtractor, MethodLayerConfig
+from py_slides_term import (
+    PySlidesTermExtractor,
+    CandidateLayerConfig,
+    MethodLayerConfig,
+)
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,
@@ -27,51 +31,47 @@ if __name__ == "__main__":
     if args.mcvalue:
         method_type = "single"
         method_name = "mcvalue"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.MCValueMethod"
-        )
+        method = "py_slides_term.methods.MCValueMethod"
     elif args.tfidf:
         method_type = "multi"
         method_name = "tfidf"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.TFIDFMethod"
-        )
+        method = "py_slides_term.methods.TFIDFMethod"
     elif args.lfidf:
         method_type = "multi"
         method_name = "lfidf"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.LFIDFMethod"
-        )
+        method = "py_slides_term.methods.LFIDFMethod"
     elif args.flr:
         method_type = "single"
         method_name = "flr"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.FLRMethod"
-        )
+        method = "py_slides_term.methods.FLRMethod"
     elif args.hits:
         method_type = "single"
         method_name = "hits"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.HITSMethod"
-        )
+        method = "py_slides_term.methods.HITSMethod"
     elif args.flrh:
         method_type = "single"
         method_name = "flrh"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.FLRHMethod"
-        )
+        method = "py_slides_term.methods.FLRHMethod"
     elif args.mdp:
         method_type = "multi"
         method_name = "mdp"
-        method_config = MethodLayerConfig(
-            method_type=method_type, method="py_slides_term.methods.MDPMethod"
-        )
+        method = "py_slides_term.methods.MDPMethod"
     else:
         raise RuntimeError("unreachable statement")
 
+    extractor = PySlidesTermExtractor(
+        candidate_config=CandidateLayerConfig(
+            remove_lower_layer_cache=False,
+        ),
+        method_config=MethodLayerConfig(
+            method_type=method_type,
+            method=method,
+            remove_lower_layer_cache=False,
+        ),
+    )
+
     file_name = f"{method_name}.json"
     domains = get_domains()
-    extractor = PySlidesTermExtractor(method_config=method_config)
 
     if method_type == "single":
         domain_pdfs_list = generate_domain_pdfs(domains)
