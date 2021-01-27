@@ -53,8 +53,8 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or scoped_term.morphemes[i - 1].pos != "名詞"
-                or scoped_term.morphemes[i + 1].pos != "名詞"
+                or scoped_term.morphemes[i - 1].pos not in {"名詞", "形状詞"}
+                or scoped_term.morphemes[i + 1].pos not in {"名詞", "形状詞"}
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i - 1]))
                 is not None
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i + 1]))
@@ -69,7 +69,10 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
         def invalid_prefix_appears_at(i: int) -> bool:
             if scoped_term.morphemes[i].pos != "接頭辞":
                 return False
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos != "名詞"
+            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
+                "名詞",
+                "形状詞",
+            }
 
         return any(map(invalid_prefix_appears_at, range(num_morphemes)))
 
@@ -79,7 +82,7 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
         def invalid_postfix_appears_at(i: int) -> bool:
             if scoped_term.morphemes[i].pos != "接尾辞":
                 return False
-            return i == 0 or scoped_term.morphemes[i - 1].pos != "名詞"
+            return i == 0 or scoped_term.morphemes[i - 1].pos not in {"名詞", "形状詞"}
 
         return any(map(invalid_postfix_appears_at, range(num_morphemes)))
 
