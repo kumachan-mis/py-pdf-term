@@ -16,8 +16,14 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
     def inscope(self, term: Term) -> bool:
         japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
         english_pattern = r"[A-Za-z\- ]"
-        regex = re.compile(rf"({japanese_pattern}|{english_pattern})+")
-        return regex.fullmatch(str(term)) is not None
+        ja_regex = re.compile(rf"({japanese_pattern})+")
+        ja_en_regex = re.compile(rf"({japanese_pattern}|{english_pattern})+")
+        return ja_en_regex.fullmatch(str(term)) is not None and any(
+            map(
+                lambda morpheme: ja_regex.fullmatch(morpheme.pos) is not None,
+                term.morphemes,
+            )
+        )
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return (
@@ -103,7 +109,12 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
 
     def inscope(self, term: Term) -> bool:
         regex = re.compile(r"[A-Za-z\- ]+")
-        return regex.fullmatch(str(term)) is not None
+        return regex.fullmatch(str(term)) is not None and all(
+            map(
+                lambda morpheme: regex.fullmatch(morpheme.pos) is not None,
+                term.morphemes,
+            )
+        )
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return (

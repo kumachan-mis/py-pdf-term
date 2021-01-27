@@ -11,8 +11,14 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
-        regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+|\-")
-        return regex.fullmatch(str(morpheme)) is not None
+        japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+        english_pattern = r"[A-Za-z\- ]"
+        ja_regex = re.compile(rf"({japanese_pattern})+")
+        ja_en_regex = re.compile(rf"({japanese_pattern}|{english_pattern})+")
+        return (
+            ja_en_regex.fullmatch(str(morpheme)) is not None
+            and ja_regex.fullmatch(morpheme.pos) is not None
+        )
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]

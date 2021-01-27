@@ -11,7 +11,10 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
         regex = re.compile(r"[A-Za-z]+|\-")
-        return regex.fullmatch(str(morpheme)) is not None
+        return (
+            regex.fullmatch(str(morpheme)) is not None
+            and regex.fullmatch(morpheme.pos) is not None
+        )
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
