@@ -9,7 +9,7 @@ class JapaneseMorphemeClassifier:
         return morpheme.pos in {"記号", "補助記号"}
 
     def is_connector_punct(self, morpheme: BaseMorpheme) -> bool:
-        return morpheme.surface_form == {"・", "-"} and morpheme.pos == "補助記号"
+        return morpheme.surface_form in {"・", "-"} and morpheme.pos == "補助記号"
 
 
 class EnglishMorphemeClassifier:
