@@ -26,7 +26,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
             return scoped_morpheme.category in {"VBG", "VBN"}
         elif scoped_morpheme.pos == "ADP":
             return scoped_morpheme.category == "IN"
-        elif scoped_morpheme.pos == "PUNCT":
+        elif scoped_morpheme.pos == "SYM":
             return scoped_morpheme.category == "HYPH" and 0 < idx < len(morphemes) - 1
 
         return False

@@ -167,13 +167,11 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
             if scoped_term.morphemes[i].pos != "VERB":
                 return False
 
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
-                "NOUN",
-                "PROPN",
-                "ADJ",
-                "VERB",
-                "PUNCT",
-            }
+            valid_part_of_speeches = {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+            return (
+                i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos not in valid_part_of_speeches
+            )
 
         return any(map(invalid_adjective_appears_at, range(num_morphemes)))
 
@@ -184,12 +182,10 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
             if scoped_term.morphemes[i].pos != "ADJ":
                 return False
 
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
-                "NOUN",
-                "PROPN",
-                "ADJ",
-                "VERB",
-                "PUNCT",
-            }
+            valid_part_of_speeches = {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+            return (
+                i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos not in valid_part_of_speeches
+            )
 
         return any(map(invalid_participle_appears_at, range(num_morphemes)))
