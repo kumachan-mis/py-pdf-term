@@ -32,13 +32,13 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_connector_symbol_appears_at(i: int) -> bool:
-            if not self._classifier.is_connector_punct(scoped_term.morphemes[i]):
+            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or self._classifier.is_connector_punct(scoped_term.morphemes[i - 1])
-                or self._classifier.is_connector_punct(scoped_term.morphemes[i + 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
             )
 
         return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
@@ -105,7 +105,7 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
     def is_candidate(self, scoped_term: Term) -> bool:
         return (
             self._is_norn_phrase(scoped_term)
-            and not self._has_invalid_connector_punct(scoped_term)
+            and not self._has_invalid_connector_symbol(scoped_term)
             and not self._has_invalid_adposition(scoped_term)
         )
 
@@ -129,20 +129,20 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
 
         return all(map(norn_appears_at, induces_should_be_norn))
 
-    def _has_invalid_connector_punct(self, scoped_term: Term) -> bool:
+    def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def invalid_connector_punct_appears_at(i: int) -> bool:
-            if not self._classifier.is_connector_punct(scoped_term.morphemes[i]):
+        def invalid_connector_symbol_appears_at(i: int) -> bool:
+            if not self._classifier.is_connector_symbol(scoped_term.morphemes[i]):
                 return False
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or self._classifier.is_connector_punct(scoped_term.morphemes[i - 1])
-                or self._classifier.is_connector_punct(scoped_term.morphemes[i + 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_connector_symbol(scoped_term.morphemes[i + 1])
             )
 
-        return any(map(invalid_connector_punct_appears_at, range(num_morphemes)))
+        return any(map(invalid_connector_symbol_appears_at, range(num_morphemes)))
 
     def _has_invalid_adposition(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)

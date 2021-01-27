@@ -4,7 +4,12 @@ import ja_core_news_sm
 import en_core_web_sm
 
 from .data import BaseMorpheme, MorphemeSpaCyDic
-from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
+from py_slides_term.share.consts import (
+    HIRAGANA_REGEX,
+    KATAKANA_REGEX,
+    KANJI_REGEX,
+    SYMBOL_REGEX,
+)
 
 
 JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
@@ -16,12 +21,13 @@ class SpaCyTokenizer:
         # pyright:reportUnknownMemberType=false
         self._ja_model = ja_core_news_sm.load()
         self._en_model = en_core_web_sm.load()
+        self._symbol_regex = re.compile(SYMBOL_REGEX)
 
     def tokenize(self, text: str) -> List[BaseMorpheme]:
         if not text:
             return []
 
-        japanese_regex = re.compile(rf"{JAPANESE_REGEX}")
+        japanese_regex = re.compile(JAPANESE_REGEX)
 
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
@@ -41,6 +47,20 @@ class SpaCyTokenizer:
             )
 
     def _create_japanese_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+        if self._symbol_regex.fullmatch(token.text):
+            return MorphemeSpaCyDic(
+                token.text,
+                "補助記号",
+                "一般",
+                "*",
+                "*",
+                "SYM",
+                "ROOT",
+                token.text,
+                token.text,
+                False,
+            )
+
         pos_with_categories = token.tag_.split("-")
         num_categories = len(pos_with_categories) - 1
 
@@ -63,6 +83,20 @@ class SpaCyTokenizer:
         )
 
     def _create_english_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+        if self._symbol_regex.fullmatch(token.text):
+            return MorphemeSpaCyDic(
+                token.text,
+                "SYM",
+                "*",
+                "*",
+                "*",
+                "SYM",
+                "ROOT",
+                token.text,
+                token.text,
+                False,
+            )
+
         return MorphemeSpaCyDic(
             token.text,
             token.pos_,

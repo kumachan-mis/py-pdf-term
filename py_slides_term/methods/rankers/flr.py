@@ -68,6 +68,6 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
         is_modifying_particle = self._ja_classifier.is_modifying_particle(morpheme)
-        is_ja_connector_punct = self._ja_classifier.is_connector_punct(morpheme)
-        is_en_connector_punct = self._en_classifier.is_connector_punct(morpheme)
-        return is_modifying_particle or is_ja_connector_punct or is_en_connector_punct
+        is_ja_connector_symbol = self._ja_classifier.is_connector_symbol(morpheme)
+        is_en_connector_symbol = self._en_classifier.is_connector_symbol(morpheme)
+        return is_modifying_particle or is_ja_connector_symbol or is_en_connector_symbol
