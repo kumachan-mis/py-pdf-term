@@ -111,7 +111,23 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
 
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
-        return scoped_term.morphemes[num_morphemes - 1].pos == "NOUN"
+
+        def norn_appears_at(i: int) -> bool:
+            morpheme = scoped_term.morphemes[i]
+            if morpheme.pos in {"NOUN", "PROPN"}:
+                return True
+            elif morpheme.pos == "VERB":
+                return morpheme.category == "VBG"
+
+            return False
+
+        induces_should_be_norn = [
+            i - 1
+            for i in range(num_morphemes)
+            if i > 0 and scoped_term.morphemes[i].pos == "ADP"
+        ] + [num_morphemes - 1]
+
+        return all(map(norn_appears_at, induces_should_be_norn))
 
     def _has_invalid_connector_punct(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
