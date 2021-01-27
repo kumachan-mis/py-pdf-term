@@ -14,11 +14,12 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     term_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.ConcatenationFilter",
+            "py_slides_term.candidates.JapaneseConcatenationFilter",
+            "py_slides_term.candidates.EnglishConcatenationFilter",
             "py_slides_term.candidates.SymbolLikeFilter",
             "py_slides_term.candidates.ProperNounFilter",
         ]
     )
-    modifying_particle_augmentation: bool = False
+    modifying_particle_augmentation: bool = True
     use_cache: bool = True
     remove_lower_layer_cache: bool = True

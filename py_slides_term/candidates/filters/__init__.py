@@ -6,7 +6,8 @@ from .morpheme import (
 )
 from .term import (
     BaseCandidateTermFilter,
-    ConcatenationFilter,
+    JapaneseConcatenationFilter,
+    EnglishConcatenationFilter,
     SymbolLikeFilter,
     ProperNounFilter,
 )
@@ -17,7 +18,8 @@ __all__ = [
     "JapaneseMorphemeFilter",
     "EnglishMorphemeFilter",
     "BaseCandidateTermFilter",
-    "ConcatenationFilter",
+    "JapaneseConcatenationFilter",
+    "EnglishConcatenationFilter",
     "SymbolLikeFilter",
     "ProperNounFilter",
 ]

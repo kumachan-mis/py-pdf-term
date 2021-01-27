@@ -1,63 +1,111 @@
 import re
-from typing import List, Iterable, Type, cast
+from typing import List, Any
+import ja_core_news_sm
+import en_core_web_sm
 
-from janome.tokenizer import Tokenizer, Token
+from .data import BaseMorpheme, MorphemeSpaCyDic
+from py_slides_term.share.consts import (
+    HIRAGANA_REGEX,
+    KATAKANA_REGEX,
+    KANJI_REGEX,
+    SYMBOL_REGEX,
+)
 
-from .data import BaseMorpheme, MorphemeIPADic
-from py_slides_term.share.consts import SYMBOL_REGEX
+
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
-class JanomeTokenizer:
+class SpaCyTokenizer:
     # public
     def __init__(self):
-        self._space_regex = re.compile(r"\s+")
-        self._inner_tokenizer = Tokenizer()
+        # pyright:reportUnknownMemberType=false
+        self._ja_model = ja_core_news_sm.load()
+        self._en_model = en_core_web_sm.load()
+        self._symbol_regex = re.compile(SYMBOL_REGEX)
 
-    def tokenize(
-        self,
-        text: str,
-        morpheme_cls: Type[BaseMorpheme] = MorphemeIPADic,
-        terminal: str = "EOS",
-    ) -> List[BaseMorpheme]:
+    def tokenize(self, text: str) -> List[BaseMorpheme]:
         if not text:
             return []
 
-        text = text.replace("・", " ・ ")
-        # pyright:reportGeneralTypeIssues=false
-        tokens = filter(
-            lambda token: self._space_regex.fullmatch(token.surface) is None,
-            cast(Iterable[Token], self._inner_tokenizer.tokenize(text)),
-        )
-        return list(
-            map(lambda token: self._create_morpheme(morpheme_cls, token), tokens)
-        )
+        japanese_regex = re.compile(JAPANESE_REGEX)
 
-    # private
-    def _create_morpheme(
-        self, morpheme_cls: Type[BaseMorpheme], token: Token
-    ) -> BaseMorpheme:
-        # pyright:reportUnknownMemberType=false
-        surface_form = cast(str, token.surface)
-        if re.compile(rf"{SYMBOL_REGEX}+").fullmatch(surface_form):
-            attrs = ["記号", "一般"]
+        # pyright:reportUnknownArgumentType=false
+        # pyright:reportUnknownLambdaType=false
+        if japanese_regex.search(text):
+            return list(
+                map(
+                    lambda token: self._create_japanese_morpheme(token),
+                    self._ja_model(text),
+                )
+            )
         else:
-            attrs = cast(
-                List[str],
-                [
-                    *cast(str, token.part_of_speech).split(","),
-                    token.infl_type,
-                    token.infl_form,
-                    token.base_form,
-                    token.reading,
-                    token.phonetic,
-                ],
+            return list(
+                map(
+                    lambda token: self._create_english_morpheme(token),
+                    self._en_model(text),
+                )
             )
 
-        num_attrs = len(attrs)
+    def _create_japanese_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+        if self._symbol_regex.fullmatch(token.text):
+            return MorphemeSpaCyDic(
+                token.text,
+                "補助記号",
+                "一般",
+                "*",
+                "*",
+                "SYM",
+                "ROOT",
+                token.text,
+                token.text,
+                False,
+            )
 
-        if num_attrs < morpheme_cls.NUM_ATTR - 1:
-            attrs.extend(["*"] * (morpheme_cls.NUM_ATTR - num_attrs - 1))
-        elif num_attrs > morpheme_cls.NUM_ATTR - 1:
-            attrs = attrs[: morpheme_cls.NUM_ATTR - 1]
+        pos_with_categories = token.tag_.split("-")
+        num_categories = len(pos_with_categories) - 1
 
-        return morpheme_cls(surface_form, *attrs)
+        pos = pos_with_categories[0]
+        category = pos_with_categories[1] if num_categories >= 1 else "*"
+        subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
+        subsubcategory = pos_with_categories[3] if num_categories >= 3 else "*"
+
+        return MorphemeSpaCyDic(
+            token.text,
+            pos,
+            category,
+            subcategory,
+            subsubcategory,
+            token.pos_,
+            token.dep_,
+            token.lemma_,
+            token.shape_,
+            token.is_stop,
+        )
+
+    def _create_english_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+        if self._symbol_regex.fullmatch(token.text):
+            return MorphemeSpaCyDic(
+                token.text,
+                "SYM",
+                "*",
+                "*",
+                "*",
+                "SYM",
+                "ROOT",
+                token.text,
+                token.text,
+                False,
+            )
+
+        return MorphemeSpaCyDic(
+            token.text,
+            token.pos_,
+            token.tag_,
+            "*",
+            "*",
+            token.pos_,
+            token.dep_,
+            token.lemma_,
+            token.shape_,
+            token.is_stop,
+        )

@@ -24,16 +24,16 @@ class BaseMorpheme(metaclass=ABCMeta):
 
 
 @dataclass(frozen=True)
-class MorphemeIPADic(BaseMorpheme):
-    NUM_ATTR: ClassVar[int] = 10
+class MorphemeSpaCyDic(BaseMorpheme):
+    NUM_ATTR: ClassVar[int] = 6
 
     surface_form: str
     pos: str
     category: str
     subcategory: str
     subsubcategory: str
-    conjugation_type: str
-    conjugation_form: str
+    universal_tag: str
+    dep_relations: str
     original_form: str
-    reading: str
-    pronunciation: str
+    shape: str
+    is_stop: bool
