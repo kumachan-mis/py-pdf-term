@@ -4,7 +4,7 @@ from py_slides_term.methods import DomainTermRanking
 
 class RankingToScoreDictConverter:
     # public
-    def __init__(self, acceptance_rate: float = 0.9):
+    def __init__(self, acceptance_rate: float = 0.75):
         self._acceptance_rate = acceptance_rate
 
     def convert(self, domain_term_ranking: DomainTermRanking) -> DomainTermScoreDict:

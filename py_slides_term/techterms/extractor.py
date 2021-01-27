@@ -7,7 +7,7 @@ from py_slides_term.methods import DomainTermRanking
 
 class TechnicalTermExtractor:
     # public
-    def __init__(self, max_num_pageterms: int = 14, acceptance_rate: float = 0.9):
+    def __init__(self, max_num_pageterms: int = 14, acceptance_rate: float = 0.75):
         self._converter = RankingToScoreDictConverter(acceptance_rate=acceptance_rate)
         self._selector = CandidateSelector(max_num_pageterms=max_num_pageterms)
 
