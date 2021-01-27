@@ -20,6 +20,6 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_slides_term.candidates.ProperNounFilter",
         ]
     )
-    modifying_particle_augmentation: bool = False
+    modifying_particle_augmentation: bool = True
     use_cache: bool = True
     remove_lower_layer_cache: bool = True
