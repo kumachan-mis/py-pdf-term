@@ -87,7 +87,7 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def adjverb_without_nounization_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos not in {"形状詞", "動詞", "形容詞"}:
+            if scoped_term.morphemes[i].pos not in {"動詞", "形容詞"}:
                 return False
             return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos != "接尾辞"
 
