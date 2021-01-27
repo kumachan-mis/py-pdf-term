@@ -9,15 +9,18 @@ from py_slides_term.share.data import Term
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+ENGLISH_REGEX = r"[A-Za-z ]"
+PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-]"
+
+
 class JapaneseConcatenationFilter(BaseCandidateTermFilter):
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, term: Term) -> bool:
-        japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
-        english_pattern = r"[A-Za-z\- ]"
-        ja_regex = re.compile(rf"({japanese_pattern})+")
-        ja_en_regex = re.compile(rf"({japanese_pattern}|{english_pattern})+")
+        ja_regex = re.compile(rf"{JAPANESE_REGEX}+")
+        ja_en_regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|\-)+")
         return ja_en_regex.fullmatch(str(term)) is not None and any(
             map(
                 lambda morpheme: ja_regex.fullmatch(morpheme.pos) is not None,
@@ -51,7 +54,7 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
 
     def _has_invalid_modifying_particle(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
-        phonetic_regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-])")
+        phonetic_regex = re.compile(PHONETIC_REGEX)
 
         def invalid_modifying_particle_appears_at(i: int) -> bool:
             if not self._classifier.is_modifying_particle(scoped_term.morphemes[i]):

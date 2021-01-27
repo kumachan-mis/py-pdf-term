@@ -6,12 +6,15 @@ from py_slides_term.share.data import Term
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+
+
 class ProperNounFilter(BaseCandidateTermFilter):
     def __init__(self):
         self._ja_classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, term: Term) -> bool:
-        regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")
+        regex = re.compile(rf"{JAPANESE_REGEX}+")
         return regex.fullmatch(str(term)) is not None
 
     def is_candidate(self, scoped_term: Term) -> bool:

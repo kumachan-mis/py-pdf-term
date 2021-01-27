@@ -6,15 +6,17 @@ from py_slides_term.morphemes import BaseMorpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+ENGLISH_REGEX = r"[A-Za-z ]"
+
+
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
-        japanese_pattern = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
-        english_pattern = r"[A-Za-z\- ]"
-        ja_regex = re.compile(rf"({japanese_pattern})+")
-        ja_en_regex = re.compile(rf"({japanese_pattern}|{english_pattern})+")
+        ja_regex = re.compile(rf"{JAPANESE_REGEX}+")
+        ja_en_regex = re.compile(rf"{JAPANESE_REGEX}+|{ENGLISH_REGEX}+|\-")
         return (
             ja_en_regex.fullmatch(str(morpheme)) is not None
             and ja_regex.fullmatch(morpheme.pos) is not None
@@ -60,7 +62,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             return self._classifier.is_modifying_particle(scoped_morpheme)
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
-            regex = re.compile(rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})+")
+            regex = re.compile(rf"{JAPANESE_REGEX}+")
             if scoped_morpheme_str == "-":
                 return (
                     0 < idx < len(morphemes) - 1
