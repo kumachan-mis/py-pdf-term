@@ -12,13 +12,10 @@ from .filters import (
     SymbolLikeFilter,
     ProperNounFilter,
 )
+from .augmenters import ModifyingParticleAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.morphemes import (
-    SpaCyTokenizer,
-    JapaneseMorphemeClassifier,
-    BaseMorpheme,
-)
+from py_slides_term.morphemes import SpaCyTokenizer, BaseMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -45,8 +42,11 @@ class CandidateTermExtractor:
 
         self._tokenizer = SpaCyTokenizer()
         self._filter = CandidateFilter(morpheme_filters, term_filters)
-        self._ja_classifier = JapaneseMorphemeClassifier()
-        self.modifying_particle_augmentation = modifying_particle_augmentation
+        self._mp_augmenter = (
+            ModifyingParticleAugmenter(self._filter)
+            if modifying_particle_augmentation
+            else None
+        )
 
     def extract_from_domain_files(
         self, domain: str, pdfnxmls: List[PDFnXMLPath]
@@ -95,44 +95,20 @@ class CandidateTermExtractor:
 
                 candidate_term = Term(candicate_term_morphemes, fontsize)
                 if self._filter.is_candidate(candidate_term):
-                    augmented_terms = self._augment_term_if_enabled(candidate_term)
-                    candicate_terms.extend(augmented_terms)
+                    if self._mp_augmenter:
+                        augmented_terms = self._mp_augmenter.augment(candidate_term)
+                        candicate_terms.extend(augmented_terms)
+
                     candicate_terms.append(candidate_term)
                 candicate_term_morphemes = []
 
             candidate_term = Term(candicate_term_morphemes, fontsize)
             if self._filter.is_candidate(candidate_term):
-                augmented_terms = self._augment_term_if_enabled(candidate_term)
-                candicate_terms.extend(augmented_terms)
+                if self._mp_augmenter:
+                    augmented_terms = self._mp_augmenter.augment(candidate_term)
+                    candicate_terms.extend(augmented_terms)
+
                 candicate_terms.append(candidate_term)
             candicate_term_morphemes = []
 
         return PageCandidateTermList(page_num, candicate_terms)
-
-    def _augment_term_if_enabled(self, term: Term) -> List[Term]:
-        if not self.modifying_particle_augmentation:
-            return []
-
-        num_morphemes = len(term.morphemes)
-        modifying_particle_positions = (
-            [-1]
-            + [
-                opsition
-                for opsition in range(num_morphemes)
-                if self._ja_classifier.is_modifying_particle(term.morphemes[opsition])
-            ]
-            + [num_morphemes]
-        )
-        num_positions = len(modifying_particle_positions)
-
-        augmented_terms = []
-        for length in range(1, num_positions - 1):
-            for idx in range(num_positions - length):
-                i = modifying_particle_positions[idx]
-                j = modifying_particle_positions[idx + length]
-                morphemes = term.morphemes[i + 1 : j]
-                augmented_term = Term(morphemes, term.fontsize, True)
-                if self._filter.is_candidate(augmented_term):
-                    augmented_terms.append(augmented_term)
-
-        return augmented_terms
