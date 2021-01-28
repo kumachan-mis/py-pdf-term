@@ -30,12 +30,17 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return (
-            not self._has_invalid_connector_symbol(scoped_term)
+            self._is_norn_phrase(scoped_term)
+            and not self._has_invalid_connector_symbol(scoped_term)
             and not self._has_invalid_modifying_particle(scoped_term)
             and not self._has_invalid_prefix(scoped_term)
             and not self._has_invalid_postfix(scoped_term)
             and not self._has_adjverb_without_nounization(scoped_term)
         )
+
+    def _is_norn_phrase(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+        return scoped_term.morphemes[num_morphemes - 1].pos in {"名詞", "接尾辞"}
 
     def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
@@ -62,8 +67,8 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or scoped_term.morphemes[i - 1].pos not in {"名詞", "形状詞"}
-                or scoped_term.morphemes[i + 1].pos not in {"名詞", "形状詞"}
+                or scoped_term.morphemes[i - 1].pos in {"助詞", "補助記号"}
+                or scoped_term.morphemes[i + 1].pos in {"助詞", "補助記号"}
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i - 1]))
                 is not None
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i + 1]))
@@ -124,6 +129,8 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
             self._is_norn_phrase(scoped_term)
             and not self._has_invalid_connector_symbol(scoped_term)
             and not self._has_invalid_adposition(scoped_term)
+            and not self._has_invalid_adjective(scoped_term)
+            and not self._has_invalid_participle(scoped_term)
         )
 
     def _is_norn_phrase(self, scoped_term: Term) -> bool:

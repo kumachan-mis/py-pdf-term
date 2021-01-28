@@ -30,6 +30,6 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         elif scoped_morpheme.pos == "ADP":
             return scoped_morpheme.category == "IN"
         elif scoped_morpheme.pos == "SYM":
-            return scoped_morpheme.category == "HYPH" and 0 < idx < len(morphemes) - 1
+            return scoped_morpheme.surface_form == "-" and 0 < idx < len(morphemes) - 1
 
         return False
