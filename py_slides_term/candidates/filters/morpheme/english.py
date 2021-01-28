@@ -6,6 +6,7 @@ from py_slides_term.morphemes import BaseMorpheme
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
+    # public
     def __init__(self):
         pass
 

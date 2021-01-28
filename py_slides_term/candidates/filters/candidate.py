@@ -8,7 +8,6 @@ from py_slides_term.share.data import Term
 
 class CandidateFilter:
     # public
-
     def __init__(
         self,
         morpheme_filters: List[BaseCandidateMorphemeFilter],

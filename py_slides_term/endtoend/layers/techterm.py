@@ -8,6 +8,7 @@ from py_slides_term.techterms import TechnicalTermExtractor, PDFTechnicalTermLis
 
 
 class TechnicalTermLayer:
+    # public
     def __init__(
         self,
         candidate_layer: CandidateLayer,

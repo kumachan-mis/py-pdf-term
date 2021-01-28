@@ -11,6 +11,7 @@ ENGLISH_REGEX = r"[A-Za-z ]"
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
+    # public
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 

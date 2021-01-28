@@ -2,6 +2,7 @@ from .data import BaseMorpheme
 
 
 class JapaneseMorphemeClassifier:
+    # public
     def is_modifying_particle(self, morpheme: BaseMorpheme) -> bool:
         return morpheme.surface_form == "の" and morpheme.pos == "助詞"
 
@@ -13,6 +14,7 @@ class JapaneseMorphemeClassifier:
 
 
 class EnglishMorphemeClassifier:
+    # public
     def is_symbol(self, morpheme: BaseMorpheme) -> bool:
         return morpheme.pos == "SYM"
 

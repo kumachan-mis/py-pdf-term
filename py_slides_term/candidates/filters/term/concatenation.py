@@ -15,6 +15,7 @@ PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-]"
 
 
 class JapaneseConcatenationFilter(BaseCandidateTermFilter):
+    # public
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
@@ -38,6 +39,7 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
             and not self._has_adjverb_without_nounization(scoped_term)
         )
 
+    # private
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
         return scoped_term.morphemes[num_morphemes - 1].pos in {"名詞", "接尾辞"}
@@ -112,6 +114,7 @@ class JapaneseConcatenationFilter(BaseCandidateTermFilter):
 
 
 class EnglishConcatenationFilter(BaseCandidateTermFilter):
+    # public
     def __init__(self):
         self._classifier = EnglishMorphemeClassifier()
 
@@ -133,6 +136,7 @@ class EnglishConcatenationFilter(BaseCandidateTermFilter):
             and not self._has_invalid_participle(scoped_term)
         )
 
+    # private
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 

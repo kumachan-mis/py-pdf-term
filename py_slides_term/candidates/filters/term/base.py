@@ -3,6 +3,7 @@ from py_slides_term.share.data import Term
 
 
 class BaseCandidateTermFilter(metaclass=ABCMeta):
+    # public
     def __init__(self):
         pass
 

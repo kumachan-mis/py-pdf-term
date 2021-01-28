@@ -10,6 +10,7 @@ JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 
 class ProperNounFilter(BaseCandidateTermFilter):
+    # public
     def __init__(self):
         self._ja_classifier = JapaneseMorphemeClassifier()
 
@@ -20,6 +21,7 @@ class ProperNounFilter(BaseCandidateTermFilter):
     def is_candidate(self, scoped_term: Term) -> bool:
         return not self._is_region_or_person(scoped_term)
 
+    # private
     def _is_region_or_person(self, scoped_term: Term) -> bool:
         def is_region_or_person_morpheme(morpheme: BaseMorpheme) -> bool:
             return (
