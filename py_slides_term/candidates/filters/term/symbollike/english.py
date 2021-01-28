@@ -1,23 +1,16 @@
 import re
 
-from .base import BaseCandidateTermFilter
+from ..base import BaseEnglishCandidateTermFilter
 from py_slides_term.share.data import Term
-from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX
 
 
-JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
-ENGLISH_REGEX = r"[A-Za-z ]"
-PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-]"
+PHONETIC_REGEX = r"[A-Za-z]"
 
 
-class SymbolLikeFilter(BaseCandidateTermFilter):
+class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
     # public
     def __init__(self):
         pass
-
-    def inscope(self, term: Term) -> bool:
-        regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|\-)+")
-        return regex.fullmatch(str(term)) is not None
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return not self._has_phonetic_symbol(scoped_term)

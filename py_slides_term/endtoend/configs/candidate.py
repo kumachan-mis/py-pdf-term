@@ -16,8 +16,10 @@ class CandidateLayerConfig(BaseLayerConfig):
         default_factory=lambda: [
             "py_slides_term.candidates.JapaneseConcatenationFilter",
             "py_slides_term.candidates.EnglishConcatenationFilter",
-            "py_slides_term.candidates.SymbolLikeFilter",
-            "py_slides_term.candidates.ProperNounFilter",
+            "py_slides_term.candidates.JapaneseSymbolLikeFilter",
+            "py_slides_term.candidates.EnglishSymbolLikeFilter",
+            "py_slides_term.candidates.JapaneseProperNounFilter",
+            "py_slides_term.candidates.EnglishProperNounFilter",
         ]
     )
     modifying_particle_augmentation: bool = True

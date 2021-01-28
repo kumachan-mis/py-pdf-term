@@ -8,8 +8,10 @@ from .term import (
     BaseCandidateTermFilter,
     JapaneseConcatenationFilter,
     EnglishConcatenationFilter,
-    SymbolLikeFilter,
-    ProperNounFilter,
+    JapaneseSymbolLikeFilter,
+    EnglishSymbolLikeFilter,
+    JapaneseProperNounFilter,
+    EnglishProperNounFilter,
 )
 
 __all__ = [
@@ -20,6 +22,8 @@ __all__ = [
     "BaseCandidateTermFilter",
     "JapaneseConcatenationFilter",
     "EnglishConcatenationFilter",
-    "SymbolLikeFilter",
-    "ProperNounFilter",
+    "JapaneseSymbolLikeFilter",
+    "EnglishSymbolLikeFilter",
+    "JapaneseProperNounFilter",
+    "EnglishProperNounFilter",
 ]

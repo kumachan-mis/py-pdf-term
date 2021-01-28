@@ -1,13 +1,16 @@
 from math import sqrt, log10
 from dataclasses import dataclass
-from py_slides_term.morphemes.classifier import EnglishMorphemeClassifier
 from typing import Dict
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
 from ..data import DomainTermRanking, ScoredTerm
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import JapaneseMorphemeClassifier, BaseMorpheme
+from py_slides_term.morphemes import (
+    BaseMorpheme,
+    JapaneseMorphemeClassifier,
+    EnglishMorphemeClassifier,
+)
 from py_slides_term.share.data import Term
 
 

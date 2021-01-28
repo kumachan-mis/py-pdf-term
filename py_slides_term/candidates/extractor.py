@@ -9,8 +9,10 @@ from .filters import (
     BaseCandidateTermFilter,
     JapaneseConcatenationFilter,
     EnglishConcatenationFilter,
-    SymbolLikeFilter,
-    ProperNounFilter,
+    JapaneseSymbolLikeFilter,
+    EnglishSymbolLikeFilter,
+    JapaneseProperNounFilter,
+    EnglishProperNounFilter,
 )
 from .augmenters import ModifyingParticleAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
@@ -36,8 +38,10 @@ class CandidateTermExtractor:
             term_filters = [
                 JapaneseConcatenationFilter(),
                 EnglishConcatenationFilter(),
-                SymbolLikeFilter(),
-                ProperNounFilter(),
+                JapaneseSymbolLikeFilter(),
+                EnglishSymbolLikeFilter(),
+                JapaneseProperNounFilter(),
+                EnglishProperNounFilter(),
             ]
 
         self._tokenizer = SpaCyTokenizer()
