@@ -31,9 +31,12 @@ class PDFtoXMLConverter:
 
     def convert_as_element(self, pdf_path: str) -> PDFnXMLElement:
         manager = PDFResourceManager()
+        params = LAParams()
 
         with open(pdf_path, "rb") as pdf_file, BytesIO() as xml_stream:
-            converter = TextfulXMLConverter(manager, xml_stream, stripcontrol=True)
+            converter = TextfulXMLConverter(
+                manager, xml_stream, laparams=params, stripcontrol=True
+            )
             page_interpreter = PDFPageInterpreter(manager, converter)
             pages = PDFPage.get_pages(pdf_file)  # pyright:reportUnknownMemberType=false
 
