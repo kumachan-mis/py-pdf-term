@@ -13,7 +13,7 @@ from scripts.utils import (
 script_name = os.path.basename(__file__)
 
 if __name__ == "__main__":
-    extractor = CandidateTermExtractor(modifying_particle_augmentation=True)
+    extractor = CandidateTermExtractor()
     pdf_paths = generate_pdf_path()
     for pdf_path in pdf_paths:
         candidate_path = pdf_to_candidate_path(pdf_path)

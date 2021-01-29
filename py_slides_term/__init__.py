@@ -8,6 +8,8 @@ from .endtoend import (
     CandidateTermFilterMapper,
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
+    SplitterMapper,
+    AugmenterMapper,
     DomainPDFList,
 )
 from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
@@ -22,6 +24,8 @@ __all__ = [
     "CandidateTermFilterMapper",
     "SingleDomainRankingMethodMapper",
     "MultiDomainRankingMethodMapper",
+    "SplitterMapper",
+    "AugmenterMapper",
     "DomainPDFList",
     "DomainTechnicalTermList",
     "PDFTechnicalTermList",

@@ -11,6 +11,8 @@ from .mappers import (
     CandidateTermFilterMapper,
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
+    SplitterMapper,
+    AugmenterMapper,
 )
 from .data import DomainPDFList
 
@@ -25,5 +27,7 @@ __all__ = [
     "CandidateTermFilterMapper",
     "SingleDomainRankingMethodMapper",
     "MultiDomainRankingMethodMapper",
+    "SplitterMapper",
+    "AugmenterMapper",
     "DomainPDFList",
 ]

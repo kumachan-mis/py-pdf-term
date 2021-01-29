@@ -12,7 +12,12 @@ from .filters import (
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
 )
-from .splitters import SplitterCombiner, BaseSplitter, RepeatSplitter
+from .splitters import (
+    SplitterCombiner,
+    BaseSplitter,
+    RepeatSplitter,
+    SymbolNameSplitter,
+)
 from .augmenters import AugmenterCombiner, BaseAugmenter, ModifyingParticleAugmenter
 from .data import (
     PageCandidateTermList,
@@ -38,6 +43,7 @@ __all__ = [
     "SplitterCombiner",
     "BaseSplitter",
     "RepeatSplitter",
+    "SymbolNameSplitter",
     "AugmenterCombiner",
     "BaseAugmenter",
     "ModifyingParticleAugmenter",

@@ -2,6 +2,7 @@ from typing import List, Optional, cast
 
 from .base import BaseSplitter
 from .repeat import RepeatSplitter
+from .symname import SymbolNameSplitter
 from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
 
@@ -18,6 +19,7 @@ class SplitterCombiner:
 
             splitters = [
                 RepeatSplitter(candidate_filter),
+                SymbolNameSplitter(candidate_filter),
             ]
 
         self._splitters = splitters
