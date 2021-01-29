@@ -1,12 +1,13 @@
 from typing import List
 
-from ..filters import CandidateFilter
+from .base import BaseSplitter
+from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
 
 
-class RepeatSplitter:
+class RepeatSplitter(BaseSplitter):
     # public
-    def __init__(self, candidate_filter: CandidateFilter):
+    def __init__(self, candidate_filter: FilterCombiner):
         self._filter = candidate_filter
 
     def split(self, term: Term) -> List[Term]:

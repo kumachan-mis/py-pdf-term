@@ -1,6 +1,6 @@
 from .extractor import CandidateTermExtractor
 from .filters import (
-    CandidateFilter,
+    FilterCombiner,
     BaseCandidateMorphemeFilter,
     JapaneseMorphemeFilter,
     EnglishMorphemeFilter,
@@ -12,6 +12,8 @@ from .filters import (
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
 )
+from .splitters import SplitterCombiner, BaseSplitter, RepeatSplitter
+from .augmenters import AugmenterCombiner, BaseAugmenter, ModifyingParticleAugmenter
 from .data import (
     PageCandidateTermList,
     PDFCandidateTermList,
@@ -22,7 +24,7 @@ from .data import (
 
 __all__ = [
     "CandidateTermExtractor",
-    "CandidateFilter",
+    "FilterCombiner",
     "BaseCandidateMorphemeFilter",
     "JapaneseMorphemeFilter",
     "EnglishMorphemeFilter",
@@ -33,6 +35,12 @@ __all__ = [
     "EnglishSymbolLikeFilter",
     "JapaneseProperNounFilter",
     "EnglishProperNounFilter",
+    "SplitterCombiner",
+    "BaseSplitter",
+    "RepeatSplitter",
+    "AugmenterCombiner",
+    "BaseAugmenter",
+    "ModifyingParticleAugmenter",
     "PageCandidateTermList",
     "PDFCandidateTermList",
     "DomainCandidateTermList",

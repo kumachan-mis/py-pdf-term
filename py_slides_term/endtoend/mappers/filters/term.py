@@ -15,7 +15,7 @@ from py_slides_term.candidates import (
 class CandidateTermFilterMapper(BaseMapper[Type[BaseCandidateTermFilter]]):
     @classmethod
     def default_mapper(cls):
-        module_path = "py_slides_term.candidates"
+        module_path = "py_slides_term.filters"
         default_mapper = cls()
 
         term_filter_clses = [

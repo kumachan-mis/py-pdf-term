@@ -1,4 +1,4 @@
-from .candidate import CandidateFilter
+from .combiner import FilterCombiner
 from .morpheme import (
     BaseCandidateMorphemeFilter,
     JapaneseMorphemeFilter,
@@ -15,7 +15,7 @@ from .term import (
 )
 
 __all__ = [
-    "CandidateFilter",
+    "FilterCombiner",
     "BaseCandidateMorphemeFilter",
     "JapaneseMorphemeFilter",
     "EnglishMorphemeFilter",

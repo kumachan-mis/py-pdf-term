@@ -11,7 +11,7 @@ from py_slides_term.candidates import (
 class CandidateMorphemeFilterMapper(BaseMapper[Type[BaseCandidateMorphemeFilter]]):
     @classmethod
     def default_mapper(cls):
-        module_path = "py_slides_term.candidates"
+        module_path = "py_slides_term.filters"
         default_mapper = cls()
 
         morpheme_filter_clses = [JapaneseMorphemeFilter, EnglishMorphemeFilter]

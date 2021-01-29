@@ -1,14 +1,21 @@
-from typing import List, Optional
+from typing import List, Optional, Type
 
 from .xml import XMLLayer
 from ..data import DomainPDFList
 from ..caches import CandidateLayerCache, DEFAULT_CACHE_DIR
 from ..configs import CandidateLayerConfig
-from ..mappers import CandidateMorphemeFilterMapper, CandidateTermFilterMapper
+from ..mappers import (
+    CandidateMorphemeFilterMapper,
+    CandidateTermFilterMapper,
+    SplitterMapper,
+    AugmenterMapper,
+)
 from py_slides_term.candidates import (
     CandidateTermExtractor,
     BaseCandidateMorphemeFilter,
     BaseCandidateTermFilter,
+    BaseSplitter,
+    BaseAugmenter,
     DomainCandidateTermList,
     PDFCandidateTermList,
 )
@@ -22,6 +29,8 @@ class CandidateLayer:
         config: Optional[CandidateLayerConfig] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
+        splitter_mapper: Optional[SplitterMapper] = None,
+        augmenter_mapper: Optional[AugmenterMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
@@ -30,25 +39,44 @@ class CandidateLayer:
             morpheme_filter_mapper = CandidateMorphemeFilterMapper.default_mapper()
         if term_filter_mapper is None:
             term_filter_mapper = CandidateTermFilterMapper.default_mapper()
+        if splitter_mapper is None:
+            splitter_mapper = SplitterMapper.default_mapper()
+        if augmenter_mapper is None:
+            augmenter_mapper = AugmenterMapper.default_mapper()
 
-        morpheme_filters: List[BaseCandidateMorphemeFilter] = []
+        morpheme_filter_clses: List[Type[BaseCandidateMorphemeFilter]] = []
         for filter_name in config.morpheme_filters:
             morpheme_filter_cls = morpheme_filter_mapper.find(filter_name)
             if morpheme_filter_cls is None:
                 raise ValueError(f"cannot find morpheme filter named '{filter_name}'")
-            morpheme_filters.append(morpheme_filter_cls())
+            morpheme_filter_clses.append(morpheme_filter_cls)
 
-        term_filters: List[BaseCandidateTermFilter] = []
+        term_filter_clses: List[Type[BaseCandidateTermFilter]] = []
         for filter_name in config.term_filters:
             term_filter_cls = term_filter_mapper.find(filter_name)
             if term_filter_cls is None:
                 raise ValueError(f"cannot find term filter named '{filter_name}'")
-            term_filters.append(term_filter_cls())
+            term_filter_clses.append(term_filter_cls)
+
+        splitter_clses: List[Type[BaseSplitter]] = []
+        for splitter_name in config.splitters:
+            splitter_cls = splitter_mapper.find(splitter_name)
+            if splitter_cls is None:
+                raise ValueError(f"cannot find splitter named '{splitter_name}'")
+            splitter_clses.append(splitter_cls)
+
+        augmenter_clses: List[Type[BaseAugmenter]] = []
+        for augmenter_name in config.augmenters:
+            augmenter_cls = augmenter_mapper.find(augmenter_name)
+            if augmenter_cls is None:
+                raise ValueError(f"cannot find augmenter named '{augmenter_name}'")
+            augmenter_clses.append(augmenter_cls)
 
         self._extractor = CandidateTermExtractor(
-            morpheme_filters=morpheme_filters,
-            term_filters=term_filters,
-            modifying_particle_augmentation=config.modifying_particle_augmentation,
+            morpheme_filter_clses=morpheme_filter_clses,
+            term_filter_clses=term_filter_clses,
+            splitter_clses=splitter_clses,
+            augmenter_clses=augmenter_clses,
         )
         self._cache = CandidateLayerCache(cache_dir=cache_dir)
         self._config = config
