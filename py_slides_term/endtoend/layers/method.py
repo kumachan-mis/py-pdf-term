@@ -32,18 +32,8 @@ class MethodLayer:
 
         if config.method_type == "single":
             method_cls = single_method_mapper.find(config.method)
-            if method_cls is None:
-                raise ValueError(
-                    "cannot find single-domain"
-                    f" ranking method named '{config.method}'"
-                )
         elif config.method_type == "multi":
             method_cls = multi_method_mapper.find(config.method)
-            if method_cls is None:
-                raise ValueError(
-                    "cannot find multi-domain"
-                    f" ranking method named '{config.method}'"
-                )
         else:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
