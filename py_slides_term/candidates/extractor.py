@@ -112,8 +112,6 @@ class CandidateTermExtractor:
             return
 
         splitted_candidates = self._splitter.split(candidate)
-        candicates.extend(splitted_candidates)
-
         for splitted_candidate in splitted_candidates:
             augmented_candidates = self._augmenter.augment(splitted_candidate)
             candicates.extend(augmented_candidates)
