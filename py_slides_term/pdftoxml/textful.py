@@ -1,13 +1,21 @@
 import re
 from io import BufferedWriter, BytesIO
-from enum import Enum, auto
+from dataclasses import dataclass
 from typing import Any, Union, Optional, cast
 
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.converter import PDFConverter
-from pdfminer.layout import LTPage, LTText, LTChar, LTTextLine, LTTextBox
+from pdfminer.layout import LTPage, LTTextBox, LTTextLine, LTChar, LTAnno, LTText
 from pdfminer.layout import LAParams
 from pdfminer.utils import enc
+
+
+@dataclass
+class TextfulState:
+    ncolor: str = ""
+    size: float = 0.0
+    text: str = ""
+    in_text_section: bool = False
 
 
 class TextfulXMLConverter(PDFConverter):
@@ -49,82 +57,82 @@ class TextfulXMLConverter(PDFConverter):
         if isinstance(item, LTPage):
             pageid: str = item.pageid
             self._write('<page id="%s">\n' % pageid)
-            self._render_children(item)
+            for child in item:
+                self._render(child)
             self._write("</page>\n")
-        elif isinstance(item, LTTextLine):
-            self._write("<textline>\n")
-            self._render_children(item)
-            self._write("</textline>\n")
         elif isinstance(item, LTTextBox):
-            self._write('<textbox id="%d">\n' % (item.index))
-            self._render_children(item)
-            self._write("</textbox>\n")
+            self._render_textlike_item(item)
+        elif isinstance(item, LTTextLine):
+            self._render_textlike_item(item)
         elif isinstance(item, LTChar):
             ncolor: str = item.graphicstate.ncolor
             size: float = item.size
             self._write('<text ncolour="%s" size="%.3f">' % (ncolor, size))
-            self._write_text(cast(str, item.get_text()))
+            self._write_text(self._get_text(item))
             self._write("</text>\n")
         elif isinstance(item, LTText):
             self._write("<text>")
-            self._write_text(cast(str, item.get_text()))
+            self._write_text(self._get_text(item))
             self._write("</text>\n")
 
-    def _render_children(self, item: Union[LTPage, LTTextLine, LTTextBox]):
-        class State(Enum):
-            CHAR = auto()
-            NON_CHAR = auto()
+    def _render_textlike_item(self, item: Any):
+        state = TextfulState()
 
-        prev_state: State = State.NON_CHAR
-        current_state: State = State.NON_CHAR
-        ncolor: str = ""
-        size: float = 0.0
-        text: str = ""
-        for child in item:
-            current_state = State.CHAR if isinstance(child, LTChar) else State.NON_CHAR
-            if prev_state == State.CHAR and current_state == State.CHAR:
-                if (
-                    ncolor == cast(str, child.graphicstate.ncolor)
-                    and abs(size - cast(float, child.size)) < 0.1
-                ):
-                    text += self._get_text(child)
+        def rec_render_textlike_item(rec_item: Any):
+            if isinstance(rec_item, LTTextBox):
+                for child in rec_item:
+                    rec_render_textlike_item(child)
+            elif isinstance(rec_item, LTTextLine):
+                for child in rec_item:
+                    rec_render_textlike_item(child)
+            else:
+                self._render_charlike_item(rec_item, state)
+
+        def finalize_textlike_item_rendering():
+            if not state.in_text_section:
+                return
+            self._write_text(state.text)
+            self._write("</text>\n")
+
+        rec_render_textlike_item(item)
+        finalize_textlike_item_rendering()
+
+    def _render_charlike_item(self, item: Any, state: TextfulState):
+        def enter_text_section():
+            ncolor = cast(str, item.graphicstate.ncolor)
+            size = cast(float, item.size)
+            self._write('<text ncolour="%s" size="%.3f">' % (ncolor, size))
+            state.in_text_section = True
+            state.ncolor = ncolor
+            state.size = size
+            state.text = self._get_text(item)
+
+        def text_section_continues() -> bool:
+            return (
+                isinstance(item, LTChar)
+                and state.ncolor == cast(str, item.graphicstate.ncolor)
+                and abs(state.size - cast(float, item.size)) < 0.1
+            )
+
+        def exit_text_section():
+            self._write_text(state.text)
+            self._write("</text>\n")
+            state.in_text_section = False
+            state.ncolor = ""
+            state.size = 0.0
+            state.text = ""
+
+        if state.in_text_section:
+            if isinstance(item, LTChar):
+                if text_section_continues():
+                    state.text += self._get_text(item)
                 else:
-                    self._write_text(text)
-                    self._write("</text>\n")
-                    ncolor = cast(str, child.graphicstate.ncolor)
-                    size = cast(float, child.size)
-                    text = ""
-                    self._write('<text ncolour="%s" size="%.3f">' % (ncolor, size))
-                    text += self._get_text(child)
-            elif prev_state == State.CHAR and current_state == State.NON_CHAR:
-                self._write_text(text)
-                self._write("</text>\n")
-                ncolor = ""
-                size = 0.0
-                text = ""
-                self._render(child)
-            elif prev_state == State.NON_CHAR and current_state == State.CHAR:
-                ncolor = cast(str, child.graphicstate.ncolor)
-                size = cast(float, child.size)
-                self._write('<text ncolour="%s" size="%.3f">' % (ncolor, size))
-                text += self._get_text(child)
-            elif prev_state == State.NON_CHAR and current_state == State.NON_CHAR:
-                ncolor = ""
-                size = 0.0
-                text = ""
-                self._render(child)
-
-            prev_state = current_state
-
-        if prev_state == State.CHAR:
-            self._write_text(text)
-            self._write("</text>\n")
-
-    def _get_text(
-        self, item: Union[LTPage, LTTextLine, LTTextBox, LTText, LTChar]
-    ) -> str:
-        text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
-        return text if self.ERROR_TEXT.match(text) is None else " "
+                    exit_text_section()
+                    enter_text_section()
+            elif not isinstance(item, LTAnno):
+                exit_text_section()
+        elif isinstance(item, LTChar):
+            enter_text_section()
 
     def _write(self, text: str):
         if self.codec:
@@ -137,3 +145,7 @@ class TextfulXMLConverter(PDFConverter):
         if self._stripcontrol:
             text = self.CONTROL.sub("", text)
         self._write(enc(text))
+
+    def _get_text(self, item: Union[LTText, LTChar]) -> str:
+        text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
+        return text if self.ERROR_TEXT.match(text) is None else " "
