@@ -12,10 +12,10 @@ from pdfminer.utils import enc
 
 @dataclass
 class TextfulState:
+    in_text_section: bool = False
     ncolor: str = ""
     size: float = 0.0
     text: str = ""
-    in_text_section: bool = False
 
 
 class TextfulXMLConverter(PDFConverter):
@@ -138,13 +138,13 @@ class TextfulXMLConverter(PDFConverter):
         if self.codec:
             text = text.encode(
                 cast(str, self.codec)
-            )  # pyright: reportGeneralTypeIssues=false
+            )  # pyright:reportGeneralTypeIssues=false
         cast(Union[BufferedWriter, BytesIO], self.outfp).write(text)
 
     def _write_text(self, text: str):
         if self._stripcontrol:
             text = self.CONTROL.sub("", text)
-        self._write(enc(text))
+        self._write(enc(text))  # pyright:reportUnknownArgumentType=false
 
     def _get_text(self, item: Union[LTText, LTChar]) -> str:
         text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
