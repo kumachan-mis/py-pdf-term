@@ -8,18 +8,30 @@ from .base import BaseLayerConfig
 class CandidateLayerConfig(BaseLayerConfig):
     morpheme_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.JapaneseMorphemeFilter",
-            "py_slides_term.candidates.EnglishMorphemeFilter",
+            "py_slides_term.filters.JapaneseMorphemeFilter",
+            "py_slides_term.filters.EnglishMorphemeFilter",
         ]
     )
     term_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.candidates.JapaneseConcatenationFilter",
-            "py_slides_term.candidates.EnglishConcatenationFilter",
-            "py_slides_term.candidates.SymbolLikeFilter",
-            "py_slides_term.candidates.ProperNounFilter",
+            "py_slides_term.filters.JapaneseConcatenationFilter",
+            "py_slides_term.filters.EnglishConcatenationFilter",
+            "py_slides_term.filters.JapaneseSymbolLikeFilter",
+            "py_slides_term.filters.EnglishSymbolLikeFilter",
+            "py_slides_term.filters.JapaneseProperNounFilter",
+            "py_slides_term.filters.EnglishProperNounFilter",
         ]
     )
-    modifying_particle_augmentation: bool = True
+    splitters: List[str] = field(
+        default_factory=lambda: [
+            "py_slides_term.splitters.SymbolNameSplitter",
+            "py_slides_term.splitters.RepeatSplitter",
+        ]
+    )
+    augmenters: List[str] = field(
+        default_factory=lambda: [
+            "py_slides_term.augmenters.ModifyingParticleAugmenter",
+        ]
+    )
     use_cache: bool = True
     remove_lower_layer_cache: bool = True

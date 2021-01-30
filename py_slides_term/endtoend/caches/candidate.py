@@ -8,6 +8,7 @@ from ..configs import CandidateLayerConfig
 
 
 class CandidateLayerCache:
+    # public
     def __init__(self, cache_dir: str):
         self._cache_dir = cache_dir
 

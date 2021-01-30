@@ -5,6 +5,7 @@ from py_slides_term.morphemes import BaseMorpheme
 
 
 class BaseCandidateMorphemeFilter(metaclass=ABCMeta):
+    # public
     def __init__(self):
         pass
 

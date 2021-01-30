@@ -42,6 +42,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return DomainTermRanking(domain_candidates.domain, ranking)
 
+    # private
     def _calculate_score(
         self,
         candidate: Term,

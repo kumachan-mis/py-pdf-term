@@ -46,6 +46,7 @@ class SpaCyTokenizer:
                 )
             )
 
+    # private
     def _create_japanese_morpheme(self, token: Any) -> MorphemeSpaCyDic:
         if self._symbol_regex.fullmatch(token.text):
             return MorphemeSpaCyDic(

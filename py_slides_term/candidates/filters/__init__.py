@@ -1,4 +1,4 @@
-from .candidate import CandidateFilter
+from .combiner import FilterCombiner
 from .morpheme import (
     BaseCandidateMorphemeFilter,
     JapaneseMorphemeFilter,
@@ -8,18 +8,22 @@ from .term import (
     BaseCandidateTermFilter,
     JapaneseConcatenationFilter,
     EnglishConcatenationFilter,
-    SymbolLikeFilter,
-    ProperNounFilter,
+    JapaneseSymbolLikeFilter,
+    EnglishSymbolLikeFilter,
+    JapaneseProperNounFilter,
+    EnglishProperNounFilter,
 )
 
 __all__ = [
-    "CandidateFilter",
+    "FilterCombiner",
     "BaseCandidateMorphemeFilter",
     "JapaneseMorphemeFilter",
     "EnglishMorphemeFilter",
     "BaseCandidateTermFilter",
     "JapaneseConcatenationFilter",
     "EnglishConcatenationFilter",
-    "SymbolLikeFilter",
-    "ProperNounFilter",
+    "JapaneseSymbolLikeFilter",
+    "EnglishSymbolLikeFilter",
+    "JapaneseProperNounFilter",
+    "EnglishProperNounFilter",
 ]
