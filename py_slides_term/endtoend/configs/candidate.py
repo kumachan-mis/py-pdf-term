@@ -24,8 +24,8 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     splitters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.splitters.RepeatSplitter",
             "py_slides_term.splitters.SymbolNameSplitter",
+            "py_slides_term.splitters.RepeatSplitter",
         ]
     )
     augmenters: List[str] = field(

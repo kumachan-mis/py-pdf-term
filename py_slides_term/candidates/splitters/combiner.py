@@ -1,8 +1,8 @@
 from typing import List, Optional, cast
 
 from .base import BaseSplitter
-from .repeat import RepeatSplitter
 from .symname import SymbolNameSplitter
+from .repeat import RepeatSplitter
 from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
 
@@ -18,8 +18,8 @@ class SplitterCombiner:
                 raise ValueError("both of 'splitters' and 'candidate_filter' are None")
 
             splitters = [
-                RepeatSplitter(candidate_filter),
                 SymbolNameSplitter(candidate_filter),
+                RepeatSplitter(candidate_filter),
             ]
 
         self._splitters = splitters

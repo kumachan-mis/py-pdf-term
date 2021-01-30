@@ -15,8 +15,8 @@ from .filters import (
 from .splitters import (
     SplitterCombiner,
     BaseSplitter,
-    RepeatSplitter,
     SymbolNameSplitter,
+    RepeatSplitter,
 )
 from .augmenters import AugmenterCombiner, BaseAugmenter, ModifyingParticleAugmenter
 from .data import (
