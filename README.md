@@ -12,7 +12,7 @@ pip install py-slides-term
 - spacy
   - https://github.com/explosion/spaCy
 
-You also need to install SpaCy models `ja_core_news_sm` and `en_core_web_sm`, which this module depends on.
+You also need to install spaCy models `ja_core_news_sm` and `en_core_web_sm`, which this module depends on.
 
 ```
 pip install https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-2.3.2/ja_core_news_sm-2.3.2.tar.gz
