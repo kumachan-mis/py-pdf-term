@@ -9,6 +9,8 @@ from .configs import (
 from .mappers import (
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
+    SplitterMapper,
+    AugmenterMapper,
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
 )
@@ -28,6 +30,8 @@ class PySlidesTermExtractor:
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
+        splitter_mapper: Optional[SplitterMapper] = None,
+        augmenter_mapper: Optional[AugmenterMapper] = None,
         single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
@@ -38,6 +42,8 @@ class PySlidesTermExtractor:
             config=candidate_config,
             morpheme_filter_mapper=morpheme_filter_mapper,
             term_filter_mapper=term_filter_mapper,
+            splitter_mapper=splitter_mapper,
+            augmenter_mapper=augmenter_mapper,
             cache_dir=cache_dir,
         )
         method_layer = MethodLayer(
