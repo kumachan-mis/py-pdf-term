@@ -99,8 +99,8 @@ component "Method Layer" as MethodLayer {
 
 component "Techinical Term Layer (TechnicalTermExtractor)" as TechinicalTermLayer {
     component RankingToScoreDictConverter
-    component CandidateSelector
-    RankingToScoreDictConverter -down->  CandidateSelector
+    component TechnicalTermSelector
+    RankingToScoreDictConverter -down->  TechnicalTermSelector
 }
 
 XMLLayer -down-> CandidateLayer
