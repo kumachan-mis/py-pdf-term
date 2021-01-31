@@ -1,0 +1,112 @@
+@startuml
+title "architecture diagram"
+
+component "XML Layer (PDFtoXMLConverter)" as XMLLayer {
+    component TextfulXMLConverter
+}
+
+component "Candidate Layer (CandidateTermExtractor)" as CandidateLayer {
+    component SpaCyTokenizer
+    component FilterCombiner {
+        component morpheme {
+            component XXXMorphemeFilter
+            component YYYMorphemeFilter
+            component ZZZMorphemeFilter
+
+            XXXMorphemeFilter -[hidden]right- YYYMorphemeFilter
+            YYYMorphemeFilter -[hidden]right- ZZZMorphemeFilter
+        }
+
+        component term {
+            component XXXTermFilter
+            component YYYTermFilter
+            component ZZZTermFilter
+
+            XXXTermFilter -[hidden]right- YYYTermFilter
+            YYYTermFilter -[hidden]right- ZZZTermFilter
+        }
+        morpheme -down-> term
+    }
+
+    component SplitterCombiner {
+        component XXXSplitter
+        component YYYSplitter
+        component ZZZSplitter
+
+        XXXSplitter -[hidden]right- YYYSplitter
+        YYYSplitter -[hidden]right- ZZZSplitter
+    }
+
+    component AugmenterCombiner {
+        component XXXAugmenter
+        component YYYAugmenter
+        component ZZZAugmenter
+
+        XXXAugmenter -[hidden]right- YYYAugmenter
+        YYYAugmenter -[hidden]right- ZZZAugmenter
+    }
+
+    SpaCyTokenizer -down-> FilterCombiner
+    FilterCombiner -right-> SplitterCombiner
+    SplitterCombiner -down-> AugmenterCombiner
+    
+}
+
+component "Method Layer" as MethodLayer {
+    component analysis {
+        component XXXAnalyzer
+        component YYYAnalyzer
+        component ZZZAnalyzer
+
+        XXXAnalyzer -[hidden]right- YYYAnalyzer
+        YYYAnalyzer -[hidden]right- ZZZAnalyzer
+    }
+
+    component methods {
+        component XXXMethod {
+            component XXXRankingDataCollector
+            component XXXRanker
+
+            XXXRankingDataCollector -down-> XXXRanker
+        }
+
+        component YYYMethod {
+            component YYYRankingDataCollector
+            component YYYRanker
+
+            YYYRankingDataCollector -down-> YYYRanker
+        }
+
+        component ZZZMethod {
+            component ZZZRankingDataCollector
+            component ZZZRanker
+
+            ZZZRankingDataCollector -down-> ZZZRanker
+        }
+
+        XXXMethod -[hidden]right- YYYMethod
+        YYYMethod -[hidden]right- ZZZMethod
+    }
+
+    XXXAnalyzer -down-> XXXRankingDataCollector
+    YYYAnalyzer -down-> XXXRankingDataCollector
+    XXXAnalyzer -down-> YYYRankingDataCollector
+    YYYAnalyzer -down-> YYYRankingDataCollector
+    ZZZAnalyzer -down-> YYYRankingDataCollector
+    YYYAnalyzer -down-> ZZZRankingDataCollector
+    ZZZAnalyzer -down-> ZZZRankingDataCollector
+}
+
+component "Techinical Term Layer (TechnicalTermExtractor)" as TechinicalTermLayer {
+    component RankingToScoreDictConverter
+    component CandidateSelector
+    RankingToScoreDictConverter -down->  CandidateSelector
+}
+
+XMLLayer -down-> CandidateLayer
+CandidateLayer -down-> methods
+CandidateLayer ---down-> TechinicalTermLayer
+methods --down-> TechinicalTermLayer
+
+
+@enduml
