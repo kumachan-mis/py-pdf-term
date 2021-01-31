@@ -12,7 +12,7 @@ from py_slides_term.candidates import (
 from py_slides_term.share.utils import remove_duplicated_items
 
 
-class CandidateSelector:
+class TechnicalTermSelector:
     # public
     def __init__(self, max_num_pageterms: int = 14):
         self._max_num_pageterms = max_num_pageterms
