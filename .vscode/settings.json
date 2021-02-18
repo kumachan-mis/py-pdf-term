@@ -27,7 +27,5 @@
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
 
-  "githubPullRequests.defaultMergeMethod": "squash",
-  "githubPullRequests.pullRequestTitle": "custom",
-  "githubPullRequests.pullRequestDescription": "custom"
+  "githubPullRequests.defaultMergeMethod": "squash"
 }
