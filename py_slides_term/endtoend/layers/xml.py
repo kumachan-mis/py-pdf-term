@@ -25,7 +25,9 @@ class XMLLayer:
             if pdfnxml is not None:
                 return pdfnxml
 
-        pdfnxml = self._converter.convert_as_element(pdf_path)
+        pdfnxml = self._converter.convert_as_element(
+            pdf_path, apply_nfc_normalization=self._config.apply_nfc_normalization
+        )
 
         if self._config.use_cache:
             self._cache.store(pdfnxml, self._config)
