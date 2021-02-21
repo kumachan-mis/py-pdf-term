@@ -1,5 +1,6 @@
 import re
 from io import BufferedWriter, BytesIO
+from unicodedata import normalize
 from dataclasses import dataclass
 from typing import Any, Union, Optional, cast
 
@@ -32,11 +33,13 @@ class TextfulXMLConverter(PDFConverter):
         pageno: int = 1,
         laparams: Optional[LAParams] = None,
         stripcontrol: bool = False,
+        nfcnorm: bool = True,
     ):
         PDFConverter.__init__(
             self, rsrcmgr, outfp, codec, pageno, laparams
         )  # pyright:reportUnknownMemberType=false
         self._stripcontrol = stripcontrol
+        self._nfcnorm = nfcnorm
 
     def write_header(self):
         if self.codec:
@@ -144,8 +147,10 @@ class TextfulXMLConverter(PDFConverter):
     def _write_text(self, text: str):
         if self._stripcontrol:
             text = self.CONTROL.sub("", text)
+        if self._nfcnorm:
+            text = normalize("NFC", text)
         self._write(enc(text))  # pyright:reportUnknownArgumentType=false
 
     def _get_text(self, item: Union[LTText, LTChar]) -> str:
-        text = cast(str, item.get_text())  # pyright: reportGeneralTypeIssues=false
+        text = cast(str, item.get_text())  # pyright:reportGeneralTypeIssues=false
         return text if self.ERROR_TEXT.match(text) is None else " "
