@@ -5,17 +5,8 @@ dataset/pdf/*
 !dataset/pdf/.gitkeep
 __py_slides_term_cache__/
 
-# Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,python
-
-### macOS ###
-# General
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
+# Created by https://www.toptal.com/developers/gitignore/api/python
+# Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
