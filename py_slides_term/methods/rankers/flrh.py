@@ -2,9 +2,9 @@ from .base import BaseSingleDomainRanker
 from .flr import FLRRanker
 from .hits import HITSRanker, HITSAuthHubData
 from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.share.data import Term
+from py_slides_term.share.data import Term, ScoredTerm
 
 
 # pyright:reportPrivateUsage=false

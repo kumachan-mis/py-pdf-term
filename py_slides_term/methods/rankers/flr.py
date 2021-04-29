@@ -2,14 +2,14 @@ from math import log10
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.morphemes import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
     BaseMorpheme,
 )
-from py_slides_term.share.data import Term
+from py_slides_term.share.data import Term, ScoredTerm
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):

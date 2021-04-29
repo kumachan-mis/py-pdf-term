@@ -69,7 +69,7 @@ def generate_domain_candidates(
     domains: Iterable[str],
 ) -> Iterator[DomainCandidateTermList]:
     for domain in domains:
-        pdfs = []
+        pdfs: List[PDFCandidateTermList] = []
         json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
         for json_path in iglob(json_path_pattern, recursive=True):
             with open(json_path, "r") as f:

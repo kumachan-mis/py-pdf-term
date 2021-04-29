@@ -60,7 +60,7 @@ class TextfulXMLConverter(PDFConverter):
         if isinstance(item, LTPage):
             pageid: str = item.pageid
             self._write('<page id="%s">\n' % pageid)
-            for child in item:
+            for child in item:  # pyright:reportUnknownVariableType=false
                 self._render(child)
             self._write("</page>\n")
         elif isinstance(item, LTTextBox):
@@ -83,10 +83,10 @@ class TextfulXMLConverter(PDFConverter):
 
         def rec_render_textlike_item(rec_item: Any):
             if isinstance(rec_item, LTTextBox):
-                for child in rec_item:
+                for child in rec_item:  # pyright:reportUnknownVariableType=false
                     rec_render_textlike_item(child)
             elif isinstance(rec_item, LTTextLine):
-                for child in rec_item:
+                for child in rec_item:  # pyright:reportUnknownVariableType=false
                     rec_render_textlike_item(child)
             else:
                 self._render_charlike_item(rec_item, state)

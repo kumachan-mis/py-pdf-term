@@ -6,7 +6,7 @@ from .flr import FLRMethod
 from .hits import HITSMethod
 from .flrh import FLRHMethod
 from .mdp import MDPMethod
-from .data import DomainTermRanking, ScoredTerm
+from .data import DomainTermRanking
 
 __all__ = [
     "BaseSingleDomainRankingMethod",
@@ -19,5 +19,4 @@ __all__ = [
     "FLRHMethod",
     "MDPMethod",
     "DomainTermRanking",
-    "ScoredTerm",
 ]

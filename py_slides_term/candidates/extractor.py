@@ -72,6 +72,25 @@ class CandidateTermExtractor:
         xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, pdfnxml.xml_root)
         return xml_candidates
 
+    def extact_from_text(self, text: str, fontsize: float = 0.0) -> List[Term]:
+        morphemes = self._tokenizer.tokenize(text)
+
+        candicate_terms: List[Term] = []
+        candicate_morphemes: List[BaseMorpheme] = []
+        for idx, morpheme in enumerate(morphemes):
+            if self._filter.is_partof_candidate(morphemes, idx):
+                candicate_morphemes.append(morpheme)
+                continue
+
+            terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+            candicate_terms.extend(terms)
+            candicate_morphemes = []
+
+        terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+        candicate_terms.extend(terms)
+
+        return candicate_terms
+
     # private
     def _extract_from_xmlroot(
         self, pdf_path: str, xml_root: Element
@@ -87,32 +106,24 @@ class CandidateTermExtractor:
 
         candicate_terms: List[Term] = []
         for text_node in page.iter("text"):
-            candicate_morphemes: List[BaseMorpheme] = []
-
-            morphemes_from_text = self._tokenizer.tokenize(cast(str, text_node.text))
+            text = cast(str, text_node.text)
             fontsize = float(cast(str, text_node.get("size")))
-            for idx, morpheme in enumerate(morphemes_from_text):
-                if self._filter.is_partof_candidate(morphemes_from_text, idx):
-                    candicate_morphemes.append(morpheme)
-                    continue
-
-                self._update_candicates(candicate_terms, candicate_morphemes, fontsize)
-                candicate_morphemes = []
-
-            self._update_candicates(candicate_terms, candicate_morphemes, fontsize)
-            candicate_morphemes = []
+            candicate_terms.extend(self.extact_from_text(text, fontsize))
 
         return PageCandidateTermList(page_num, candicate_terms)
 
-    def _update_candicates(
-        self, candicates: List[Term], morphemes: List[BaseMorpheme], fontsize: float
-    ):
+    def _terms_from_morphemes(
+        self, morphemes: List[BaseMorpheme], fontsize: float
+    ) -> List[Term]:
         candidate = Term(morphemes, fontsize)
         if not self._filter.is_candidate(candidate):
-            return
+            return []
 
+        candicates: List[Term] = []
         splitted_candidates = self._splitter.split(candidate)
         for splitted_candidate in splitted_candidates:
             augmented_candidates = self._augmenter.augment(splitted_candidate)
             candicates.extend(augmented_candidates)
             candicates.append(splitted_candidate)
+
+        return candicates

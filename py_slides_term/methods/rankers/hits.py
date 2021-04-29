@@ -4,14 +4,14 @@ from typing import Dict
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.morphemes import (
     BaseMorpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
-from py_slides_term.share.data import Term
+from py_slides_term.share.data import Term, ScoredTerm
 
 
 @dataclass(frozen=True)

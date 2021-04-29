@@ -1,5 +1,5 @@
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Type
 
 from py_slides_term.morphemes import BaseMorpheme, MorphemeSpaCyDic
@@ -67,3 +67,19 @@ class Term:
             obj.get("fontsize", 0),
             obj.get("augmented", False),
         )
+
+
+@dataclass(frozen=True)
+class ScoredTerm:
+    term: str
+    score: float
+
+    def __str__(self) -> str:
+        return self.term
+
+    def to_json(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_json(cls, obj: Dict[str, Any]):
+        return cls(**obj)

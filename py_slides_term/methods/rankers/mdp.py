@@ -2,9 +2,9 @@ from typing import List, Callable, Iterable
 
 from .base import BaseMultiDomainRanker
 from ..rankingdata import MDPRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.share.data import Term
+from py_slides_term.share.data import Term, ScoredTerm
 from py_slides_term.share.utils import extended_log10
 
 
