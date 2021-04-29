@@ -25,7 +25,7 @@ class ModifyingParticleAugmenter(BaseAugmenter):
         )
         num_positions = len(modifying_particle_positions)
 
-        augmented_terms = []
+        augmented_terms: List[Term] = []
         for length in range(1, num_positions - 1):
             for idx in range(num_positions - length):
                 i = modifying_particle_positions[idx]

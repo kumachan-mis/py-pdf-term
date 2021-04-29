@@ -72,7 +72,7 @@ class CandidateTermExtractor:
         xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, pdfnxml.xml_root)
         return xml_candidates
 
-    def extact_from_text(self, text: str, fontsize: float = 0.0) -> List[Term]:
+    def extract_from_text(self, text: str, fontsize: float = 0.0) -> List[Term]:
         morphemes = self._tokenizer.tokenize(text)
 
         candicate_terms: List[Term] = []
@@ -108,7 +108,7 @@ class CandidateTermExtractor:
         for text_node in page.iter("text"):
             text = cast(str, text_node.text)
             fontsize = float(cast(str, text_node.get("size")))
-            candicate_terms.extend(self.extact_from_text(text, fontsize))
+            candicate_terms.extend(self.extract_from_text(text, fontsize))
 
         return PageCandidateTermList(page_num, candicate_terms)
 

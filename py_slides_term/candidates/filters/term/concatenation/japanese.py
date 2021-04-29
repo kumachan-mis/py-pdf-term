@@ -27,7 +27,18 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
     # private
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
-        return scoped_term.morphemes[num_morphemes - 1].pos in {"名詞", "接尾辞"}
+
+        def norn_or_postfix_appears_at(i: int) -> bool:
+            return scoped_term.morphemes[i].pos in {"名詞", "接尾辞"}
+
+        induces_should_be_norn = [
+            i - 1
+            for i in range(num_morphemes)
+            if i > 0
+            and self._classifier.is_modifying_particle(scoped_term.morphemes[i])
+        ] + [num_morphemes - 1]
+
+        return all(map(norn_or_postfix_appears_at, induces_should_be_norn))
 
     def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
