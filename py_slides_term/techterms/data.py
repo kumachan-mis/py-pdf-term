@@ -1,18 +1,24 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import List, Dict, Any
+
+from py_slides_term.share.data import ScoredTerm
 
 
 @dataclass(frozen=True)
 class PageTechnicalTermList:
     page_num: int
-    terms: List[str]
+    terms: List[ScoredTerm]
 
     def to_json(self) -> Dict[str, Any]:
-        return asdict(self)
+        return {
+            "page_num": self.page_num,
+            "terms": list(map(lambda term: term.to_json(), self.terms)),
+        }
 
     @classmethod
     def from_json(cls, obj: Dict[str, Any]):
-        return cls(**obj)
+        page_num, terms = obj["page_num"], obj["terms"]
+        return cls(page_num, list(map(lambda item: ScoredTerm.from_json(item), terms)))
 
 
 @dataclass

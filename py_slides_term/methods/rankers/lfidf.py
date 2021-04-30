@@ -3,9 +3,9 @@ from typing import List, Literal
 
 from .base import BaseMultiDomainRanker
 from ..rankingdata import LFIDFRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.share.data import Term, LinguSeq
+from py_slides_term.share.data import Term, ScoredTerm, LinguSeq
 from py_slides_term.share.utils import extended_log10
 
 

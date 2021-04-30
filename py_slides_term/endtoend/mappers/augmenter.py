@@ -1,7 +1,11 @@
 from typing import Type
 
 from .base import BaseMapper
-from py_slides_term.candidates import BaseAugmenter, ModifyingParticleAugmenter
+from py_slides_term.candidates import (
+    BaseAugmenter,
+    JapaneseModifyingParticleAugmenter,
+    EnglishAdpositionAugmenter,
+)
 
 
 class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
@@ -10,7 +14,10 @@ class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
         module_path = "py_slides_term.augmenters"
         default_mapper = cls()
 
-        augmenter_clses = [ModifyingParticleAugmenter]
+        augmenter_clses = [
+            JapaneseModifyingParticleAugmenter,
+            EnglishAdpositionAugmenter,
+        ]
         for augmenter_cls in augmenter_clses:
             default_mapper.add(f"{module_path}.{augmenter_cls.__name__}", augmenter_cls)
 

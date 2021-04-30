@@ -1,7 +1,7 @@
 from dataclasses import dataclass, asdict
 from typing import List, Set, Dict, Any, Type
 
-from py_slides_term.morphemes import BaseMorpheme, MorphemeSpaCyDic
+from py_slides_term.morphemes import BaseMorpheme, SpaCyMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -36,7 +36,7 @@ class DomainCandidateTermDict:
     def from_json(
         cls,
         obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = MorphemeSpaCyDic,
+        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
     ):
         domain, candidates = obj["domain"], obj["candidates"]
         return cls(
@@ -63,7 +63,7 @@ class PageCandidateTermList:
     def from_json(
         cls,
         obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = MorphemeSpaCyDic,
+        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
     ):
         page_num, candidates = obj["page_num"], obj["candidates"]
         return cls(
@@ -87,7 +87,7 @@ class PDFCandidateTermList:
     def from_json(
         cls,
         obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = MorphemeSpaCyDic,
+        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
     ):
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
@@ -144,7 +144,7 @@ class DomainCandidateTermList:
     def from_json(
         cls,
         obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = MorphemeSpaCyDic,
+        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
     ):
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(

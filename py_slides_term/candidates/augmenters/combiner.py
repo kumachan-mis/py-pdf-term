@@ -1,7 +1,7 @@
-from typing import List, Optional, cast
+from typing import List, Optional
 
 from .base import BaseAugmenter
-from .modifyingparticle import ModifyingParticleAugmenter
+from .separation import JapaneseModifyingParticleAugmenter, EnglishAdpositionAugmenter
 from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
 
@@ -17,17 +17,17 @@ class AugmenterCombiner:
                 raise ValueError("both of 'augmenters' and 'candidate_filter' are None")
 
             augmenters = [
-                ModifyingParticleAugmenter(candidate_filter),
+                JapaneseModifyingParticleAugmenter(candidate_filter),
+                EnglishAdpositionAugmenter(candidate_filter),
             ]
 
         self._augmenters = augmenters
 
     def augment(self, term: Term) -> List[Term]:
         augmented_terms = [term]
-
         for augmenter in self._augmenters:
             augmented_terms = sum(
-                map(augmenter.augment, augmented_terms), cast(List[Term], [])
+                map(augmenter.augment, augmented_terms), augmented_terms
             )
 
-        return augmented_terms
+        return augmented_terms[1:]

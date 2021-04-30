@@ -3,10 +3,10 @@ import re
 from ..base import BaseJapaneseCandidateTermFilter
 from py_slides_term.morphemes import JapaneseMorphemeClassifier
 from py_slides_term.share.data import Term
-from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX
+from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, ALPHABET_REGEX
 
 
-PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|[A-Za-z\-]"
+PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX}"
 
 
 class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
@@ -27,7 +27,17 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
     # private
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
-        return scoped_term.morphemes[num_morphemes - 1].pos in {"名詞", "接尾辞"}
+
+        def norn_or_postfix_appears_at(i: int) -> bool:
+            return scoped_term.morphemes[i].pos in {"名詞", "接尾辞"}
+
+        induces_should_be_norn = [
+            i - 1
+            for i in range(1, num_morphemes)
+            if self._classifier.is_modifying_particle(scoped_term.morphemes[i])
+        ] + [num_morphemes - 1]
+
+        return all(map(norn_or_postfix_appears_at, induces_should_be_norn))
 
     def _has_invalid_connector_symbol(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
@@ -54,8 +64,10 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or scoped_term.morphemes[i - 1].pos in {"助詞", "補助記号"}
-                or scoped_term.morphemes[i + 1].pos in {"助詞", "補助記号"}
+                or scoped_term.morphemes[i - 1].pos == "助詞"
+                or scoped_term.morphemes[i + 1].pos == "助詞"
+                or self._classifier.is_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_symbol(scoped_term.morphemes[i + 1])
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i - 1]))
                 is not None
                 or phonetic_regex.fullmatch(str(scoped_term.morphemes[i + 1]))

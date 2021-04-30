@@ -10,6 +10,7 @@ from py_slides_term.candidates import (
     PageCandidateTermList,
 )
 from py_slides_term.share.utils import remove_duplicated_items
+from py_slides_term.share.data import ScoredTerm
 
 
 class TechnicalTermSelector:
@@ -49,24 +50,20 @@ class TechnicalTermSelector:
         page_candidates: PageCandidateTermList,
         domain_term_scores: DomainTermScoreDict,
     ) -> PageTechnicalTermList:
-        terms = remove_duplicated_items(
-            list(
-                filter(
-                    lambda candidate: candidate in domain_term_scores.term_scores,
-                    map(str, page_candidates.candidates),
-                )
-            )
+        scored_terms = remove_duplicated_items(
+            [
+                ScoredTerm(candidate_str, domain_term_scores.term_scores[candidate_str])
+                for candidate_str in map(str, page_candidates.candidates)
+                if candidate_str in domain_term_scores.term_scores
+            ]
         )
 
-        if len(terms) > self._max_num_pageterms:
-            scores = list(map(lambda term: domain_term_scores.term_scores[term], terms))
+        if len(scored_terms) > self._max_num_pageterms:
+            scores = list(map(lambda scored_term: scored_term.score, scored_terms))
             scores.sort(reverse=True)
             threshold = scores[self._max_num_pageterms]
-            terms = list(
-                filter(
-                    lambda term: domain_term_scores.term_scores[term] > threshold,
-                    terms,
-                )
+            scored_terms = list(
+                filter(lambda scored_term: scored_term.score > threshold, scored_terms)
             )
 
-        return PageTechnicalTermList(page_candidates.page_num, terms)
+        return PageTechnicalTermList(page_candidates.page_num, scored_terms)

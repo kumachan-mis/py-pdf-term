@@ -1,5 +1,8 @@
 # http://www.shurey.com/js/works/unicode.html
 
+# Alphabet
+ALPHABET_REGEX = r"[A-Za-z]"
+
 # Hiragana
 HIRAGANA_REGEX = r"[\u3040-\u309F]"
 
@@ -12,6 +15,8 @@ KATAKANA_REGEX = r"[\u30A0-\u30FF]"
 # CJK Unified Ideographs
 # CJK Compatibility Ideographs
 KANJI_REGEX = r"[\u2E80-\u2EFF\u2F00-\u2FDF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]"
+
+JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 
 SYMBOL_REGEX = (
     "["

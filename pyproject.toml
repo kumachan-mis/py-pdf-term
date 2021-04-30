@@ -12,21 +12,21 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.7"
 "pdfminer.six" = "^20201018"
-spacy = "^2.3.5"
+spacy = "^3.0.6"
 
 [tool.poetry.dev-dependencies.en_core_web_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz"
 
 [tool.poetry.dev-dependencies.ja_core_news_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-2.3.2/ja_core_news_sm-2.3.2.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.0.0/ja_core_news_sm-3.0.0.tar.gz"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
-black = "^20.8b1"
+black = "^21.4b2"
 pep8-naming = "^0.11.1"
 flake8-quotes = "^3.2.0"
 pre-commit = "^2.9.3"
-pytest = "^6.2.1"
+pytest = "^6.2.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -2,14 +2,14 @@ from math import log10
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
-from ..data import DomainTermRanking, ScoredTerm
+from ..data import DomainTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.morphemes import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
     BaseMorpheme,
 )
-from py_slides_term.share.data import Term
+from py_slides_term.share.data import Term, ScoredTerm
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
@@ -67,7 +67,6 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
         return ScoredTerm(candidate_str, score)
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
-        is_modifying_particle = self._ja_classifier.is_modifying_particle(morpheme)
-        is_ja_connector_symbol = self._ja_classifier.is_connector_symbol(morpheme)
-        is_en_connector_symbol = self._en_classifier.is_connector_symbol(morpheme)
-        return is_modifying_particle or is_ja_connector_symbol or is_en_connector_symbol
+        is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
+        is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
+        return is_ja_meaningless or is_en_meaningless

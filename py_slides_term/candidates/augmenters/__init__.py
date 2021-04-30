@@ -1,9 +1,10 @@
 from .combiner import AugmenterCombiner
 from .base import BaseAugmenter
-from .modifyingparticle import ModifyingParticleAugmenter
+from .separation import JapaneseModifyingParticleAugmenter, EnglishAdpositionAugmenter
 
 __all__ = [
     "AugmenterCombiner",
     "BaseAugmenter",
-    "ModifyingParticleAugmenter",
+    "JapaneseModifyingParticleAugmenter",
+    "EnglishAdpositionAugmenter",
 ]

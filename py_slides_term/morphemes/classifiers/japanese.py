@@ -11,3 +11,6 @@ class JapaneseMorphemeClassifier:
 
     def is_connector_symbol(self, morpheme: BaseMorpheme) -> bool:
         return morpheme.surface_form in {"・", "-"} and morpheme.pos == "補助記号"
+
+    def is_meaningless(self, morpheme: BaseMorpheme) -> bool:
+        return self.is_symbol(morpheme) or self.is_modifying_particle(morpheme)

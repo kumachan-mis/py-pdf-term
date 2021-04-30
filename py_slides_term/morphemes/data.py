@@ -1,12 +1,13 @@
 from abc import ABCMeta
 from dataclasses import dataclass, asdict
-from typing import Dict, ClassVar
+from typing import Dict, Literal, ClassVar
 
 
 @dataclass(frozen=True)
 class BaseMorpheme(metaclass=ABCMeta):
-    NUM_ATTR: ClassVar[int] = 4
+    NUM_ATTR: ClassVar[int] = 5
 
+    lang: Literal["ja", "en"]
     surface_form: str
     pos: str
     category: str
@@ -24,9 +25,10 @@ class BaseMorpheme(metaclass=ABCMeta):
 
 
 @dataclass(frozen=True)
-class MorphemeSpaCyDic(BaseMorpheme):
-    NUM_ATTR: ClassVar[int] = 6
+class SpaCyMorpheme(BaseMorpheme):
+    NUM_ATTR: ClassVar[int] = 11
 
+    lang: Literal["ja", "en"]
     surface_form: str
     pos: str
     category: str

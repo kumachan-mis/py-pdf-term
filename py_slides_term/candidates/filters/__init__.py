@@ -12,6 +12,8 @@ from .term import (
     EnglishSymbolLikeFilter,
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
+    JapaneseNumericFilter,
+    EnglishNumericFilter,
 )
 
 __all__ = [
@@ -26,4 +28,6 @@ __all__ = [
     "EnglishSymbolLikeFilter",
     "JapaneseProperNounFilter",
     "EnglishProperNounFilter",
+    "JapaneseNumericFilter",
+    "EnglishNumericFilter",
 ]
