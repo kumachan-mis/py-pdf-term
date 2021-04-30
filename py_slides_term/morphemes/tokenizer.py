@@ -3,16 +3,8 @@ from typing import List, Any
 import ja_core_news_sm
 import en_core_web_sm
 
-from .data import BaseMorpheme, MorphemeSpaCyDic
-from py_slides_term.share.consts import (
-    HIRAGANA_REGEX,
-    KATAKANA_REGEX,
-    KANJI_REGEX,
-    SYMBOL_REGEX,
-)
-
-
-JAPANESE_REGEX = rf"({HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+from .data import BaseMorpheme, SpaCyMorpheme
+from py_slides_term.share.consts import JAPANESE_REGEX, ALPHABET_REGEX, SYMBOL_REGEX
 
 
 class SpaCyTokenizer:
@@ -27,29 +19,33 @@ class SpaCyTokenizer:
         if not text:
             return []
 
-        japanese_regex = re.compile(JAPANESE_REGEX)
+        ja_regex = re.compile(JAPANESE_REGEX)
+        en_regex = re.compile(ALPHABET_REGEX)
 
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
-        if japanese_regex.search(text):
+        if ja_regex.search(text):
             return list(
                 map(
                     lambda token: self._create_japanese_morpheme(token),
                     self._ja_model(text),
                 )
             )
-        else:
+        elif en_regex.search(text):
             return list(
                 map(
                     lambda token: self._create_english_morpheme(token),
                     self._en_model(text),
                 )
             )
+        else:
+            return []
 
     # private
-    def _create_japanese_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+    def _create_japanese_morpheme(self, token: Any) -> SpaCyMorpheme:
         if self._symbol_regex.fullmatch(token.text):
-            return MorphemeSpaCyDic(
+            return SpaCyMorpheme(
+                "ja",
                 token.text,
                 "補助記号",
                 "一般",
@@ -70,7 +66,8 @@ class SpaCyTokenizer:
         subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
         subsubcategory = pos_with_categories[3] if num_categories >= 3 else "*"
 
-        return MorphemeSpaCyDic(
+        return SpaCyMorpheme(
+            "ja",
             token.text,
             pos,
             category,
@@ -83,9 +80,10 @@ class SpaCyTokenizer:
             token.is_stop,
         )
 
-    def _create_english_morpheme(self, token: Any) -> MorphemeSpaCyDic:
+    def _create_english_morpheme(self, token: Any) -> SpaCyMorpheme:
         if self._symbol_regex.fullmatch(token.text):
-            return MorphemeSpaCyDic(
+            return SpaCyMorpheme(
+                "en",
                 token.text,
                 "SYM",
                 "*",
@@ -98,7 +96,8 @@ class SpaCyTokenizer:
                 False,
             )
 
-        return MorphemeSpaCyDic(
+        return SpaCyMorpheme(
+            "en",
             token.text,
             token.pos_,
             token.tag_,

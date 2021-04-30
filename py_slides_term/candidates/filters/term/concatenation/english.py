@@ -1,6 +1,12 @@
+import re
+
 from ..base import BaseEnglishCandidateTermFilter
 from py_slides_term.morphemes import EnglishMorphemeClassifier
 from py_slides_term.share.data import Term
+from py_slides_term.share.consts import ALPHABET_REGEX
+
+
+PHONETIC_REGEX = ALPHABET_REGEX
 
 
 class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
@@ -23,7 +29,7 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
 
         def norn_appears_at(i: int) -> bool:
             morpheme = scoped_term.morphemes[i]
-            if morpheme.pos in {"NOUN", "PROPN"}:
+            if morpheme.pos in {"NOUN", "PROPN", "NUM"}:
                 return True
             elif morpheme.pos == "VERB":
                 return morpheme.category == "VBG"
@@ -32,8 +38,8 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
 
         induces_should_be_norn = [
             i - 1
-            for i in range(num_morphemes)
-            if i > 0 and scoped_term.morphemes[i].pos == "ADP"
+            for i in range(1, num_morphemes)
+            if self._classifier.is_adposition(scoped_term.morphemes[i])
         ] + [num_morphemes - 1]
 
         return all(map(norn_appears_at, induces_should_be_norn))
@@ -55,16 +61,22 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
 
     def _has_invalid_adposition(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
+        phonetic_regex = re.compile(PHONETIC_REGEX)
 
         def invalid_adposition_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos != "ADP":
+            if not self._classifier.is_adposition(scoped_term.morphemes[i]):
                 return False
-
             return (
                 i == 0
                 or i == num_morphemes - 1
-                or scoped_term.morphemes[i - 1].pos == "ADP"
-                or scoped_term.morphemes[i + 1].pos == "ADP"
+                or self._classifier.is_adposition(scoped_term.morphemes[i - 1])
+                or self._classifier.is_adposition(scoped_term.morphemes[i + 1])
+                or self._classifier.is_symbol(scoped_term.morphemes[i - 1])
+                or self._classifier.is_symbol(scoped_term.morphemes[i + 1])
+                or phonetic_regex.fullmatch(str(scoped_term.morphemes[i - 1]))
+                is not None
+                or phonetic_regex.fullmatch(str(scoped_term.morphemes[i + 1]))
+                is not None
             )
 
         return any(map(invalid_adposition_appears_at, range(num_morphemes)))

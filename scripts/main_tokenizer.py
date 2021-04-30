@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from dataclasses import astuple
 
 from py_slides_term.morphemes import SpaCyTokenizer
 
@@ -9,4 +10,4 @@ if __name__ == "__main__":
 
     results = SpaCyTokenizer().tokenize(args.text)
     for result in results:
-        print(result.surface_form, result.pos, result.category, result.subcategory)
+        print(*astuple(result))

@@ -13,6 +13,8 @@ from .term import (
     EnglishSymbolLikeFilter,
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
+    JapaneseNumericFilter,
+    EnglishNumericFilter,
 )
 from py_slides_term.morphemes import BaseMorpheme
 from py_slides_term.share.data import Term
@@ -38,6 +40,8 @@ class FilterCombiner:
                 EnglishSymbolLikeFilter(),
                 JapaneseProperNounFilter(),
                 EnglishProperNounFilter(),
+                JapaneseNumericFilter(),
+                EnglishNumericFilter(),
             ]
 
         self._morpheme_filters = morpheme_filters

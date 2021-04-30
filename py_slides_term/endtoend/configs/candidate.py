@@ -20,6 +20,8 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_slides_term.filters.EnglishSymbolLikeFilter",
             "py_slides_term.filters.JapaneseProperNounFilter",
             "py_slides_term.filters.EnglishProperNounFilter",
+            "py_slides_term.filters.JapaneseNumericFilter",
+            "py_slides_term.filters.EnglishNumericFilter",
         ]
     )
     splitters: List[str] = field(
@@ -30,7 +32,8 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     augmenters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.augmenters.ModifyingParticleAugmenter",
+            "py_slides_term.augmenters.JapaneseModifyingParticleAugmenter",
+            "py_slides_term.augmenters.EnglishAdpositionAugmenter",
         ]
     )
     use_cache: bool = True

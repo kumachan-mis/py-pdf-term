@@ -4,6 +4,7 @@ from typing import List
 from .base import BaseSplitter
 from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
+from py_slides_term.share.consts import ALPHABET_REGEX
 
 
 class SymbolNameSplitter(BaseSplitter):
@@ -16,16 +17,16 @@ class SymbolNameSplitter(BaseSplitter):
         if num_morphemes < 2:
             return [term]
 
+        regex = re.compile(rf"{ALPHABET_REGEX}|\-")
         last_str = str(term.morphemes[len(term.morphemes) - 1])
         second_last_str = str(term.morphemes[len(term.morphemes) - 2])
-        last_may_symbol = re.fullmatch(r"[A-Za-z]", last_str)
-        second_last_may_symbol = re.fullmatch(r"[A-Za-z\-]", second_last_str)
 
-        if not last_may_symbol or second_last_may_symbol:
+        if not regex.fullmatch(last_str) or regex.fullmatch(second_last_str):
             return [term]
 
         non_symbol_morphemes = term.morphemes[: num_morphemes - 1]
         symbol_morphemes = [term.morphemes[num_morphemes - 1]]
+
         non_symbol_term = Term(non_symbol_morphemes, term.fontsize, term.augmented)
         symbol_term = Term(symbol_morphemes, term.fontsize, term.augmented)
 

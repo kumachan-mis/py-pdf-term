@@ -11,6 +11,8 @@ from .filters import (
     EnglishSymbolLikeFilter,
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
+    JapaneseNumericFilter,
+    EnglishNumericFilter,
 )
 from .splitters import (
     SplitterCombiner,
@@ -18,7 +20,12 @@ from .splitters import (
     SymbolNameSplitter,
     RepeatSplitter,
 )
-from .augmenters import AugmenterCombiner, BaseAugmenter, ModifyingParticleAugmenter
+from .augmenters import (
+    AugmenterCombiner,
+    BaseAugmenter,
+    JapaneseModifyingParticleAugmenter,
+    EnglishAdpositionAugmenter,
+)
 from .data import (
     PageCandidateTermList,
     PDFCandidateTermList,
@@ -40,13 +47,16 @@ __all__ = [
     "EnglishSymbolLikeFilter",
     "JapaneseProperNounFilter",
     "EnglishProperNounFilter",
+    "JapaneseNumericFilter",
+    "EnglishNumericFilter",
     "SplitterCombiner",
     "BaseSplitter",
     "RepeatSplitter",
     "SymbolNameSplitter",
     "AugmenterCombiner",
     "BaseAugmenter",
-    "ModifyingParticleAugmenter",
+    "JapaneseModifyingParticleAugmenter",
+    "EnglishAdpositionAugmenter",
     "PageCandidateTermList",
     "PDFCandidateTermList",
     "DomainCandidateTermList",

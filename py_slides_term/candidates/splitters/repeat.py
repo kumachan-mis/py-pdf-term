@@ -36,6 +36,7 @@ class RepeatSplitter(BaseSplitter):
             map(
                 lambda morpheme: self._ja_classifier.is_modifying_particle(morpheme)
                 or self._ja_classifier.is_connector_symbol(morpheme)
+                or self._en_classifier.is_adposition(morpheme)
                 or self._en_classifier.is_connector_symbol(morpheme),
                 term.morphemes,
             )

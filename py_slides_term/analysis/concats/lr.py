@@ -3,7 +3,11 @@ from typing import Dict
 
 from ..share import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import JapaneseMorphemeClassifier, BaseMorpheme
+from py_slides_term.morphemes import (
+    BaseMorpheme,
+    JapaneseMorphemeClassifier,
+    EnglishMorphemeClassifier,
+)
 from py_slides_term.share.data import Term
 
 
@@ -25,7 +29,8 @@ class TermLeftRightFrequencyAnalyzer:
     # public
     def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
-        self._classifier = JapaneseMorphemeClassifier()
+        self._ja_classifier = JapaneseMorphemeClassifier()
+        self._en_classifier = EnglishMorphemeClassifier()
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
@@ -111,6 +116,6 @@ class TermLeftRightFrequencyAnalyzer:
             lrfreq.right_freq[morpheme_str] = right
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
-        is_modifying_particle = self._classifier.is_modifying_particle(morpheme)
-        is_connector_symbol = self._classifier.is_connector_symbol(morpheme)
-        return is_modifying_particle or is_connector_symbol
+        is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
+        is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
+        return is_ja_meaningless or is_en_meaningless

@@ -9,6 +9,8 @@ from py_slides_term.candidates import (
     EnglishSymbolLikeFilter,
     JapaneseProperNounFilter,
     EnglishProperNounFilter,
+    JapaneseNumericFilter,
+    EnglishNumericFilter,
 )
 
 
@@ -25,6 +27,8 @@ class CandidateTermFilterMapper(BaseMapper[Type[BaseCandidateTermFilter]]):
             EnglishSymbolLikeFilter,
             JapaneseProperNounFilter,
             EnglishProperNounFilter,
+            JapaneseNumericFilter,
+            EnglishNumericFilter,
         ]
         for filter_cls in term_filter_clses:
             default_mapper.add(f"{module_path}.{filter_cls.__name__}", filter_cls)
