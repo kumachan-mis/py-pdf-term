@@ -23,18 +23,18 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
 
     def augment(self, term: Term) -> List[Term]:
         num_morphemes = len(term.morphemes)
-        modifying_particle_positions = (
+        separation_positions = (
             [-1]
             + [i for i in range(num_morphemes) if self._is_separator(term.morphemes[i])]
             + [num_morphemes]
         )
-        num_positions = len(modifying_particle_positions)
+        num_positions = len(separation_positions)
 
         augmented_terms: List[Term] = []
         for length in range(1, num_positions - 1):
             for idx in range(num_positions - length):
-                i = modifying_particle_positions[idx]
-                j = modifying_particle_positions[idx + length]
+                i = separation_positions[idx]
+                j = separation_positions[idx + length]
                 morphemes = term.morphemes[i + 1 : j]
                 augmented_term = Term(morphemes, term.fontsize, True)
                 if self._filter.is_candidate(augmented_term):
