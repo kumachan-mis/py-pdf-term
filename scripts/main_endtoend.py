@@ -2,11 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term import (
-    PySlidesTermExtractor,
-    CandidateLayerConfig,
-    MethodLayerConfig,
-)
+from py_slides_term import PySlidesTermExtractor, MethodLayerConfig
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,
@@ -60,9 +56,6 @@ if __name__ == "__main__":
         raise RuntimeError("unreachable statement")
 
     extractor = PySlidesTermExtractor(
-        candidate_config=CandidateLayerConfig(
-            cache="py_slides_term.CandidateLayerNoCache"
-        ),
         method_config=MethodLayerConfig(
             method_type=method_type,
             method=method,
