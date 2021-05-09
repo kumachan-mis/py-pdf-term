@@ -13,6 +13,8 @@ class SpaCyTokenizer:
         # pyright:reportUnknownMemberType=false
         self._ja_model = ja_core_news_sm.load()
         self._en_model = en_core_web_sm.load()
+        self._ja_model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
+        self._en_model.disable_pipes("parser", "ner", "lemmatizer")
         self._symbol_regex = re.compile(SYMBOL_REGEX)
 
     def tokenize(self, text: str) -> List[BaseMorpheme]:
@@ -52,8 +54,6 @@ class SpaCyTokenizer:
                 "*",
                 "*",
                 "SYM",
-                "ROOT",
-                token.text,
                 token.text,
                 False,
             )
@@ -74,8 +74,6 @@ class SpaCyTokenizer:
             subcategory,
             subsubcategory,
             token.pos_,
-            token.dep_,
-            token.lemma_,
             token.shape_,
             token.is_stop,
         )
@@ -90,8 +88,6 @@ class SpaCyTokenizer:
                 "*",
                 "*",
                 "SYM",
-                "ROOT",
-                token.text,
                 token.text,
                 False,
             )
@@ -104,8 +100,6 @@ class SpaCyTokenizer:
             "*",
             "*",
             token.pos_,
-            token.dep_,
-            token.lemma_,
             token.shape_,
             token.is_stop,
         )
