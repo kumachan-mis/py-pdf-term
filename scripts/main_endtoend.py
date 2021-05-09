@@ -59,7 +59,6 @@ if __name__ == "__main__":
         method_config=MethodLayerConfig(
             method_type=method_type,
             method=method,
-            ranking_cache="py_slides_term.MethodLayerRankingNoCache",
             data_cache="py_slides_term.MethodLayerDataNoCache",
         ),
     )
