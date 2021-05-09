@@ -31,43 +31,43 @@ if __name__ == "__main__":
     if args.mcvalue:
         method_type = "single"
         method_name = "mcvalue"
-        method = "py_slides_term.methods.MCValueMethod"
+        method = "py_slides_term.MCValueMethod"
     elif args.tfidf:
         method_type = "multi"
         method_name = "tfidf"
-        method = "py_slides_term.methods.TFIDFMethod"
+        method = "py_slides_term.TFIDFMethod"
     elif args.lfidf:
         method_type = "multi"
         method_name = "lfidf"
-        method = "py_slides_term.methods.LFIDFMethod"
+        method = "py_slides_term.LFIDFMethod"
     elif args.flr:
         method_type = "single"
         method_name = "flr"
-        method = "py_slides_term.methods.FLRMethod"
+        method = "py_slides_term.FLRMethod"
     elif args.hits:
         method_type = "single"
         method_name = "hits"
-        method = "py_slides_term.methods.HITSMethod"
+        method = "py_slides_term.HITSMethod"
     elif args.flrh:
         method_type = "single"
         method_name = "flrh"
-        method = "py_slides_term.methods.FLRHMethod"
+        method = "py_slides_term.FLRHMethod"
     elif args.mdp:
         method_type = "multi"
         method_name = "mdp"
-        method = "py_slides_term.methods.MDPMethod"
+        method = "py_slides_term.MDPMethod"
     else:
         raise RuntimeError("unreachable statement")
 
     extractor = PySlidesTermExtractor(
         candidate_config=CandidateLayerConfig(
-            cache="py_slides_term.caches.CandidateLayerNoCache"
+            cache="py_slides_term.CandidateLayerNoCache"
         ),
         method_config=MethodLayerConfig(
             method_type=method_type,
             method=method,
-            ranking_cache="py_slides_term.caches.MethodLayerRankingNoCache",
-            data_cache="py_slides_term.caches.MethodLayerDataNoCache",
+            ranking_cache="py_slides_term.MethodLayerRankingNoCache",
+            data_cache="py_slides_term.MethodLayerDataNoCache",
         ),
     )
 

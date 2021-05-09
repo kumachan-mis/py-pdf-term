@@ -1,6 +1,7 @@
 from typing import Any, Type
 
 from ..base import BaseMapper
+from ..consts import PACKAGE_NAME
 from ...caches import (
     BaseMethodLayerRankingCache,
     MethodLayerRankingNoCache,
@@ -14,12 +15,11 @@ from ...caches import (
 class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]]):
     @classmethod
     def default_mapper(cls):
-        module_path = "py_slides_term.caches"
         default_mapper = cls()
 
         cache_clses = [MethodLayerRankingNoCache, MethodLayerRankingFileCache]
         for cache_cls in cache_clses:
-            default_mapper.add(f"{module_path}.{cache_cls.__name__}", cache_cls)
+            default_mapper.add(f"{PACKAGE_NAME}.{cache_cls.__name__}", cache_cls)
 
         return default_mapper
 
@@ -27,7 +27,6 @@ class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]
 class MethodLayerDataCacheMapper(BaseMapper[Type[BaseMethodLayerDataCache[Any]]]):
     @classmethod
     def default_mapper(cls):
-        module_path = "py_slides_term.caches"
         default_mapper = cls()
 
         cache_clses = [
@@ -35,6 +34,6 @@ class MethodLayerDataCacheMapper(BaseMapper[Type[BaseMethodLayerDataCache[Any]]]
             ("MethodLayerDataFileCache", MethodLayerDataFileCache[Any]),
         ]
         for name, cache_cls in cache_clses:
-            default_mapper.add(f"{module_path}.{name}", cache_cls)
+            default_mapper.add(f"{PACKAGE_NAME}.{name}", cache_cls)
 
         return default_mapper

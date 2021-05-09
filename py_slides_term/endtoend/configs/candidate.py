@@ -8,33 +8,33 @@ from .base import BaseLayerConfig
 class CandidateLayerConfig(BaseLayerConfig):
     morpheme_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.filters.JapaneseMorphemeFilter",
-            "py_slides_term.filters.EnglishMorphemeFilter",
+            "py_slides_term.JapaneseMorphemeFilter",
+            "py_slides_term.EnglishMorphemeFilter",
         ]
     )
     term_filters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.filters.JapaneseConcatenationFilter",
-            "py_slides_term.filters.EnglishConcatenationFilter",
-            "py_slides_term.filters.JapaneseSymbolLikeFilter",
-            "py_slides_term.filters.EnglishSymbolLikeFilter",
-            "py_slides_term.filters.JapaneseProperNounFilter",
-            "py_slides_term.filters.EnglishProperNounFilter",
-            "py_slides_term.filters.JapaneseNumericFilter",
-            "py_slides_term.filters.EnglishNumericFilter",
+            "py_slides_term.JapaneseConcatenationFilter",
+            "py_slides_term.EnglishConcatenationFilter",
+            "py_slides_term.JapaneseSymbolLikeFilter",
+            "py_slides_term.EnglishSymbolLikeFilter",
+            "py_slides_term.JapaneseProperNounFilter",
+            "py_slides_term.EnglishProperNounFilter",
+            "py_slides_term.JapaneseNumericFilter",
+            "py_slides_term.EnglishNumericFilter",
         ]
     )
     splitters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.splitters.SymbolNameSplitter",
-            "py_slides_term.splitters.RepeatSplitter",
+            "py_slides_term.SymbolNameSplitter",
+            "py_slides_term.RepeatSplitter",
         ]
     )
     augmenters: List[str] = field(
         default_factory=lambda: [
-            "py_slides_term.augmenters.JapaneseModifyingParticleAugmenter",
-            "py_slides_term.augmenters.EnglishAdpositionAugmenter",
+            "py_slides_term.JapaneseModifyingParticleAugmenter",
+            "py_slides_term.EnglishAdpositionAugmenter",
         ]
     )
-    cache: str = "py_slides_term.caches.CandidateLayerFileCache"
+    cache: str = "py_slides_term.CandidateLayerFileCache"
     remove_lower_layer_cache: bool = False
