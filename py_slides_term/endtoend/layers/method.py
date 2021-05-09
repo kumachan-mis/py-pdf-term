@@ -1,8 +1,13 @@
 from typing import Any, List, Optional
 
-from ..caches import MethodLayerRankingCache, MethodLayerDataCache, DEFAULT_CACHE_DIR
+from ..caches import DEFAULT_CACHE_DIR
 from ..configs import MethodLayerConfig
-from ..mappers import SingleDomainRankingMethodMapper, MultiDomainRankingMethodMapper
+from ..mappers import (
+    SingleDomainRankingMethodMapper,
+    MultiDomainRankingMethodMapper,
+    MethodLayerRankingCacheMapper,
+    MethodLayerDataCacheMapper,
+)
 from ..data import DomainPDFList
 from .candidate import CandidateLayer
 from py_slides_term.candidates import DomainCandidateTermList
@@ -21,7 +26,9 @@ class MethodLayer:
         config: Optional[MethodLayerConfig] = None,
         single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
-        cache_dir: str = DEFAULT_CACHE_DIR,
+        ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
+        data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
+        cache_dirlike: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = MethodLayerConfig()
@@ -29,6 +36,10 @@ class MethodLayer:
             single_method_mapper = SingleDomainRankingMethodMapper.default_mapper()
         if multi_method_mapper is None:
             multi_method_mapper = MultiDomainRankingMethodMapper.default_mapper()
+        if ranking_cache_mapper is None:
+            ranking_cache_mapper = MethodLayerRankingCacheMapper.default_mapper()
+        if data_cache_mapper is None:
+            data_cache_mapper = MethodLayerDataCacheMapper.default_mapper()
 
         if config.method_type == "single":
             method_cls = single_method_mapper.find(config.method)
@@ -37,9 +48,12 @@ class MethodLayer:
         else:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
+        ranking_cache_cls = ranking_cache_mapper.find(config.ranking_cache)
+        data_cache_cls = data_cache_mapper.find(config.ranking_cache)
+
         self._method = method_cls(**config.hyper_params)
-        self._ranking_cache = MethodLayerRankingCache(cache_dir=cache_dir)
-        self._data_cache = MethodLayerDataCache[Any](cache_dir=cache_dir)
+        self._ranking_cache = ranking_cache_cls(cache_dirlike=cache_dirlike)
+        self._data_cache = data_cache_cls(cache_dirlike=cache_dirlike)
         self._config = config
 
         self._candidate_layer = candidate_layer
@@ -70,6 +84,10 @@ class MethodLayer:
         else:
             raise RuntimeError("unreachable statement")
 
+    def remove_cache(self, pdf_paths: List[str]):
+        self._ranking_cache.remove(pdf_paths, self._config)
+        self._data_cache.remove(pdf_paths, self._config)
+
     # private
     def _run_single_domain_method(
         self,
@@ -85,21 +103,18 @@ class MethodLayer:
                 f" but got '{domain_pdfs.domain}'"
             )
 
-        if self._config.use_cache:
-            term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
-            if term_ranking is not None:
-                if self._config.remove_lower_layer_cache:
-                    self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
-                return term_ranking
+        term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
 
-        domain_candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
-        ranking_data = self._create_ranking_data(domain_pdfs, domain_candidates)
-        term_ranking = self._method.rank_terms(domain_candidates, ranking_data)
+        if term_ranking is None:
+            candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
+            ranking_data = self._create_ranking_data(domain_pdfs, candidates)
+            term_ranking = self._method.rank_terms(candidates, ranking_data)
 
-        if self._config.use_cache:
-            self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
-            if self._config.remove_lower_layer_cache:
-                self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
+        self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+
+        if self._config.remove_lower_layer_cache:
+            for pdf_path in domain_pdfs.pdf_paths:
+                self._candidate_layer.remove_cache(pdf_path)
 
         return term_ranking
 
@@ -117,51 +132,41 @@ class MethodLayer:
         if domain_pdfs is None:
             raise ValueError(f"'multi_domain_pdfs' does not contain domain '{domain}'")
 
-        if self._config.use_cache:
-            term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
-            if term_ranking is not None:
-                if self._config.remove_lower_layer_cache:
-                    self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
-                return term_ranking
+        term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
 
-        domain_candidates_list: List[DomainCandidateTermList] = []
-        ranking_data_list: List[Any] = []
-        for _domain_pdfs in domain_pdfs_list:
-            candidates = self._candidate_layer.create_domain_candiates(_domain_pdfs)
-            ranking_data = self._create_ranking_data(_domain_pdfs, candidates)
-            domain_candidates_list.append(candidates)
-            ranking_data_list.append(ranking_data)
+        if term_ranking is None:
+            domain_candidates_list: List[DomainCandidateTermList] = []
+            ranking_data_list: List[Any] = []
+            for _domain_pdfs in domain_pdfs_list:
+                candidates = self._candidate_layer.create_domain_candiates(_domain_pdfs)
+                ranking_data = self._create_ranking_data(_domain_pdfs, candidates)
+                domain_candidates_list.append(candidates)
+                ranking_data_list.append(ranking_data)
 
-        term_ranking = self._method.rank_domain_terms(
-            domain, domain_candidates_list, ranking_data_list
-        )
+            term_ranking = self._method.rank_domain_terms(
+                domain, domain_candidates_list, ranking_data_list
+            )
 
-        if self._config.use_cache:
-            self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
-            if self._config.remove_lower_layer_cache:
-                self._data_cache.remove(domain_pdfs.pdf_paths, self._config)
+        self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+
+        if self._config.remove_lower_layer_cache:
+            for pdf_path in domain_pdfs.pdf_paths:
+                self._candidate_layer.remove_cache(pdf_path)
 
         return term_ranking
 
     def _create_ranking_data(
         self, domain_pdfs: DomainPDFList, domain_candidates: DomainCandidateTermList
     ) -> Any:
-        if self._config.use_cache:
-            ranking_data = self._data_cache.load(
-                domain_pdfs.pdf_paths,
-                self._config,
-                self._method.collect_data_from_json,
-            )
-            if ranking_data is not None:
-                return ranking_data
+        ranking_data = self._data_cache.load(
+            domain_pdfs.pdf_paths,
+            self._config,
+            self._method.collect_data_from_json,
+        )
 
-        ranking_data = self._method.collect_data(domain_candidates)
+        if ranking_data is None:
+            ranking_data = self._method.collect_data(domain_candidates)
 
-        if self._config.use_cache:
-            self._data_cache.store(
-                domain_pdfs.pdf_paths,
-                ranking_data,
-                self._config,
-            )
+        self._data_cache.store(domain_pdfs.pdf_paths, ranking_data, self._config)
 
         return ranking_data

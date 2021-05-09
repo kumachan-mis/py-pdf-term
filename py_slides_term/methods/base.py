@@ -71,12 +71,8 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         ranking_data_list: Optional[List[RankingData]] = None,
     ) -> DomainTermRanking:
         domain_candidates = next(
-            filter(lambda item: item.domain == domain, domain_candidates_list),
-            None,
+            filter(lambda item: item.domain == domain, domain_candidates_list)
         )
-
-        if domain_candidates is None:
-            raise ValueError(f"candidate term list in '{domain}' is not provided")
 
         if ranking_data_list is None:
             ranking_data_list = list(

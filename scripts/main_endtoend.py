@@ -60,8 +60,15 @@ if __name__ == "__main__":
         raise RuntimeError("unreachable statement")
 
     extractor = PySlidesTermExtractor(
-        candidate_config=CandidateLayerConfig(remove_lower_layer_cache=False),
-        method_config=MethodLayerConfig(method_type=method_type, method=method),
+        candidate_config=CandidateLayerConfig(
+            cache="py_slides_term.caches.CandidateLayerNoCache"
+        ),
+        method_config=MethodLayerConfig(
+            method_type=method_type,
+            method=method,
+            ranking_cache="py_slides_term.caches.MethodLayerRankingNoCache",
+            data_cache="py_slides_term.caches.MethodLayerDataNoCache",
+        ),
     )
 
     file_name = f"{method_name}.json"

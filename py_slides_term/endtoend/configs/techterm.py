@@ -7,3 +7,4 @@ from .base import BaseLayerConfig
 class TechnicalTermLayerConfig(BaseLayerConfig):
     max_num_pageterms: int = 14
     acceptance_rate: float = 0.75
+    remove_lower_layer_cache: bool = False

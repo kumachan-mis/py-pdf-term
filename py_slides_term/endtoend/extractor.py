@@ -13,6 +13,10 @@ from .mappers import (
     AugmenterMapper,
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
+    XMLLayerCacheMapper,
+    CandidateLayerCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MethodLayerDataCacheMapper,
 )
 from .layers import XMLLayer, CandidateLayer, MethodLayer, TechnicalTermLayer
 from .caches import DEFAULT_CACHE_DIR
@@ -34,9 +38,17 @@ class PySlidesTermExtractor:
         augmenter_mapper: Optional[AugmenterMapper] = None,
         single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
-        cache_dir: str = DEFAULT_CACHE_DIR,
+        xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
+        candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
+        method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
+        method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
+        cache_dirlike: str = DEFAULT_CACHE_DIR,
     ):
-        xml_layer = XMLLayer(xml_config, cache_dir)
+        xml_layer = XMLLayer(
+            config=xml_config,
+            cache_mapper=xml_cache_mapper,
+            cache_dirlike=cache_dirlike,
+        )
         candidate_layer = CandidateLayer(
             xml_layer=xml_layer,
             config=candidate_config,
@@ -44,14 +56,17 @@ class PySlidesTermExtractor:
             term_filter_mapper=term_filter_mapper,
             splitter_mapper=splitter_mapper,
             augmenter_mapper=augmenter_mapper,
-            cache_dir=cache_dir,
+            cache_mapper=candidate_cache_mapper,
+            cache_dirlike=cache_dirlike,
         )
         method_layer = MethodLayer(
             candidate_layer=candidate_layer,
             config=method_config,
             single_method_mapper=single_method_mapper,
             multi_method_mapper=multi_method_mapper,
-            cache_dir=cache_dir,
+            ranking_cache_mapper=method_ranking_cache_mapper,
+            data_cache_mapper=method_data_cache_mapper,
+            cache_dirlike=cache_dirlike,
         )
         self._techterm_layer = TechnicalTermLayer(
             candidate_layer=candidate_layer,

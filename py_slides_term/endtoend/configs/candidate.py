@@ -36,5 +36,5 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_slides_term.augmenters.EnglishAdpositionAugmenter",
         ]
     )
-    use_cache: bool = True
-    remove_lower_layer_cache: bool = True
+    cache: str = "py_slides_term.caches.CandidateLayerFileCache"
+    remove_lower_layer_cache: bool = False
