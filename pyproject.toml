@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-slides-term"
-version = "0.5.0"
+version = "0.6.0"
 description = "A python module for terminology extraction from presentation slides"
 authors = ["Yuya Suwa"]
 license = "MIT License"
