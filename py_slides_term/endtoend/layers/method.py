@@ -49,7 +49,7 @@ class MethodLayer:
             raise ValueError(f"unknown method type '{config.method_type}'")
 
         ranking_cache_cls = ranking_cache_mapper.find(config.ranking_cache)
-        data_cache_cls = data_cache_mapper.find(config.ranking_cache)
+        data_cache_cls = data_cache_mapper.find(config.data_cache)
 
         self._method = method_cls(**config.hyper_params)
         self._ranking_cache = ranking_cache_cls(cache_dir=cache_dir)

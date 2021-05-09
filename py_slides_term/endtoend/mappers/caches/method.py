@@ -17,12 +17,9 @@ class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]
         module_path = "py_slides_term.caches"
         default_mapper = cls()
 
-        cache_clses = [
-            MethodLayerRankingNoCache,
-            MethodLayerRankingFileCache,
-        ]
-        for augmenter_cls in cache_clses:
-            default_mapper.add(f"{module_path}.{augmenter_cls.__name__}", augmenter_cls)
+        cache_clses = [MethodLayerRankingNoCache, MethodLayerRankingFileCache]
+        for cache_cls in cache_clses:
+            default_mapper.add(f"{module_path}.{cache_cls.__name__}", cache_cls)
 
         return default_mapper
 
@@ -34,10 +31,10 @@ class MethodLayerDataCacheMapper(BaseMapper[Type[BaseMethodLayerDataCache[Any]]]
         default_mapper = cls()
 
         cache_clses = [
-            MethodLayerDataNoCache[Any],
-            MethodLayerDataFileCache[Any],
+            ("MethodLayerDataNoCache", MethodLayerDataNoCache[Any]),
+            ("MethodLayerDataFileCache", MethodLayerDataFileCache[Any]),
         ]
-        for augmenter_cls in cache_clses:
-            default_mapper.add(f"{module_path}.{augmenter_cls.__name__}", augmenter_cls)
+        for name, cache_cls in cache_clses:
+            default_mapper.add(f"{module_path}.{name}", cache_cls)
 
         return default_mapper

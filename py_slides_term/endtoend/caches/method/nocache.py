@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Union, Callable, Generic
+from typing import List, Dict, Any, Union, Callable
 
 from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
@@ -30,9 +30,7 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
         pass
 
 
-class MethodLayerDataNoCache(
-    Generic[RankingData], BaseMethodLayerDataCache[RankingData]
-):
+class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
     # public
     def __init__(self, cache_dir: str):
         pass

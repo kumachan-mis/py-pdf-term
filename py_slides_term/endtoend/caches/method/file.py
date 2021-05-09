@@ -2,7 +2,7 @@ import os
 import json
 from glob import glob
 from shutil import rmtree
-from typing import List, Dict, Any, Union, Callable, Generic
+from typing import List, Dict, Any, Union, Callable
 
 from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
@@ -68,9 +68,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
             rmtree(cache_dir_path)
 
 
-class MethodLayerDataFileCache(
-    Generic[RankingData], BaseMethodLayerDataCache[RankingData]
-):
+class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
     # public
     def __init__(self, cache_dir: str):
         super().__init__(cache_dir)

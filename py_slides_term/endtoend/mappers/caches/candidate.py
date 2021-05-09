@@ -14,11 +14,8 @@ class CandidateLayerCacheMapper(BaseMapper[Type[BaseCandidateLayerCache]]):
         module_path = "py_slides_term.caches"
         default_mapper = cls()
 
-        cache_clses = [
-            CandidateLayerNoCache,
-            CandidateLayerFileCache,
-        ]
-        for augmenter_cls in cache_clses:
-            default_mapper.add(f"{module_path}.{augmenter_cls.__name__}", augmenter_cls)
+        cache_clses = [CandidateLayerNoCache, CandidateLayerFileCache]
+        for cache_cls in cache_clses:
+            default_mapper.add(f"{module_path}.{cache_cls.__name__}", cache_cls)
 
         return default_mapper
