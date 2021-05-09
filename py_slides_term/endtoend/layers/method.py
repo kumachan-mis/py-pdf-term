@@ -28,7 +28,7 @@ class MethodLayer:
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
         ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
         data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
-        cache_dirlike: str = DEFAULT_CACHE_DIR,
+        cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = MethodLayerConfig()
@@ -52,8 +52,8 @@ class MethodLayer:
         data_cache_cls = data_cache_mapper.find(config.ranking_cache)
 
         self._method = method_cls(**config.hyper_params)
-        self._ranking_cache = ranking_cache_cls(cache_dirlike=cache_dirlike)
-        self._data_cache = data_cache_cls(cache_dirlike=cache_dirlike)
+        self._ranking_cache = ranking_cache_cls(cache_dir=cache_dir)
+        self._data_cache = data_cache_cls(cache_dir=cache_dir)
         self._config = config
 
         self._candidate_layer = candidate_layer

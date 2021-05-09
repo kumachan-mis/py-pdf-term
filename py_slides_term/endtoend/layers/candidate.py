@@ -29,7 +29,7 @@ class CandidateLayer:
         splitter_mapper: Optional[SplitterMapper] = None,
         augmenter_mapper: Optional[AugmenterMapper] = None,
         cache_mapper: Optional[CandidateLayerCacheMapper] = None,
-        cache_dirlike: str = DEFAULT_CACHE_DIR,
+        cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = CandidateLayerConfig()
@@ -58,7 +58,7 @@ class CandidateLayer:
             splitter_clses=splitter_clses,
             augmenter_clses=augmenter_clses,
         )
-        self._cache = cache_cls(cache_dirlike=cache_dirlike)
+        self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 
         self._xml_layer = xml_layer

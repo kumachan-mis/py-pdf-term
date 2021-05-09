@@ -7,7 +7,7 @@ from py_slides_term.candidates import PDFCandidateTermList
 
 class CandidateLayerNoCache(BaseCandidateLayerCache):
     # public
-    def __init__(self, cache_dirlike: str):
+    def __init__(self, cache_dir: str):
         pass
 
     def load(

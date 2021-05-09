@@ -42,12 +42,12 @@ class PySlidesTermExtractor:
         candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
         method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
         method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
-        cache_dirlike: str = DEFAULT_CACHE_DIR,
+        cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         xml_layer = XMLLayer(
             config=xml_config,
             cache_mapper=xml_cache_mapper,
-            cache_dirlike=cache_dirlike,
+            cache_dir=cache_dir,
         )
         candidate_layer = CandidateLayer(
             xml_layer=xml_layer,
@@ -57,7 +57,7 @@ class PySlidesTermExtractor:
             splitter_mapper=splitter_mapper,
             augmenter_mapper=augmenter_mapper,
             cache_mapper=candidate_cache_mapper,
-            cache_dirlike=cache_dirlike,
+            cache_dir=cache_dir,
         )
         method_layer = MethodLayer(
             candidate_layer=candidate_layer,
@@ -66,7 +66,7 @@ class PySlidesTermExtractor:
             multi_method_mapper=multi_method_mapper,
             ranking_cache_mapper=method_ranking_cache_mapper,
             data_cache_mapper=method_data_cache_mapper,
-            cache_dirlike=cache_dirlike,
+            cache_dir=cache_dir,
         )
         self._techterm_layer = TechnicalTermLayer(
             candidate_layer=candidate_layer,

@@ -7,7 +7,7 @@ from py_slides_term.pdftoxml import PDFnXMLElement
 
 class BaseXMLLayerCache(metaclass=ABCMeta):
     # public
-    def __init__(self, cache_dirlike: str):
+    def __init__(self, cache_dir: str):
         pass
 
     @abstractmethod

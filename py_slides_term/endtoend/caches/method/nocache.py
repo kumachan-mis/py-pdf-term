@@ -8,7 +8,7 @@ from py_slides_term.methods.rankingdata import RankingData
 
 class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
     # public
-    def __init__(self, cache_dirlike: str):
+    def __init__(self, cache_dir: str):
         pass
 
     def load(
@@ -34,7 +34,7 @@ class MethodLayerDataNoCache(
     Generic[RankingData], BaseMethodLayerDataCache[RankingData]
 ):
     # public
-    def __init__(self, cache_dirlike: str):
+    def __init__(self, cache_dir: str):
         pass
 
     def load(

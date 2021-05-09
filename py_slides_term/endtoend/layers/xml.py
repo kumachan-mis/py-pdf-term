@@ -12,15 +12,17 @@ class XMLLayer:
         self,
         config: Optional[XMLLayerConfig] = None,
         cache_mapper: Optional[XMLLayerCacheMapper] = None,
-        cache_dirlike: str = DEFAULT_CACHE_DIR,
+        cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = XMLLayerConfig()
         if cache_mapper is None:
             cache_mapper = XMLLayerCacheMapper.default_mapper()
 
+        cache_cls = cache_mapper.find(config.cache)
+
         self._converter = PDFtoXMLConverter()
-        self._cache = cache_mapper.find(config.cache)(cache_dirlike=cache_dirlike)
+        self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 
     def create_pdfnxml(self, pdf_path: str) -> PDFnXMLElement:
