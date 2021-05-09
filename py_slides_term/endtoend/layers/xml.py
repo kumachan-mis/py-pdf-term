@@ -1,7 +1,8 @@
 from typing import Optional
 
-from ..caches import XMLLayerCache, DEFAULT_CACHE_DIR
+from ..caches import DEFAULT_CACHE_DIR
 from ..configs import XMLLayerConfig
+from ..mappers import XMLLayerCacheMapper
 from py_slides_term.pdftoxml import PDFtoXMLConverter, PDFnXMLElement
 
 
@@ -10,27 +11,30 @@ class XMLLayer:
     def __init__(
         self,
         config: Optional[XMLLayerConfig] = None,
+        cache_mapper: Optional[XMLLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = XMLLayerConfig()
+        if cache_mapper is None:
+            cache_mapper = XMLLayerCacheMapper.default_mapper()
+
+        cache_cls = cache_mapper.find(config.cache)
 
         self._converter = PDFtoXMLConverter()
-        self._cache = XMLLayerCache(cache_dir=cache_dir)
+        self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 
     def create_pdfnxml(self, pdf_path: str) -> PDFnXMLElement:
-        if self._config.use_cache:
-            pdfnxml = self._cache.load(pdf_path, self._config)
-            if pdfnxml is not None:
-                return pdfnxml
+        pdfnxml = None
+        pdfnxml = self._cache.load(pdf_path, self._config)
 
-        pdfnxml = self._converter.convert_as_element(
-            pdf_path, apply_nfc_normalization=self._config.apply_nfc_normalization
-        )
+        if pdfnxml is None:
+            pdfnxml = self._converter.convert_as_element(
+                pdf_path, apply_nfc_normalization=self._config.apply_nfc_normalization
+            )
 
-        if self._config.use_cache:
-            self._cache.store(pdfnxml, self._config)
+        self._cache.store(pdfnxml, self._config)
 
         return pdfnxml
 

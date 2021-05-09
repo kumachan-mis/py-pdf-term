@@ -9,5 +9,6 @@ class MethodLayerConfig(BaseLayerConfig):
     method_type: Literal["single", "multi"] = "single"
     method: str = "py_slides_term.methods.FLRHMethod"
     hyper_params: Dict[str, Any] = field(default_factory=dict)
-    use_cache: bool = True
-    remove_lower_layer_cache: bool = True
+    ranking_cache: str = "py_slides_term.MethodLayerRankingFileCache"
+    data_cache: str = "py_slides_term.MethodLayerRankingFileCache"
+    remove_lower_layer_cache: bool = False

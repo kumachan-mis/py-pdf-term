@@ -2,13 +2,14 @@ from typing import List, Optional
 
 from .xml import XMLLayer
 from ..data import DomainPDFList
-from ..caches import CandidateLayerCache, DEFAULT_CACHE_DIR
+from ..caches import DEFAULT_CACHE_DIR
 from ..configs import CandidateLayerConfig
 from ..mappers import (
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
     SplitterMapper,
     AugmenterMapper,
+    CandidateLayerCacheMapper,
 )
 from py_slides_term.candidates import (
     CandidateTermExtractor,
@@ -27,6 +28,7 @@ class CandidateLayer:
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
         augmenter_mapper: Optional[AugmenterMapper] = None,
+        cache_mapper: Optional[CandidateLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
@@ -39,16 +41,24 @@ class CandidateLayer:
             splitter_mapper = SplitterMapper.default_mapper()
         if augmenter_mapper is None:
             augmenter_mapper = AugmenterMapper.default_mapper()
+        if cache_mapper is None:
+            cache_mapper = CandidateLayerCacheMapper.default_mapper()
+
+        morpheme_filter_clses = morpheme_filter_mapper.bulk_find(
+            config.morpheme_filters
+        )
+        term_filter_clses = term_filter_mapper.bulk_find(config.term_filters)
+        splitter_clses = splitter_mapper.bulk_find(config.splitters)
+        augmenter_clses = augmenter_mapper.bulk_find(config.augmenters)
+        cache_cls = cache_mapper.find(config.cache)
 
         self._extractor = CandidateTermExtractor(
-            morpheme_filter_clses=morpheme_filter_mapper.bulk_find(
-                config.morpheme_filters
-            ),
-            term_filter_clses=term_filter_mapper.bulk_find(config.term_filters),
-            splitter_clses=splitter_mapper.bulk_find(config.splitters),
-            augmenter_clses=augmenter_mapper.bulk_find(config.augmenters),
+            morpheme_filter_clses=morpheme_filter_clses,
+            term_filter_clses=term_filter_clses,
+            splitter_clses=splitter_clses,
+            augmenter_clses=augmenter_clses,
         )
-        self._cache = CandidateLayerCache(cache_dir=cache_dir)
+        self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 
         self._xml_layer = xml_layer
@@ -64,19 +74,18 @@ class CandidateLayer:
         return DomainCandidateTermList(domain_pdfs.domain, pdf_candidates_list)
 
     def create_pdf_candidates(self, pdf_path: str) -> PDFCandidateTermList:
-        if self._config.use_cache:
-            candidates = self._cache.load(pdf_path, self._config)
-            if candidates is not None:
-                if self._config.remove_lower_layer_cache:
-                    self._xml_layer.remove_cache(pdf_path)
-                return candidates
+        candidates = self._cache.load(pdf_path, self._config)
 
-        pdfnxml = self._xml_layer.create_pdfnxml(pdf_path)
-        candidates = self._extractor.extract_from_xml_element(pdfnxml)
+        if candidates is None:
+            pdfnxml = self._xml_layer.create_pdfnxml(pdf_path)
+            candidates = self._extractor.extract_from_xml_element(pdfnxml)
 
-        if self._config.use_cache:
-            self._cache.store(candidates, self._config)
-            if self._config.remove_lower_layer_cache:
-                self._xml_layer.remove_cache(pdf_path)
+        self._cache.store(candidates, self._config)
+
+        if self._config.remove_lower_layer_cache:
+            self._xml_layer.remove_cache(pdf_path)
 
         return candidates
+
+    def remove_cache(self, pdf_path: str):
+        self._cache.remove(pdf_path, self._config)

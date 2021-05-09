@@ -39,4 +39,15 @@ class TechnicalTermLayer:
             domain, single_domain_pdfs, multi_domain_pdfs
         )
         techterms = self._techterm.extract_from_pdf(pdf_candidate, term_ranking)
+
+        if self._config.remove_lower_layer_cache:
+            if single_domain_pdfs is not None:
+                domain_pdfs = single_domain_pdfs
+                self._method_layer.remove_cache(domain_pdfs.pdf_paths)
+            if multi_domain_pdfs is not None:
+                domain_pdfs = next(
+                    filter(lambda item: item.domain == domain, multi_domain_pdfs)
+                )
+                self._method_layer.remove_cache(domain_pdfs.pdf_paths)
+
         return techterms

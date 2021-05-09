@@ -16,7 +16,7 @@ class BaseCandidateTermFilter(metaclass=ABCMeta):
 
     @abstractmethod
     def is_candidate(self, scoped_term: Term) -> bool:
-        raise NotImplementedError(f"{self.__class__.__name__}.is_part_of_candidate()")
+        raise NotImplementedError(f"{self.__class__.__name__}.is_candidate()")
 
 
 class BaseJapaneseCandidateTermFilter(BaseCandidateTermFilter):

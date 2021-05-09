@@ -4,14 +4,16 @@ from shutil import rmtree
 from xml.etree.ElementTree import fromstring, tostring, ParseError
 from typing import Union
 
-from ..configs import XMLLayerConfig
-from .util import create_dir_name_from_config, create_file_name_from_path
+from .base import BaseXMLLayerCache
+from ...configs import XMLLayerConfig
+from ..util import create_dir_name_from_config, create_file_name_from_path
 from py_slides_term.pdftoxml import PDFnXMLElement
 
 
-class XMLLayerCache:
+class XMLLayerFileCache(BaseXMLLayerCache):
     # public
     def __init__(self, cache_dir: str):
+
         self._cache_dir = cache_dir
 
     def load(
@@ -32,7 +34,7 @@ class XMLLayerCache:
 
         return PDFnXMLElement(pdf_path, xml_root)
 
-    def store(self, pdfnxml: PDFnXMLElement, config: XMLLayerConfig):
+    def store(self, pdfnxml: PDFnXMLElement, config: XMLLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config)
         file_name = create_file_name_from_path(pdfnxml.pdf_path, "xml")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
@@ -43,7 +45,7 @@ class XMLLayerCache:
             xml_content = tostring(pdfnxml.xml_root, encoding="utf-8")
             xml_file.write(xml_content)
 
-    def remove(self, pdf_path: str, config: XMLLayerConfig):
+    def remove(self, pdf_path: str, config: XMLLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config)
         file_name = create_file_name_from_path(pdf_path, "xml")
         cache_dir_path = os.path.join(self._cache_dir, dir_name)

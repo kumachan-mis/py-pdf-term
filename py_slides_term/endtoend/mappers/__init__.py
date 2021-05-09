@@ -1,7 +1,12 @@
 from .filters import CandidateMorphemeFilterMapper, CandidateTermFilterMapper
-from .splitter import SplitterMapper
-from .augmenter import AugmenterMapper
+from .candidates import SplitterMapper, AugmenterMapper
 from .methods import SingleDomainRankingMethodMapper, MultiDomainRankingMethodMapper
+from .caches import (
+    XMLLayerCacheMapper,
+    CandidateLayerCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MethodLayerDataCacheMapper,
+)
 
 __all__ = [
     "CandidateMorphemeFilterMapper",
@@ -10,4 +15,8 @@ __all__ = [
     "AugmenterMapper",
     "SingleDomainRankingMethodMapper",
     "MultiDomainRankingMethodMapper",
+    "XMLLayerCacheMapper",
+    "CandidateLayerCacheMapper",
+    "MethodLayerRankingCacheMapper",
+    "MethodLayerDataCacheMapper",
 ]
