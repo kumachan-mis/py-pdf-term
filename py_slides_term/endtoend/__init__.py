@@ -13,6 +13,10 @@ from .mappers import (
     MultiDomainRankingMethodMapper,
     SplitterMapper,
     AugmenterMapper,
+    XMLLayerCacheMapper,
+    CandidateLayerCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MethodLayerDataCacheMapper,
 )
 from .data import DomainPDFList
 
@@ -29,5 +33,9 @@ __all__ = [
     "MultiDomainRankingMethodMapper",
     "SplitterMapper",
     "AugmenterMapper",
+    "XMLLayerCacheMapper",
+    "CandidateLayerCacheMapper",
+    "MethodLayerRankingCacheMapper",
+    "MethodLayerDataCacheMapper",
     "DomainPDFList",
 ]

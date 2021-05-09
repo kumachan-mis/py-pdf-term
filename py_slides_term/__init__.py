@@ -10,6 +10,10 @@ from .endtoend import (
     MultiDomainRankingMethodMapper,
     SplitterMapper,
     AugmenterMapper,
+    XMLLayerCacheMapper,
+    CandidateLayerCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MethodLayerDataCacheMapper,
     DomainPDFList,
 )
 from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
@@ -26,6 +30,10 @@ __all__ = [
     "MultiDomainRankingMethodMapper",
     "SplitterMapper",
     "AugmenterMapper",
+    "XMLLayerCacheMapper",
+    "CandidateLayerCacheMapper",
+    "MethodLayerRankingCacheMapper",
+    "MethodLayerDataCacheMapper",
     "DomainPDFList",
     "DomainTechnicalTermList",
     "PDFTechnicalTermList",
