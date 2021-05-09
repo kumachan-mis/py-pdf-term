@@ -26,7 +26,7 @@ class BaseMorpheme(metaclass=ABCMeta):
 
 @dataclass(frozen=True)
 class SpaCyMorpheme(BaseMorpheme):
-    NUM_ATTR: ClassVar[int] = 11
+    NUM_ATTR: ClassVar[int] = 9
 
     lang: Literal["ja", "en"]
     surface_form: str
@@ -35,7 +35,5 @@ class SpaCyMorpheme(BaseMorpheme):
     subcategory: str
     subsubcategory: str
     universal_tag: str
-    dep_relations: str
-    original_form: str
     shape: str
     is_stop: bool

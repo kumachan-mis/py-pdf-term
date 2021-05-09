@@ -74,22 +74,7 @@ class CandidateTermExtractor:
 
     def extract_from_text(self, text: str, fontsize: float = 0.0) -> List[Term]:
         morphemes = self._tokenizer.tokenize(text)
-
-        candicate_terms: List[Term] = []
-        candicate_morphemes: List[BaseMorpheme] = []
-        for idx, morpheme in enumerate(morphemes):
-            if self._filter.is_partof_candidate(morphemes, idx):
-                candicate_morphemes.append(morpheme)
-                continue
-
-            terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
-            candicate_terms.extend(terms)
-            candicate_morphemes = []
-
-        terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
-        candicate_terms.extend(terms)
-
-        return candicate_terms
+        return self._extract_from_morphemes(morphemes, fontsize)
 
     # private
     def _extract_from_xmlroot(
@@ -107,10 +92,30 @@ class CandidateTermExtractor:
         candicate_terms: List[Term] = []
         for text_node in page.iter("text"):
             text = cast(str, text_node.text)
+            morphemes = self._tokenizer.tokenize(text)
             fontsize = float(cast(str, text_node.get("size")))
-            candicate_terms.extend(self.extract_from_text(text, fontsize))
+            candicate_terms.extend(self._extract_from_morphemes(morphemes, fontsize))
 
         return PageCandidateTermList(page_num, candicate_terms)
+
+    def _extract_from_morphemes(
+        self, morphemes: List[BaseMorpheme], fontsize: float = 0.0
+    ) -> List[Term]:
+        candicate_terms: List[Term] = []
+        candicate_morphemes: List[BaseMorpheme] = []
+        for idx, morpheme in enumerate(morphemes):
+            if self._filter.is_partof_candidate(morphemes, idx):
+                candicate_morphemes.append(morpheme)
+                continue
+
+            terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+            candicate_terms.extend(terms)
+            candicate_morphemes = []
+
+        terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+        candicate_terms.extend(terms)
+
+        return candicate_terms
 
     def _terms_from_morphemes(
         self, morphemes: List[BaseMorpheme], fontsize: float
