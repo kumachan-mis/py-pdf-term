@@ -15,25 +15,25 @@ class SpaCyTokenizer:
         self._en_model = en_core_web_sm.load()
         self._ja_model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
         self._en_model.disable_pipes("parser", "ner", "lemmatizer")
+
+        self._ja_regex = re.compile(JAPANESE_REGEX)
+        self._en_regex = re.compile(ALPHABET_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
 
     def tokenize(self, text: str) -> List[BaseMorpheme]:
         if not text:
             return []
 
-        ja_regex = re.compile(JAPANESE_REGEX)
-        en_regex = re.compile(ALPHABET_REGEX)
-
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
-        if ja_regex.search(text):
+        if self._ja_regex.search(text):
             return list(
                 map(
                     lambda token: self._create_japanese_morpheme(token),
                     self._ja_model(text),
                 )
             )
-        elif en_regex.search(text):
+        elif self._en_regex.search(text):
             return list(
                 map(
                     lambda token: self._create_english_morpheme(token),
