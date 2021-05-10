@@ -16,8 +16,8 @@ class TechnicalTermExtractor:
         domain_candidates: DomainCandidateTermList,
         term_ranking: MethodTermRanking,
     ) -> DomainTechnicalTermList:
-        domain_term_scores = self._converter.convert(term_ranking)
-        terms = self._selector.select_from_domain(domain_candidates, domain_term_scores)
+        term_scores = self._converter.convert(term_ranking)
+        terms = self._selector.select_from_domain(domain_candidates, term_scores)
         return terms
 
     def extract_from_pdf(
@@ -25,6 +25,6 @@ class TechnicalTermExtractor:
         pdf_candidates: PDFCandidateTermList,
         term_ranking: MethodTermRanking,
     ) -> PDFTechnicalTermList:
-        domain_term_scores = self._converter.convert(term_ranking)
-        terms = self._selector.select_from_pdf(pdf_candidates, domain_term_scores)
+        term_scores = self._converter.convert(term_ranking)
+        terms = self._selector.select_from_pdf(pdf_candidates, term_scores)
         return terms
