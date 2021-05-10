@@ -12,9 +12,8 @@ class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
         self,
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-        consider_charfont: bool = True,
     ):
-        collector = TFIDFRankingDataCollector(collect_charfont=consider_charfont)
+        collector = TFIDFRankingDataCollector()
         ranker = TFIDFRanker(tfmode=tfmode, idfmode=idfmode)
         super().__init__(collector, ranker)
 

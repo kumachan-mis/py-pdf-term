@@ -12,9 +12,8 @@ class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
         self,
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-        consider_charfont: bool = True,
     ):
-        collector = LFIDFRankingDataCollector(collect_charfont=consider_charfont)
+        collector = LFIDFRankingDataCollector()
         ranker = LFIDFRanker(tfmode=tfmode, idfmode=idfmode)
         super().__init__(collector, ranker)
 
