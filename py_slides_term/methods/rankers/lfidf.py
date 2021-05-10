@@ -53,12 +53,7 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
 
         lf = self._calculate_lf(lingu_seq, ranking_data, ranking_data_list)
         idf = self._calculate_idf(lingu_seq, ranking_data, ranking_data_list)
-        term_maxsize = (
-            ranking_data.term_maxsize[candidate_str]
-            if ranking_data.term_maxsize is not None
-            else 1.0
-        )
-        score = extended_log10(term_maxsize * lf * idf)
+        score = extended_log10(lf * idf)
         return ScoredTerm(candidate_str, score)
 
     def _calculate_lf(

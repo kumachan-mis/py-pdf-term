@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, Dict
+from typing import Dict
 
 from .base import BaseRankingData
 
@@ -19,6 +19,3 @@ class FLRHRankingData(BaseRankingData):
     # number of occurrences of (morpheme, right) in the domain
     # if morpheme or right is meaningless (a modifying particle or a symbol),
     # this is fixed at zero
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is 1.0

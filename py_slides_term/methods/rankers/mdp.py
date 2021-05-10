@@ -68,17 +68,6 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     ) -> float:
         candidate_str = str(candidate)
 
-        our_term_maxsize = (
-            our_ranking_data.term_maxsize[candidate_str]
-            if our_ranking_data.term_maxsize is not None
-            else 1.0
-        )
-        their_term_maxsize = (
-            their_ranking_data.term_maxsize.get(candidate_str, 0.0)
-            if their_ranking_data.term_maxsize is not None
-            else 1.0
-        )
-
         our_term_freq = our_ranking_data.term_freq[candidate_str]
         their_term_freq = their_ranking_data.term_freq.get(candidate_str, 0)
 
@@ -87,11 +76,12 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
 
         our_term_prob = our_term_freq / our_ranking_data.num_terms
         their_term_prob = their_term_freq / their_ranking_data.num_terms
+
         term_prob = (our_term_freq + their_term_freq) / (
             our_ranking_data.num_terms + their_ranking_data.num_terms
         )
 
         return extended_log10(
-            (our_term_maxsize * our_term_prob - their_term_maxsize * their_term_prob)
+            (our_term_prob - their_term_prob)
             / (term_prob * (1.0 - term_prob) * (our_inum_terms + their_inum_terms))
         )

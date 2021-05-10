@@ -23,14 +23,12 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
-            ranking_data.term_maxsize,
         )
         hits_ranking_data = HITSRankingData(
             ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
-            ranking_data.term_maxsize,
         )
 
         auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)

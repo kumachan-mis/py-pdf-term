@@ -53,12 +53,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
 
         tf = self._calculate_tf(candidate_str, ranking_data, ranking_data_list)
         idf = self._calculate_idf(candidate_str, ranking_data, ranking_data_list)
-        term_maxsize = (
-            ranking_data.term_maxsize[candidate_str]
-            if ranking_data.term_maxsize is not None
-            else 1.0
-        )
-        score = extended_log10(term_maxsize * tf * idf)
+        score = extended_log10(tf * idf)
         return ScoredTerm(candidate_str, score)
 
     def _calculate_tf(

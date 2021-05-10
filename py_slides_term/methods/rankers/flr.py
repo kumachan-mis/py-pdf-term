@@ -43,12 +43,6 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 candidate.morphemes,
             )
         )
-
-        term_maxsize_score = (
-            log10(ranking_data.term_maxsize[candidate_str])
-            if ranking_data.term_maxsize is not None
-            else 0.0
-        )
         term_freq_score = log10(ranking_data.term_freq[candidate_str])
 
         concat_score = 0.0
@@ -63,7 +57,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
 
         concat_score /= num_morphemes - num_meaningless_morphemes
 
-        score = term_maxsize_score + term_freq_score + concat_score
+        score = term_freq_score + concat_score
         return ScoredTerm(candidate_str, score)
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:

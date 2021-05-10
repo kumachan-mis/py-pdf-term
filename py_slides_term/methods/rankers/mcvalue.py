@@ -49,11 +49,5 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
             if num_containers > 0
             else term_freq
         )
-        term_maxsize_score = (
-            log10(ranking_data.term_maxsize[candidate_str])
-            if ranking_data.term_maxsize is not None
-            else 0.0
-        )
-
-        score = term_len_score + freq_score + term_maxsize_score
+        score = term_len_score + freq_score
         return ScoredTerm(candidate_str, score)
