@@ -2,7 +2,7 @@ from .data import (
     DomainTechnicalTermList,
     PDFTechnicalTermList,
     PageTechnicalTermList,
-    DomainTermScoreDict,
+    MethodTermScoreDict,
 )
 from py_slides_term.candidates import (
     DomainCandidateTermList,
@@ -21,11 +21,11 @@ class TechnicalTermSelector:
     def select_from_domain(
         self,
         domain_candidates: DomainCandidateTermList,
-        domain_term_scores: DomainTermScoreDict,
+        term_scores: MethodTermScoreDict,
     ) -> DomainTechnicalTermList:
         pdfs = list(
             map(
-                lambda pdfs: self.select_from_pdf(pdfs, domain_term_scores),
+                lambda pdfs: self.select_from_pdf(pdfs, term_scores),
                 domain_candidates.pdfs,
             )
         )
@@ -34,11 +34,11 @@ class TechnicalTermSelector:
     def select_from_pdf(
         self,
         pdf_candidates: PDFCandidateTermList,
-        domain_term_scores: DomainTermScoreDict,
+        term_scores: MethodTermScoreDict,
     ) -> PDFTechnicalTermList:
         pages = list(
             map(
-                lambda page: self._select_from_page(page, domain_term_scores),
+                lambda page: self._select_from_page(page, term_scores),
                 pdf_candidates.pages,
             )
         )
@@ -48,13 +48,13 @@ class TechnicalTermSelector:
     def _select_from_page(
         self,
         page_candidates: PageCandidateTermList,
-        domain_term_scores: DomainTermScoreDict,
+        term_scores: MethodTermScoreDict,
     ) -> PageTechnicalTermList:
         scored_terms = remove_duplicated_items(
             [
-                ScoredTerm(candidate_str, domain_term_scores.term_scores[candidate_str])
+                ScoredTerm(candidate_str, term_scores.term_scores[candidate_str])
                 for candidate_str in map(str, page_candidates.candidates)
-                if candidate_str in domain_term_scores.term_scores
+                if candidate_str in term_scores.term_scores
             ]
         )
 

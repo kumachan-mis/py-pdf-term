@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import List, Dict, Any, Union, Callable, Generic
 
 from ...configs import MethodLayerConfig
-from py_slides_term.methods import DomainTermRanking
+from py_slides_term.methods import MethodTermRanking
 from py_slides_term.methods.rankingdata import RankingData
 
 
@@ -16,14 +16,14 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         self,
         pdf_paths: List[str],
         config: MethodLayerConfig,
-    ) -> Union[DomainTermRanking, None]:
+    ) -> Union[MethodTermRanking, None]:
         raise NotImplementedError(f"{self.__class__.__name__}.load()")
 
     @abstractmethod
     def store(
         self,
         pdf_paths: List[str],
-        term_ranking: DomainTermRanking,
+        term_ranking: MethodTermRanking,
         config: MethodLayerConfig,
     ) -> None:
         raise NotImplementedError(f"{self.__class__.__name__}.store()")

@@ -4,7 +4,7 @@ from typing import Dict
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.morphemes import (
     BaseMorpheme,
@@ -35,7 +35,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         auth_hub_data = self._create_auth_hub_data(ranking_data)
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
@@ -47,7 +47,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:

@@ -2,7 +2,7 @@ from typing import List, Callable, Iterable
 
 from .base import BaseMultiDomainRanker
 from ..rankingdata import MDPRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
 from py_slides_term.share.utils import extended_log10
@@ -17,7 +17,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         self,
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[MDPRankingData],
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking_data = next(
             filter(
@@ -40,7 +40,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _calculate_score(

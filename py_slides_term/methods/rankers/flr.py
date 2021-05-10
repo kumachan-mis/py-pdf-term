@@ -2,7 +2,7 @@ from math import log10
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.morphemes import (
     JapaneseMorphemeClassifier,
@@ -20,7 +20,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRankingData
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking = list(
             map(
@@ -29,7 +29,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _calculate_score(

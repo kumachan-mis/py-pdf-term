@@ -62,6 +62,6 @@ class DomainTechnicalTermList:
 
 
 @dataclass(frozen=True)
-class DomainTermScoreDict:
+class MethodTermScoreDict:
     domain: str
     term_scores: Dict[str, float]

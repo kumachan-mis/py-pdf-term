@@ -3,7 +3,7 @@ from typing import List, Literal
 
 from .base import BaseMultiDomainRanker
 from ..rankingdata import TFIDFRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
 from py_slides_term.share.utils import extended_log10
@@ -23,7 +23,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         self,
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[TFIDFRankingData],
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
         ranking_data = next(
             filter(
@@ -40,7 +40,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _calculate_score(

@@ -2,7 +2,7 @@ from .data import DomainTechnicalTermList, PDFTechnicalTermList
 from .converter import RankingToScoreDictConverter
 from .selector import TechnicalTermSelector
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods import DomainTermRanking
+from py_slides_term.methods import MethodTermRanking
 
 
 class TechnicalTermExtractor:
@@ -14,17 +14,17 @@ class TechnicalTermExtractor:
     def extract_from_domain(
         self,
         domain_candidates: DomainCandidateTermList,
-        domain_term_ranking: DomainTermRanking,
+        term_ranking: MethodTermRanking,
     ) -> DomainTechnicalTermList:
-        domain_term_scores = self._converter.convert(domain_term_ranking)
+        domain_term_scores = self._converter.convert(term_ranking)
         terms = self._selector.select_from_domain(domain_candidates, domain_term_scores)
         return terms
 
     def extract_from_pdf(
         self,
         pdf_candidates: PDFCandidateTermList,
-        domain_term_ranking: DomainTermRanking,
+        term_ranking: MethodTermRanking,
     ) -> PDFTechnicalTermList:
-        domain_term_scores = self._converter.convert(domain_term_ranking)
+        domain_term_scores = self._converter.convert(term_ranking)
         terms = self._selector.select_from_pdf(pdf_candidates, domain_term_scores)
         return terms

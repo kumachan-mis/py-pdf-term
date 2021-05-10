@@ -7,7 +7,7 @@ from typing import List, Dict, Any, Union, Callable
 from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_paths
-from py_slides_term.methods import DomainTermRanking
+from py_slides_term.methods import MethodTermRanking
 from py_slides_term.methods.rankingdata import RankingData
 
 
@@ -21,7 +21,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
         self,
         pdf_paths: List[str],
         config: MethodLayerConfig,
-    ) -> Union[DomainTermRanking, None]:
+    ) -> Union[MethodTermRanking, None]:
         dir_name = create_dir_name_from_config(config, prefix="rank")
         file_name = create_file_name_from_paths(pdf_paths, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)
@@ -35,12 +35,12 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
             except json.JSONDecodeError:
                 return None
 
-        return DomainTermRanking.from_json(obj)
+        return MethodTermRanking.from_json(obj)
 
     def store(
         self,
         pdf_paths: List[str],
-        term_ranking: DomainTermRanking,
+        term_ranking: MethodTermRanking,
         config: MethodLayerConfig,
     ) -> None:
         dir_name = create_dir_name_from_config(config, prefix="rank")

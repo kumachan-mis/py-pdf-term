@@ -5,7 +5,7 @@ from typing import List, Optional, Iterator, Iterable
 
 from py_slides_term import DomainPDFList
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods import DomainTermRanking
+from py_slides_term.methods import MethodTermRanking
 from scripts.settings import (
     BASE_DIR,
     PDF_DIR,
@@ -81,9 +81,9 @@ def generate_domain_candidates(
 
 def generate_domain_term_ranking(
     method_name: str, domains: Iterable[str]
-) -> Iterator[DomainTermRanking]:
+) -> Iterator[MethodTermRanking]:
     for domain in domains:
         json_path = os.path.join(METHODS_DIR, domain, f"{method_name}.json")
         with open(json_path, "r") as f:
             obj = json.load(f)
-        yield DomainTermRanking.from_json(obj)
+        yield MethodTermRanking.from_json(obj)

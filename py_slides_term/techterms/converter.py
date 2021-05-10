@@ -1,5 +1,5 @@
-from .data import DomainTermScoreDict
-from py_slides_term.methods import DomainTermRanking
+from .data import MethodTermScoreDict
+from py_slides_term.methods import MethodTermRanking
 
 
 class RankingToScoreDictConverter:
@@ -7,12 +7,12 @@ class RankingToScoreDictConverter:
     def __init__(self, acceptance_rate: float = 0.75):
         self._acceptance_rate = acceptance_rate
 
-    def convert(self, domain_term_ranking: DomainTermRanking) -> DomainTermScoreDict:
-        threshold_idx = int(self._acceptance_rate * len(domain_term_ranking.ranking))
-        threshold = domain_term_ranking.ranking[threshold_idx].score
+    def convert(self, term_ranking: MethodTermRanking) -> MethodTermScoreDict:
+        threshold_idx = int(self._acceptance_rate * len(term_ranking.ranking))
+        threshold = term_ranking.ranking[threshold_idx].score
         term_scores = {
             scored_term.term: scored_term.score
-            for scored_term in domain_term_ranking.ranking
+            for scored_term in term_ranking.ranking
             if scored_term.score > threshold
         }
-        return DomainTermScoreDict(domain_term_ranking.domain, term_scores)
+        return MethodTermScoreDict(term_ranking.domain, term_scores)

@@ -2,7 +2,7 @@ from typing import List, Dict, Any, Union, Callable
 
 from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
-from py_slides_term.methods import DomainTermRanking
+from py_slides_term.methods import MethodTermRanking
 from py_slides_term.methods.rankingdata import RankingData
 
 
@@ -15,13 +15,13 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
         self,
         pdf_paths: List[str],
         config: MethodLayerConfig,
-    ) -> Union[DomainTermRanking, None]:
+    ) -> Union[MethodTermRanking, None]:
         pass
 
     def store(
         self,
         pdf_paths: List[str],
-        term_ranking: DomainTermRanking,
+        term_ranking: MethodTermRanking,
         config: MethodLayerConfig,
     ) -> None:
         pass

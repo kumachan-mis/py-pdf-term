@@ -5,7 +5,7 @@ from py_slides_term.share.data import ScoredTerm
 
 
 @dataclass(frozen=True)
-class DomainTermRanking:
+class MethodTermRanking:
     domain: str
     ranking: List[ScoredTerm]
 
