@@ -16,7 +16,7 @@ from .term import (
     JapaneseNumericFilter,
     EnglishNumericFilter,
 )
-from py_slides_term.morphemes import BaseMorpheme
+from py_slides_term.tokenizer import BaseMorpheme
 from py_slides_term.share.data import Term
 
 

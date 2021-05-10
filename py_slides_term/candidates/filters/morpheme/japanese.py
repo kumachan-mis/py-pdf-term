@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.morphemes import BaseMorpheme, JapaneseMorphemeClassifier
+from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.consts import JAPANESE_REGEX, ALPHABET_REGEX
 
 

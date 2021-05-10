@@ -1,5 +1,5 @@
 from ..base import BaseEnglishCandidateTermFilter
-from py_slides_term.morphemes import BaseMorpheme, EnglishMorphemeClassifier
+from py_slides_term.tokenizer import BaseMorpheme, EnglishMorphemeClassifier
 from py_slides_term.share.data import Term
 
 

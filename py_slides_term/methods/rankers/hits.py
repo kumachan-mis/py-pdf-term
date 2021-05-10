@@ -6,7 +6,7 @@ from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import (
+from py_slides_term.tokenizer import (
     BaseMorpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
