@@ -24,7 +24,7 @@ class ContainerTermsAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainContainerTerms:
-        domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
+        domain_candidates_set = domain_candidates.to_term_set()
 
         def update(
             container_terms: DomainContainerTerms,
@@ -47,7 +47,7 @@ class ContainerTermsAnalyzer:
                         candidate.augmented,
                     )
                     subcandidate_str = str(subcandidate)
-                    if subcandidate_str not in domain_candidates_set.candidates:
+                    if subcandidate_str not in domain_candidates_set:
                         continue
 
                     container_term_set = container_terms.container_terms.get(

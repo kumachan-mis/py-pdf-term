@@ -74,18 +74,18 @@ class CandidateLayer:
         return DomainCandidateTermList(domain_pdfs.domain, pdf_candidates_list)
 
     def create_pdf_candidates(self, pdf_path: str) -> PDFCandidateTermList:
-        candidates = self._cache.load(pdf_path, self._config)
+        pdf_candidates = self._cache.load(pdf_path, self._config)
 
-        if candidates is None:
+        if pdf_candidates is None:
             pdfnxml = self._xml_layer.create_pdfnxml(pdf_path)
-            candidates = self._extractor.extract_from_xml_element(pdfnxml)
+            pdf_candidates = self._extractor.extract_from_xml_element(pdfnxml)
 
-        self._cache.store(candidates, self._config)
+        self._cache.store(pdf_candidates, self._config)
 
         if self._config.remove_lower_layer_cache:
             self._xml_layer.remove_cache(pdf_path)
 
-        return candidates
+        return pdf_candidates
 
     def remove_cache(self, pdf_path: str):
         self._cache.remove(pdf_path, self._config)

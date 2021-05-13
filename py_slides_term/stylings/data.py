@@ -1,30 +1,26 @@
-from dataclasses import dataclass
-from typing import List, Dict, Any
+from dataclasses import dataclass, asdict
+from typing import Dict, List, Any
 
 from py_slides_term.share.data import ScoredTerm
 
 
 @dataclass(frozen=True)
-class PageTechnicalTermList:
+class PageStylingScoreList:
     page_num: int
-    terms: List[ScoredTerm]
+    ranking: List[ScoredTerm]
 
     def to_json(self) -> Dict[str, Any]:
-        return {
-            "page_num": self.page_num,
-            "terms": list(map(lambda term: term.to_json(), self.terms)),
-        }
+        return asdict(self)
 
     @classmethod
     def from_json(cls, obj: Dict[str, Any]):
-        page_num, terms = obj["page_num"], obj["terms"]
-        return cls(page_num, list(map(lambda item: ScoredTerm.from_json(item), terms)))
+        return cls(**obj)
 
 
-@dataclass
-class PDFTechnicalTermList:
+@dataclass(frozen=True)
+class PDFStylingScoreList:
     pdf_path: str
-    pages: List[PageTechnicalTermList]
+    pages: List[PageStylingScoreList]
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -37,14 +33,14 @@ class PDFTechnicalTermList:
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
-            list(map(lambda item: PageTechnicalTermList.from_json(item), pages)),
+            list(map(lambda item: PageStylingScoreList.from_json(item), pages)),
         )
 
 
 @dataclass(frozen=True)
-class DomainTechnicalTermList:
+class DomainStylingScoreList:
     domain: str
-    pdfs: List[PDFTechnicalTermList]
+    pdfs: List[PDFStylingScoreList]
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -57,5 +53,5 @@ class DomainTechnicalTermList:
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,
-            list(map(lambda item: PDFTechnicalTermList.from_json(item), pdfs)),
+            list(map(lambda item: PDFStylingScoreList.from_json(item), pdfs)),
         )

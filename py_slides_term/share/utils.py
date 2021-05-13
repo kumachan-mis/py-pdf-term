@@ -1,5 +1,7 @@
-from typing import List, SupportsFloat, TypeVar
 from math import log, log2, log10
+from typing import List, Dict, Optional, SupportsFloat, TypeVar
+
+from .data import ScoredTerm
 
 __T = TypeVar("__T")
 
@@ -34,13 +36,20 @@ def extended_log10(__x: SupportsFloat) -> float:
         return 0.0
 
 
-def remove_duplicated_items(__ls: List[__T]) -> List[__T]:
-    return list(
-        map(
-            lambda enumitem: enumitem[1],
-            filter(
-                lambda enumitem: enumitem[0] == __ls.index(enumitem[1]),
-                enumerate(__ls),
-            ),
-        )
-    )
+def list_remove_dup(__ls: List[__T]) -> List[__T]:
+    return [e for i, e in enumerate(__ls) if i == __ls.index(e)]
+
+
+def ranking_to_dict(
+    ranking: List[ScoredTerm], rate: Optional[float] = None
+) -> Dict[str, float]:
+    if rate is None:
+        return {scored_term.term: scored_term.score for scored_term in ranking}
+
+    threshold = ranking[int(rate * len(ranking))].score
+    term_scores = {
+        scored_term.term: scored_term.score
+        for scored_term in ranking
+        if scored_term.score > threshold
+    }
+    return term_scores

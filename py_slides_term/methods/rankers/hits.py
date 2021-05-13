@@ -37,13 +37,13 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
     ) -> MethodTermRanking:
         auth_hub_data = self._create_auth_hub_data(ranking_data)
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
                     candidate, ranking_data, auth_hub_data
                 ),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)

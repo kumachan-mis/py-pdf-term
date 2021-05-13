@@ -6,12 +6,14 @@ from typing import List, Optional, Iterator, Iterable
 from py_slides_term import DomainPDFList
 from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_slides_term.methods import MethodTermRanking
+from py_slides_term.stylings import DomainStylingScoreList, PDFStylingScoreList
 from scripts.settings import (
     BASE_DIR,
     PDF_DIR,
     XML_DIR,
     CANDIDATE_DIR,
     METHODS_DIR,
+    STYLINGS_DIR,
     TECHTERM_DIR,
 )
 
@@ -39,6 +41,13 @@ def pdf_to_candidate_path(pdf_path: str) -> str:
     rel_dir_path = os.path.relpath(abs_dir_path, PDF_DIR)
     noext_file_name = os.path.splitext(pdf_file_name)[0]
     return os.path.join(CANDIDATE_DIR, rel_dir_path, f"{noext_file_name}.json")
+
+
+def pdf_to_styling_path(pdf_path: str) -> str:
+    abs_dir_path, pdf_file_name = os.path.split(pdf_path)
+    rel_dir_path = os.path.relpath(abs_dir_path, PDF_DIR)
+    noext_file_name = os.path.splitext(pdf_file_name)[0]
+    return os.path.join(STYLINGS_DIR, rel_dir_path, f"{noext_file_name}.json")
 
 
 def pdf_to_techterm_path(pdf_path: str, method_name: str) -> str:
@@ -79,7 +88,7 @@ def generate_domain_candidates(
         yield DomainCandidateTermList(domain, pdfs)
 
 
-def generate_domain_term_ranking(
+def generate_term_ranking(
     method_name: str, domains: Iterable[str]
 ) -> Iterator[MethodTermRanking]:
     for domain in domains:
@@ -87,3 +96,17 @@ def generate_domain_term_ranking(
         with open(json_path, "r") as f:
             obj = json.load(f)
         yield MethodTermRanking.from_json(obj)
+
+
+def generate_domain_styling_scores(
+    domains: Iterable[str],
+) -> Iterator[DomainStylingScoreList]:
+    for domain in domains:
+        pdfs: List[PDFStylingScoreList] = []
+        json_path_pattern = os.path.join(STYLINGS_DIR, domain, "**", "*.json")
+        for json_path in iglob(json_path_pattern, recursive=True):
+            with open(json_path, "r") as f:
+                obj = json.load(f)
+            pdfs.append(PDFStylingScoreList.from_json(obj))
+
+        yield DomainStylingScoreList(domain, pdfs)

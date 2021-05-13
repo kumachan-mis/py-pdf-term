@@ -38,7 +38,7 @@ class TermOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainTermOccurrence:
-        domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
+        domain_candidates_set = domain_candidates.to_term_set()
 
         def update(
             term_occ: _DomainTermOccurrence,
@@ -47,7 +47,7 @@ class TermOccurrenceAnalyzer:
             subcandidate: Term,
         ):
             subcandidate_str = str(subcandidate)
-            if subcandidate_str not in domain_candidates_set.candidates:
+            if subcandidate_str not in domain_candidates_set:
                 return
             term_occ.term_freq[subcandidate_str] = (
                 term_occ.term_freq.get(subcandidate_str, 0) + 1

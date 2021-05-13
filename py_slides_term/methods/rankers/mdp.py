@@ -18,7 +18,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[MDPRankingData],
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking_data = next(
             filter(
                 lambda item: item.domain == domain_candidates.domain,
@@ -36,7 +36,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
                 lambda candidate: self._calculate_score(
                     candidate, ranking_data, other_ranking_data_list
                 ),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)

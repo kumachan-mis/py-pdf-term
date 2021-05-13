@@ -1,4 +1,8 @@
-from .xml import BaseXMLLayerCache, XMLLayerNoCache, XMLLayerFileCache
+from .xml import (
+    BaseXMLLayerCache,
+    XMLLayerNoCache,
+    XMLLayerFileCache,
+)
 from .candidate import (
     BaseCandidateLayerCache,
     CandidateLayerNoCache,
@@ -11,6 +15,11 @@ from .method import (
     BaseMethodLayerDataCache,
     MethodLayerDataNoCache,
     MethodLayerDataFileCache,
+)
+from .styling import (
+    BaseStylingLayerCache,
+    StylingLayerNoCache,
+    StylingLayerFileCache,
 )
 from .consts import DEFAULT_CACHE_DIR
 
@@ -27,5 +36,8 @@ __all__ = [
     "BaseMethodLayerDataCache",
     "MethodLayerDataNoCache",
     "MethodLayerDataFileCache",
+    "BaseStylingLayerCache",
+    "StylingLayerNoCache",
+    "StylingLayerFileCache",
     "DEFAULT_CACHE_DIR",
 ]

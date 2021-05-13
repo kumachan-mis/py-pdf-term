@@ -4,7 +4,6 @@ from .base import BaseLayerConfig
 
 
 @dataclass(frozen=True)
-class TechnicalTermLayerConfig(BaseLayerConfig):
-    max_num_terms: int = 14
-    acceptance_rate: float = 0.75
+class StylingLayerConfig(BaseLayerConfig):
+    cache: str = "py_slides_term.StylingLayerFileCache"
     remove_lower_layer_cache: bool = False

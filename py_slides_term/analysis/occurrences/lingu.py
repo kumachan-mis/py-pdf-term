@@ -38,7 +38,7 @@ class LinguOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainLinguOccurrence:
-        domain_candidates_set = domain_candidates.to_domain_candidate_term_set()
+        domain_candidates_set = domain_candidates.to_term_set()
 
         def update(
             lingu_occ: _DomainLinguOccurrence,
@@ -46,7 +46,7 @@ class LinguOccurrenceAnalyzer:
             page_num: int,
             subcandidate: Term,
         ):
-            if str(subcandidate) not in domain_candidates_set.candidates:
+            if str(subcandidate) not in domain_candidates_set:
                 return
             sub_lingu_seq = subcandidate.linguistic_sequence()
             lingu_occ.lingu_freq[sub_lingu_seq] = (
