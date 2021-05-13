@@ -84,12 +84,14 @@ class PySlidesTermExtractor:
             cache_mapper=styling_cache_mapper,
             cache_dir=cache_dir,
         )
-        self._techterm_layer = TechnicalTermLayer(
+        techterm_layer = TechnicalTermLayer(
             candidate_layer=candidate_layer,
             method_layer=method_layer,
             styling_layer=styling_layer,
             config=techterm_config,
         )
+
+        self._techterm_layer = techterm_layer
 
     def extract(
         self,

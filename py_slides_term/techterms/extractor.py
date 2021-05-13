@@ -66,8 +66,16 @@ class TechnicalTermExtractor:
         method_score_dict = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
         styling_score_dict = ranking_to_dict(page_styling_scores.ranking)
 
+        def term_score(term: str) -> float:
+            method_score = method_score_dict[term]
+            styling_score = styling_score_dict[term]
+            if method_score >= 0.0:
+                return method_score * styling_score
+            else:
+                return method_score / styling_score
+
         scored_terms = [
-            ScoredTerm(term, method_score_dict[term] + styling_score_dict[term])
+            ScoredTerm(term, term_score(term))
             for term in list_remove_dup(list(map(str, page_candidates.candidates)))
             if term in method_score_dict and term in styling_score_dict
         ]
