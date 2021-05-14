@@ -1,51 +1,59 @@
 @startuml
 title "architecture diagram"
 
-component "XML Layer (PDFtoXMLConverter)" as XMLLayer {
-    component TextfulXMLConverter
+component "XML Layer" as XMLLayer {
+    component PDFtoXMLConverter {
+        component TextfulXMLConverter
+    }
 }
 
-component "Candidate Layer (CandidateTermExtractor)" as CandidateLayer {
-    component SpaCyTokenizer
-    component FilterCombiner {
-        component morpheme {
-            component XXXMorphemeFilter
-            component YYYMorphemeFilter
-            component ZZZMorphemeFilter
-
-            XXXMorphemeFilter -[hidden]right- YYYMorphemeFilter
-            YYYMorphemeFilter -[hidden]right- ZZZMorphemeFilter
+component "Candidate Layer" as CandidateLayer {
+    component CandidateTermExtractor {
+        component tokenizer {
+            component SpaCyTokenizer
         }
 
-        component term {
-            component XXXTermFilter
-            component YYYTermFilter
-            component ZZZTermFilter
+        component candidates {
+            component FilterCombiner {
+                component morpheme {
+                    component XXXMorphemeFilter
+                    component YYYMorphemeFilter
+                    component ZZZMorphemeFilter
 
-            XXXTermFilter -[hidden]right- YYYTermFilter
-            YYYTermFilter -[hidden]right- ZZZTermFilter
+                    XXXMorphemeFilter -[hidden]right- YYYMorphemeFilter
+                    YYYMorphemeFilter -[hidden]right- ZZZMorphemeFilter
+                }
+
+                component term {
+                    component XXXTermFilter
+                    component YYYTermFilter
+                    component ZZZTermFilter
+
+                    XXXTermFilter -[hidden]right- YYYTermFilter
+                    YYYTermFilter -[hidden]right- ZZZTermFilter
+                }
+                morpheme -down-> term
+            }
+
+            component SplitterCombiner {
+                component XXXSplitter
+                component YYYSplitter
+                component ZZZSplitter
+
+                XXXSplitter -[hidden]right- YYYSplitter
+                YYYSplitter -[hidden]right- ZZZSplitter
+            }
+
+            component AugmenterCombiner {
+                component XXXAugmenter
+                component YYYAugmenter
+                component ZZZAugmenter
+
+                XXXAugmenter -[hidden]right- YYYAugmenter
+                YYYAugmenter -[hidden]right- ZZZAugmenter
+            }
         }
-        morpheme -down-> term
     }
-
-    component SplitterCombiner {
-        component XXXSplitter
-        component YYYSplitter
-        component ZZZSplitter
-
-        XXXSplitter -[hidden]right- YYYSplitter
-        YYYSplitter -[hidden]right- ZZZSplitter
-    }
-
-    component AugmenterCombiner {
-        component XXXAugmenter
-        component YYYAugmenter
-        component ZZZAugmenter
-
-        XXXAugmenter -[hidden]right- YYYAugmenter
-        YYYAugmenter -[hidden]right- ZZZAugmenter
-    }
-
     SpaCyTokenizer -down-> FilterCombiner
     FilterCombiner -down-> SplitterCombiner
     SplitterCombiner -down-> AugmenterCombiner
@@ -97,16 +105,19 @@ component "Method Layer" as MethodLayer {
     ZZZAnalyzer -down-> ZZZRankingDataCollector
 }
 
-component "Techinical Term Layer (TechnicalTermExtractor)" as TechinicalTermLayer {
-    component RankingToScoreDictConverter
-    component TechnicalTermSelector
-    RankingToScoreDictConverter -down->  TechnicalTermSelector
+component "Styling Layer" as StylingLayer {
+    component StylingScorer
+}
+
+component "Techinical Term Layer" as TechinicalTermLayer {
+    component TechnicalTermExtractor
 }
 
 XMLLayer -down-> CandidateLayer
-CandidateLayer --down-> methods
-CandidateLayer ---down-> TechinicalTermLayer
+CandidateLayer -down-> MethodLayer
+candidates ---down-> StylingLayer
+candidates --down-> TechinicalTermLayer
 methods ---down-> TechinicalTermLayer
-
+StylingLayer -down-> TechinicalTermLayer
 
 @enduml
