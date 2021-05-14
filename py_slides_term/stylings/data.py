@@ -14,7 +14,11 @@ class PageStylingScoreList:
 
     @classmethod
     def from_json(cls, obj: Dict[str, Any]):
-        return cls(**obj)
+        page_num, ranking = obj["page_num"], obj["ranking"]
+        return cls(
+            page_num,
+            list(map(lambda item: ScoredTerm.from_json(item), ranking)),
+        )
 
 
 @dataclass(frozen=True)

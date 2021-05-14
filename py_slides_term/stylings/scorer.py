@@ -1,3 +1,6 @@
+from statistics import mean, stdev
+from math import exp
+
 from .data import (
     DomainStylingScoreList,
     PDFStylingScoreList,
@@ -8,7 +11,6 @@ from py_slides_term.candidates import (
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.share.utils import extended_log10
 from py_slides_term.share.data import ScoredTerm, Term
 
 
@@ -38,15 +40,29 @@ class StylingScorer:
         self, page_candidates: PageCandidateTermList
     ) -> PageStylingScoreList:
         page_candidates_dict = page_candidates.to_term_dict()
-        ranking = list(
-            map(
-                lambda candidate: self._calculate_score(candidate),
-                page_candidates_dict.values(),
-            )
+        if not page_candidates_dict:
+            return PageStylingScoreList(page_candidates.page_num, [])
+        if len(page_candidates_dict) == 1:
+            candidate_str = list(page_candidates_dict.keys())[0]
+            scored_term = ScoredTerm(candidate_str, 1.0)
+            return PageStylingScoreList(page_candidates.page_num, [scored_term])
+
+        fontsize_mean = mean(
+            map(lambda candidate: candidate.fontsize, page_candidates_dict.values())
         )
+        fontsize_stdev = stdev(
+            map(lambda candidate: candidate.fontsize, page_candidates_dict.values()),
+            fontsize_mean,
+        )
+
+        def calculate_score(candidate: Term) -> ScoredTerm:
+            if fontsize_stdev == 0.0:
+                return ScoredTerm(str(candidate), 1.0)
+
+            z = (candidate.fontsize - fontsize_mean) / fontsize_stdev
+            score = 2 / (1 + exp(-z))
+            return ScoredTerm(str(candidate), score)
+
+        ranking = list(map(calculate_score, page_candidates_dict.values()))
         ranking.sort(key=lambda term: -term.score)
         return PageStylingScoreList(page_candidates.page_num, ranking)
-
-    def _calculate_score(self, candidate: Term) -> ScoredTerm:
-        score = extended_log10(candidate.fontsize)
-        return ScoredTerm(str(candidate), score)
