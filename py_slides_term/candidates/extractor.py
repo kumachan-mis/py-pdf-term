@@ -10,7 +10,7 @@ from .splitters import SplitterCombiner, BaseSplitter
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.morphemes import SpaCyTokenizer, BaseMorpheme
+from py_slides_term.tokenizer import SpaCyTokenizer, BaseMorpheme
 from py_slides_term.share.data import Term
 
 

@@ -1,10 +1,10 @@
 from math import log10
 from .base import BaseSingleDomainRanker
 from ..rankingdata import MCValueRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
-from py_slides_term.share.utils import extended_log10
+from py_slides_term.share.extended_math import extended_log10
 
 
 class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
@@ -16,16 +16,16 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
         self,
         domain_candidates: DomainCandidateTermList,
         ranking_data: MCValueRankingData,
-    ) -> DomainTermRanking:
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+    ) -> MethodTermRanking:
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(candidate, ranking_data),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _calculate_score(
@@ -49,11 +49,5 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
             if num_containers > 0
             else term_freq
         )
-        term_maxsize_score = (
-            log10(ranking_data.term_maxsize[candidate_str])
-            if ranking_data.term_maxsize is not None
-            else 0.0
-        )
-
-        score = term_len_score + freq_score + term_maxsize_score
+        score = term_len_score + freq_score
         return ScoredTerm(candidate_str, score)

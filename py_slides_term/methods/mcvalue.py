@@ -8,8 +8,8 @@ from .rankers import MCValueRanker
 
 class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRankingData]):
     # public
-    def __init__(self, consider_charfont: bool = True):
-        collector = MCValueRankingDataCollector(collect_charfont=consider_charfont)
+    def __init__(self):
+        collector = MCValueRankingDataCollector()
         ranker = MCValueRanker()
         super().__init__(collector, ranker)
 

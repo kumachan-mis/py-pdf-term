@@ -1,7 +1,5 @@
-from typing import List, SupportsFloat, TypeVar
 from math import log, log2, log10
-
-__T = TypeVar("__T")
+from typing import SupportsFloat
 
 
 def extended_log(x: SupportsFloat, base: SupportsFloat) -> float:
@@ -32,15 +30,3 @@ def extended_log10(__x: SupportsFloat) -> float:
         return -log10(-float_x + 1.0)
     else:
         return 0.0
-
-
-def remove_duplicated_items(__ls: List[__T]) -> List[__T]:
-    return list(
-        map(
-            lambda enumitem: enumitem[1],
-            filter(
-                lambda enumitem: enumitem[0] == __ls.index(enumitem[1]),
-                enumerate(__ls),
-            ),
-        )
-    )

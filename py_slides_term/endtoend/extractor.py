@@ -4,6 +4,7 @@ from .configs import (
     XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
+    StylingLayerConfig,
     TechnicalTermLayerConfig,
 )
 from .mappers import (
@@ -17,8 +18,15 @@ from .mappers import (
     CandidateLayerCacheMapper,
     MethodLayerRankingCacheMapper,
     MethodLayerDataCacheMapper,
+    StylingLayerCacheMapper,
 )
-from .layers import XMLLayer, CandidateLayer, MethodLayer, TechnicalTermLayer
+from .layers import (
+    XMLLayer,
+    CandidateLayer,
+    MethodLayer,
+    StylingLayer,
+    TechnicalTermLayer,
+)
 from .caches import DEFAULT_CACHE_DIR
 from .data import DomainPDFList
 from py_slides_term.techterms import PDFTechnicalTermList
@@ -31,6 +39,7 @@ class PySlidesTermExtractor:
         xml_config: Optional[XMLLayerConfig] = None,
         candidate_config: Optional[CandidateLayerConfig] = None,
         method_config: Optional[MethodLayerConfig] = None,
+        styling_config: Optional[StylingLayerConfig] = None,
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
@@ -42,6 +51,7 @@ class PySlidesTermExtractor:
         candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
         method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
         method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
+        styling_cache_mapper: Optional[StylingLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         xml_layer = XMLLayer(
@@ -68,11 +78,20 @@ class PySlidesTermExtractor:
             data_cache_mapper=method_data_cache_mapper,
             cache_dir=cache_dir,
         )
-        self._techterm_layer = TechnicalTermLayer(
+        styling_layer = StylingLayer(
+            candidate_layer=candidate_layer,
+            config=styling_config,
+            cache_mapper=styling_cache_mapper,
+            cache_dir=cache_dir,
+        )
+        techterm_layer = TechnicalTermLayer(
             candidate_layer=candidate_layer,
             method_layer=method_layer,
+            styling_layer=styling_layer,
             config=techterm_config,
         )
+
+        self._techterm_layer = techterm_layer
 
     def extract(
         self,

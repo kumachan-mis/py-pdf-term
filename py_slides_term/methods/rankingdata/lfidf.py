@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Dict
 
 from .base import BaseRankingData
 from py_slides_term.share.data import LinguSeq
@@ -17,6 +17,3 @@ class LFIDFRankingData(BaseRankingData):
     # count even if the term occurs as a part of a phrase
     num_docs: int
     # number of documents in the domain
-    term_maxsize: Optional[Dict[str, float]] = None
-    # max fontsize of the term in the domain
-    # default of this is 1.0

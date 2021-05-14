@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from dataclasses import astuple
 
-from py_slides_term.morphemes import SpaCyTokenizer
+from py_slides_term.tokenizer import SpaCyTokenizer
 
 if __name__ == "__main__":
     parser = ArgumentParser()

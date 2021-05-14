@@ -1,4 +1,4 @@
-from .tokenizer import SpaCyTokenizer
+from .spacy import SpaCyTokenizer
 from .classifiers import JapaneseMorphemeClassifier, EnglishMorphemeClassifier
 from .data import BaseMorpheme, SpaCyMorpheme
 

@@ -3,6 +3,7 @@ from .endtoend import (
     XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
+    StylingLayerConfig,
     TechnicalTermLayerConfig,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
@@ -14,6 +15,7 @@ from .endtoend import (
     CandidateLayerCacheMapper,
     MethodLayerRankingCacheMapper,
     MethodLayerDataCacheMapper,
+    StylingLayerCacheMapper,
     DomainPDFList,
 )
 from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
@@ -23,6 +25,7 @@ __all__ = [
     "XMLLayerConfig",
     "CandidateLayerConfig",
     "MethodLayerConfig",
+    "StylingLayerConfig",
     "TechnicalTermLayerConfig",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
@@ -34,6 +37,7 @@ __all__ = [
     "CandidateLayerCacheMapper",
     "MethodLayerRankingCacheMapper",
     "MethodLayerDataCacheMapper",
+    "StylingLayerCacheMapper",
     "DomainPDFList",
     "DomainTechnicalTermList",
     "PDFTechnicalTermList",

@@ -1,7 +1,7 @@
 import re
 
 from ..base import BaseEnglishCandidateTermFilter
-from py_slides_term.morphemes import BaseMorpheme, EnglishMorphemeClassifier
+from py_slides_term.tokenizer import BaseMorpheme, EnglishMorphemeClassifier
 from py_slides_term.share.data import Term
 from py_slides_term.share.consts import ALPHABET_REGEX
 

@@ -2,7 +2,7 @@ from .base import BaseSingleDomainRanker
 from .flr import FLRRanker
 from .hits import HITSRanker, HITSAuthHubData
 from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
 
@@ -17,34 +17,32 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRankingData
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         flr_ranking_data = FLRRankingData(
             ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
-            ranking_data.term_maxsize,
         )
         hits_ranking_data = HITSRankingData(
             ranking_data.domain,
             ranking_data.term_freq,
             ranking_data.left_freq,
             ranking_data.right_freq,
-            ranking_data.term_maxsize,
         )
 
         auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
                     candidate, flr_ranking_data, hits_ranking_data, auth_hub_data
                 ),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # public
     def _calculate_score(

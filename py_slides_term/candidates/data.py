@@ -1,57 +1,32 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import List, Set, Dict, Any, Type
 
-from py_slides_term.morphemes import BaseMorpheme, SpaCyMorpheme
+from py_slides_term.tokenizer import BaseMorpheme, SpaCyMorpheme
 from py_slides_term.share.data import Term
-
-
-@dataclass(frozen=True)
-class DomainCandidateTermSet:
-    domain: str
-    candidates: Set[str]
-
-    def to_json(self) -> Dict[str, Any]:
-        return asdict(self)
-
-    @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
-        return cls(**obj)
-
-
-@dataclass(frozen=True)
-class DomainCandidateTermDict:
-    domain: str
-    candidates: Dict[str, Term]
-
-    def to_json(self) -> Dict[str, Any]:
-        return {
-            "domain": self.domain,
-            "candidates": {
-                candidate_str: candidate.to_json()
-                for candidate_str, candidate in self.candidates.items()
-            },
-        }
-
-    @classmethod
-    def from_json(
-        cls,
-        obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
-    ):
-        domain, candidates = obj["domain"], obj["candidates"]
-        return cls(
-            domain,
-            {
-                candidate_str: Term.from_json(candidate, morpheme_cls)
-                for candidate_str, candidate in candidates.items()
-            },
-        )
 
 
 @dataclass(frozen=True)
 class PageCandidateTermList:
     page_num: int
     candidates: List[Term]
+
+    def to_term_dict(self) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
+        for candidate in self.candidates:
+            candidate_str = str(candidate)
+            default_term = Term(candidate.morphemes, 0.0, True)
+            candidate_indict = term_dict.get(candidate_str, default_term)
+
+            term_dict[candidate_str] = Term(
+                candidate.morphemes,
+                max(candidate.fontsize, candidate_indict.fontsize),
+                candidate.augmented and candidate_indict.augmented,
+            )
+
+        return term_dict
+
+    def to_term_set(self) -> Set[str]:
+        return {str(candidate) for candidate in self.candidates}
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -76,6 +51,25 @@ class PageCandidateTermList:
 class PDFCandidateTermList:
     pdf_path: str
     pages: List[PageCandidateTermList]
+
+    def to_term_dict(self) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
+        for page in self.pages:
+            page_term_dict = page.to_term_dict()
+            for candidate_str, candidate in page_term_dict.items():
+                default_term = Term(candidate.morphemes, 0.0, True)
+                candidate_indict = term_dict.get(candidate_str, default_term)
+
+                term_dict[candidate_str] = Term(
+                    candidate.morphemes,
+                    max(candidate.fontsize, candidate_indict.fontsize),
+                    candidate.augmented and candidate_indict.augmented,
+                )
+
+        return term_dict
+
+    def to_term_set(self) -> Set[str]:
+        return set[str]().union(*map(lambda page: page.to_term_set(), self.pages))
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -106,33 +100,24 @@ class DomainCandidateTermList:
     domain: str
     pdfs: List[PDFCandidateTermList]
 
-    def to_domain_candidate_term_dict(self) -> DomainCandidateTermDict:
-        candidates: Dict[str, Term] = dict()
+    def to_term_dict(self) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
         for pdf in self.pdfs:
-            for page in pdf.pages:
-                for candidate in page.candidates:
-                    candidate_str = str(candidate)
-                    candidate_in_dict = candidates.get(
-                        candidate_str, Term(candidate.morphemes, 0.0, True)
-                    )
-                    candidates[candidate_str] = Term(
-                        candidate.morphemes,
-                        max(candidate.fontsize, candidate_in_dict.fontsize),
-                        candidate.augmented and candidate_in_dict.augmented,
-                    )
+            pdf_term_dict = pdf.to_term_dict()
+            for candidate_str, candidate in pdf_term_dict.items():
+                default_term = Term(candidate.morphemes, 0.0, True)
+                candidate_indict = term_dict.get(candidate_str, default_term)
 
-        return DomainCandidateTermDict(self.domain, candidates)
+                term_dict[candidate_str] = Term(
+                    candidate.morphemes,
+                    max(candidate.fontsize, candidate_indict.fontsize),
+                    candidate.augmented and candidate_indict.augmented,
+                )
 
-    def to_domain_candidate_term_set(self) -> DomainCandidateTermSet:
-        return DomainCandidateTermSet(
-            self.domain,
-            {
-                str(candidate)
-                for pdf in self.pdfs
-                for page in pdf.pages
-                for candidate in page.candidates
-            },
-        )
+        return term_dict
+
+    def to_term_set(self) -> Set[str]:
+        return set[str]().union(*map(lambda pdf: pdf.to_term_set(), self.pdfs))
 
     def to_json(self) -> Dict[str, Any]:
         return {

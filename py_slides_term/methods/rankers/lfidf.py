@@ -3,10 +3,10 @@ from typing import List, Literal
 
 from .base import BaseMultiDomainRanker
 from ..rankingdata import LFIDFRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm, LinguSeq
-from py_slides_term.share.utils import extended_log10
+from py_slides_term.share.extended_math import extended_log10
 
 
 class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
@@ -23,8 +23,8 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         self,
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[LFIDFRankingData],
-    ) -> DomainTermRanking:
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+    ) -> MethodTermRanking:
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking_data = next(
             filter(
                 lambda item: item.domain == domain_candidates.domain,
@@ -36,11 +36,11 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
                 lambda candidate: self._calculate_score(
                     candidate, ranking_data, ranking_data_list
                 ),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _calculate_score(
         self,
@@ -53,12 +53,7 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
 
         lf = self._calculate_lf(lingu_seq, ranking_data, ranking_data_list)
         idf = self._calculate_idf(lingu_seq, ranking_data, ranking_data_list)
-        term_maxsize = (
-            ranking_data.term_maxsize[candidate_str]
-            if ranking_data.term_maxsize is not None
-            else 1.0
-        )
-        score = extended_log10(term_maxsize * lf * idf)
+        score = extended_log10(lf * idf)
         return ScoredTerm(candidate_str, score)
 
     def _calculate_lf(

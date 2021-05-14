@@ -7,7 +7,8 @@ from scripts.utils import (
     relpath_from_basedir,
     get_domains,
     generate_domain_candidates,
-    generate_domain_term_ranking,
+    generate_term_ranking,
+    generate_domain_styling_scores,
     pdf_to_techterm_path,
 )
 
@@ -46,12 +47,13 @@ if __name__ == "__main__":
 
     domains = get_domains()
     domain_candidates_list = generate_domain_candidates(domains)
-    domain_term_ranking_list = generate_domain_term_ranking(method_name, domains)
-    ziped_list = zip(domain_candidates_list, domain_term_ranking_list)
+    term_ranking_list = generate_term_ranking(method_name, domains)
+    domain_styling_scores_list = generate_domain_styling_scores(domains)
+    ziped = zip(domain_candidates_list, term_ranking_list, domain_styling_scores_list)
 
-    for domain_candidates, domain_term_ranking in ziped_list:
+    for domain_candidates, term_ranking, domain_styling_scores in ziped:
         domain_techterms = extractor.extract_from_domain(
-            domain_candidates, domain_term_ranking
+            domain_candidates, term_ranking, domain_styling_scores
         )
 
         for pdf_techterms in domain_techterms.pdfs:

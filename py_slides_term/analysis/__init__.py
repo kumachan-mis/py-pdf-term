@@ -6,7 +6,6 @@ from .occurrences import (
 )
 from .cooccurrences import ContainerTermsAnalyzer, DomainContainerTerms
 from .concats import TermLeftRightFrequencyAnalyzer, DomainLeftRightFrequency
-from .charfonts import TermMaxsizeAnalyzer, DomainTermMaxsize
 
 __all__ = [
     "TermOccurrenceAnalyzer",
@@ -18,5 +17,4 @@ __all__ = [
     "DomainLinguOccurrence",
     "DomainContainerTerms",
     "DomainLeftRightFrequency",
-    "DomainTermMaxsize",
 ]

@@ -4,6 +4,7 @@ from .configs import (
     XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
+    StylingLayerConfig,
     TechnicalTermLayerConfig,
 )
 from .mappers import (
@@ -17,6 +18,7 @@ from .mappers import (
     CandidateLayerCacheMapper,
     MethodLayerRankingCacheMapper,
     MethodLayerDataCacheMapper,
+    StylingLayerCacheMapper,
 )
 from .data import DomainPDFList
 
@@ -26,6 +28,7 @@ __all__ = [
     "XMLLayerConfig",
     "CandidateLayerConfig",
     "MethodLayerConfig",
+    "StylingLayerConfig",
     "TechnicalTermLayerConfig",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
@@ -37,5 +40,6 @@ __all__ = [
     "CandidateLayerCacheMapper",
     "MethodLayerRankingCacheMapper",
     "MethodLayerDataCacheMapper",
+    "StylingLayerCacheMapper",
     "DomainPDFList",
 ]

@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from py_slides_term.morphemes import BaseMorpheme
+from py_slides_term.tokenizer import BaseMorpheme
 
 
 class BaseCandidateMorphemeFilter(metaclass=ABCMeta):

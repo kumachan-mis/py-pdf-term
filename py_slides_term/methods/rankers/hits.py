@@ -4,9 +4,9 @@ from typing import Dict
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import HITSRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import (
+from py_slides_term.tokenizer import (
     BaseMorpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
@@ -35,19 +35,19 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         auth_hub_data = self._create_auth_hub_data(ranking_data)
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
                     candidate, ranking_data, auth_hub_data
                 ),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:
@@ -116,11 +116,6 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         if num_morphemes == 0:
             return ScoredTerm(candidate_str, 0.0)
 
-        term_maxsize_score = (
-            log10(ranking_data.term_maxsize[candidate_str])
-            if ranking_data.term_maxsize is not None
-            else 0.0
-        )
         term_freq_score = log10(ranking_data.term_freq[candidate_str])
 
         if num_morphemes == 1:
@@ -129,7 +124,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
                 log10(auth_hub_data.morpheme_hub[morpheme_str] + 1.0)
                 + log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
             )
-            score = term_maxsize_score + term_freq_score + auth_hub_score
+            score = term_freq_score + auth_hub_score
             return ScoredTerm(candidate_str, score)
 
         auth_hub_score = 0.0
@@ -150,7 +145,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
         auth_hub_score /= num_morphemes - num_meaningless_morphemes
 
-        score = term_maxsize_score + term_freq_score + auth_hub_score
+        score = term_freq_score + auth_hub_score
         return ScoredTerm(candidate_str, score)
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:

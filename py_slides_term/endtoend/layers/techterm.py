@@ -4,6 +4,7 @@ from ..configs import TechnicalTermLayerConfig
 from ..data import DomainPDFList
 from .candidate import CandidateLayer
 from .method import MethodLayer
+from .styling import StylingLayer
 from py_slides_term.techterms import TechnicalTermExtractor, PDFTechnicalTermList
 
 
@@ -13,19 +14,21 @@ class TechnicalTermLayer:
         self,
         candidate_layer: CandidateLayer,
         method_layer: MethodLayer,
+        styling_layer: StylingLayer,
         config: Optional[TechnicalTermLayerConfig] = None,
     ):
         if config is None:
             config = TechnicalTermLayerConfig()
 
         self._techterm = TechnicalTermExtractor(
-            max_num_pageterms=config.max_num_pageterms,
+            max_num_terms=config.max_num_terms,
             acceptance_rate=config.acceptance_rate,
         )
         self._config = config
 
         self._candidate_layer = candidate_layer
         self._method_layer = method_layer
+        self._styling_layer = styling_layer
 
     def create_pdf_techterms(
         self,
@@ -34,11 +37,14 @@ class TechnicalTermLayer:
         single_domain_pdfs: Optional[DomainPDFList] = None,
         multi_domain_pdfs: Optional[List[DomainPDFList]] = None,
     ) -> PDFTechnicalTermList:
-        pdf_candidate = self._candidate_layer.create_pdf_candidates(pdf_path)
+        pdf_candidates = self._candidate_layer.create_pdf_candidates(pdf_path)
         term_ranking = self._method_layer.create_term_ranking(
             domain, single_domain_pdfs, multi_domain_pdfs
         )
-        techterms = self._techterm.extract_from_pdf(pdf_candidate, term_ranking)
+        pdf_styling_scores = self._styling_layer.create_pdf_styling_scores(pdf_path)
+        techterms = self._techterm.extract_from_pdf(
+            pdf_candidates, term_ranking, pdf_styling_scores
+        )
 
         if self._config.remove_lower_layer_cache:
             if single_domain_pdfs is not None:

@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.morphemes import BaseMorpheme
+from py_slides_term.tokenizer import BaseMorpheme
 from py_slides_term.share.consts import ALPHABET_REGEX
 
 

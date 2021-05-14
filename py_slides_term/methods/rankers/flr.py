@@ -2,9 +2,9 @@ from math import log10
 
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
-from ..data import DomainTermRanking
+from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.morphemes import (
+from py_slides_term.tokenizer import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
     BaseMorpheme,
@@ -20,16 +20,16 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRankingData
-    ) -> DomainTermRanking:
-        domain_candidates_dict = domain_candidates.to_domain_candidate_term_dict()
+    ) -> MethodTermRanking:
+        domain_candidates_dict = domain_candidates.to_term_dict()
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(candidate, ranking_data),
-                domain_candidates_dict.candidates.values(),
+                domain_candidates_dict.values(),
             )
         )
         ranking.sort(key=lambda term: -term.score)
-        return DomainTermRanking(domain_candidates.domain, ranking)
+        return MethodTermRanking(domain_candidates.domain, ranking)
 
     # private
     def _calculate_score(
@@ -42,12 +42,6 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 lambda morpheme: 1 if self._is_meaningless_morpheme(morpheme) else 0,
                 candidate.morphemes,
             )
-        )
-
-        term_maxsize_score = (
-            log10(ranking_data.term_maxsize[candidate_str])
-            if ranking_data.term_maxsize is not None
-            else 0.0
         )
         term_freq_score = log10(ranking_data.term_freq[candidate_str])
 
@@ -63,7 +57,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
 
         concat_score /= num_morphemes - num_meaningless_morphemes
 
-        score = term_maxsize_score + term_freq_score + concat_score
+        score = term_freq_score + concat_score
         return ScoredTerm(candidate_str, score)
 
     def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:

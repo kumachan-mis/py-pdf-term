@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 from .base import BaseSplitter
 from ..filters import FilterCombiner
-from py_slides_term.morphemes import (
+from py_slides_term.tokenizer import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )

@@ -14,7 +14,7 @@ from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.methods import (
     BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
-    DomainTermRanking,
+    MethodTermRanking,
 )
 
 
@@ -63,7 +63,7 @@ class MethodLayer:
         domain: str,
         single_domain_pdfs: Optional[DomainPDFList] = None,
         multi_domain_pdfs: Optional[List[DomainPDFList]] = None,
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         # pyright:reportUnnecessaryIsInstance=false
         if isinstance(self._method, BaseSingleDomainRankingMethod):
             if single_domain_pdfs is None:
@@ -93,7 +93,7 @@ class MethodLayer:
         self,
         domain: str,
         domain_pdfs: DomainPDFList,
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         if not isinstance(self._method, BaseSingleDomainRankingMethod):
             raise RuntimeError("unreachable statement")
 
@@ -122,7 +122,7 @@ class MethodLayer:
         self,
         domain: str,
         domain_pdfs_list: List[DomainPDFList],
-    ) -> DomainTermRanking:
+    ) -> MethodTermRanking:
         if not isinstance(self._method, BaseMultiDomainRankingMethod):
             raise RuntimeError("unreachable statement")
 

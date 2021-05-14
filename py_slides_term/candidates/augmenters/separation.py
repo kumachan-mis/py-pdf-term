@@ -3,7 +3,7 @@ from typing import List, Callable
 
 from .base import BaseAugmenter
 from ..filters import FilterCombiner
-from py_slides_term.morphemes import (
+from py_slides_term.tokenizer import (
     BaseMorpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,

@@ -8,8 +8,8 @@ from .rankers import FLRHRanker
 
 class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
     # public
-    def __init__(self, threshold: float = 1e-8, consider_charfont: bool = True):
-        collector = FLRHRankingDataCollector(collect_charfont=consider_charfont)
+    def __init__(self, threshold: float = 1e-8):
+        collector = FLRHRankingDataCollector()
         ranker = FLRHRanker(threshold=threshold)
         super().__init__(collector, ranker)
 

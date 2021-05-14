@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Type
 
-from py_slides_term.morphemes import BaseMorpheme, SpaCyMorpheme
+from py_slides_term.tokenizer import BaseMorpheme, SpaCyMorpheme
 from py_slides_term.share.consts import JAPANESE_REGEX
 
 

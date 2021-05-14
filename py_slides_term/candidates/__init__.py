@@ -30,8 +30,6 @@ from .data import (
     PageCandidateTermList,
     PDFCandidateTermList,
     DomainCandidateTermList,
-    DomainCandidateTermSet,
-    DomainCandidateTermDict,
 )
 
 __all__ = [
@@ -60,6 +58,4 @@ __all__ = [
     "PageCandidateTermList",
     "PDFCandidateTermList",
     "DomainCandidateTermList",
-    "DomainCandidateTermSet",
-    "DomainCandidateTermDict",
 ]

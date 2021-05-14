@@ -59,9 +59,3 @@ class DomainTechnicalTermList:
             domain,
             list(map(lambda item: PDFTechnicalTermList.from_json(item), pdfs)),
         )
-
-
-@dataclass(frozen=True)
-class DomainTermScoreDict:
-    domain: str
-    term_scores: Dict[str, float]
