@@ -27,13 +27,11 @@ class TechnicalTermExtractor:
     def extract_from_domain(
         self,
         domain_candidates: DomainCandidateTermList,
-        method_term_ranking: MethodTermRanking,
+        term_ranking: MethodTermRanking,
         domain_styling_scores: DomainStylingScoreList,
     ) -> DomainTechnicalTermList:
         pdf_techterms = [
-            self.extract_from_pdf(
-                pdf_candidates, method_term_ranking, pdf_styling_scores
-            )
+            self.extract_from_pdf(pdf_candidates, term_ranking, pdf_styling_scores)
             for pdf_candidates, pdf_styling_scores in zip(
                 domain_candidates.pdfs, domain_styling_scores.pdfs
             )
@@ -43,13 +41,11 @@ class TechnicalTermExtractor:
     def extract_from_pdf(
         self,
         pdf_candidates: PDFCandidateTermList,
-        method_term_ranking: MethodTermRanking,
+        term_ranking: MethodTermRanking,
         pdf_styling_scores: PDFStylingScoreList,
     ) -> PDFTechnicalTermList:
         page_techterms = [
-            self._extract_from_page(
-                page_candidates, method_term_ranking, page_styling_scores
-            )
+            self._extract_from_page(page_candidates, term_ranking, page_styling_scores)
             for page_candidates, page_styling_scores in zip(
                 pdf_candidates.pages, pdf_styling_scores.pages
             )
