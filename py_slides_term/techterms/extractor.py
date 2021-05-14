@@ -1,3 +1,4 @@
+from typing import Dict, Optional
 from .data import (
     DomainTechnicalTermList,
     PDFTechnicalTermList,
@@ -23,6 +24,7 @@ class TechnicalTermExtractor:
     def __init__(self, max_num_terms: int = 10, acceptance_rate: float = 0.75):
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
+        self._cache: Optional[Dict[str, float]] = None
 
     def extract_from_domain(
         self,
@@ -30,12 +32,20 @@ class TechnicalTermExtractor:
         term_ranking: MethodTermRanking,
         domain_styling_scores: DomainStylingScoreList,
     ) -> DomainTechnicalTermList:
+        cache_should_flush = self._cache is None
+        if self._cache is None:
+            self._cache = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
+
         pdf_techterms = [
             self.extract_from_pdf(pdf_candidates, term_ranking, pdf_styling_scores)
             for pdf_candidates, pdf_styling_scores in zip(
                 domain_candidates.pdfs, domain_styling_scores.pdfs
             )
         ]
+
+        if cache_should_flush:
+            self._cache = None
+
         return DomainTechnicalTermList(domain_candidates.domain, pdf_techterms)
 
     def extract_from_pdf(
@@ -44,12 +54,20 @@ class TechnicalTermExtractor:
         term_ranking: MethodTermRanking,
         pdf_styling_scores: PDFStylingScoreList,
     ) -> PDFTechnicalTermList:
+        cache_should_flush = self._cache is None
+        if self._cache is None:
+            self._cache = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
+
         page_techterms = [
             self._extract_from_page(page_candidates, term_ranking, page_styling_scores)
             for page_candidates, page_styling_scores in zip(
                 pdf_candidates.pages, pdf_styling_scores.pages
             )
         ]
+
+        if cache_should_flush:
+            self._cache = None
+
         return PDFTechnicalTermList(pdf_candidates.pdf_path, page_techterms)
 
     # private
@@ -59,7 +77,11 @@ class TechnicalTermExtractor:
         term_ranking: MethodTermRanking,
         page_styling_scores: PageStylingScoreList,
     ) -> PageTechnicalTermList:
-        method_score_dict = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
+        cache_should_flush = self._cache is None
+        if self._cache is None:
+            self._cache = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
+
+        method_score_dict = self._cache
         styling_score_dict = ranking_to_dict(page_styling_scores.ranking)
 
         def term_score(term: str) -> float:
@@ -83,5 +105,8 @@ class TechnicalTermExtractor:
             scored_terms = list(
                 filter(lambda scored_term: scored_term.score > threshold, scored_terms)
             )
+
+        if cache_should_flush:
+            self._cache = None
 
         return PageTechnicalTermList(page_candidates.page_num, scored_terms)
