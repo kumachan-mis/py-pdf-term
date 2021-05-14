@@ -3,6 +3,7 @@ from .data import (
     PDFTechnicalTermList,
     PageTechnicalTermList,
 )
+from .utils import list_remove_dup, ranking_to_dict
 from py_slides_term.candidates import (
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -14,7 +15,6 @@ from py_slides_term.stylings import (
     PDFStylingScoreList,
     PageStylingScoreList,
 )
-from py_slides_term.share.utils import list_remove_dup, ranking_to_dict
 from py_slides_term.share.data import ScoredTerm
 
 

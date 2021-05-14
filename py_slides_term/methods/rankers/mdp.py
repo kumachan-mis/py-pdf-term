@@ -5,7 +5,7 @@ from ..rankingdata import MDPRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
-from py_slides_term.share.utils import extended_log10
+from py_slides_term.share.extended_math import extended_log10
 
 
 class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
