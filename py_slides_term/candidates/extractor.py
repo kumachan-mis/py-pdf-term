@@ -9,6 +9,7 @@ from .filters import (
 from .splitters import SplitterCombiner, BaseSplitter
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
+from .utils import textnode_text, textnode_fontsize
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.tokenizer import SpaCyTokenizer, BaseMorpheme
 from py_slides_term.share.data import Term
@@ -90,16 +91,17 @@ class CandidateTermExtractor:
         page_num = int(cast(str, page.get("id")))
 
         candicate_terms: List[Term] = []
-        for text_node in page.iter("text"):
-            text = cast(str, text_node.text)
+        for textnode in page.iter("text"):
+            text = textnode_text(textnode)
+            fontsize = textnode_fontsize(textnode)
             morphemes = self._tokenizer.tokenize(text)
-            fontsize = float(cast(str, text_node.get("size")))
-            candicate_terms.extend(self._extract_from_morphemes(morphemes, fontsize))
+            terms = self._extract_from_morphemes(morphemes, fontsize)
+            candicate_terms.extend(terms)
 
         return PageCandidateTermList(page_num, candicate_terms)
 
     def _extract_from_morphemes(
-        self, morphemes: List[BaseMorpheme], fontsize: float = 0.0
+        self, morphemes: List[BaseMorpheme], fontsize: float
     ) -> List[Term]:
         candicate_terms: List[Term] = []
         candicate_morphemes: List[BaseMorpheme] = []
@@ -118,17 +120,17 @@ class CandidateTermExtractor:
         return candicate_terms
 
     def _terms_from_morphemes(
-        self, morphemes: List[BaseMorpheme], fontsize: float
+        self, candicate_morphemes: List[BaseMorpheme], fontsize: float
     ) -> List[Term]:
-        candidate = Term(morphemes, fontsize)
-        if not self._filter.is_candidate(candidate):
+        candidate_term = Term(candicate_morphemes, fontsize)
+        if not self._filter.is_candidate(candidate_term):
             return []
 
-        candicates: List[Term] = []
-        splitted_candidates = self._splitter.split(candidate)
+        candicate_terms: List[Term] = []
+        splitted_candidates = self._splitter.split(candidate_term)
         for splitted_candidate in splitted_candidates:
             augmented_candidates = self._augmenter.augment(splitted_candidate)
-            candicates.extend(augmented_candidates)
-            candicates.append(splitted_candidate)
+            candicate_terms.extend(augmented_candidates)
+            candicate_terms.append(splitted_candidate)
 
-        return candicates
+        return candicate_terms

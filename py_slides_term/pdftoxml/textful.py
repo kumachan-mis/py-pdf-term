@@ -14,7 +14,6 @@ from pdfminer.utils import bbox2str, enc
 @dataclass
 class TextfulState:
     in_text_section: bool = False
-    colorspace: str = ""
     ncolor: str = ""
     size: float = 0.0
     text: str = ""
@@ -71,7 +70,10 @@ class TextfulXMLConverter(PDFConverter):
         elif isinstance(item, LTChar):
             ncolor: str = item.graphicstate.ncolor
             size: float = item.size
-            self._write('<text ncolour="%s" size="%.3f">' % (ncolor, size))
+            self._write(
+                '<text size="%.3f" ncolour="%s" bbox="%s">'
+                % (ncolor, size, bbox2str(item.bbox))
+            )
             self._write_text(self._get_text(item))
             self._write("</text>\n")
         elif isinstance(item, LTText):
@@ -103,18 +105,14 @@ class TextfulXMLConverter(PDFConverter):
 
     def _render_charlike_item(self, item: Any, state: TextfulState):
         def enter_text_section():
-            colorspace = cast(str, item.ncs.name)
-            ncolor = cast(str, item.graphicstate.ncolor)
-            size = cast(float, item.size)
-            bbox = bbox2str(item.bbox)
-
+            ncolor: str = item.graphicstate.ncolor
+            size: float = item.size
             self._write(
-                '<text colorspace="%s" ncolor="%s" size="%.3f" bbox="%s">'
-                % (colorspace, ncolor, size, bbox)
+                '<text size="%.3f" ncolor="%s" bbox="%s">'
+                % (ncolor, size, bbox2str(item.bbox))
             )
 
             state.in_text_section = True
-            state.colorspace = colorspace
             state.ncolor = ncolor
             state.size = size
             state.text = self._get_text(item)
@@ -122,9 +120,8 @@ class TextfulXMLConverter(PDFConverter):
         def text_section_continues() -> bool:
             return (
                 isinstance(item, LTChar)
-                and state.colorspace == cast(str, item.ncs.name)
-                and state.ncolor == cast(str, item.graphicstate.ncolor)
-                and abs(state.size - cast(float, item.size)) < 0.1
+                and state.ncolor == item.graphicstate.ncolor
+                and abs(state.size - item.size) < 0.1
             )
 
         def exit_text_section():
@@ -132,7 +129,6 @@ class TextfulXMLConverter(PDFConverter):
             self._write("</text>\n")
 
             state.in_text_section = False
-            state.colorspace = ""
             state.ncolor = ""
             state.size = 0.0
             state.text = ""
