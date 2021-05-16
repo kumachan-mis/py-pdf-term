@@ -14,8 +14,8 @@ from pdfminer.utils import bbox2str, enc
 @dataclass
 class TextfulState:
     in_text_section: bool = False
-    ncolor: str = ""
     size: float = 0.0
+    ncolor: str = ""
     text: str = ""
 
 
@@ -68,11 +68,11 @@ class TextfulXMLConverter(PDFConverter):
         elif isinstance(item, LTTextLine):
             self._render_textlike_item(item)
         elif isinstance(item, LTChar):
-            ncolor: str = item.graphicstate.ncolor
             size: float = item.size
+            ncolor: str = item.graphicstate.ncolor
             self._write(
                 '<text size="%.3f" ncolour="%s" bbox="%s">'
-                % (ncolor, size, bbox2str(item.bbox))
+                % (size, ncolor, bbox2str(item.bbox))
             )
             self._write_text(self._get_text(item))
             self._write("</text>\n")
@@ -105,16 +105,16 @@ class TextfulXMLConverter(PDFConverter):
 
     def _render_charlike_item(self, item: Any, state: TextfulState):
         def enter_text_section():
-            ncolor: str = item.graphicstate.ncolor
             size: float = item.size
+            ncolor: str = item.graphicstate.ncolor
             self._write(
                 '<text size="%.3f" ncolor="%s" bbox="%s">'
-                % (ncolor, size, bbox2str(item.bbox))
+                % (size, ncolor, bbox2str(item.bbox))
             )
 
             state.in_text_section = True
-            state.ncolor = ncolor
             state.size = size
+            state.ncolor = ncolor
             state.text = self._get_text(item)
 
         def text_section_continues() -> bool:
@@ -129,8 +129,8 @@ class TextfulXMLConverter(PDFConverter):
             self._write("</text>\n")
 
             state.in_text_section = False
-            state.ncolor = ""
             state.size = 0.0
+            state.ncolor = ""
             state.text = ""
 
         if state.in_text_section:
