@@ -24,7 +24,7 @@ class ContainerTermsAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainContainerTerms:
-        domain_candidates_set = domain_candidates.to_term_set()
+        domain_candidates_set = domain_candidates.to_term_str_set()
 
         def update(
             container_terms: DomainContainerTerms,
@@ -44,6 +44,7 @@ class ContainerTermsAnalyzer:
                     subcandidate = Term(
                         candidate.morphemes[i:j],
                         candidate.fontsize,
+                        candidate.ncolor,
                         candidate.augmented,
                     )
                     subcandidate_str = str(subcandidate)

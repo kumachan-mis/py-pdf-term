@@ -9,7 +9,7 @@ from .filters import (
 from .splitters import SplitterCombiner, BaseSplitter
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
-from .utils import textnode_text, textnode_fontsize
+from .utils import textnode_text, textnode_fontsize, textnode_ncolor
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.tokenizer import SpaCyTokenizer, BaseMorpheme
 from py_slides_term.share.data import Term
@@ -73,9 +73,11 @@ class CandidateTermExtractor:
         xml_candidates = self._extract_from_xmlroot(pdfnxml.pdf_path, pdfnxml.xml_root)
         return xml_candidates
 
-    def extract_from_text(self, text: str, fontsize: float = 0.0) -> List[Term]:
+    def extract_from_text(
+        self, text: str, fontsize: float = 0.0, ncolor: str = ""
+    ) -> List[Term]:
         morphemes = self._tokenizer.tokenize(text)
-        return self._extract_from_morphemes(morphemes, fontsize)
+        return self._extract_from_morphemes(morphemes, fontsize, ncolor)
 
     # private
     def _extract_from_xmlroot(
@@ -94,14 +96,15 @@ class CandidateTermExtractor:
         for textnode in page.iter("text"):
             text = textnode_text(textnode)
             fontsize = textnode_fontsize(textnode)
+            ncolor = textnode_ncolor(textnode)
             morphemes = self._tokenizer.tokenize(text)
-            terms = self._extract_from_morphemes(morphemes, fontsize)
+            terms = self._extract_from_morphemes(morphemes, fontsize, ncolor)
             candicate_terms.extend(terms)
 
         return PageCandidateTermList(page_num, candicate_terms)
 
     def _extract_from_morphemes(
-        self, morphemes: List[BaseMorpheme], fontsize: float
+        self, morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candicate_terms: List[Term] = []
         candicate_morphemes: List[BaseMorpheme] = []
@@ -110,19 +113,19 @@ class CandidateTermExtractor:
                 candicate_morphemes.append(morpheme)
                 continue
 
-            terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+            terms = self._terms_from_morphemes(candicate_morphemes, fontsize, ncolor)
             candicate_terms.extend(terms)
             candicate_morphemes = []
 
-        terms = self._terms_from_morphemes(candicate_morphemes, fontsize)
+        terms = self._terms_from_morphemes(candicate_morphemes, fontsize, ncolor)
         candicate_terms.extend(terms)
 
         return candicate_terms
 
     def _terms_from_morphemes(
-        self, candicate_morphemes: List[BaseMorpheme], fontsize: float
+        self, candicate_morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
-        candidate_term = Term(candicate_morphemes, fontsize)
+        candidate_term = Term(candicate_morphemes, fontsize, ncolor)
         if not self._filter.is_candidate(candidate_term):
             return []
 

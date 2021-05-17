@@ -10,22 +10,13 @@ class PageCandidateTermList:
     page_num: int
     candidates: List[Term]
 
-    def to_term_dict(self) -> Dict[str, Term]:
-        term_dict: Dict[str, Term] = dict()
-        for candidate in self.candidates:
-            candidate_str = str(candidate)
-            default_term = Term(candidate.morphemes, 0.0, True)
-            candidate_indict = term_dict.get(candidate_str, default_term)
+    def to_nostyle_term_dict(self) -> Dict[str, Term]:
+        return {
+            str(candidate): Term(candidate.morphemes, 0.0, "", False)
+            for candidate in self.candidates
+        }
 
-            term_dict[candidate_str] = Term(
-                candidate.morphemes,
-                max(candidate.fontsize, candidate_indict.fontsize),
-                candidate.augmented and candidate_indict.augmented,
-            )
-
-        return term_dict
-
-    def to_term_set(self) -> Set[str]:
+    def to_term_str_set(self) -> Set[str]:
         return {str(candidate) for candidate in self.candidates}
 
     def to_json(self) -> Dict[str, Any]:
@@ -52,24 +43,15 @@ class PDFCandidateTermList:
     pdf_path: str
     pages: List[PageCandidateTermList]
 
-    def to_term_dict(self) -> Dict[str, Term]:
-        term_dict: Dict[str, Term] = dict()
-        for page in self.pages:
-            page_term_dict = page.to_term_dict()
-            for candidate_str, candidate in page_term_dict.items():
-                default_term = Term(candidate.morphemes, 0.0, True)
-                candidate_indict = term_dict.get(candidate_str, default_term)
+    def to_nostyle_term_dict(self) -> Dict[str, Term]:
+        return {
+            candidate_str: candidate
+            for page in self.pages
+            for candidate_str, candidate in page.to_nostyle_term_dict().items()
+        }
 
-                term_dict[candidate_str] = Term(
-                    candidate.morphemes,
-                    max(candidate.fontsize, candidate_indict.fontsize),
-                    candidate.augmented and candidate_indict.augmented,
-                )
-
-        return term_dict
-
-    def to_term_set(self) -> Set[str]:
-        return set[str]().union(*map(lambda page: page.to_term_set(), self.pages))
+    def to_term_str_set(self) -> Set[str]:
+        return set[str]().union(*map(lambda page: page.to_term_str_set(), self.pages))
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -100,24 +82,15 @@ class DomainCandidateTermList:
     domain: str
     pdfs: List[PDFCandidateTermList]
 
-    def to_term_dict(self) -> Dict[str, Term]:
-        term_dict: Dict[str, Term] = dict()
-        for pdf in self.pdfs:
-            pdf_term_dict = pdf.to_term_dict()
-            for candidate_str, candidate in pdf_term_dict.items():
-                default_term = Term(candidate.morphemes, 0.0, True)
-                candidate_indict = term_dict.get(candidate_str, default_term)
+    def to_nostyle_term_dict(self) -> Dict[str, Term]:
+        return {
+            candidate_str: candidate
+            for pdf in self.pdfs
+            for candidate_str, candidate in pdf.to_nostyle_term_dict().items()
+        }
 
-                term_dict[candidate_str] = Term(
-                    candidate.morphemes,
-                    max(candidate.fontsize, candidate_indict.fontsize),
-                    candidate.augmented and candidate_indict.augmented,
-                )
-
-        return term_dict
-
-    def to_term_set(self) -> Set[str]:
-        return set[str]().union(*map(lambda pdf: pdf.to_term_set(), self.pdfs))
+    def to_term_str_set(self) -> Set[str]:
+        return set[str]().union(*map(lambda pdf: pdf.to_term_str_set(), self.pdfs))
 
     def to_json(self) -> Dict[str, Any]:
         return {

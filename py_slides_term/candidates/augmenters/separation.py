@@ -36,7 +36,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
                 i = separation_positions[idx]
                 j = separation_positions[idx + length]
                 morphemes = term.morphemes[i + 1 : j]
-                augmented_term = Term(morphemes, term.fontsize, True)
+                augmented_term = Term(morphemes, term.fontsize, term.ncolor, True)
                 if self._filter.is_candidate(augmented_term):
                     augmented_terms.append(augmented_term)
 

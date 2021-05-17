@@ -13,6 +13,7 @@ LinguSeq = Tuple[Tuple[str, str, str], ...]
 class Term:
     morphemes: List[BaseMorpheme]
     fontsize: float = 0.0
+    ncolor: str = ""
     augmented: bool = False
 
     def __str__(self) -> str:

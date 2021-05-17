@@ -14,6 +14,7 @@ from .mappers import (
     AugmenterMapper,
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
+    StylingScoreMapper,
     XMLLayerCacheMapper,
     CandidateLayerCacheMapper,
     MethodLayerRankingCacheMapper,
@@ -47,6 +48,7 @@ class PySlidesTermExtractor:
         augmenter_mapper: Optional[AugmenterMapper] = None,
         single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
+        styling_score_mapper: Optional[StylingScoreMapper] = None,
         xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
         candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
         method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
@@ -81,6 +83,7 @@ class PySlidesTermExtractor:
         styling_layer = StylingLayer(
             candidate_layer=candidate_layer,
             config=styling_config,
+            styling_score_mapper=styling_score_mapper,
             cache_mapper=styling_cache_mapper,
             cache_dir=cache_dir,
         )
