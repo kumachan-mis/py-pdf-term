@@ -106,7 +106,14 @@ component "Method Layer" as MethodLayer {
 }
 
 component "Styling Layer" as StylingLayer {
-    component StylingScorer
+    component StylingScorer {
+        component XXXStylingScore
+        component YYYStylingScore
+        component ZZZStylingScore
+
+        XXXStylingScore -[hidden]right- YYYStylingScore
+        YYYStylingScore -[hidden]right- ZZZStylingScore
+    }
 }
 
 component "Techinical Term Layer" as TechinicalTermLayer {
