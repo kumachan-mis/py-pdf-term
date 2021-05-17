@@ -38,7 +38,7 @@ class TermOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainTermOccurrence:
-        domain_candidates_set = domain_candidates.to_term_set()
+        domain_candidates_set = domain_candidates.to_term_str_set()
 
         def update(
             term_occ: _DomainTermOccurrence,

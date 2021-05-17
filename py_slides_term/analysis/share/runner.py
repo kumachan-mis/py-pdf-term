@@ -50,6 +50,7 @@ class AnalysisRunner:
                             subcandidate = Term(
                                 candidate.morphemes[i:j],
                                 candidate.fontsize,
+                                candidate.ncolor,
                                 candidate.augmented,
                             )
                             update_result(result, pdf_id, page_num, subcandidate)

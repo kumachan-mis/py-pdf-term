@@ -8,6 +8,9 @@ from .methods import (
     SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
 )
+from .stylings import (
+    StylingScoreMapper,
+)
 from .caches import (
     XMLLayerCacheMapper,
     CandidateLayerCacheMapper,
@@ -23,6 +26,7 @@ __all__ = [
     "AugmenterMapper",
     "SingleDomainRankingMethodMapper",
     "MultiDomainRankingMethodMapper",
+    "StylingScoreMapper",
     "XMLLayerCacheMapper",
     "CandidateLayerCacheMapper",
     "MethodLayerRankingCacheMapper",

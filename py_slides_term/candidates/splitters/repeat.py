@@ -45,6 +45,7 @@ class RepeatSplitter(BaseSplitter):
     def _backward_split(self, term: Term) -> Tuple[Term, List[Term]]:
         splitted_terms: List[Term] = []
         head = term.morphemes
+        fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 
         while True:
             head_length = len(head)
@@ -52,7 +53,7 @@ class RepeatSplitter(BaseSplitter):
             for i in range(head_length - 1, -1, -1):
                 if str(head[i - 1]) != str(head[j - 1]):
                     continue
-                splitted_term = Term(head[i:j], term.fontsize, term.augmented)
+                splitted_term = Term(head[i:j], fontsize, ncolor, augmented)
                 splitted_terms.append(splitted_term)
                 head = head[:i]
                 j = i
@@ -61,11 +62,12 @@ class RepeatSplitter(BaseSplitter):
                 break
 
         splitted_terms.reverse()
-        return Term(head, term.fontsize, term.augmented), splitted_terms
+        return Term(head, fontsize, ncolor, augmented), splitted_terms
 
     def _forward_split(self, term: Term) -> Tuple[List[Term], Term]:
         splitted_terms: List[Term] = []
         tail = term.morphemes
+        fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 
         while True:
             tail_length = len(tail)
@@ -73,7 +75,7 @@ class RepeatSplitter(BaseSplitter):
             for j in range(1, tail_length):
                 if str(tail[0]) != str(tail[j - i]):
                     continue
-                splitted_term = Term(tail[i:j], term.fontsize, term.augmented)
+                splitted_term = Term(tail[i:j], fontsize, ncolor, augmented)
                 splitted_terms.append(splitted_term)
                 tail = tail[j - i :]
                 i = j
@@ -81,4 +83,4 @@ class RepeatSplitter(BaseSplitter):
             if i == 0:
                 break
 
-        return splitted_terms, Term(tail, term.fontsize, term.augmented)
+        return splitted_terms, Term(tail, fontsize, ncolor, augmented)

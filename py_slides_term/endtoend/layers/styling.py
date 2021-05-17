@@ -3,7 +3,7 @@ from typing import Optional
 from .candidate import CandidateLayer
 from ..caches import DEFAULT_CACHE_DIR
 from ..configs import StylingLayerConfig
-from ..mappers import StylingLayerCacheMapper
+from ..mappers import StylingScoreMapper, StylingLayerCacheMapper
 from py_slides_term.stylings import StylingScorer, PDFStylingScoreList
 
 
@@ -13,17 +13,21 @@ class StylingLayer:
         self,
         candidate_layer: CandidateLayer,
         config: Optional[StylingLayerConfig] = None,
+        styling_score_mapper: Optional[StylingScoreMapper] = None,
         cache_mapper: Optional[StylingLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ):
         if config is None:
             config = StylingLayerConfig()
+        if styling_score_mapper is None:
+            styling_score_mapper = StylingScoreMapper.default_mapper()
         if cache_mapper is None:
             cache_mapper = StylingLayerCacheMapper.default_mapper()
 
+        styling_score_clses = styling_score_mapper.bulk_find(config.styling_scores)
         cache_cls = cache_mapper.find(config.cache)
 
-        self._scorer = StylingScorer()
+        self._scorer = StylingScorer(styling_score_clses=styling_score_clses)
         self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 

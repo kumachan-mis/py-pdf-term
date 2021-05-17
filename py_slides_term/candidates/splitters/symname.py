@@ -24,17 +24,17 @@ class SymbolNameSplitter(BaseSplitter):
         if not regex.fullmatch(last_str) or regex.fullmatch(second_last_str):
             return [term]
 
-        non_symbol_morphemes = term.morphemes[: num_morphemes - 1]
-        symbol_morphemes = [term.morphemes[num_morphemes - 1]]
+        nonsym_morphemes = term.morphemes[: num_morphemes - 1]
+        sym_morphemes = [term.morphemes[num_morphemes - 1]]
 
-        non_symbol_term = Term(non_symbol_morphemes, term.fontsize, term.augmented)
-        symbol_term = Term(symbol_morphemes, term.fontsize, term.augmented)
+        nonsym_term = Term(nonsym_morphemes, term.fontsize, term.ncolor, term.augmented)
+        sym_term = Term(sym_morphemes, term.fontsize, term.ncolor, term.augmented)
 
-        if not self._filter.is_candidate(non_symbol_term):
+        if not self._filter.is_candidate(nonsym_term):
             return [term]
 
-        splitted_terms = [non_symbol_term]
-        if self._filter.is_candidate(symbol_term):
-            splitted_terms.append(symbol_term)
+        splitted_terms = [nonsym_term]
+        if self._filter.is_candidate(sym_term):
+            splitted_terms.append(sym_term)
 
         return splitted_terms

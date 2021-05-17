@@ -38,7 +38,7 @@ class LinguOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainLinguOccurrence:
-        domain_candidates_set = domain_candidates.to_term_set()
+        domain_candidates_set = domain_candidates.to_term_str_set()
 
         def update(
             lingu_occ: _DomainLinguOccurrence,

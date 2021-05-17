@@ -1,6 +1,6 @@
-from statistics import mean, stdev
-from math import exp
+from typing import List, Dict, Optional, Type
 
+from .scores import BaseStylingScore, FontsizeScore, ColorScore
 from .data import (
     DomainStylingScoreList,
     PDFStylingScoreList,
@@ -11,13 +11,18 @@ from py_slides_term.candidates import (
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.share.data import ScoredTerm, Term
+from py_slides_term.share.data import ScoredTerm
 
 
 class StylingScorer:
     # public
-    def __init__(self):
-        pass
+    def __init__(
+        self, styling_score_clses: Optional[List[Type[BaseStylingScore]]] = None
+    ):
+        if styling_score_clses is None:
+            styling_score_clses = [FontsizeScore, ColorScore]
+
+        self._styling_score_clses = styling_score_clses
 
     def score_domain_candidates(
         self, domain_candidates: DomainCandidateTermList
@@ -39,30 +44,23 @@ class StylingScorer:
     def _score_page_candidates(
         self, page_candidates: PageCandidateTermList
     ) -> PageStylingScoreList:
-        page_candidates_dict = page_candidates.to_term_dict()
-        if not page_candidates_dict:
-            return PageStylingScoreList(page_candidates.page_num, [])
-        if len(page_candidates_dict) == 1:
-            candidate_str = list(page_candidates_dict.keys())[0]
-            scored_term = ScoredTerm(candidate_str, 1.0)
-            return PageStylingScoreList(page_candidates.page_num, [scored_term])
+        styling_scores: Dict[str, float] = {
+            str(candidate): 1.0 for candidate in page_candidates.candidates
+        }
 
-        fontsize_mean = mean(
-            map(lambda candidate: candidate.fontsize, page_candidates_dict.values())
-        )
-        fontsize_stdev = stdev(
-            map(lambda candidate: candidate.fontsize, page_candidates_dict.values()),
-            fontsize_mean,
-        )
+        for styling_score_cls in self._styling_score_clses:
+            styling_score = styling_score_cls(page_candidates)
 
-        def calculate_score(candidate: Term) -> ScoredTerm:
-            if fontsize_stdev == 0.0:
-                return ScoredTerm(str(candidate), 1.0)
+            scores: Dict[str, float] = dict()
+            for candidate in page_candidates.candidates:
+                candidate_str = str(candidate)
+                score = styling_score.calculate_score(candidate)
+                if candidate_str not in scores or score > scores[candidate_str]:
+                    scores[candidate_str] = score
 
-            z = (candidate.fontsize - fontsize_mean) / fontsize_stdev
-            score = 2 / (1 + exp(-z))
-            return ScoredTerm(str(candidate), score)
+            for candidate_str in styling_scores:
+                styling_scores[candidate_str] *= scores[candidate_str]
 
-        ranking = list(map(calculate_score, page_candidates_dict.values()))
-        ranking.sort(key=lambda term: -term.score)
+        ranking = list(map(lambda item: ScoredTerm(*item), styling_scores.items()))
+        ranking.sort(key=lambda scored_term: -scored_term.score)
         return PageStylingScoreList(page_candidates.page_num, ranking)
