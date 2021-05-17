@@ -51,6 +51,7 @@ class Term:
         return {
             "morphemes": list(map(lambda morpheme: morpheme.to_json(), self.morphemes)),
             "fontsize": self.fontsize,
+            "ncolor": self.ncolor,
             "augmented": self.augmented,
         }
 
@@ -63,6 +64,7 @@ class Term:
         return cls(
             list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),
             obj.get("fontsize", 0),
+            obj.get("ncolor", ""),
             obj.get("augmented", False),
         )
 

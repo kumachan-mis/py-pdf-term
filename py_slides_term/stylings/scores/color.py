@@ -23,4 +23,4 @@ class ColorScore(BaseStylingScore):
         if self._num_candidates == 0 or candidate.ncolor not in self._color_freq:
             return 1.0
 
-        return -log10(self._color_freq[candidate.ncolor] / self._num_candidates)
+        return -log10(self._color_freq[candidate.ncolor] / self._num_candidates) + 1.0
