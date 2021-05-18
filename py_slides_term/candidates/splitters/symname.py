@@ -4,7 +4,7 @@ from typing import List
 from .base import BaseSplitter
 from ..filters import FilterCombiner
 from py_slides_term.share.data import Term
-from py_slides_term.share.consts import ALPHABET_REGEX
+from py_slides_term.share.consts import ALPHABET_REGEX, NUMBER_REGEX
 
 
 class SymbolNameSplitter(BaseSplitter):
@@ -17,7 +17,7 @@ class SymbolNameSplitter(BaseSplitter):
         if num_morphemes < 2:
             return [term]
 
-        regex = re.compile(rf"{ALPHABET_REGEX}|\-")
+        regex = re.compile(rf"{ALPHABET_REGEX}|{NUMBER_REGEX}+|\-")
         last_str = str(term.morphemes[len(term.morphemes) - 1])
         second_last_str = str(term.morphemes[len(term.morphemes) - 2])
 
