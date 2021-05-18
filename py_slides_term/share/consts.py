@@ -1,7 +1,10 @@
-# http://www.shurey.com/js/works/unicode.html
+# http://www.unicode.org/charts/
 
 # Alphabet
 ALPHABET_REGEX = r"[A-Za-z]"
+
+# Number
+NUMBER_REGEX = r"[0-9]"
 
 # Hiragana
 HIRAGANA_REGEX = r"[\u3040-\u309F]"
@@ -51,6 +54,11 @@ SYMBOL_REGEX = (
             "\uD800-\uF8FF",
             # Variation Selectors - Small Form Variants
             "\uFE00-\uFE6F",
+            # Halfwidth and Fullwidth Forms
+            "\uFF00-\uFF0F",
+            "\uFF1A-\uFF20",
+            "\uFF3B-\uFF40",
+            "\uFF5B-\uFFEF",
             # Specials
             "\uFFF0-\uFFFF",
         ]

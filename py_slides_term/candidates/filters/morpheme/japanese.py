@@ -3,7 +3,7 @@ from typing import List
 
 from .base import BaseCandidateMorphemeFilter
 from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
-from py_slides_term.share.consts import JAPANESE_REGEX, ALPHABET_REGEX
+from py_slides_term.share.consts import JAPANESE_REGEX, ALPHABET_REGEX, NUMBER_REGEX
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
@@ -12,7 +12,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
-        regex = re.compile(rf"{JAPANESE_REGEX}+|{ALPHABET_REGEX}+|\-")
+        regex = re.compile(rf"({JAPANESE_REGEX}|{ALPHABET_REGEX}|{NUMBER_REGEX})+|\-")
         return morpheme.lang == "ja" and regex.fullmatch(str(morpheme)) is not None
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
@@ -25,13 +25,11 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
                     "サ変可能",
                     "形状詞可能",
                     "サ変形状詞可能",
-                } or (
-                    scoped_morpheme.subcategory == "助数詞可能"
-                    and idx > 0
-                    and morphemes[idx - 1].pos == "名詞"
-                    and morphemes[idx - 1].category != "数詞"
-                )
+                    "助数詞可能",
+                }
             elif scoped_morpheme.category == "固有名詞":
+                return True
+            elif scoped_morpheme.category == "数詞":
                 return True
         elif scoped_morpheme.pos == "形状詞":
             return scoped_morpheme.category in {"一般"}
@@ -50,7 +48,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             return self._classifier.is_modifying_particle(scoped_morpheme)
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
-            regex = re.compile(rf"{JAPANESE_REGEX}+")
+            regex = re.compile(rf"({JAPANESE_REGEX}|{ALPHABET_REGEX}|{NUMBER_REGEX})+")
             if scoped_morpheme_str == "-":
                 return (
                     0 < idx < len(morphemes) - 1
