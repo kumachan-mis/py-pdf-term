@@ -10,7 +10,7 @@ component "XML Layer" as XMLLayer {
 component "Candidate Layer" as CandidateLayer {
     component CandidateTermExtractor {
         component tokenizer {
-            component SpaCyTokenizer
+            component Tokenizer
         }
 
         component candidates {
@@ -54,7 +54,7 @@ component "Candidate Layer" as CandidateLayer {
             }
         }
     }
-    SpaCyTokenizer -down-> FilterCombiner
+    Tokenizer -down-> FilterCombiner
     FilterCombiner -down-> SplitterCombiner
     SplitterCombiner -down-> AugmenterCombiner
     

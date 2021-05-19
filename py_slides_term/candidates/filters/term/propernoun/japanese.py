@@ -1,5 +1,5 @@
 from ..base import BaseJapaneseCandidateTermFilter
-from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.data import Term
 
 
@@ -13,7 +13,7 @@ class JapaneseProperNounFilter(BaseJapaneseCandidateTermFilter):
 
     # private
     def _is_region_or_person(self, scoped_term: Term) -> bool:
-        def is_region_or_person_morpheme(morpheme: BaseMorpheme) -> bool:
+        def is_region_or_person_morpheme(morpheme: Morpheme) -> bool:
             return (
                 (
                     morpheme.pos == "名詞"

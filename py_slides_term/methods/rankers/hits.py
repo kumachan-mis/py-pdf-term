@@ -7,7 +7,7 @@ from ..rankingdata import HITSRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.tokenizer import (
-    BaseMorpheme,
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
@@ -148,7 +148,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         score = term_freq_score + auth_hub_score
         return ScoredTerm(candidate_str, score)
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
         is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
         return is_ja_meaningless or is_en_meaningless

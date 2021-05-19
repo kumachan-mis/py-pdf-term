@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from py_slides_term.tokenizer import BaseMorpheme
+from py_slides_term.tokenizer import Morpheme
 
 
 class BaseCandidateMorphemeFilter(metaclass=ABCMeta):
@@ -10,9 +10,9 @@ class BaseCandidateMorphemeFilter(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def inscope(self, morpheme: BaseMorpheme) -> bool:
+    def inscope(self, morpheme: Morpheme) -> bool:
         raise NotImplementedError(f"{self.__class__.__name__}.inscope()")
 
     @abstractmethod
-    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         raise NotImplementedError(f"{self.__class__.__name__}.is_partof_candidate()")

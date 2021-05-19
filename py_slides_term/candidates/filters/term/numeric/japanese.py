@@ -1,5 +1,5 @@
 from ..base import BaseJapaneseCandidateTermFilter
-from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.data import Term
 
 
@@ -14,7 +14,7 @@ class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
         return not is_numeric_phrase and not has_quantity_phrase
 
     def _is_numeric_phrase(self, scoped_term: Term) -> bool:
-        def is_number_or_counter_or_meaningless(morpheme: BaseMorpheme) -> bool:
+        def is_number_or_counter_or_meaningless(morpheme: Morpheme) -> bool:
             return (
                 (morpheme.pos == "名詞" and morpheme.category == "数詞")
                 or (

@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from typing import List, Set, Dict, Any, Type
+from typing import List, Set, Dict, Any
 
-from py_slides_term.tokenizer import BaseMorpheme, SpaCyMorpheme
 from py_slides_term.share.data import Term
 
 
@@ -26,15 +25,11 @@ class PageCandidateTermList:
         }
 
     @classmethod
-    def from_json(
-        cls,
-        obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
-    ):
+    def from_json(cls, obj: Dict[str, Any]):
         page_num, candidates = obj["page_num"], obj["candidates"]
         return cls(
             page_num,
-            list(map(lambda item: Term.from_json(item, morpheme_cls), candidates)),
+            list(map(lambda item: Term.from_json(item), candidates)),
         )
 
 
@@ -60,20 +55,11 @@ class PDFCandidateTermList:
         }
 
     @classmethod
-    def from_json(
-        cls,
-        obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
-    ):
+    def from_json(cls, obj: Dict[str, Any]):
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
-            list(
-                map(
-                    lambda item: PageCandidateTermList.from_json(item, morpheme_cls),
-                    pages,
-                )
-            ),
+            list(map(lambda item: PageCandidateTermList.from_json(item), pages)),
         )
 
 
@@ -99,18 +85,9 @@ class DomainCandidateTermList:
         }
 
     @classmethod
-    def from_json(
-        cls,
-        obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
-    ):
+    def from_json(cls, obj: Dict[str, Any]):
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,
-            list(
-                map(
-                    lambda item: PDFCandidateTermList.from_json(item, morpheme_cls),
-                    pdfs,
-                )
-            ),
+            list(map(lambda item: PDFCandidateTermList.from_json(item), pdfs)),
         )

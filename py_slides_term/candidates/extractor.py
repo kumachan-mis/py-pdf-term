@@ -11,7 +11,7 @@ from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from .utils import textnode_text, textnode_fontsize, textnode_ncolor
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.tokenizer import SpaCyTokenizer, BaseMorpheme
+from py_slides_term.tokenizer import Tokenizer, Morpheme
 from py_slides_term.share.data import Term
 
 
@@ -24,7 +24,7 @@ class CandidateTermExtractor:
         splitter_clses: Optional[List[Type[BaseSplitter]]] = None,
         augmenter_clses: Optional[List[Type[BaseAugmenter]]] = None,
     ):
-        self._tokenizer = SpaCyTokenizer()
+        self._tokenizer = Tokenizer()
 
         morpheme_filters = (
             list(map(lambda cls: cls(), morpheme_filter_clses))
@@ -104,10 +104,10 @@ class CandidateTermExtractor:
         return PageCandidateTermList(page_num, candicate_terms)
 
     def _extract_from_morphemes(
-        self, morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
+        self, morphemes: List[Morpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candicate_terms: List[Term] = []
-        candicate_morphemes: List[BaseMorpheme] = []
+        candicate_morphemes: List[Morpheme] = []
         for idx, morpheme in enumerate(morphemes):
             if self._filter.is_partof_candidate(morphemes, idx):
                 candicate_morphemes.append(morpheme)
@@ -123,7 +123,7 @@ class CandidateTermExtractor:
         return candicate_terms
 
     def _terms_from_morphemes(
-        self, candicate_morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
+        self, candicate_morphemes: List[Morpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candidate_term = Term(candicate_morphemes, fontsize, ncolor)
         if not self._filter.is_candidate(candidate_term):

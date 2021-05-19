@@ -1,5 +1,5 @@
 from ..base import BaseEnglishCandidateTermFilter
-from py_slides_term.tokenizer import BaseMorpheme, EnglishMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme, EnglishMorphemeClassifier
 from py_slides_term.share.data import Term
 
 
@@ -12,7 +12,7 @@ class EnglishNumericFilter(BaseEnglishCandidateTermFilter):
         return not self._is_numeric_phrase(scoped_term)
 
     def _is_numeric_phrase(self, scoped_term: Term) -> bool:
-        def is_number_or_meaningless(morpheme: BaseMorpheme) -> bool:
+        def is_number_or_meaningless(morpheme: Morpheme) -> bool:
             return morpheme.pos == "NUM" or self._classifier.is_meaningless(morpheme)
 
         return all(map(is_number_or_meaningless, scoped_term.morphemes))

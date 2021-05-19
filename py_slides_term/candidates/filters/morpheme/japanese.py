@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
 from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
@@ -11,11 +11,11 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
-    def inscope(self, morpheme: BaseMorpheme) -> bool:
+    def inscope(self, morpheme: Morpheme) -> bool:
         regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+|\-")
         return morpheme.lang == "ja" and regex.fullmatch(str(morpheme)) is not None
 
-    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
 
         if scoped_morpheme.pos == "名詞":

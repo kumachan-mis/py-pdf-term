@@ -4,7 +4,7 @@ from typing import List, Callable
 from .base import BaseAugmenter
 from ..filters import FilterCombiner
 from py_slides_term.tokenizer import (
-    BaseMorpheme,
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
@@ -16,7 +16,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
     def __init__(
         self,
         candidate_filter: FilterCombiner,
-        is_separator: Callable[[BaseMorpheme], bool] = lambda morpheme: False,
+        is_separator: Callable[[Morpheme], bool] = lambda morpheme: False,
     ):
         self._filter = candidate_filter
         self._is_separator = is_separator

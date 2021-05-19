@@ -5,9 +5,9 @@ from ..rankingdata import FLRRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.tokenizer import (
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
-    BaseMorpheme,
 )
 from py_slides_term.share.data import Term, ScoredTerm
 
@@ -60,7 +60,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
         score = term_freq_score + concat_score
         return ScoredTerm(candidate_str, score)
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
         is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
         return is_ja_meaningless or is_en_meaningless

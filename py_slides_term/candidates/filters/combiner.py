@@ -16,7 +16,7 @@ from .term import (
     JapaneseNumericFilter,
     EnglishNumericFilter,
 )
-from py_slides_term.tokenizer import BaseMorpheme
+from py_slides_term.tokenizer import Morpheme
 from py_slides_term.share.data import Term
 
 
@@ -47,7 +47,7 @@ class FilterCombiner:
         self._morpheme_filters = morpheme_filters
         self._term_filters = term_filters
 
-    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         morpheme = morphemes[idx]
         if all(map(lambda mf: not mf.inscope(morpheme), self._morpheme_filters)):
             return False
