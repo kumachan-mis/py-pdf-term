@@ -25,7 +25,10 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
         return list(
-            map(lambda token: self._create_morpheme(token), self._ja_model(text))
+            filter(
+                lambda morpheme: morpheme.pos not in {"空白"},
+                map(lambda token: self._create_morpheme(token), self._ja_model(text)),
+            )
         )
 
     # private

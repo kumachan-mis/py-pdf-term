@@ -25,7 +25,10 @@ class EnglishTokenizer(BaseLanguageTokenizer):
         # pyright:reportUnknownArgumentType=false
         # pyright:reportUnknownLambdaType=false
         return list(
-            map(lambda token: self._create_morpheme(token), self._en_model(text))
+            filter(
+                lambda morpheme: morpheme.pos not in {"SPACE"},
+                map(lambda token: self._create_morpheme(token), self._en_model(text)),
+            )
         )
 
     # private
