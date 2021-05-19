@@ -19,18 +19,15 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         scoped_morpheme = morphemes[idx]
 
         if scoped_morpheme.pos == "名詞":
-            if scoped_morpheme.category == "普通名詞":
-                return scoped_morpheme.subcategory in {
-                    "一般",
-                    "サ変可能",
-                    "形状詞可能",
-                    "サ変形状詞可能",
-                    "助数詞可能",
-                }
-            elif scoped_morpheme.category == "固有名詞":
-                return True
-            elif scoped_morpheme.category == "数詞":
-                return True
+            return (
+                (
+                    scoped_morpheme.category == "普通名詞"
+                    and scoped_morpheme.subcategory
+                    in {"一般", "サ変可能", "形状詞可能", "サ変形状詞可能", "助数詞可能"}
+                )
+                or scoped_morpheme.category == "固有名詞"
+                or scoped_morpheme.category == "数詞"
+            )
         elif scoped_morpheme.pos == "形状詞":
             return scoped_morpheme.category in {"一般"}
         elif scoped_morpheme.pos == "動詞":
@@ -42,7 +39,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         elif scoped_morpheme.pos == "接尾辞":
             return (
                 scoped_morpheme.category == "名詞的"
-                and scoped_morpheme.subcategory in {"一般", "サ変可能", "形状詞可能"}
+                and scoped_morpheme.subcategory in {"一般", "サ変可能", "形状詞可能", "助数詞"}
             )
         elif scoped_morpheme.pos == "助詞":
             return self._classifier.is_modifying_particle(scoped_morpheme)
