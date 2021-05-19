@@ -3,7 +3,7 @@ from typing import List
 
 from .base import BaseCandidateMorphemeFilter
 from py_slides_term.tokenizer import BaseMorpheme
-from py_slides_term.share.consts import ALPHABET_REGEX, NUMBER_REGEX
+from py_slides_term.share.consts import ENGLISH_REGEX, NUMBER_REGEX
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
@@ -12,7 +12,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         pass
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
-        regex = re.compile(rf"({ALPHABET_REGEX}|{NUMBER_REGEX})+|\-")
+        regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX})+|\-")
         return morpheme.lang == "en" and regex.fullmatch(str(morpheme)) is not None
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:

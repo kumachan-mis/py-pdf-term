@@ -3,7 +3,7 @@ from typing import List
 
 from .base import BaseCandidateMorphemeFilter
 from py_slides_term.tokenizer import BaseMorpheme, JapaneseMorphemeClassifier
-from py_slides_term.share.consts import JAPANESE_REGEX, ALPHABET_REGEX, NUMBER_REGEX
+from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
@@ -12,7 +12,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: BaseMorpheme) -> bool:
-        regex = re.compile(rf"({JAPANESE_REGEX}|{ALPHABET_REGEX}|{NUMBER_REGEX})+|\-")
+        regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+|\-")
         return morpheme.lang == "ja" and regex.fullmatch(str(morpheme)) is not None
 
     def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
@@ -48,7 +48,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             return self._classifier.is_modifying_particle(scoped_morpheme)
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
-            regex = re.compile(rf"({JAPANESE_REGEX}|{ALPHABET_REGEX}|{NUMBER_REGEX})+")
+            regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
             if scoped_morpheme_str == "-":
                 return (
                     0 < idx < len(morphemes) - 1
