@@ -21,4 +21,4 @@ class AugmenterCombiner:
             start: List[Term] = []
             augmented_terms = sum(map(augmenter.augment, augmented_terms), start)
 
-        return augmented_terms[1:]
+        return augmented_terms
