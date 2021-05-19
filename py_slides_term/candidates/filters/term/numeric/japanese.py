@@ -20,12 +20,8 @@ class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
                     and morpheme.category == "普通名詞"
                     and morpheme.subcategory == "助数詞可能"
                 )
-                or (
-                    morpheme.pos == "接尾辞"
-                    and morpheme.category == "名詞的"
-                    and morpheme.subcategory == "助数詞"
-                )
                 or morpheme.pos == "接頭辞"
+                or morpheme.pos == "接尾辞"
                 or self._classifier.is_meaningless(morpheme)
             )
 
