@@ -5,6 +5,7 @@ from ..data import DomainPDFList
 from ..caches import DEFAULT_CACHE_DIR
 from ..configs import CandidateLayerConfig
 from ..mappers import (
+    LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
     SplitterMapper,
@@ -24,6 +25,7 @@ class CandidateLayer:
         self,
         xml_layer: XMLLayer,
         config: Optional[CandidateLayerConfig] = None,
+        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -33,6 +35,8 @@ class CandidateLayer:
     ):
         if config is None:
             config = CandidateLayerConfig()
+        if lang_tokenizer_mapper is None:
+            lang_tokenizer_mapper = LanguageTokenizerMapper.default_mapper()
         if morpheme_filter_mapper is None:
             morpheme_filter_mapper = CandidateMorphemeFilterMapper.default_mapper()
         if term_filter_mapper is None:
@@ -44,6 +48,7 @@ class CandidateLayer:
         if cache_mapper is None:
             cache_mapper = CandidateLayerCacheMapper.default_mapper()
 
+        lang_tokenizer_clses = lang_tokenizer_mapper.bulk_find(config.lang_tokenizers)
         morpheme_filter_clses = morpheme_filter_mapper.bulk_find(
             config.morpheme_filters
         )
@@ -53,6 +58,7 @@ class CandidateLayer:
         cache_cls = cache_mapper.find(config.cache)
 
         self._extractor = CandidateTermExtractor(
+            lang_tokenizer_clses=lang_tokenizer_clses,
             morpheme_filter_clses=morpheme_filter_clses,
             term_filter_clses=term_filter_clses,
             splitter_clses=splitter_clses,

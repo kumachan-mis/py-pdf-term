@@ -11,7 +11,7 @@ from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from .utils import textnode_text, textnode_fontsize, textnode_ncolor
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.tokenizer import Tokenizer, Morpheme
+from py_slides_term.tokenizer import Tokenizer, BaseLanguageTokenizer, Morpheme
 from py_slides_term.share.data import Term
 
 
@@ -19,12 +19,18 @@ class CandidateTermExtractor:
     # public
     def __init__(
         self,
+        lang_tokenizer_clses: Optional[List[Type[BaseLanguageTokenizer]]] = None,
         morpheme_filter_clses: Optional[List[Type[BaseCandidateMorphemeFilter]]] = None,
         term_filter_clses: Optional[List[Type[BaseCandidateTermFilter]]] = None,
         splitter_clses: Optional[List[Type[BaseSplitter]]] = None,
         augmenter_clses: Optional[List[Type[BaseAugmenter]]] = None,
     ):
-        self._tokenizer = Tokenizer()
+        lang_tokenizers = (
+            list(map(lambda cls: cls(), lang_tokenizer_clses))
+            if lang_tokenizer_clses is not None
+            else None
+        )
+        self._tokenizer = Tokenizer(lang_tokenizers=lang_tokenizers)
 
         morpheme_filters = (
             list(map(lambda cls: cls(), morpheme_filter_clses))

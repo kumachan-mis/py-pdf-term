@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from .data import Morpheme
 from .langs import (
@@ -10,11 +10,11 @@ from .langs import (
 
 class Tokenizer:
     # public
-    def __init__(self):
-        self._lang_tokenizers: List[BaseLanguageTokenizer] = [
-            JapaneseTokenizer(),
-            EnglishTokenizer(),
-        ]
+    def __init__(self, lang_tokenizers: Optional[List[BaseLanguageTokenizer]] = None):
+        if lang_tokenizers is None:
+            lang_tokenizers = [JapaneseTokenizer(), EnglishTokenizer()]
+
+        self._lang_tokenizers = lang_tokenizers
 
     def tokenize(self, text: str) -> List[Morpheme]:
         if not text:
