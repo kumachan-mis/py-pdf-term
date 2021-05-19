@@ -2,11 +2,14 @@ from dataclasses import dataclass, asdict
 from typing import Dict, Literal, ClassVar
 
 
+Language = Literal["ja", "en"]
+
+
 @dataclass(frozen=True)
 class Morpheme:
     NUM_ATTR: ClassVar[int] = 9
 
-    lang: Literal["ja", "en"]
+    lang: Language
     surface_form: str
     pos: str
     category: str

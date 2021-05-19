@@ -1,8 +1,8 @@
 import re
 from dataclasses import dataclass, asdict
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, Union
 
-from py_slides_term.tokenizer import Morpheme
+from py_slides_term.tokenizer import Morpheme, Language
 from py_slides_term.share.consts import JAPANESE_REGEX
 
 
@@ -15,6 +15,17 @@ class Term:
     fontsize: float = 0.0
     ncolor: str = ""
     augmented: bool = False
+
+    @property
+    def lang(self) -> Union[Language, None]:
+        if not self.morphemes:
+            return None
+
+        lang = self.morphemes[0].lang
+        if all(map(lambda morpheme: morpheme.lang == lang, self.morphemes)):
+            return lang
+
+        return None
 
     def __str__(self) -> str:
         num_morphemes = len(self.morphemes)

@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 from py_slides_term.share.data import Term
-from ..filters import FilterCombiner
 
 
 class BaseSplitter(metaclass=ABCMeta):
     # public
-    def __init__(self, candidate_filter: FilterCombiner):
+    def __init__(self):
         pass
 
     @abstractmethod

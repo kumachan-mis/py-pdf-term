@@ -45,18 +45,18 @@ class CandidateTermExtractor:
         self._filter = FilterCombiner(morpheme_filters, term_filters)
 
         splitters = (
-            list(map(lambda cls: cls(self._filter), splitter_clses))
+            list(map(lambda cls: cls(), splitter_clses))
             if splitter_clses is not None
             else None
         )
-        self._splitter = SplitterCombiner(splitters, self._filter)
+        self._splitter = SplitterCombiner(splitters)
 
         augmenters = (
-            list(map(lambda cls: cls(self._filter), augmenter_clses))
+            list(map(lambda cls: cls(), augmenter_clses))
             if augmenter_clses is not None
             else None
         )
-        self._augmenter = AugmenterCombiner(augmenters, self._filter)
+        self._augmenter = AugmenterCombiner(augmenters)
 
     def extract_from_domain_files(
         self, domain: str, pdfnxmls: List[PDFnXMLPath]
@@ -132,8 +132,6 @@ class CandidateTermExtractor:
         self, candicate_morphemes: List[Morpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candidate_term = Term(candicate_morphemes, fontsize, ncolor)
-        if not self._filter.is_candidate(candidate_term):
-            return []
 
         candicate_terms: List[Term] = []
         splitted_candidates = self._splitter.split(candidate_term)
@@ -142,4 +140,4 @@ class CandidateTermExtractor:
             candicate_terms.extend(augmented_candidates)
             candicate_terms.append(splitted_candidate)
 
-        return candicate_terms
+        return list(filter(self._filter.is_candidate, candicate_terms))

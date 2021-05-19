@@ -23,13 +23,11 @@ class BaseJapaneseCandidateTermFilter(BaseCandidateTermFilter):
     # public
     def inscope(self, term: Term) -> bool:
         regex = re.compile(rf"({ENGLISH_REGEX}|{JAPANESE_REGEX}|{NUMBER_REGEX}|\s|\-)+")
-        is_japanese = all(map(lambda morpheme: morpheme.lang == "ja", term.morphemes))
-        return regex.fullmatch(str(term)) is not None and is_japanese
+        return term.lang == "ja" and regex.fullmatch(str(term)) is not None
 
 
 class BaseEnglishCandidateTermFilter(BaseCandidateTermFilter):
     # public
     def inscope(self, term: Term) -> bool:
         regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX}|\s|\-)+")
-        is_english = all(map(lambda morpheme: morpheme.lang == "en", term.morphemes))
-        return regex.fullmatch(str(term)) is not None and is_english
+        return term.lang == "en" and regex.fullmatch(str(term)) is not None
