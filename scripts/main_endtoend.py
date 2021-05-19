@@ -63,10 +63,10 @@ if __name__ == "__main__":
 
     extractor = PySlidesTermExtractor(
         xml_config=XMLLayerConfig(
-            cache="py_slides_term.XMLLayerNoCache",
+            cache="py_slides_term.XMLLayerFileCache",
         ),
         candidate_config=CandidateLayerConfig(
-            cache="py_slides_term.CandidateLayerFileCache",
+            cache="py_slides_term.CandidateLayerNoCache",
         ),
         method_config=MethodLayerConfig(
             method_type=method_type,
