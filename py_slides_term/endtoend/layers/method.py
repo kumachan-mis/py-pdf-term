@@ -58,13 +58,14 @@ class MethodLayer:
 
         self._candidate_layer = candidate_layer
 
+    # pyright:reportUnnecessaryIsInstance=false
     def create_term_ranking(
         self,
         domain: str,
         single_domain_pdfs: Optional[DomainPDFList] = None,
         multi_domain_pdfs: Optional[List[DomainPDFList]] = None,
     ) -> MethodTermRanking:
-        # pyright:reportUnnecessaryIsInstance=false
+
         if isinstance(self._method, BaseSingleDomainRankingMethod):
             if single_domain_pdfs is None:
                 raise ValueError(
@@ -73,6 +74,7 @@ class MethodLayer:
                 )
             term_ranking = self._run_single_domain_method(domain, single_domain_pdfs)
             return term_ranking
+
         elif isinstance(self._method, BaseMultiDomainRankingMethod):
             if multi_domain_pdfs is None:
                 raise ValueError(
@@ -81,6 +83,7 @@ class MethodLayer:
                 )
             term_ranking = self._run_multi_domain_method(domain, multi_domain_pdfs)
             return term_ranking
+
         else:
             raise RuntimeError("unreachable statement")
 

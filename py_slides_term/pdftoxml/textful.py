@@ -1,8 +1,15 @@
+# pyright:reportGeneralTypeIssues=false
+# pyright:reportUnknownVariableType=false
+# pyright:reportUnknownMemberType=false
+# pyright:reportUnknownParameterType=false
+# pyright:reportUnknownArgumentType=false
+# pyright:reportIncompatibleMethodOverride=false
+
 import re
 from io import BufferedWriter, BytesIO
 from unicodedata import normalize
 from dataclasses import dataclass
-from typing import Any, Union, Optional, cast
+from typing import Any, Union, Optional
 
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.converter import PDFConverter
@@ -35,9 +42,7 @@ class TextfulXMLConverter(PDFConverter):
         stripcontrol: bool = False,
         nfcnorm: bool = True,
     ):
-        PDFConverter.__init__(
-            self, rsrcmgr, outfp, codec, pageno, laparams
-        )  # pyright:reportUnknownMemberType=false
+        PDFConverter.__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
         self._stripcontrol = stripcontrol
         self._nfcnorm = nfcnorm
 
@@ -55,12 +60,28 @@ class TextfulXMLConverter(PDFConverter):
     def write_footer(self):
         self._write("</pages>\n")
 
+    # to ignore LTFigure
+    def begin_figure(self, name, bbox, matrix):
+        return
+
+    # to ignore LTFigure
+    def end_figure(self, name):
+        return
+
+    # to ignore LTImage
+    def render_image(self, name, stream):
+        return
+
+    # to ignore LTLine, LTRect and LTCurve
+    def paint_path(self, graphicstate, stroke, fill, evenodd, path):
+        return
+
     # private
     def _render(self, item: Any):
         if isinstance(item, LTPage):
             pageid: str = item.pageid
             self._write('<page id="%s">\n' % pageid)
-            for child in item:  # pyright:reportUnknownVariableType=false
+            for child in item:
                 self._render(child)
             self._write("</page>\n")
         elif isinstance(item, LTTextBox):
@@ -86,10 +107,10 @@ class TextfulXMLConverter(PDFConverter):
 
         def rec_render_textlike_item(rec_item: Any):
             if isinstance(rec_item, LTTextBox):
-                for child in rec_item:  # pyright:reportUnknownVariableType=false
+                for child in rec_item:
                     rec_render_textlike_item(child)
             elif isinstance(rec_item, LTTextLine):
-                for child in rec_item:  # pyright:reportUnknownVariableType=false
+                for child in rec_item:
                     rec_render_textlike_item(child)
             else:
                 self._render_charlike_item(rec_item, state)
@@ -147,18 +168,16 @@ class TextfulXMLConverter(PDFConverter):
 
     def _write(self, text: str):
         if self.codec:
-            text = text.encode(
-                cast(str, self.codec)
-            )  # pyright:reportGeneralTypeIssues=false
-        cast(Union[BufferedWriter, BytesIO], self.outfp).write(text)
+            text = text.encode(self.codec)
+        self.outfp.write(text)
 
     def _write_text(self, text: str):
         if self._stripcontrol:
             text = self.CONTROL.sub("", text)
         if self._nfcnorm:
             text = normalize("NFC", text)
-        self._write(enc(text))  # pyright:reportUnknownArgumentType=false
+        self._write(enc(text))
 
     def _get_text(self, item: Union[LTText, LTChar]) -> str:
-        text = cast(str, item.get_text())  # pyright:reportGeneralTypeIssues=false
+        text = item.get_text()
         return text if self.ERROR_TEXT.match(text) is None else " "

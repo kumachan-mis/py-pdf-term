@@ -26,11 +26,11 @@ class PDFtoXMLConverter:
                 nfcnorm=apply_nfc_normalization,
             )
             page_interpreter = PDFPageInterpreter(manager, converter)
-            pages = PDFPage.get_pages(pdf_file)  # pyright:reportUnknownMemberType=false
+            pages = PDFPage.get_pages(pdf_file)  # type: ignore
 
             converter.write_header()
             for page in pages:
-                page_interpreter.process_page(page)
+                page_interpreter.process_page(page)  # type: ignore
             converter.write_footer()
 
         return PDFnXMLPath(pdf_path, xml_path)
@@ -50,11 +50,11 @@ class PDFtoXMLConverter:
                 nfcnorm=apply_nfc_normalization,
             )
             page_interpreter = PDFPageInterpreter(manager, converter)
-            pages = PDFPage.get_pages(pdf_file)  # pyright:reportUnknownMemberType=false
+            pages = PDFPage.get_pages(pdf_file)  # type: ignore
 
             converter.write_header()
             for page in pages:
-                page_interpreter.process_page(page)
+                page_interpreter.process_page(page)  # type: ignore
             converter.write_footer()
 
             xml_element = fromstring(xml_stream.getvalue().decode("utf-8"))

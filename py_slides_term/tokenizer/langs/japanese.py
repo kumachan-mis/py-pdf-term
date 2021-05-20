@@ -1,3 +1,7 @@
+# pyright:reportUnknownMemberType=false
+# pyright:reportUnknownArgumentType=false
+# pyright:reportUnknownLambdaType=false
+
 import re
 from .base import BaseLanguageTokenizer
 from typing import List, Any
@@ -11,7 +15,6 @@ from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX
 class JapaneseTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
-        # pyright:reportUnknownMemberType=false
         self._ja_model = ja_core_news_sm.load()
         self._ja_model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
 
@@ -22,8 +25,6 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         return self._ja_regex.search(text) is not None
 
     def tokenize(self, text: str) -> List[Morpheme]:
-        # pyright:reportUnknownArgumentType=false
-        # pyright:reportUnknownLambdaType=false
         return list(
             filter(
                 lambda morpheme: morpheme.pos not in {"空白"},

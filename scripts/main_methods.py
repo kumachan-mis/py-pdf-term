@@ -18,6 +18,7 @@ from scripts.utils import relpath_from_basedir, get_domains, generate_domain_can
 
 script_name = os.path.basename(__file__)
 
+# pyright:reportUnnecessaryIsInstance=false
 if __name__ == "__main__":
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -58,7 +59,6 @@ if __name__ == "__main__":
     domains = get_domains()
     domain_candidates_list = generate_domain_candidates(domains)
 
-    # pyright:reportUnnecessaryIsInstance=false
     if isinstance(method, BaseSingleDomainRankingMethod):
         for candidates in domain_candidates_list:
             ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
@@ -72,6 +72,7 @@ if __name__ == "__main__":
             with open(ranking_path, "w") as ranking_file:
                 json_obj = term_ranking.to_json()
                 json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
+
     elif isinstance(method, BaseMultiDomainRankingMethod):
         print(f"{script_name}: preprocessing ...")
 
