@@ -1,8 +1,8 @@
 import re
 from dataclasses import dataclass, asdict
-from typing import List, Tuple, Dict, Any, Type
+from typing import List, Tuple, Dict, Any, Union
 
-from py_slides_term.tokenizer import BaseMorpheme, SpaCyMorpheme
+from py_slides_term.tokenizer import Morpheme, Language
 from py_slides_term.share.consts import JAPANESE_REGEX
 
 
@@ -11,10 +11,21 @@ LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 @dataclass(frozen=True)
 class Term:
-    morphemes: List[BaseMorpheme]
+    morphemes: List[Morpheme]
     fontsize: float = 0.0
     ncolor: str = ""
     augmented: bool = False
+
+    @property
+    def lang(self) -> Union[Language, None]:
+        if not self.morphemes:
+            return None
+
+        lang = self.morphemes[0].lang
+        if all(map(lambda morpheme: morpheme.lang == lang, self.morphemes)):
+            return lang
+
+        return None
 
     def __str__(self) -> str:
         num_morphemes = len(self.morphemes)
@@ -56,13 +67,9 @@ class Term:
         }
 
     @classmethod
-    def from_json(
-        cls,
-        obj: Dict[str, Any],
-        morpheme_cls: Type[BaseMorpheme] = SpaCyMorpheme,
-    ):
+    def from_json(cls, obj: Dict[str, Any]):
         return cls(
-            list(map(lambda item: morpheme_cls.from_json(item), obj["morphemes"])),
+            list(map(lambda item: Morpheme.from_json(item), obj["morphemes"])),
             obj.get("fontsize", 0),
             obj.get("ncolor", ""),
             obj.get("augmented", False),

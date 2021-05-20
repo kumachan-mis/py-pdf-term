@@ -2,8 +2,8 @@ import re
 from typing import List
 
 from .base import BaseCandidateMorphemeFilter
-from py_slides_term.tokenizer import BaseMorpheme
-from py_slides_term.share.consts import ALPHABET_REGEX, NUMBER_REGEX
+from py_slides_term.tokenizer import Morpheme
+from py_slides_term.share.consts import ENGLISH_REGEX, NUMBER_REGEX
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
@@ -11,11 +11,11 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
     def __init__(self):
         pass
 
-    def inscope(self, morpheme: BaseMorpheme) -> bool:
-        regex = re.compile(rf"({ALPHABET_REGEX}|{NUMBER_REGEX})+|\-")
+    def inscope(self, morpheme: Morpheme) -> bool:
+        regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX})+|\-")
         return morpheme.lang == "en" and regex.fullmatch(str(morpheme)) is not None
 
-    def is_partof_candidate(self, morphemes: List[BaseMorpheme], idx: int) -> bool:
+    def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
 
         if scoped_morpheme.pos == "NOUN":

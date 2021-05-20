@@ -1,7 +1,7 @@
 import re
 
 from ..base import BaseEnglishCandidateTermFilter
-from py_slides_term.tokenizer import BaseMorpheme, EnglishMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme, EnglishMorphemeClassifier
 from py_slides_term.share.data import Term
 from py_slides_term.share.consts import ALPHABET_REGEX
 
@@ -25,7 +25,7 @@ class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
     def _is_phonetic_or_meaningless_term(self, scoped_term: Term) -> bool:
         phonetic_regex = re.compile(PHONETIC_REGEX)
 
-        def is_phonetic_or_meaningless_morpheme(morpheme: BaseMorpheme) -> bool:
+        def is_phonetic_or_meaningless_morpheme(morpheme: Morpheme) -> bool:
             is_phonetic = phonetic_regex.fullmatch(str(morpheme)) is not None
             is_meaningless = self._classifier.is_meaningless(morpheme)
             return is_phonetic or is_meaningless

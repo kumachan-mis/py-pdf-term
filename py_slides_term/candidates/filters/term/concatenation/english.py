@@ -20,7 +20,6 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
             and not self._has_invalid_connector_symbol(scoped_term)
             and not self._has_invalid_adposition(scoped_term)
             and not self._has_invalid_adjective(scoped_term)
-            and not self._has_invalid_participle(scoped_term)
         )
 
     # private
@@ -85,21 +84,6 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_adjective_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos != "VERB":
-                return False
-
-            valid_part_of_speeches = {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
-            return (
-                i == num_morphemes - 1
-                or scoped_term.morphemes[i + 1].pos not in valid_part_of_speeches
-            )
-
-        return any(map(invalid_adjective_appears_at, range(num_morphemes)))
-
-    def _has_invalid_participle(self, scoped_term: Term) -> bool:
-        num_morphemes = len(scoped_term.morphemes)
-
-        def invalid_participle_appears_at(i: int) -> bool:
             if scoped_term.morphemes[i].pos != "ADJ":
                 return False
 
@@ -109,4 +93,4 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
                 or scoped_term.morphemes[i + 1].pos not in valid_part_of_speeches
             )
 
-        return any(map(invalid_participle_appears_at, range(num_morphemes)))
+        return any(map(invalid_adjective_appears_at, range(num_morphemes)))

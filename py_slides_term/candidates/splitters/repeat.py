@@ -1,7 +1,6 @@
 from typing import List, Tuple
 
 from .base import BaseSplitter
-from ..filters import FilterCombiner
 from py_slides_term.tokenizer import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
@@ -11,8 +10,7 @@ from py_slides_term.share.data import Term
 
 class RepeatSplitter(BaseSplitter):
     # public
-    def __init__(self, candidate_filter: FilterCombiner):
-        self._filter = candidate_filter
+    def __init__(self):
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
 
@@ -22,14 +20,7 @@ class RepeatSplitter(BaseSplitter):
 
         head, backward_splitted_terms = self._backward_split(term)
         forward_splitted_terms, center_term = self._forward_split(head)
-
-        splitted_terms = list(
-            filter(
-                self._filter.is_candidate,
-                forward_splitted_terms + [center_term] + backward_splitted_terms,
-            )
-        )
-        return splitted_terms
+        return forward_splitted_terms + [center_term] + backward_splitted_terms
 
     def _contains_connector_morpheme(self, term: Term) -> bool:
         return any(

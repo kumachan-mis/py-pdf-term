@@ -60,7 +60,7 @@ if __name__ == "__main__":
             method_type=method_type,
             method=method,
             data_cache="py_slides_term.MethodLayerDataNoCache",
-        ),
+        )
     )
 
     file_name = f"{method_name}.json"

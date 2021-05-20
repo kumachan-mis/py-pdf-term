@@ -68,7 +68,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     ) -> float:
         candidate_str = str(candidate)
 
-        our_term_freq = our_ranking_data.term_freq[candidate_str]
+        our_term_freq = our_ranking_data.term_freq.get(candidate_str, 0)
         their_term_freq = their_ranking_data.term_freq.get(candidate_str, 0)
 
         our_inum_terms = 1 / our_ranking_data.num_terms

@@ -62,25 +62,34 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         ranking_data: TFIDFRankingData,
         ranking_data_list: List[TFIDFRankingData],
     ) -> float:
-        tf = ranking_data.term_freq[candidate]
-        max_tf = max(
-            map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
-        )
-        tf_sum = sum(
-            map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
-        )
-        ave_tf = tf_sum / len(ranking_data_list)
+        tf = ranking_data.term_freq.get(candidate, 0)
 
         if self._idfmode == "natural":
             return tf
+
         elif self._tfmode == "log":
-            return 1.0 * log10(tf) if tf > 0.0 else 0.0
+            return 1.0 * log10(tf) if tf > 0 else 0.0
+
         elif self._tfmode == "augmented":
-            return 0.5 + 0.5 * tf / max_tf
+            max_tf = max(
+                map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
+            )
+            return 0.5 + 0.5 * tf / max_tf if max_tf > 0 else 0.0
+
         elif self._tfmode == "logave":
-            return (1.0 + log10(tf)) / (1.0 + log10(ave_tf)) if tf > 0.0 else 0.0
-        else:
-            return 1.0 if tf > 0.0 else 0.0
+            ave_tf = sum(
+                map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
+            ) / len(ranking_data_list)
+            return (
+                (1.0 + log10(tf)) / (1.0 + log10(ave_tf))
+                if tf > 0 and ave_tf > 0.0
+                else 0.0
+            )
+
+        elif self._tfmode == "binary":
+            return 1.0 if tf > 0 else 0.0
+
+        raise ValueError(f"unknown tfmode {self._tfmode}")
 
     def _calculate_idf(
         self,
@@ -92,10 +101,15 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         df = sum(map(lambda data: data.doc_freq.get(candidate, 0), ranking_data_list))
 
         if self._idfmode == "natural":
-            return log10(num_docs / df)
+            return log10(num_docs / df) if df > 0 else 0.0
+
         if self._idfmode == "smooth":
             return log10(num_docs / (df + 1)) + 1.0
+
         elif self._idfmode == "prob":
-            return max(log10((num_docs - df) / df), 0.0)
-        else:
+            return max(log10((num_docs - df) / df), 0.0) if df > 0 else 0.0
+
+        elif self._idfmode == "unary":
             return 1.0
+
+        raise ValueError(f"unknown idfmode {self._idfmode}")

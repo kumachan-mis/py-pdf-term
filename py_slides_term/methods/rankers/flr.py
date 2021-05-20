@@ -1,15 +1,14 @@
-from math import log10
-
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.tokenizer import (
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
-    BaseMorpheme,
 )
 from py_slides_term.share.data import Term, ScoredTerm
+from py_slides_term.share.extended_math import extended_log10
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
@@ -43,7 +42,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 candidate.morphemes,
             )
         )
-        term_freq_score = log10(ranking_data.term_freq[candidate_str])
+        term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_str, 0))
 
         concat_score = 0.0
         for morpheme in candidate.morphemes:
@@ -51,16 +50,16 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 continue
 
             morpheme_str = str(morpheme)
-            left_score = sum(ranking_data.left_freq[morpheme_str].values())
-            right_score = sum(ranking_data.right_freq[morpheme_str].values())
-            concat_score += 0.5 * (log10(left_score + 1) + log10(right_score + 1))
+            lscore = sum(ranking_data.left_freq.get(morpheme_str, dict()).values())
+            rscore = sum(ranking_data.right_freq.get(morpheme_str, dict()).values())
+            concat_score += 0.5 * (extended_log10(lscore) + extended_log10(rscore))
 
         concat_score /= num_morphemes - num_meaningless_morphemes
 
         score = term_freq_score + concat_score
         return ScoredTerm(candidate_str, score)
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
         is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
         return is_ja_meaningless or is_en_meaningless

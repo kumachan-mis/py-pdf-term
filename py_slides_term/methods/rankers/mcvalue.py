@@ -1,4 +1,3 @@
-from math import log10
 from .base import BaseSingleDomainRanker
 from ..rankingdata import MCValueRankingData
 from ..data import MethodTermRanking
@@ -33,17 +32,17 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
     ) -> ScoredTerm:
         candidate_str = str(candidate)
 
-        term_freq = ranking_data.term_freq[candidate_str]
-        container_terms = ranking_data.container_terms[candidate_str]
+        term_freq = ranking_data.term_freq.get(candidate_str, 0)
+        container_terms = ranking_data.container_terms.get(candidate_str, set())
         num_containers = len(container_terms)
         container_freq = sum(
             map(
-                lambda container: ranking_data.term_freq[container],
+                lambda container: ranking_data.term_freq.get(container, 0),
                 container_terms,
             )
         )
 
-        term_len_score = log10(len(candidate.morphemes))
+        term_len_score = extended_log10(len(candidate.morphemes))
         freq_score = extended_log10(
             term_freq - container_freq / num_containers
             if num_containers > 0

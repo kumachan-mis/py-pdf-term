@@ -12,15 +12,27 @@ HIRAGANA_REGEX = r"[\u3040-\u309F]"
 # Katakana
 KATAKANA_REGEX = r"[\u30A0-\u30FF]"
 
-# CJK Radicals Supplement
-# Kangxi Radicals
-# CJK Unified Ideographs Extension A
-# CJK Unified Ideographs
-# CJK Compatibility Ideographs
-KANJI_REGEX = r"[\u2E80-\u2EFF\u2F00-\u2FDF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]"
+# Kanji
+KANJI_REGEX = (
+    "["
+    + "".join(
+        [
+            # CJK Radicals Supplement
+            "\u2E80-\u2EFF",
+            # Kangxi Radicals
+            "\u2F00-\u2FDF",
+            # CJK Unified Ideographs Extension A
+            "\u3400-\u4DBF",
+            # CJK Unified Ideographs
+            "\u4E00-\u9FFF",
+            # CJK Compatibility Ideographs
+            "\uF900-\uFAFF",
+        ]
+    )
+    + "]"
+)
 
-JAPANESE_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
-
+# Symbol
 SYMBOL_REGEX = (
     "["
     + "".join(
@@ -65,3 +77,8 @@ SYMBOL_REGEX = (
     )
     + "]"
 )
+
+
+# Languages
+JAPANESE_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
+ENGLISH_REGEX = rf"(?:{ALPHABET_REGEX})"

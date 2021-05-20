@@ -10,11 +10,11 @@ class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
     # public
     def __init__(
         self,
-        tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
+        lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
     ):
         collector = LFIDFRankingDataCollector()
-        ranker = LFIDFRanker(tfmode=tfmode, idfmode=idfmode)
+        ranker = LFIDFRanker(lfmode=lfmode, idfmode=idfmode)
         super().__init__(collector, ranker)
 
     @classmethod

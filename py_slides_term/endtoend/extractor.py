@@ -8,6 +8,7 @@ from .configs import (
     TechnicalTermLayerConfig,
 )
 from .mappers import (
+    LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
     SplitterMapper,
@@ -42,6 +43,7 @@ class PySlidesTermExtractor:
         method_config: Optional[MethodLayerConfig] = None,
         styling_config: Optional[StylingLayerConfig] = None,
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
+        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -64,6 +66,7 @@ class PySlidesTermExtractor:
         candidate_layer = CandidateLayer(
             xml_layer=xml_layer,
             config=candidate_config,
+            lang_tokenizer_mapper=lang_tokenizer_mapper,
             morpheme_filter_mapper=morpheme_filter_mapper,
             term_filter_mapper=term_filter_mapper,
             splitter_mapper=splitter_mapper,

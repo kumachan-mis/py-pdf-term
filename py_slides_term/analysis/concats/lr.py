@@ -4,7 +4,7 @@ from typing import Dict
 from ..share import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.tokenizer import (
-    BaseMorpheme,
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
@@ -115,7 +115,7 @@ class TermLeftRightFrequencyAnalyzer:
             right = lrfreq.right_freq.get(morpheme_str, dict())
             lrfreq.right_freq[morpheme_str] = right
 
-    def _is_meaningless_morpheme(self, morpheme: BaseMorpheme) -> bool:
+    def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)
         is_en_meaningless = self._en_classifier.is_meaningless(morpheme)
         return is_ja_meaningless or is_en_meaningless

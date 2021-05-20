@@ -1,4 +1,5 @@
 from .candidates import (
+    LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
     SplitterMapper,
@@ -20,6 +21,7 @@ from .caches import (
 )
 
 __all__ = [
+    "LanguageTokenizerMapper",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
     "SplitterMapper",

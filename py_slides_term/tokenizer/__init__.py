@@ -1,11 +1,18 @@
-from .spacy import SpaCyTokenizer
-from .classifiers import JapaneseMorphemeClassifier, EnglishMorphemeClassifier
-from .data import BaseMorpheme, SpaCyMorpheme
+from .tokenizer import Tokenizer
+from .langs import BaseLanguageTokenizer, JapaneseTokenizer, EnglishTokenizer
+from .classifiers import (
+    JapaneseMorphemeClassifier,
+    EnglishMorphemeClassifier,
+)
+from .data import Morpheme, Language
 
 __all__ = [
-    "SpaCyTokenizer",
+    "Tokenizer",
+    "BaseLanguageTokenizer",
+    "JapaneseTokenizer",
+    "EnglishTokenizer",
     "JapaneseMorphemeClassifier",
     "EnglishMorphemeClassifier",
-    "BaseMorpheme",
-    "SpaCyMorpheme",
+    "Morpheme",
+    "Language",
 ]

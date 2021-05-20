@@ -6,6 +6,12 @@ from .base import BaseLayerConfig
 
 @dataclass(frozen=True)
 class CandidateLayerConfig(BaseLayerConfig):
+    lang_tokenizers: List[str] = field(
+        default_factory=lambda: [
+            "py_slides_term.JapaneseTokenizer",
+            "py_slides_term.EnglishTokenizer",
+        ]
+    )
     morpheme_filters: List[str] = field(
         default_factory=lambda: [
             "py_slides_term.JapaneseMorphemeFilter",

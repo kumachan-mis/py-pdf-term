@@ -2,9 +2,8 @@ from abc import ABCMeta
 from typing import List, Callable
 
 from .base import BaseAugmenter
-from ..filters import FilterCombiner
 from py_slides_term.tokenizer import (
-    BaseMorpheme,
+    Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
@@ -13,12 +12,7 @@ from py_slides_term.share.data import Term
 
 class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
     # public
-    def __init__(
-        self,
-        candidate_filter: FilterCombiner,
-        is_separator: Callable[[BaseMorpheme], bool] = lambda morpheme: False,
-    ):
-        self._filter = candidate_filter
+    def __init__(self, is_separator: Callable[[Morpheme], bool]):
         self._is_separator = is_separator
 
     def augment(self, term: Term) -> List[Term]:
@@ -37,21 +31,32 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
                 j = separation_positions[idx + length]
                 morphemes = term.morphemes[i + 1 : j]
                 augmented_term = Term(morphemes, term.fontsize, term.ncolor, True)
-                if self._filter.is_candidate(augmented_term):
-                    augmented_terms.append(augmented_term)
+                augmented_terms.append(augmented_term)
 
         return augmented_terms
 
 
 class JapaneseModifyingParticleAugmenter(BaseSeparationAugmenter):
     # public
-    def __init__(self, candidate_filter: FilterCombiner):
+    def __init__(self):
         classifier = JapaneseMorphemeClassifier()
-        super().__init__(candidate_filter, classifier.is_modifying_particle)
+        super().__init__(classifier.is_modifying_particle)
+
+    def augment(self, term: Term) -> List[Term]:
+        if term.lang != "ja":
+            return []
+
+        return super().augment(term)
 
 
 class EnglishAdpositionAugmenter(BaseSeparationAugmenter):
     # public
-    def __init__(self, candidate_filter: FilterCombiner):
+    def __init__(self):
         classifier = EnglishMorphemeClassifier()
-        super().__init__(candidate_filter, classifier.is_adposition)
+        super().__init__(classifier.is_adposition)
+
+    def augment(self, term: Term) -> List[Term]:
+        if term.lang != "en":
+            return []
+
+        return super().augment(term)

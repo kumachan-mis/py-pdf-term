@@ -11,7 +11,7 @@ from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
 from .utils import textnode_text, textnode_fontsize, textnode_ncolor
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_slides_term.tokenizer import SpaCyTokenizer, BaseMorpheme
+from py_slides_term.tokenizer import Tokenizer, BaseLanguageTokenizer, Morpheme
 from py_slides_term.share.data import Term
 
 
@@ -19,12 +19,18 @@ class CandidateTermExtractor:
     # public
     def __init__(
         self,
+        lang_tokenizer_clses: Optional[List[Type[BaseLanguageTokenizer]]] = None,
         morpheme_filter_clses: Optional[List[Type[BaseCandidateMorphemeFilter]]] = None,
         term_filter_clses: Optional[List[Type[BaseCandidateTermFilter]]] = None,
         splitter_clses: Optional[List[Type[BaseSplitter]]] = None,
         augmenter_clses: Optional[List[Type[BaseAugmenter]]] = None,
     ):
-        self._tokenizer = SpaCyTokenizer()
+        lang_tokenizers = (
+            list(map(lambda cls: cls(), lang_tokenizer_clses))
+            if lang_tokenizer_clses is not None
+            else None
+        )
+        self._tokenizer = Tokenizer(lang_tokenizers=lang_tokenizers)
 
         morpheme_filters = (
             list(map(lambda cls: cls(), morpheme_filter_clses))
@@ -39,18 +45,18 @@ class CandidateTermExtractor:
         self._filter = FilterCombiner(morpheme_filters, term_filters)
 
         splitters = (
-            list(map(lambda cls: cls(self._filter), splitter_clses))
+            list(map(lambda cls: cls(), splitter_clses))
             if splitter_clses is not None
             else None
         )
-        self._splitter = SplitterCombiner(splitters, self._filter)
+        self._splitter = SplitterCombiner(splitters)
 
         augmenters = (
-            list(map(lambda cls: cls(self._filter), augmenter_clses))
+            list(map(lambda cls: cls(), augmenter_clses))
             if augmenter_clses is not None
             else None
         )
-        self._augmenter = AugmenterCombiner(augmenters, self._filter)
+        self._augmenter = AugmenterCombiner(augmenters)
 
     def extract_from_domain_files(
         self, domain: str, pdfnxmls: List[PDFnXMLPath]
@@ -104,10 +110,10 @@ class CandidateTermExtractor:
         return PageCandidateTermList(page_num, candicate_terms)
 
     def _extract_from_morphemes(
-        self, morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
+        self, morphemes: List[Morpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candicate_terms: List[Term] = []
-        candicate_morphemes: List[BaseMorpheme] = []
+        candicate_morphemes: List[Morpheme] = []
         for idx, morpheme in enumerate(morphemes):
             if self._filter.is_partof_candidate(morphemes, idx):
                 candicate_morphemes.append(morpheme)
@@ -123,11 +129,9 @@ class CandidateTermExtractor:
         return candicate_terms
 
     def _terms_from_morphemes(
-        self, candicate_morphemes: List[BaseMorpheme], fontsize: float, ncolor: str
+        self, candicate_morphemes: List[Morpheme], fontsize: float, ncolor: str
     ) -> List[Term]:
         candidate_term = Term(candicate_morphemes, fontsize, ncolor)
-        if not self._filter.is_candidate(candidate_term):
-            return []
 
         candicate_terms: List[Term] = []
         splitted_candidates = self._splitter.split(candidate_term)
@@ -136,4 +140,4 @@ class CandidateTermExtractor:
             candicate_terms.extend(augmented_candidates)
             candicate_terms.append(splitted_candidate)
 
-        return candicate_terms
+        return list(filter(self._filter.is_candidate, candicate_terms))
