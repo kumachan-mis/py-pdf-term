@@ -10,7 +10,14 @@ component "XML Layer" as XMLLayer {
 component "Candidate Layer" as CandidateLayer {
     component CandidateTermExtractor {
         component tokenizer {
-            component Tokenizer
+            component Tokenizer {
+                component XXXTokenizer
+                component YYYTokenizer
+                component ZZZTokenizer
+
+                XXXTokenizer -[hidden]right- YYYTokenizer
+                YYYTokenizer -[hidden]right- ZZZTokenizer
+            }
         }
 
         component candidates {
@@ -121,10 +128,12 @@ component "Techinical Term Layer" as TechinicalTermLayer {
 }
 
 XMLLayer -down-> CandidateLayer
-CandidateLayer -down-> MethodLayer
-candidates ---down-> StylingLayer
-candidates --down-> TechinicalTermLayer
-methods ---down-> TechinicalTermLayer
-StylingLayer -down-> TechinicalTermLayer
+CandidateLayer -right-> MethodLayer
+CandidateLayer -down-> StylingLayer
+CandidateLayer -down-> TechinicalTermLayer
+MethodLayer -down-> TechinicalTermLayer
+StylingLayer -right-> TechinicalTermLayer
+
+MethodLayer ---[hidden]down- StylingLayer
 
 @enduml
