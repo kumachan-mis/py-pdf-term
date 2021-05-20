@@ -14,13 +14,13 @@ class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
     def _is_numeric_phrase(self, scoped_term: Term) -> bool:
         def is_numeric_or_meaningless(morpheme: Morpheme) -> bool:
             return (
-                (morpheme.pos == "名詞" and morpheme.category == "数詞")
+                morpheme.pos == "接頭辞"
+                or (morpheme.pos == "名詞" and morpheme.category == "数詞")
                 or (
                     morpheme.pos == "名詞"
                     and morpheme.category == "普通名詞"
                     and morpheme.subcategory == "助数詞可能"
                 )
-                or morpheme.pos == "接頭辞"
                 or morpheme.pos == "接尾辞"
                 or self._classifier.is_meaningless(morpheme)
             )

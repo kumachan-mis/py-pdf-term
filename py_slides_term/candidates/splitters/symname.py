@@ -24,8 +24,5 @@ class SymbolNameSplitter(BaseSplitter):
             return [term]
 
         nonsym_morphemes = term.morphemes[: num_morphemes - 1]
-        sym_morphemes = [term.morphemes[num_morphemes - 1]]
-
         nonsym_term = Term(nonsym_morphemes, term.fontsize, term.ncolor, term.augmented)
-        sym_term = Term(sym_morphemes, term.fontsize, term.ncolor, term.augmented)
-        return [nonsym_term, sym_term]
+        return [nonsym_term]

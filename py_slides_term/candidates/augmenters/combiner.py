@@ -19,6 +19,6 @@ class AugmenterCombiner:
         augmented_terms = [term]
         for augmenter in self._augmenters:
             start: List[Term] = []
-            augmented_terms = sum(map(augmenter.augment, augmented_terms), start)
+            augmented_terms += sum(map(augmenter.augment, augmented_terms), start)
 
-        return augmented_terms
+        return augmented_terms[1:]
