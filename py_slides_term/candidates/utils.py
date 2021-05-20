@@ -1,10 +1,6 @@
 import re
 from xml.etree.ElementTree import Element
 
-from py_slides_term.share.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
-
-ASCII_FULL2HALF_TABLE = str.maketrans(FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS)
-
 FLOAT_REGEX = r"\d+(?:\.\d+)?"
 BRACKET_MONO_REGEX = rf"\[({FLOAT_REGEX})\]"
 PAREN_MONO_REGEX = rf"\(({FLOAT_REGEX})\)"
@@ -13,7 +9,7 @@ PAREN_TRI_REGEX = rf"\(({FLOAT_REGEX})\s*,\s*({FLOAT_REGEX})\s*,\s*({FLOAT_REGEX
 
 
 def textnode_text(textnode: Element, default: str = "") -> str:
-    return textnode.text.translate(ASCII_FULL2HALF_TABLE) if textnode.text else default
+    return textnode.text or default
 
 
 def textnode_fontsize(textnode: Element, default: float = 0.0) -> float:

@@ -7,14 +7,14 @@ from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.share.data import Term, ScoredTerm
 
 
-# pyright:reportPrivateUsage=false
-# FLRHRanker is a friend of FLRRanker and HITSRanker
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
     # public
     def __init__(self, threshold: float = 1e-8):
         self._flr_ranker = FLRRanker()
         self._hits_ranker = HITSRanker(threshold=threshold)
 
+    # pyright:reportPrivateUsage=false
+    # FLRHRanker is a friend of FLRRanker and HITSRanker
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRankingData
     ) -> MethodTermRanking:
