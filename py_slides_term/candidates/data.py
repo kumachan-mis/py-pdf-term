@@ -46,7 +46,8 @@ class PDFCandidateTermList:
         }
 
     def to_term_str_set(self) -> Set[str]:
-        return set[str]().union(*map(lambda page: page.to_term_str_set(), self.pages))
+        empty: Set[str] = set()
+        return empty.union(*map(lambda page: page.to_term_str_set(), self.pages))
 
     def to_json(self) -> Dict[str, Any]:
         return {
@@ -76,7 +77,8 @@ class DomainCandidateTermList:
         }
 
     def to_term_str_set(self) -> Set[str]:
-        return set[str]().union(*map(lambda pdf: pdf.to_term_str_set(), self.pdfs))
+        empty: Set[str] = set()
+        return empty.union(*map(lambda pdf: pdf.to_term_str_set(), self.pdfs))
 
     def to_json(self) -> Dict[str, Any]:
         return {
