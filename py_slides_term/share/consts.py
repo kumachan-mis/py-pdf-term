@@ -66,11 +66,6 @@ SYMBOL_REGEX = (
             "\uD800-\uF8FF",
             # Variation Selectors - Small Form Variants
             "\uFE00-\uFE6F",
-            # Halfwidth and Fullwidth Forms
-            "\uFF00-\uFF0F",
-            "\uFF1A-\uFF20",
-            "\uFF3B-\uFF40",
-            "\uFF5B-\uFFEF",
             # Specials
             "\uFFF0-\uFFFF",
         ]
@@ -78,6 +73,9 @@ SYMBOL_REGEX = (
     + "]"
 )
 
+# Halfwidth and Fullwidth
+HALFWIDTH_ASCII_CHARS = "".join([chr(code) for code in range(0x0021, 0x007E + 1)])
+FULLWIDTH_ASCII_CHARS = "".join([chr(code) for code in range(0xFF01, 0xFF5E + 1)])
 
 # Languages
 JAPANESE_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
