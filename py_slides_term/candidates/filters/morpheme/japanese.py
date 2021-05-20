@@ -53,8 +53,8 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             if scoped_morpheme_str == "-":
                 return (
                     0 < idx < len(morphemes) - 1
-                    and self._regex.match(str(morphemes[idx - 1])) is None
-                    and self._regex.match(str(morphemes[idx + 1])) is None
+                    and self._regex.match(str(morphemes[idx - 1])) is not None
+                    and self._regex.match(str(morphemes[idx + 1])) is not None
                 )
             elif scoped_morpheme_str == "・":
                 return (
