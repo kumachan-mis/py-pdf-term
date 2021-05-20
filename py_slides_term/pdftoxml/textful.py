@@ -36,14 +36,13 @@ class TextfulXMLConverter(PDFConverter):
         codec: str = "utf-8",
         pageno: int = 1,
         laparams: Optional[LAParams] = None,
-        stripcontrol: bool = False,
         nfc_norm: bool = True,
         include_pattern: Optional[str] = None,
     ):
         PDFConverter.__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
 
         def _clean_content_text(text: str) -> str:
-            return clean_content_text(text, stripcontrol, nfc_norm, include_pattern)
+            return clean_content_text(text, nfc_norm, include_pattern)
 
         self._clean_content_text = _clean_content_text
 

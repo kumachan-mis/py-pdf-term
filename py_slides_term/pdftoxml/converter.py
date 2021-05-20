@@ -27,7 +27,6 @@ class PDFtoXMLConverter:
                 manager,
                 xml_file,
                 laparams=params,
-                stripcontrol=True,
                 nfc_norm=nfc_norm,
                 include_pattern=include_parrern,
             )
@@ -55,7 +54,6 @@ class PDFtoXMLConverter:
                 manager,
                 xml_stream,
                 laparams=params,
-                stripcontrol=True,
                 nfc_norm=nfc_norm,
                 include_pattern=include_parrern,
             )
