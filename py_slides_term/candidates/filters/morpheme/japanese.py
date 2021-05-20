@@ -9,11 +9,14 @@ from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_RE
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
     # public
     def __init__(self):
+        self._regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
         self._classifier = JapaneseMorphemeClassifier()
 
     def inscope(self, morpheme: Morpheme) -> bool:
-        regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+|\-")
-        return morpheme.lang == "ja" and regex.fullmatch(str(morpheme)) is not None
+        morpheme_str = str(morpheme)
+        return morpheme.lang == "ja" and (
+            self._regex.fullmatch(morpheme_str) is not None or morpheme_str == "-"
+        )
 
     def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
@@ -43,20 +46,21 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             )
         elif scoped_morpheme.pos == "助詞":
             return self._classifier.is_modifying_particle(scoped_morpheme)
+        elif scoped_morpheme.pos == "記号":
+            return self._regex.match(str(scoped_morpheme)) is not None
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
-            regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
             if scoped_morpheme_str == "-":
                 return (
                     0 < idx < len(morphemes) - 1
-                    and regex.match(str(morphemes[idx - 1])) is None
-                    and regex.match(str(morphemes[idx + 1])) is None
+                    and self._regex.match(str(morphemes[idx - 1])) is not None
+                    and self._regex.match(str(morphemes[idx + 1])) is not None
                 )
             elif scoped_morpheme_str == "・":
                 return (
                     0 < idx < len(morphemes) - 1
-                    and regex.match(str(morphemes[idx - 1])) is not None
-                    and regex.match(str(morphemes[idx + 1])) is not None
+                    and self._regex.match(str(morphemes[idx - 1])) is not None
+                    and self._regex.match(str(morphemes[idx + 1])) is not None
                 )
 
         return False

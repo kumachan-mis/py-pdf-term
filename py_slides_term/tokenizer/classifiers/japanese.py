@@ -7,7 +7,7 @@ class JapaneseMorphemeClassifier:
         return morpheme.surface_form == "の" and morpheme.pos == "助詞"
 
     def is_symbol(self, morpheme: Morpheme) -> bool:
-        return morpheme.pos in {"記号", "補助記号"}
+        return morpheme.pos in {"補助記号"}
 
     def is_connector_symbol(self, morpheme: Morpheme) -> bool:
         return morpheme.surface_form in {"・", "-"} and morpheme.pos == "補助記号"

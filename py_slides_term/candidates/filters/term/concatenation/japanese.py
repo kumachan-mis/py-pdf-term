@@ -29,7 +29,7 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def norn_or_postfix_appears_at(i: int) -> bool:
-            return scoped_term.morphemes[i].pos in {"名詞", "接尾辞"}
+            return scoped_term.morphemes[i].pos in {"名詞", "記号", "接尾辞"}
 
         induces_should_be_norn = [
             i - 1
@@ -84,6 +84,7 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
                 return False
             return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
                 "名詞",
+                "記号",
                 "形状詞",
             }
 
@@ -95,7 +96,11 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
         def invalid_postfix_appears_at(i: int) -> bool:
             if scoped_term.morphemes[i].pos != "接尾辞":
                 return False
-            return i == 0 or scoped_term.morphemes[i - 1].pos not in {"名詞", "形状詞"}
+            return i == 0 or scoped_term.morphemes[i - 1].pos not in {
+                "名詞",
+                "記号",
+                "形状詞",
+            }
 
         return any(map(invalid_postfix_appears_at, range(num_morphemes)))
 
