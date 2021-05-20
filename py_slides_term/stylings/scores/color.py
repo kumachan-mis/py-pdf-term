@@ -1,9 +1,9 @@
-from math import log10
 from typing import Dict
 
 from .base import BaseStylingScore
 from py_slides_term.candidates import PageCandidateTermList
 from py_slides_term.share.data import Term
+from py_slides_term.share.extended_math import extended_log10
 
 
 class ColorScore(BaseStylingScore):
@@ -23,4 +23,5 @@ class ColorScore(BaseStylingScore):
         if self._num_candidates == 0 or candidate.ncolor not in self._color_freq:
             return 1.0
 
-        return -log10(self._color_freq[candidate.ncolor] / self._num_candidates) + 1.0
+        ncolor_prob = self._color_freq.get(candidate.ncolor, 0) / self._num_candidates
+        return -extended_log10(ncolor_prob) + 1.0

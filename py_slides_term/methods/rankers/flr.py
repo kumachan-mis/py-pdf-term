@@ -1,5 +1,3 @@
-from math import log10
-
 from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
 from ..data import MethodTermRanking
@@ -10,6 +8,7 @@ from py_slides_term.tokenizer import (
     EnglishMorphemeClassifier,
 )
 from py_slides_term.share.data import Term, ScoredTerm
+from py_slides_term.share.extended_math import extended_log10
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
@@ -43,7 +42,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 candidate.morphemes,
             )
         )
-        term_freq_score = log10(ranking_data.term_freq[candidate_str])
+        term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_str, 0))
 
         concat_score = 0.0
         for morpheme in candidate.morphemes:
@@ -51,9 +50,9 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 continue
 
             morpheme_str = str(morpheme)
-            left_score = sum(ranking_data.left_freq[morpheme_str].values())
-            right_score = sum(ranking_data.right_freq[morpheme_str].values())
-            concat_score += 0.5 * (log10(left_score + 1) + log10(right_score + 1))
+            lscore = sum(ranking_data.left_freq.get(morpheme_str, dict()).values())
+            rscore = sum(ranking_data.right_freq.get(morpheme_str, dict()).values())
+            concat_score += 0.5 * (extended_log10(lscore) + extended_log10(rscore))
 
         concat_score /= num_morphemes - num_meaningless_morphemes
 

@@ -1,4 +1,4 @@
-from math import sqrt, log10
+from math import sqrt
 from dataclasses import dataclass
 from typing import Dict
 
@@ -12,6 +12,7 @@ from py_slides_term.tokenizer import (
     EnglishMorphemeClassifier,
 )
 from py_slides_term.share.data import Term, ScoredTerm
+from py_slides_term.share.extended_math import extended_log10
 
 
 @dataclass(frozen=True)
@@ -116,13 +117,13 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         if num_morphemes == 0:
             return ScoredTerm(candidate_str, 0.0)
 
-        term_freq_score = log10(ranking_data.term_freq[candidate_str])
+        term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_str, 0))
 
         if num_morphemes == 1:
             morpheme_str = str(candidate.morphemes[0])
             auth_hub_score = 0.5 * (
-                log10(auth_hub_data.morpheme_hub[morpheme_str] + 1.0)
-                + log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
+                extended_log10(auth_hub_data.morpheme_hub.get(morpheme_str, 0.0))
+                + extended_log10(auth_hub_data.morpheme_auth.get(morpheme_str, 0.0))
             )
             score = term_freq_score + auth_hub_score
             return ScoredTerm(candidate_str, score)
@@ -134,13 +135,17 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
             morpheme_str = str(morpheme)
             if i == 0:
-                auth_hub_score += log10(auth_hub_data.morpheme_hub[morpheme_str] + 1.0)
+                auth_hub_score += extended_log10(
+                    auth_hub_data.morpheme_hub.get(morpheme_str, 0.0)
+                )
             elif i == num_morphemes - 1:
-                auth_hub_score += log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
+                auth_hub_score += extended_log10(
+                    auth_hub_data.morpheme_auth.get(morpheme_str, 0.0)
+                )
             else:
                 auth_hub_score += 0.5 * (
-                    log10(auth_hub_data.morpheme_hub[morpheme_str] + 1.0)
-                    + log10(auth_hub_data.morpheme_auth[morpheme_str] + 1.0)
+                    extended_log10(auth_hub_data.morpheme_hub.get(morpheme_str, 0.0))
+                    + extended_log10(auth_hub_data.morpheme_auth.get(morpheme_str, 0.0))
                 )
 
         auth_hub_score /= num_morphemes - num_meaningless_morphemes
