@@ -1,9 +1,12 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from .base import BaseLayerConfig
+from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
 @dataclass(frozen=True)
 class XMLLayerConfig(BaseLayerConfig):
-    apply_nfc_normalization: bool = True
+    include_pattern: Optional[str] = rf"{ENGLISH_REGEX}|{JAPANESE_REGEX}|{NUMBER_REGEX}"
+    nfc_norm: bool = True
     cache: str = "py_slides_term.XMLLayerFileCache"

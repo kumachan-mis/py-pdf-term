@@ -15,8 +15,8 @@ from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX
 class JapaneseTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
-        self._ja_model = ja_core_news_sm.load()
-        self._ja_model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
+        self._model = ja_core_news_sm.load()
+        self._model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
 
         self._ja_regex = re.compile(JAPANESE_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
@@ -25,12 +25,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         return self._ja_regex.search(text) is not None
 
     def tokenize(self, text: str) -> List[Morpheme]:
-        return list(
-            filter(
-                lambda morpheme: morpheme.pos not in {"空白"},
-                map(lambda token: self._create_morpheme(token), self._ja_model(text)),
-            )
-        )
+        return list(map(lambda token: self._create_morpheme(token), self._model(text)))
 
     # private
     def _create_morpheme(self, token: Any) -> Morpheme:

@@ -5,17 +5,17 @@
 # pyright:reportUnknownArgumentType=false
 # pyright:reportIncompatibleMethodOverride=false
 
-import re
 from io import BufferedWriter, BytesIO
-from unicodedata import normalize
 from dataclasses import dataclass
 from typing import Any, Union, Optional
 
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.converter import PDFConverter
-from pdfminer.layout import LTPage, LTTextBox, LTTextLine, LTChar, LTAnno, LTText
+from pdfminer.layout import LTPage, LTTextBox, LTTextLine, LTChar, LTText, LTAnno
 from pdfminer.layout import LAParams
 from pdfminer.utils import bbox2str, enc
+
+from .utils import clean_content_text
 
 
 @dataclass
@@ -23,14 +23,11 @@ class TextfulState:
     in_text_section: bool = False
     size: float = 0.0
     ncolor: str = ""
+    bbox: str = ""
     text: str = ""
 
 
 class TextfulXMLConverter(PDFConverter):
-
-    CONTROL = re.compile(r"[\x00-\x08\x0b-\x0c\x0e-\x1f]")
-    ERROR_TEXT = re.compile(r"^(\(cid:\d+\))+$")
-
     # public
     def __init__(
         self,
@@ -40,11 +37,15 @@ class TextfulXMLConverter(PDFConverter):
         pageno: int = 1,
         laparams: Optional[LAParams] = None,
         stripcontrol: bool = False,
-        nfcnorm: bool = True,
+        nfc_norm: bool = True,
+        include_pattern: Optional[str] = None,
     ):
         PDFConverter.__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
-        self._stripcontrol = stripcontrol
-        self._nfcnorm = nfcnorm
+
+        def _clean_content_text(text: str) -> str:
+            return clean_content_text(text, stripcontrol, nfc_norm, include_pattern)
+
+        self._clean_content_text = _clean_content_text
 
     def write_header(self):
         if self.codec:
@@ -85,58 +86,51 @@ class TextfulXMLConverter(PDFConverter):
                 self._render(child)
             self._write("</page>\n")
         elif isinstance(item, LTTextBox):
-            self._render_textlike_item(item)
+            self._render_styled_text_item(item)
         elif isinstance(item, LTTextLine):
-            self._render_textlike_item(item)
+            self._render_styled_text_item(item)
         elif isinstance(item, LTChar):
-            size: float = item.size
-            ncolor: str = item.graphicstate.ncolor
-            self._write(
-                '<text size="%.3f" ncolour="%s" bbox="%s">'
-                % (size, ncolor, bbox2str(item.bbox))
-            )
-            self._write_text(self._get_text(item))
-            self._write("</text>\n")
+            self._render_styled_text_item(item)
         elif isinstance(item, LTText):
-            self._write("<text>")
-            self._write_text(self._get_text(item))
-            self._write("</text>\n")
+            text = self._clean_content_text(item.get_text())
+            if text:
+                self._write("<text>")
+                self._write(enc(text))
+                self._write("</text>\n")
 
-    def _render_textlike_item(self, item: Any):
+    def _render_styled_text_item(self, item: Any):
         state = TextfulState()
 
-        def rec_render_textlike_item(rec_item: Any):
-            if isinstance(rec_item, LTTextBox):
+        def rec_render_styled_text_item(rec_item: Any):
+            if isinstance(rec_item, LTTextBox) or isinstance(rec_item, LTTextLine):
                 for child in rec_item:
-                    rec_render_textlike_item(child)
-            elif isinstance(rec_item, LTTextLine):
-                for child in rec_item:
-                    rec_render_textlike_item(child)
+                    rec_render_styled_text_item(child)
             else:
-                self._render_charlike_item(rec_item, state)
+                self._render_styled_char_item(rec_item, state)
 
-        def finalize_textlike_item_rendering():
+        def finalize_styled_text_item_rendering():
             if not state.in_text_section:
                 return
-            self._write_text(state.text)
-            self._write("</text>\n")
 
-        rec_render_textlike_item(item)
-        finalize_textlike_item_rendering()
+            text = self._clean_content_text(state.text)
+            if text:
+                self._write(
+                    '<text size="%.3f" ncolor="%s" bbox="%s">'
+                    % (state.size, state.ncolor, state.bbox)
+                )
+                self._write(enc(text))
+                self._write("</text>\n")
 
-    def _render_charlike_item(self, item: Any, state: TextfulState):
+        rec_render_styled_text_item(item)
+        finalize_styled_text_item_rendering()
+
+    def _render_styled_char_item(self, item: Any, state: TextfulState):
         def enter_text_section():
-            size: float = item.size
-            ncolor: str = item.graphicstate.ncolor
-            self._write(
-                '<text size="%.3f" ncolor="%s" bbox="%s">'
-                % (size, ncolor, bbox2str(item.bbox))
-            )
-
             state.in_text_section = True
-            state.size = size
-            state.ncolor = ncolor
-            state.text = self._get_text(item)
+            state.size = item.size
+            state.ncolor = item.graphicstate.ncolor
+            state.bbox = bbox2str(item.bbox)
+            state.text = item.get_text()
 
         def text_section_continues() -> bool:
             return (
@@ -146,18 +140,25 @@ class TextfulXMLConverter(PDFConverter):
             )
 
         def exit_text_section():
-            self._write_text(state.text)
-            self._write("</text>\n")
+            text = self._clean_content_text(state.text)
+            if text:
+                self._write(
+                    '<text size="%.3f" ncolor="%s" bbox="%s">'
+                    % (state.size, state.ncolor, state.bbox)
+                )
+                self._write(enc(text))
+                self._write("</text>\n")
 
             state.in_text_section = False
             state.size = 0.0
             state.ncolor = ""
+            state.bbox = ""
             state.text = ""
 
         if state.in_text_section:
             if isinstance(item, LTChar):
                 if text_section_continues():
-                    state.text += self._get_text(item)
+                    state.text += item.get_text()
                 else:
                     exit_text_section()
                     enter_text_section()
@@ -170,14 +171,3 @@ class TextfulXMLConverter(PDFConverter):
         if self.codec:
             text = text.encode(self.codec)
         self.outfp.write(text)
-
-    def _write_text(self, text: str):
-        if self._stripcontrol:
-            text = self.CONTROL.sub("", text)
-        if self._nfcnorm:
-            text = normalize("NFC", text)
-        self._write(enc(text))
-
-    def _get_text(self, item: Union[LTText, LTChar]) -> str:
-        text = item.get_text()
-        return text if self.ERROR_TEXT.match(text) is None else " "
