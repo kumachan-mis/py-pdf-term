@@ -32,7 +32,7 @@ class CandidateLayerFileCache(BaseCandidateLayerCache):
             except json.JSONDecodeError:
                 return None
 
-        return PDFCandidateTermList.from_json(obj)
+        return PDFCandidateTermList.from_dict(obj)
 
     def store(
         self, candidates: PDFCandidateTermList, config: CandidateLayerConfig
@@ -44,7 +44,7 @@ class CandidateLayerFileCache(BaseCandidateLayerCache):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(candidates.to_json(), json_file, ensure_ascii=False, indent=2)
+            json.dump(candidates.to_dict(), json_file, ensure_ascii=False, indent=2)
 
     def remove(self, pdf_path: str, config: CandidateLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config)

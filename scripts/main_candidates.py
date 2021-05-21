@@ -27,5 +27,5 @@ if __name__ == "__main__":
         os.makedirs(candidate_dir_name, exist_ok=True)
 
         with open(candidate_path, "w") as candidate_file:
-            json_obj = candidate_term_list.to_json()
-            json.dump(json_obj, candidate_file, ensure_ascii=False, indent=2)
+            dict_obj = candidate_term_list.to_dict()
+            json.dump(dict_obj, candidate_file, ensure_ascii=False, indent=2)

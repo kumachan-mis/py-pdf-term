@@ -39,7 +39,7 @@ class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
         self,
         pdf_paths: List[str],
         config: MethodLayerConfig,
-        from_json: Callable[[Dict[str, Any]], RankingData],
+        from_dict: Callable[[Dict[str, Any]], RankingData],
     ) -> Union[RankingData, None]:
         pass
 

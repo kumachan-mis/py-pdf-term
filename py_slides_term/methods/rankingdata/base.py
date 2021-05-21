@@ -7,11 +7,11 @@ class BaseRankingData:
     domain: str
     # unique domain name
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         return cls(**obj)
 
 

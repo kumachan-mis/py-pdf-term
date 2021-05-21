@@ -34,8 +34,8 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def collect_data_from_json(cls, obj: Dict[str, Any]) -> RankingData:
-        raise NotImplementedError(f"{cls.__name__}.collect_data_from_json()")
+    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> RankingData:
+        raise NotImplementedError(f"{cls.__name__}.collect_data_from_dict()")
 
 
 class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
@@ -86,5 +86,5 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def collect_data_from_json(cls, obj: Dict[str, Any]) -> RankingData:
-        raise NotImplementedError(f"{cls.__name__}.collect_data_from_json()")
+    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> RankingData:
+        raise NotImplementedError(f"{cls.__name__}.collect_data_from_dict()")

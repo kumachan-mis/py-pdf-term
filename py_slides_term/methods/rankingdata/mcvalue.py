@@ -16,7 +16,7 @@ class MCValueRankingData(BaseRankingData):
     # (term, container) is valid iff the container contains the term
     # as a proper subsequence
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         container_terms = {
             term: list(containers) for term, containers in self.container_terms.items()
         }
@@ -27,7 +27,7 @@ class MCValueRankingData(BaseRankingData):
         }
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         container_terms = {
             term: set(containers) for term, containers in obj["container_terms"].items()
         }

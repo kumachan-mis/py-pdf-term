@@ -14,5 +14,5 @@ class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_json(cls, obj: Dict[str, Any]) -> FLRHRankingData:
+    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> FLRHRankingData:
         return FLRHRankingData(**obj)

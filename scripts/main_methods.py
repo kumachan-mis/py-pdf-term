@@ -70,8 +70,8 @@ if __name__ == "__main__":
             os.makedirs(ranking_dir_name, exist_ok=True)
 
             with open(ranking_path, "w") as ranking_file:
-                json_obj = term_ranking.to_json()
-                json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
+                dict_obj = term_ranking.to_dict()
+                json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
 
     elif isinstance(method, BaseMultiDomainRankingMethod):
         print(f"{script_name}: preprocessing ...")
@@ -86,5 +86,5 @@ if __name__ == "__main__":
             os.makedirs(ranking_dir_name, exist_ok=True)
 
             with open(ranking_path, "w") as ranking_file:
-                json_obj = term_ranking.to_json()
-                json.dump(json_obj, ranking_file, ensure_ascii=False, indent=2)
+                dict_obj = term_ranking.to_dict()
+                json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)

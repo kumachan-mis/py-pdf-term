@@ -22,9 +22,9 @@ class Morpheme:
     def __str__(self) -> str:
         return self.surface_form
 
-    def to_json(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, str]:
         return asdict(self)
 
     @classmethod
-    def from_json(cls, obj: Dict[str, str]):
+    def from_dict(cls, obj: Dict[str, str]):
         return cls(**obj)

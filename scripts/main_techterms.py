@@ -64,5 +64,5 @@ if __name__ == "__main__":
             os.makedirs(techterm_dir_name, exist_ok=True)
 
             with open(techterm_path, "w") as techterm_file:
-                json_obj = pdf_techterms.to_json()
-                json.dump(json_obj, techterm_file, ensure_ascii=False, indent=2)
+                dict_obj = pdf_techterms.to_dict()
+                json.dump(dict_obj, techterm_file, ensure_ascii=False, indent=2)
