@@ -41,7 +41,7 @@ class RepeatSplitter(BaseSplitter):
         while True:
             head_length = len(head)
             j = head_length
-            for i in range(head_length - 1, -1, -1):
+            for i in range(head_length - 1, 0, -1):
                 if str(head[i - 1]) != str(head[j - 1]):
                     continue
                 splitted_term = Term(head[i:j], fontsize, ncolor, augmented)
@@ -66,7 +66,7 @@ class RepeatSplitter(BaseSplitter):
             for j in range(1, tail_length):
                 if str(tail[0]) != str(tail[j - i]):
                     continue
-                splitted_term = Term(tail[i:j], fontsize, ncolor, augmented)
+                splitted_term = Term(tail[: j - i], fontsize, ncolor, augmented)
                 splitted_terms.append(splitted_term)
                 tail = tail[j - i :]
                 i = j
