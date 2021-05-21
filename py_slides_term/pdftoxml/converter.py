@@ -18,6 +18,7 @@ class PDFtoXMLConverter:
         xml_path: str,
         nfc_norm: bool = True,
         include_parrern: Optional[str] = None,
+        exclude_parrern: Optional[str] = None,
     ) -> PDFnXMLPath:
         manager = PDFResourceManager()
         params = LAParams()
@@ -29,6 +30,7 @@ class PDFtoXMLConverter:
                 laparams=params,
                 nfc_norm=nfc_norm,
                 include_pattern=include_parrern,
+                exclude_parrern=exclude_parrern,
             )
             page_interpreter = PDFPageInterpreter(manager, converter)
             pages = PDFPage.get_pages(pdf_file)  # type: ignore
@@ -45,6 +47,7 @@ class PDFtoXMLConverter:
         pdf_path: str,
         nfc_norm: bool = True,
         include_parrern: Optional[str] = None,
+        exclude_parrern: Optional[str] = None,
     ) -> PDFnXMLElement:
         manager = PDFResourceManager()
         params = LAParams()
@@ -56,6 +59,7 @@ class PDFtoXMLConverter:
                 laparams=params,
                 nfc_norm=nfc_norm,
                 include_pattern=include_parrern,
+                exclude_parrern=exclude_parrern,
             )
             page_interpreter = PDFPageInterpreter(manager, converter)
             pages = PDFPage.get_pages(pdf_file)  # type: ignore

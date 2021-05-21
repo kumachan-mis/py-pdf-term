@@ -14,6 +14,7 @@ def clean_content_text(
     text: str,
     nfc_norm: bool,
     include_pattern: Optional[str],
+    exclude_parrern: Optional[str],
 ) -> str:
     text = CONTROL.sub("", text)
     text = ERROR.sub("", text)
@@ -23,4 +24,9 @@ def clean_content_text(
     if nfc_norm:
         text = normalize("NFC", text)
 
-    return text if include_pattern is None or re.search(include_pattern, text) else ""
+    return (
+        text
+        if (include_pattern is None or re.search(include_pattern, text) is not None)
+        and (exclude_parrern is None or re.search(exclude_parrern, text) is None)
+        else ""
+    )

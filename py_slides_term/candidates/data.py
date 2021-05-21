@@ -18,18 +18,18 @@ class PageCandidateTermList:
     def to_term_str_set(self) -> Set[str]:
         return {str(candidate) for candidate in self.candidates}
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return {
             "page_num": self.page_num,
-            "candidates": list(map(lambda term: term.to_json(), self.candidates)),
+            "candidates": list(map(lambda term: term.to_dict(), self.candidates)),
         }
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         page_num, candidates = obj["page_num"], obj["candidates"]
         return cls(
             page_num,
-            list(map(lambda item: Term.from_json(item), candidates)),
+            list(map(lambda item: Term.from_dict(item), candidates)),
         )
 
 
@@ -49,18 +49,18 @@ class PDFCandidateTermList:
         empty: Set[str] = set()
         return empty.union(*map(lambda page: page.to_term_str_set(), self.pages))
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return {
             "pdf_path": self.pdf_path,
-            "pages": list(map(lambda page: page.to_json(), self.pages)),
+            "pages": list(map(lambda page: page.to_dict(), self.pages)),
         }
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
-            list(map(lambda item: PageCandidateTermList.from_json(item), pages)),
+            list(map(lambda item: PageCandidateTermList.from_dict(item), pages)),
         )
 
 
@@ -80,16 +80,16 @@ class DomainCandidateTermList:
         empty: Set[str] = set()
         return empty.union(*map(lambda pdf: pdf.to_term_str_set(), self.pdfs))
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return {
             "domain": self.domain,
-            "pdfs": list(map(lambda pdf: pdf.to_json(), self.pdfs)),
+            "pdfs": list(map(lambda pdf: pdf.to_dict(), self.pdfs)),
         }
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,
-            list(map(lambda item: PDFCandidateTermList.from_json(item), pdfs)),
+            list(map(lambda item: PDFCandidateTermList.from_dict(item), pdfs)),
         )

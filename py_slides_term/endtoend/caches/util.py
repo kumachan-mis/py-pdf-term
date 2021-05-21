@@ -7,7 +7,7 @@ from ..configs import BaseLayerConfig
 
 def create_dir_name_from_config(config: BaseLayerConfig, prefix: str = "") -> str:
     config_class_name = config.__class__.__name__
-    config_json = json.dumps(config.to_json_without_cache())
+    config_json = json.dumps(config.to_dict_without_cache())
     return f"{prefix}{sha256((config_class_name + config_json).encode()).hexdigest()}"
 
 

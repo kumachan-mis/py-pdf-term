@@ -18,5 +18,5 @@ class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_json(cls, obj: Dict[str, Any]) -> LFIDFRankingData:
+    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> LFIDFRankingData:
         return LFIDFRankingData(**obj)

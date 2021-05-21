@@ -18,5 +18,5 @@ class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_json(cls, obj: Dict[str, Any]) -> TFIDFRankingData:
+    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> TFIDFRankingData:
         return TFIDFRankingData(**obj)

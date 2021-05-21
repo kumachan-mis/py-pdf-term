@@ -164,7 +164,7 @@ class MethodLayer:
         ranking_data = self._data_cache.load(
             domain_pdfs.pdf_paths,
             self._config,
-            self._method.collect_data_from_json,
+            self._method.collect_data_from_dict,
         )
 
         if ranking_data is None:

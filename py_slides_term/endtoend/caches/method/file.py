@@ -35,7 +35,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
             except json.JSONDecodeError:
                 return None
 
-        return MethodTermRanking.from_json(obj)
+        return MethodTermRanking.from_dict(obj)
 
     def store(
         self,
@@ -50,7 +50,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(term_ranking.to_json(), json_file, ensure_ascii=False, indent=2)
+            json.dump(term_ranking.to_dict(), json_file, ensure_ascii=False, indent=2)
 
     def remove(self, pdf_paths: List[str], config: MethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="rank")
@@ -78,7 +78,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         self,
         pdf_paths: List[str],
         config: MethodLayerConfig,
-        from_json: Callable[[Dict[str, Any]], RankingData],
+        from_dict: Callable[[Dict[str, Any]], RankingData],
     ) -> Union[RankingData, None]:
         dir_name = create_dir_name_from_config(config, prefix="data")
         file_name = create_file_name_from_paths(pdf_paths, "json")
@@ -90,7 +90,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         with open(cache_file_path, "r") as json_file:
             obj = json.load(json_file)
 
-        return from_json(obj)
+        return from_dict(obj)
 
     def store(
         self,
@@ -105,7 +105,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(ranking_data.to_json(), json_file, ensure_ascii=False, indent=2)
+            json.dump(ranking_data.to_dict(), json_file, ensure_ascii=False, indent=2)
 
     def remove(self, pdf_paths: List[str], config: MethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="data")

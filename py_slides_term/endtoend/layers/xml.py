@@ -34,6 +34,7 @@ class XMLLayer:
                 pdf_path,
                 nfc_norm=self._config.nfc_norm,
                 include_parrern=self._config.include_pattern,
+                exclude_parrern=self._config.exclude_pattern,
             )
 
         self._cache.store(pdfnxml, self._config)

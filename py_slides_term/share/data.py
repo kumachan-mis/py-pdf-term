@@ -58,18 +58,18 @@ class Term:
             for morpheme in self.morphemes
         )
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return {
-            "morphemes": list(map(lambda morpheme: morpheme.to_json(), self.morphemes)),
+            "morphemes": list(map(lambda morpheme: morpheme.to_dict(), self.morphemes)),
             "fontsize": self.fontsize,
             "ncolor": self.ncolor,
             "augmented": self.augmented,
         }
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         return cls(
-            list(map(lambda item: Morpheme.from_json(item), obj["morphemes"])),
+            list(map(lambda item: Morpheme.from_dict(item), obj["morphemes"])),
             obj.get("fontsize", 0),
             obj.get("ncolor", ""),
             obj.get("augmented", False),
@@ -84,9 +84,9 @@ class ScoredTerm:
     def __str__(self) -> str:
         return self.term
 
-    def to_json(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
     @classmethod
-    def from_json(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]):
         return cls(**obj)

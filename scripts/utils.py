@@ -83,7 +83,7 @@ def generate_domain_candidates(
         for json_path in iglob(json_path_pattern, recursive=True):
             with open(json_path, "r") as f:
                 obj = json.load(f)
-            pdfs.append(PDFCandidateTermList.from_json(obj))
+            pdfs.append(PDFCandidateTermList.from_dict(obj))
 
         yield DomainCandidateTermList(domain, pdfs)
 
@@ -95,7 +95,7 @@ def generate_term_ranking(
         json_path = os.path.join(METHODS_DIR, domain, f"{method_name}.json")
         with open(json_path, "r") as f:
             obj = json.load(f)
-        yield MethodTermRanking.from_json(obj)
+        yield MethodTermRanking.from_dict(obj)
 
 
 def generate_domain_styling_scores(
@@ -107,6 +107,6 @@ def generate_domain_styling_scores(
         for json_path in iglob(json_path_pattern, recursive=True):
             with open(json_path, "r") as f:
                 obj = json.load(f)
-            pdfs.append(PDFStylingScoreList.from_json(obj))
+            pdfs.append(PDFStylingScoreList.from_dict(obj))
 
         yield DomainStylingScoreList(domain, pdfs)

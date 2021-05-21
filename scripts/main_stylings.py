@@ -26,5 +26,5 @@ if __name__ == "__main__":
             os.makedirs(styling_dir_name, exist_ok=True)
 
             with open(styling_path, "w") as styling_file:
-                json_obj = styling_score_list.to_json()
-                json.dump(json_obj, styling_file, ensure_ascii=False, indent=2)
+                dict_obj = styling_score_list.to_dict()
+                json.dump(dict_obj, styling_file, ensure_ascii=False, indent=2)
