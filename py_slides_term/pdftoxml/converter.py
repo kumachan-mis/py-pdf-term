@@ -1,5 +1,5 @@
-from io import BytesIO
-from typing import Optional
+from io import BytesIO, BufferedReader
+from typing import BinaryIO, Optional
 from xml.etree.ElementTree import fromstring
 
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -20,25 +20,8 @@ class PDFtoXMLConverter:
         include_parrern: Optional[str] = None,
         exclude_parrern: Optional[str] = None,
     ) -> PDFnXMLPath:
-        manager = PDFResourceManager()
-        params = LAParams()
-
         with open(pdf_path, "rb") as pdf_file, open(xml_path, "wb") as xml_file:
-            converter = TextfulXMLConverter(
-                manager,
-                xml_file,
-                laparams=params,
-                nfc_norm=nfc_norm,
-                include_pattern=include_parrern,
-                exclude_parrern=exclude_parrern,
-            )
-            page_interpreter = PDFPageInterpreter(manager, converter)
-            pages = PDFPage.get_pages(pdf_file)  # type: ignore
-
-            converter.write_header()
-            for page in pages:
-                page_interpreter.process_page(page)  # type: ignore
-            converter.write_footer()
+            self._run(pdf_file, xml_file, nfc_norm, include_parrern, exclude_parrern)
 
         return PDFnXMLPath(pdf_path, xml_path)
 
@@ -49,26 +32,35 @@ class PDFtoXMLConverter:
         include_parrern: Optional[str] = None,
         exclude_parrern: Optional[str] = None,
     ) -> PDFnXMLElement:
-        manager = PDFResourceManager()
-        params = LAParams()
-
         with open(pdf_path, "rb") as pdf_file, BytesIO() as xml_stream:
-            converter = TextfulXMLConverter(
-                manager,
-                xml_stream,
-                laparams=params,
-                nfc_norm=nfc_norm,
-                include_pattern=include_parrern,
-                exclude_parrern=exclude_parrern,
-            )
-            page_interpreter = PDFPageInterpreter(manager, converter)
-            pages = PDFPage.get_pages(pdf_file)  # type: ignore
-
-            converter.write_header()
-            for page in pages:
-                page_interpreter.process_page(page)  # type: ignore
-            converter.write_footer()
-
+            self._run(pdf_file, xml_stream, nfc_norm, include_parrern, exclude_parrern)
             xml_element = fromstring(xml_stream.getvalue().decode("utf-8"))
 
         return PDFnXMLElement(pdf_path, xml_element)
+
+    # private
+    def _run(
+        self,
+        pdf_file: BufferedReader,
+        xml_io: BinaryIO,
+        nfc_norm: bool,
+        include_parrern: Optional[str],
+        exclude_parrern: Optional[str],
+    ):
+        manager = PDFResourceManager()
+        laparams = LAParams(char_margin=2.0, line_margin=0.5, word_margin=0.2)
+        converter = TextfulXMLConverter(
+            manager,
+            xml_io,
+            laparams=laparams,
+            nfc_norm=nfc_norm,
+            include_pattern=include_parrern,
+            exclude_parrern=exclude_parrern,
+        )
+        page_interpreter = PDFPageInterpreter(manager, converter)
+
+        pages = PDFPage.get_pages(pdf_file)  # type: ignore
+        converter.write_header()
+        for page in pages:
+            page_interpreter.process_page(page)  # type: ignore
+        converter.write_footer()

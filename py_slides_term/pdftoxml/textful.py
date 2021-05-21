@@ -5,7 +5,7 @@
 # pyright:reportUnknownArgumentType=false
 # pyright:reportIncompatibleMethodOverride=false
 
-from io import BufferedWriter, BytesIO
+from typing import BinaryIO
 from dataclasses import dataclass
 from typing import Any, Union, Optional
 
@@ -19,12 +19,12 @@ from .utils import clean_content_text
 
 
 @dataclass
-class TextfulState:
-    in_text_section: bool = False
-    size: float = 0.0
-    ncolor: str = ""
-    bbox: str = ""
-    text: str = ""
+class TextboxState:
+    within_section: bool
+    size: float
+    ncolor: str
+    bbox: str
+    text: str
 
 
 class TextfulXMLConverter(PDFConverter):
@@ -32,7 +32,7 @@ class TextfulXMLConverter(PDFConverter):
     def __init__(
         self,
         rsrcmgr: PDFResourceManager,
-        outfp: Union[BufferedWriter, BytesIO],
+        outfp: BinaryIO,
         codec: str = "utf-8",
         pageno: int = 1,
         laparams: Optional[LAParams] = None,
@@ -49,10 +49,10 @@ class TextfulXMLConverter(PDFConverter):
 
     def write_header(self):
         if self.codec:
-            codec: str = self.codec
-            self._write('<?xml version="1.0" encoding="%s" ?>\n' % codec)
+            self._write('<?xml version="1.0" encoding="%s" ?>\n' % self.codec)
         else:
             self._write('<?xml version="1.0" ?>\n')
+
         self._write("<pages>\n")
 
     def receive_layout(self, ltpage: LTPage):
@@ -61,55 +61,79 @@ class TextfulXMLConverter(PDFConverter):
     def write_footer(self):
         self._write("</pages>\n")
 
-    # to ignore LTFigure
+    # override to ignore LTFigure
     def begin_figure(self, name, bbox, matrix):
-        return
+        pass
 
-    # to ignore LTFigure
+    # override to ignore LTFigure
     def end_figure(self, name):
-        return
+        pass
 
-    # to ignore LTImage
+    # override to ignore LTImage
     def render_image(self, name, stream):
-        return
+        pass
 
-    # to ignore LTLine, LTRect and LTCurve
+    # override to ignore LTLine, LTRect and LTCurve
     def paint_path(self, graphicstate, stroke, fill, evenodd, path):
-        return
+        pass
 
     # private
     def _render(self, item: Any):
         if isinstance(item, LTPage):
-            pageid: str = item.pageid
-            self._write('<page id="%s">\n' % pageid)
-            for child in item:
-                self._render(child)
-            self._write("</page>\n")
+            self._render_page(item)
         elif isinstance(item, LTTextBox):
-            self._render_styled_text_item(item)
-        elif isinstance(item, LTTextLine):
-            self._render_styled_text_item(item)
-        elif isinstance(item, LTChar):
-            self._render_styled_text_item(item)
+            self._render_textbox(item)
         elif isinstance(item, LTText):
-            text = self._clean_content_text(item.get_text())
-            if text:
-                self._write("<text>")
-                self._write(enc(text))
-                self._write("</text>\n")
+            self._render_text(item)
 
-    def _render_styled_text_item(self, item: Any):
-        state = TextfulState()
+    def _render_page(self, ltpage: LTPage):
+        self._write('<page id="%s">\n' % ltpage.pageid)
+        for child in ltpage:
+            self._render(child)
+        self._write("</page>\n")
 
-        def rec_render_styled_text_item(rec_item: Any):
-            if isinstance(rec_item, LTTextBox) or isinstance(rec_item, LTTextLine):
-                for child in rec_item:
-                    rec_render_styled_text_item(child)
-            else:
-                self._render_styled_char_item(rec_item, state)
+    def _render_textbox(self, lttextbox: LTTextBox):
+        state = TextboxState(False, 0.0, "", "", "")
 
-        def finalize_styled_text_item_rendering():
-            if not state.in_text_section:
+        def render_textbox_child(child: Any):
+            if isinstance(child, LTTextLine):
+                for grandchild in child:
+                    render_textbox_child(grandchild)
+            elif isinstance(child, LTChar):
+                if not state.within_section:
+                    enter_text_section(child)
+                    state.text += child.get_text()
+                elif text_section_continues(child):
+                    state.text += child.get_text()
+                else:
+                    exit_text_section()
+                    enter_text_section(child)
+                    state.text += child.get_text()
+            elif isinstance(child, LTAnno):
+                if not state.within_section:
+                    pass
+                elif text_section_continues(child):
+                    state.text += child.get_text()
+                else:
+                    exit_text_section()
+
+        def enter_text_section(item: Union[LTChar, LTAnno]):
+            state.within_section = True
+            state.size = item.size
+            state.ncolor = item.graphicstate.ncolor
+            state.bbox = bbox2str(item.bbox)
+            state.text = ""
+
+        def text_section_continues(item: Union[LTChar, LTAnno]) -> bool:
+            if isinstance(item, LTAnno):
+                return True
+            return (
+                state.ncolor == item.graphicstate.ncolor
+                and abs(state.size - item.size) < 0.1
+            )
+
+        def exit_text_section():
+            if not state.within_section:
                 return
 
             text = self._clean_content_text(state.text)
@@ -121,51 +145,23 @@ class TextfulXMLConverter(PDFConverter):
                 self._write(enc(text))
                 self._write("</text>\n")
 
-        rec_render_styled_text_item(item)
-        finalize_styled_text_item_rendering()
-
-    def _render_styled_char_item(self, item: Any, state: TextfulState):
-        def enter_text_section():
-            state.in_text_section = True
-            state.size = item.size
-            state.ncolor = item.graphicstate.ncolor
-            state.bbox = bbox2str(item.bbox)
-            state.text = item.get_text()
-
-        def text_section_continues() -> bool:
-            return (
-                isinstance(item, LTChar)
-                and state.ncolor == item.graphicstate.ncolor
-                and abs(state.size - item.size) < 0.1
-            )
-
-        def exit_text_section():
-            text = self._clean_content_text(state.text)
-            if text:
-                self._write(
-                    '<text size="%.3f" ncolor="%s" bbox="%s">'
-                    % (state.size, state.ncolor, state.bbox)
-                )
-                self._write(enc(text))
-                self._write("</text>\n")
-
-            state.in_text_section = False
+            state.within_section = False
             state.size = 0.0
             state.ncolor = ""
             state.bbox = ""
             state.text = ""
 
-        if state.in_text_section:
-            if isinstance(item, LTChar):
-                if text_section_continues():
-                    state.text += item.get_text()
-                else:
-                    exit_text_section()
-                    enter_text_section()
-            elif not isinstance(item, LTAnno):
-                exit_text_section()
-        elif isinstance(item, LTChar):
-            enter_text_section()
+        for child in lttextbox:
+            render_textbox_child(child)
+
+        exit_text_section()
+
+    def _render_text(self, lttext: LTText):
+        text = self._clean_content_text(lttext.get_text())
+        if text:
+            self._write("<text>")
+            self._write(enc(text))
+            self._write("</text>\n")
 
     def _write(self, text: str):
         if self.codec:
