@@ -2,16 +2,11 @@ import re
 from unicodedata import normalize
 from typing import Optional
 
-from py_slides_term.share.consts import (
-    FULLWIDTH_ASCII_CHARS,
-    HALFWIDTH_ASCII_CHARS,
-    NON_SPACE_REGEX,
-)
+from py_slides_term.share.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
 
 ERROR = re.compile(r"[\x00-\x08\x0b-\x0c\x0e-\x1f]|\(cid:\d+\)")
 SPACES = re.compile(r"\s+")
 ASCII_FULL2HALF_TABLE = str.maketrans(FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS)
-NEEDNESS_SPACE = re.compile(rf"(\S*)\s+({NON_SPACE_REGEX})|({NON_SPACE_REGEX})\s+(\S*)")
 
 
 def clean_content_text(
@@ -26,7 +21,6 @@ def clean_content_text(
 
     if nfc_norm:
         text = normalize("NFC", text)
-    text = NEEDNESS_SPACE.sub(r"\1\2", text)
 
     return (
         text
