@@ -38,4 +38,4 @@ def test_mixed_compound_noun(extractor: CandidateTermExtractor):
 
     candidate = candidates[1]
     assert candidate.lang == "ja"
-    assert str(candidate) == "Hoare 理論"
+    assert str(candidate) == "Hoare理論"

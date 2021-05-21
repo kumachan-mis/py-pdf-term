@@ -3,7 +3,10 @@ from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Union
 
 from py_slides_term.tokenizer import Morpheme, Language
-from py_slides_term.share.consts import JAPANESE_REGEX
+from py_slides_term.share.consts import NON_SPACE_REGEX
+
+
+NON_SPACE = re.compile(NON_SPACE_REGEX)
 
 
 LinguSeq = Tuple[Tuple[str, str, str], ...]
@@ -32,19 +35,13 @@ class Term:
         if not num_morphemes:
             return ""
 
-        japanese_regex = re.compile(rf"{JAPANESE_REGEX}*")
-        hyphen_regex = re.compile("-")
-
         term_str = str(self.morphemes[0])
         for i in range(1, num_morphemes):
             prev_morpheme_str = str(self.morphemes[i - 1])
             morpheme_str = str(self.morphemes[i])
             if (
-                japanese_regex.fullmatch(prev_morpheme_str) is None
-                or japanese_regex.fullmatch(morpheme_str) is None
-            ) and (
-                hyphen_regex.fullmatch(prev_morpheme_str) is None
-                and hyphen_regex.fullmatch(morpheme_str) is None
+                NON_SPACE.fullmatch(prev_morpheme_str) is None
+                and NON_SPACE.fullmatch(morpheme_str) is None
             ):
                 term_str += " "
 

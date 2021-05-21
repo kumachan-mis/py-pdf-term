@@ -33,15 +33,15 @@ def test_japanese_forward_repeat_splitter(extractor: CandidateTermExtractor):
 
     candidate = candidates[0]
     assert candidate.lang == "ja"
-    assert str(candidate) == "IP アドレス"
+    assert str(candidate) == "IPアドレス"
 
     candidate = candidates[1]
     assert candidate.lang == "ja"
-    assert str(candidate) == "IP ヘッダ"
+    assert str(candidate) == "IPヘッダ"
 
     candidate = candidates[2]
     assert candidate.lang == "ja"
-    assert str(candidate) == "IP 層"
+    assert str(candidate) == "IP層"
 
 
 def test_japanese_bidirectional_repeat_splitter(extractor: CandidateTermExtractor):
