@@ -37,3 +37,18 @@ def test_mixed_compound_noun(extractor: CandidateTermExtractor):
     candidate = candidates[1]
     assert candidate.lang == "ja"
     assert str(candidate) == "Hoare理論"
+
+
+def test_japanese_symbol(extractor: CandidateTermExtractor):
+    candidates = extractor.extract_from_text("ラムダ計算とラムダ式")
+    assert len(candidates) == 2
+
+    candidate = candidates[0]
+    assert candidate.lang == "ja"
+    assert candidate.morphemes[0].pos == "記号", "test is broken!"
+    assert str(candidate) == "ラムダ計算"
+
+    candidate = candidates[1]
+    assert candidate.lang == "ja"
+    assert candidate.morphemes[0].pos == "記号", "test is broken!"
+    assert str(candidate) == "ラムダ式"
