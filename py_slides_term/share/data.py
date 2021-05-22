@@ -3,10 +3,9 @@ from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Union
 
 from py_slides_term.tokenizer import Morpheme, Language
-from py_slides_term.share.consts import NON_SPACE_REGEX
+from py_slides_term.share.consts import NOSPACE_REGEX
 
-
-NON_SPACE = re.compile(NON_SPACE_REGEX)
+GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
 
 
 LinguSeq = Tuple[Tuple[str, str, str], ...]
@@ -31,23 +30,7 @@ class Term:
         return None
 
     def __str__(self) -> str:
-        num_morphemes = len(self.morphemes)
-        if not num_morphemes:
-            return ""
-
-        term_str = str(self.morphemes[0])
-        for i in range(1, num_morphemes):
-            prev_morpheme_str = str(self.morphemes[i - 1])
-            morpheme_str = str(self.morphemes[i])
-            if (
-                NON_SPACE.fullmatch(prev_morpheme_str) is None
-                and NON_SPACE.fullmatch(morpheme_str) is None
-            ):
-                term_str += " "
-
-            term_str += morpheme_str
-
-        return term_str
+        return GARBAGE_SPACE.sub("", " ".join(map(str, self.morphemes)))
 
     def linguistic_sequence(self) -> LinguSeq:
         return tuple(

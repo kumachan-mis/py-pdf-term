@@ -3,11 +3,11 @@
 # pyright:reportUnknownLambdaType=false
 
 import re
-from .base import BaseLanguageTokenizer
 from typing import List, Any
 
 import en_core_web_sm
 
+from .base import BaseLanguageTokenizer
 from ..data import Morpheme
 from py_slides_term.share.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
@@ -25,7 +25,7 @@ class EnglishTokenizer(BaseLanguageTokenizer):
         return self._en_regex.search(text) is not None
 
     def tokenize(self, text: str) -> List[Morpheme]:
-        return list(map(lambda token: self._create_morpheme(token), self._model(text)))
+        return list(map(self._create_morpheme, self._model(text)))
 
     # private
     def _create_morpheme(self, token: Any) -> Morpheme:
