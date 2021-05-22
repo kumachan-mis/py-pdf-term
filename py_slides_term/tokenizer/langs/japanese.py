@@ -19,7 +19,9 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
         self._model = ja_core_news_sm.load()
-        self._model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
+        self._model.select_pipes(
+            disable=["tok2vec", "parser", "ner", "attribute_ruler"]
+        )
 
         self._ja_regex = re.compile(JAPANESE_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
