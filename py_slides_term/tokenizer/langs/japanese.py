@@ -54,9 +54,9 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         num_morpheme = len(morphemes) + len(orginal_space_pos)
         while i < num_morpheme:
             if pos in orginal_space_pos:
+                pos += len(str(morphemes[i]))
                 space = Morpheme("ja", " ", "空白", "*", "*", "*", "SPACE", " ", False)
                 morphemes.insert(i, space)
-                pos += len(str(morphemes[i]))
                 i += 2
             else:
                 pos += len(str(morphemes[i]))
