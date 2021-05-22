@@ -3,13 +3,16 @@
 # pyright:reportUnknownLambdaType=false
 
 import re
-from .base import BaseLanguageTokenizer
 from typing import List, Any
 
 import ja_core_news_sm
 
+from .base import BaseLanguageTokenizer
 from ..data import Morpheme
-from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX
+from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX, NOSPACE_REGEX
+
+SPACES = re.compile(r"\s+")
+GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
@@ -25,7 +28,38 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         return self._ja_regex.search(text) is not None
 
     def tokenize(self, text: str) -> List[Morpheme]:
-        return list(map(lambda token: self._create_morpheme(token), self._model(text)))
+        text = SPACES.sub(" ", text).strip()
+        org_delim_pos = {
+            match.start() - offset
+            for offset, match in enumerate(GARBAGE_SPACE.finditer(text))
+        }
+
+        text = GARBAGE_SPACE.sub("", text)
+        morphemes = list(map(self._create_morpheme, self._model(text)))
+
+        if not org_delim_pos:
+            return morphemes
+
+        tokenized_text = " ".join(map(str, morphemes))
+        tokenized_delim_pos = {
+            match.start() - offset
+            for offset, match in enumerate(GARBAGE_SPACE.finditer(tokenized_text))
+        }
+
+        if not org_delim_pos.issubset(tokenized_delim_pos):
+            return morphemes
+
+        i, pos, num_morphemes = 0, 0, len(morphemes) + len(org_delim_pos)
+        while i < num_morphemes:
+            pos += len(str(morphemes[i]))
+            if pos not in org_delim_pos:
+                i += 1
+                continue
+            space = Morpheme("ja", " ", "空白", "*", "*", "*", "SPACE", " ", False)
+            morphemes.insert(i + 1, space)
+            i += 2
+
+        return morphemes
 
     # private
     def _create_morpheme(self, token: Any) -> Morpheme:

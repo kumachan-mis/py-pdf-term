@@ -80,3 +80,10 @@ FULLWIDTH_ASCII_CHARS = "".join([chr(code) for code in range(0xFF01, 0xFF5E + 1)
 # Languages
 JAPANESE_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{KANJI_REGEX})"
 ENGLISH_REGEX = rf"(?:{ALPHABET_REGEX})"
+
+# Character requiring non-space between
+NOSPACE_REGEX = (
+    "(?:"
+    + "|".join([HIRAGANA_REGEX, KATAKANA_REGEX, KANJI_REGEX, NUMBER_REGEX, "-"])
+    + ")"
+)
