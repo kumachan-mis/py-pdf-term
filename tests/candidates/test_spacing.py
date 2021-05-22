@@ -34,11 +34,11 @@ def test_meaningful_space_with_space_post_english(extractor: CandidateTermExtrac
     candidates = extractor.extract_from_text("型体系 プログラミング言語 Programming Language")
     assert len(candidates) == 2
 
-    candidate = candidates[1]
+    candidate = candidates[0]
     assert candidate.lang == "ja"
     assert str(candidate) == "型体系"
 
-    candidate = candidates[0]
+    candidate = candidates[1]
     assert candidate.lang == "ja"
     assert str(candidate) == "プログラミング言語Programming Language"
 
