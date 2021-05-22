@@ -16,7 +16,7 @@ class EnglishTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
         self._model = en_core_web_sm.load()
-        self._model.disable_pipes("parser", "ner", "lemmatizer")
+        self._model.select_pipes(disable=["parser", "ner", "lemmatizer"])
 
         self._en_regex = re.compile(ALPHABET_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)

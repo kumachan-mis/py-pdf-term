@@ -21,7 +21,7 @@ class PageTechnicalTermList:
         return cls(page_num, list(map(lambda item: ScoredTerm.from_dict(item), terms)))
 
 
-@dataclass
+@dataclass(frozen=True)
 class PDFTechnicalTermList:
     pdf_path: str
     pages: List[PageTechnicalTermList]

@@ -3,6 +3,7 @@
 # pyright:reportUnknownLambdaType=false
 
 import re
+from itertools import accumulate
 from typing import List, Any
 
 import ja_core_news_sm
@@ -12,14 +13,16 @@ from ..data import Morpheme
 from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX, NOSPACE_REGEX
 
 SPACES = re.compile(r"\s+")
-GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
+DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
         self._model = ja_core_news_sm.load()
-        self._model.disable_pipes("tok2vec", "parser", "ner", "attribute_ruler")
+        self._model.select_pipes(
+            disable=["tok2vec", "parser", "ner", "attribute_ruler"]
+        )
 
         self._ja_regex = re.compile(JAPANESE_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
@@ -29,35 +32,35 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
 
     def tokenize(self, text: str) -> List[Morpheme]:
         text = SPACES.sub(" ", text).strip()
-        org_delim_pos = {
+        orginal_space_pos = {
             match.start() - offset
-            for offset, match in enumerate(GARBAGE_SPACE.finditer(text))
+            for offset, match in enumerate(re.finditer(r" ", text))
+            if DELIM_SPASE.match(text, match.start()) is not None
         }
 
-        text = GARBAGE_SPACE.sub("", text)
+        text = DELIM_SPASE.sub("", text)
         morphemes = list(map(self._create_morpheme, self._model(text)))
 
-        if not org_delim_pos:
+        if not orginal_space_pos:
             return morphemes
 
-        tokenized_text = " ".join(map(str, morphemes))
-        tokenized_delim_pos = {
-            match.start() - offset
-            for offset, match in enumerate(GARBAGE_SPACE.finditer(tokenized_text))
-        }
-
-        if not org_delim_pos.issubset(tokenized_delim_pos):
+        tokenized_space_pos = set(
+            accumulate(map(lambda morpheme: len(str(morpheme)), morphemes))
+        )
+        if not orginal_space_pos.issubset(tokenized_space_pos):
             return morphemes
 
-        i, pos, num_morphemes = 0, 0, len(morphemes) + len(org_delim_pos)
-        while i < num_morphemes:
-            pos += len(str(morphemes[i]))
-            if pos not in org_delim_pos:
+        pos, i = 0, 0
+        num_morpheme = len(morphemes) + len(orginal_space_pos)
+        while i < num_morpheme:
+            if pos in orginal_space_pos:
+                pos += len(str(morphemes[i]))
+                space = Morpheme("ja", " ", "空白", "*", "*", "*", "SPACE", " ", False)
+                morphemes.insert(i, space)
+                i += 2
+            else:
+                pos += len(str(morphemes[i]))
                 i += 1
-                continue
-            space = Morpheme("ja", " ", "空白", "*", "*", "*", "SPACE", " ", False)
-            morphemes.insert(i + 1, space)
-            i += 2
 
         return morphemes
 
