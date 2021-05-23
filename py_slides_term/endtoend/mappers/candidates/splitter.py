@@ -7,7 +7,7 @@ from py_slides_term.candidates import BaseSplitter, SymbolNameSplitter, RepeatSp
 
 class SplitterMapper(BaseMapper[Type[BaseSplitter]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "SplitterMapper":
         default_mapper = cls()
 
         splitter_clses = [SymbolNameSplitter, RepeatSplitter]

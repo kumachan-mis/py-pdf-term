@@ -15,7 +15,7 @@ class PageStylingScoreList:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PageStylingScoreList":
         page_num, ranking = obj["page_num"], obj["ranking"]
         return cls(
             page_num,
@@ -35,7 +35,7 @@ class PDFStylingScoreList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PDFStylingScoreList":
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -55,7 +55,7 @@ class DomainStylingScoreList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "DomainStylingScoreList":
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

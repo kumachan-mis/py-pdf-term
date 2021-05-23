@@ -44,7 +44,7 @@ class PDFtoXMLConverter:
         nfc_norm: bool,
         include_parrern: Optional[str],
         exclude_parrern: Optional[str],
-    ):
+    ) -> None:
         manager = PDFResourceManager()
         laparams = LAParams(char_margin=2.0, line_margin=0.5, word_margin=0.2)
         converter = TextfulXMLConverter(

@@ -6,13 +6,13 @@ MappedValue = TypeVar("MappedValue")
 
 
 class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
-    def __init__(self):
+    def __init__(self) -> None:
         self._map: Dict[str, MappedValue] = dict()
 
-    def add(self, name: str, value: MappedValue):
+    def add(self, name: str, value: MappedValue) -> None:
         self._map[name] = value
 
-    def remove(self, name: str):
+    def remove(self, name: str) -> None:
         del self._map[name]
 
     def find(self, name: str) -> MappedValue:

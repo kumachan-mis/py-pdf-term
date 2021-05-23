@@ -4,7 +4,7 @@ from py_slides_term.share.data import Term
 
 
 class BaseSplitter(metaclass=ABCMeta):
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod

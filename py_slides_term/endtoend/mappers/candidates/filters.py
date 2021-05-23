@@ -20,7 +20,7 @@ from py_slides_term.candidates import (
 
 class CandidateMorphemeFilterMapper(BaseMapper[Type[BaseCandidateMorphemeFilter]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "CandidateMorphemeFilterMapper":
         default_mapper = cls()
 
         morpheme_filter_clses = [JapaneseMorphemeFilter, EnglishMorphemeFilter]
@@ -32,7 +32,7 @@ class CandidateMorphemeFilterMapper(BaseMapper[Type[BaseCandidateMorphemeFilter]
 
 class CandidateTermFilterMapper(BaseMapper[Type[BaseCandidateTermFilter]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "CandidateTermFilterMapper":
         default_mapper = cls()
 
         term_filter_clses = [

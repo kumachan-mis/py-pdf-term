@@ -17,7 +17,7 @@ from py_slides_term.share.data import ScoredTerm
 class StylingScorer:
     def __init__(
         self, styling_score_clses: Optional[List[Type[BaseStylingScore]]] = None
-    ):
+    ) -> None:
         if styling_score_clses is None:
             styling_score_clses = [FontsizeScore, ColorScore]
 

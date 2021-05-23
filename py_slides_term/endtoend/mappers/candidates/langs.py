@@ -11,7 +11,7 @@ from py_slides_term.tokenizer import (
 
 class LanguageTokenizerMapper(BaseMapper[Type[BaseLanguageTokenizer]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "LanguageTokenizerMapper":
         default_mapper = cls()
 
         lang_tokenizer_clses = [JapaneseTokenizer, EnglishTokenizer]

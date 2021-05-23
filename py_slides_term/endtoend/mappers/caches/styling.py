@@ -7,7 +7,7 @@ from ...caches import BaseStylingLayerCache, StylingLayerNoCache, StylingLayerFi
 
 class StylingLayerCacheMapper(BaseMapper[Type[BaseStylingLayerCache]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "StylingLayerCacheMapper":
         default_mapper = cls()
 
         cache_clses = [StylingLayerNoCache, StylingLayerFileCache]

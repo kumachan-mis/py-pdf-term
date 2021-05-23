@@ -25,7 +25,7 @@ class FilterCombiner:
         self,
         morpheme_filters: Optional[List[BaseCandidateMorphemeFilter]] = None,
         term_filters: Optional[List[BaseCandidateTermFilter]] = None,
-    ):
+    ) -> None:
         if morpheme_filters is None:
             morpheme_filters = [
                 JapaneseMorphemeFilter(),

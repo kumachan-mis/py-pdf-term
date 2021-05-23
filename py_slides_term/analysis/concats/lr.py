@@ -26,7 +26,7 @@ class DomainLeftRightFrequency:
 
 
 class TermLeftRightFrequencyAnalyzer:
-    def __init__(self, ignore_augmented: bool = True):
+    def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
@@ -40,7 +40,7 @@ class TermLeftRightFrequencyAnalyzer:
             pdf_id: int,
             page_num: int,
             candidate: Term,
-        ):
+        ) -> None:
             num_morphemes = len(candidate.morphemes)
             for i in range(num_morphemes):
                 morpheme = candidate.morphemes[i]
@@ -62,7 +62,7 @@ class TermLeftRightFrequencyAnalyzer:
 
     def _update_left_freq(
         self, lrfreq: DomainLeftRightFrequency, candidate: Term, idx: int
-    ):
+    ) -> None:
         morpheme = candidate.morphemes[idx]
 
         if idx == 0:
@@ -85,7 +85,7 @@ class TermLeftRightFrequencyAnalyzer:
 
     def _update_right_freq(
         self, lrfreq: DomainLeftRightFrequency, candidate: Term, idx: int
-    ):
+    ) -> None:
         num_morphemes = len(candidate.morphemes)
         morpheme = candidate.morphemes[idx]
 

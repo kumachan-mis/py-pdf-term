@@ -28,7 +28,7 @@ class HITSAuthHubData:
 
 
 class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
-    def __init__(self, threshold: float = 1e-8):
+    def __init__(self, threshold: float = 1e-8) -> None:
         self._threshold = threshold
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()

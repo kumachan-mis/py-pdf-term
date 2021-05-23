@@ -7,7 +7,7 @@ from ...caches import BaseXMLLayerCache, XMLLayerNoCache, XMLLayerFileCache
 
 class XMLLayerCacheMapper(BaseMapper[Type[BaseXMLLayerCache]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "XMLLayerCacheMapper":
         default_mapper = cls()
 
         cache_clses = [XMLLayerNoCache, XMLLayerFileCache]

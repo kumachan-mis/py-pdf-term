@@ -15,7 +15,7 @@ class SingleDomainRankingMethodMapper(
     BaseMapper[Type[BaseSingleDomainRankingMethod[Any]]]
 ):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "SingleDomainRankingMethodMapper":
         default_mapper = cls()
 
         single_domain_clses = [MCValueMethod, FLRMethod, HITSMethod, FLRHMethod]

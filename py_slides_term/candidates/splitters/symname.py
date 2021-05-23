@@ -7,7 +7,7 @@ from py_slides_term.share.consts import ALPHABET_REGEX, NUMBER_REGEX
 
 
 class SymbolNameSplitter(BaseSplitter):
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def split(self, term: Term) -> List[Term]:

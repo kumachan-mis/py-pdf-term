@@ -5,7 +5,7 @@ from py_slides_term.share.data import Term
 
 
 class BaseStylingScore(metaclass=ABCMeta):
-    def __init__(self, page_candidates: PageCandidateTermList):
+    def __init__(self, page_candidates: PageCandidateTermList) -> None:
         pass
 
     @abstractmethod

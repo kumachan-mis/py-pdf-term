@@ -11,7 +11,7 @@ from py_slides_term.pdftoxml import PDFnXMLElement
 
 
 class XMLLayerFileCache(BaseXMLLayerCache):
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
 
         self._cache_dir = cache_dir
 

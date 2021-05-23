@@ -6,7 +6,7 @@ from py_slides_term.share.data import Term
 
 
 class AugmenterCombiner:
-    def __init__(self, augmenters: Optional[List[BaseAugmenter]] = None):
+    def __init__(self, augmenters: Optional[List[BaseAugmenter]] = None) -> None:
         if augmenters is None:
             augmenters = [
                 JapaneseModifyingParticleAugmenter(),

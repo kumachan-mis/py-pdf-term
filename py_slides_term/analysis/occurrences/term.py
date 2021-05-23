@@ -31,7 +31,7 @@ class _DomainTermOccurrence:
 
 
 class TermOccurrenceAnalyzer:
-    def __init__(self, ignore_augmented: bool = True):
+    def __init__(self, ignore_augmented: bool = True) -> None:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
@@ -46,7 +46,7 @@ class TermOccurrenceAnalyzer:
             pdf_id: int,
             page_num: int,
             subcandidate: Term,
-        ):
+        ) -> None:
             subcandidate_lemma = subcandidate.lemma()
             if subcandidate_lemma not in domain_candidates_set:
                 return

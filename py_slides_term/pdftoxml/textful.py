@@ -38,7 +38,7 @@ class TextfulXMLConverter(PDFConverter):
         nfc_norm: bool = True,
         include_pattern: Optional[str] = None,
         exclude_parrern: Optional[str] = None,
-    ):
+    ) -> None:
         PDFConverter.__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
 
         def _clean_content_text(text: str) -> str:
@@ -46,7 +46,7 @@ class TextfulXMLConverter(PDFConverter):
 
         self._clean_content_text = _clean_content_text
 
-    def write_header(self):
+    def write_header(self) -> None:
         if self.codec:
             self._write('<?xml version="1.0" encoding="%s" ?>\n' % self.codec)
         else:
@@ -54,29 +54,29 @@ class TextfulXMLConverter(PDFConverter):
 
         self._write("<pages>\n")
 
-    def receive_layout(self, ltpage: LTPage):
+    def receive_layout(self, ltpage: LTPage) -> None:
         self._render(ltpage)
 
-    def write_footer(self):
+    def write_footer(self) -> None:
         self._write("</pages>\n")
 
     # override to ignore LTFigure
-    def begin_figure(self, name, bbox, matrix):
+    def begin_figure(self, name, bbox, matrix) -> None:
         pass
 
     # override to ignore LTFigure
-    def end_figure(self, name):
+    def end_figure(self, name) -> None:
         pass
 
     # override to ignore LTImage
-    def render_image(self, name, stream):
+    def render_image(self, name, stream) -> None:
         pass
 
     # override to ignore LTLine, LTRect and LTCurve
-    def paint_path(self, graphicstate, stroke, fill, evenodd, path):
+    def paint_path(self, graphicstate, stroke, fill, evenodd, path) -> None:
         pass
 
-    def _render(self, item: Any):
+    def _render(self, item: Any) -> None:
         if isinstance(item, LTPage):
             self._render_page(item)
         elif isinstance(item, LTTextBox):
@@ -84,16 +84,16 @@ class TextfulXMLConverter(PDFConverter):
         elif isinstance(item, LTText):
             self._render_text(item)
 
-    def _render_page(self, ltpage: LTPage):
+    def _render_page(self, ltpage: LTPage) -> None:
         self._write('<page id="%s">\n' % ltpage.pageid)
         for child in ltpage:
             self._render(child)
         self._write("</page>\n")
 
-    def _render_textbox(self, lttextbox: LTTextBox):
+    def _render_textbox(self, lttextbox: LTTextBox) -> None:
         state = TextboxState(False, 0.0, "", "", "")
 
-        def render_textbox_child(child: Any):
+        def render_textbox_child(child: Any) -> None:
             if isinstance(child, LTTextLine):
                 for grandchild in child:
                     render_textbox_child(grandchild)
@@ -115,7 +115,7 @@ class TextfulXMLConverter(PDFConverter):
                 else:
                     exit_text_section()
 
-        def enter_text_section(item: Union[LTChar, LTAnno]):
+        def enter_text_section(item: Union[LTChar, LTAnno]) -> None:
             state.within_section = True
             state.size = item.size
             state.ncolor = item.graphicstate.ncolor
@@ -130,7 +130,7 @@ class TextfulXMLConverter(PDFConverter):
                 and abs(state.size - item.size) < 0.1
             )
 
-        def exit_text_section():
+        def exit_text_section() -> None:
             if not state.within_section:
                 return
 
@@ -154,14 +154,14 @@ class TextfulXMLConverter(PDFConverter):
 
         exit_text_section()
 
-    def _render_text(self, lttext: LTText):
+    def _render_text(self, lttext: LTText) -> None:
         text = self._clean_content_text(lttext.get_text())
         if text:
             self._write("<text>")
             self._write(enc(text))
             self._write("</text>\n")
 
-    def _write(self, text: str):
+    def _write(self, text: str) -> None:
         if self.codec:
             text = text.encode(self.codec)
         self.outfp.write(text)

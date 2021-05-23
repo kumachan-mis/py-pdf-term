@@ -6,7 +6,7 @@ from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_RE
 
 
 class BaseCandidateTermFilter(metaclass=ABCMeta):
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod

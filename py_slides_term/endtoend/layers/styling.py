@@ -15,7 +15,7 @@ class StylingLayer:
         styling_score_mapper: Optional[StylingScoreMapper] = None,
         cache_mapper: Optional[StylingLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
-    ):
+    ) -> None:
         if config is None:
             config = StylingLayerConfig()
         if styling_score_mapper is None:
@@ -46,5 +46,5 @@ class StylingLayer:
 
         return styling_scores
 
-    def remove_cache(self, pdf_path: str):
+    def remove_cache(self, pdf_path: str) -> None:
         self._cache.remove(pdf_path, self._config)

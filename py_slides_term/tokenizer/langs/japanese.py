@@ -17,7 +17,7 @@ DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
-    def __init__(self):
+    def __init__(self) -> None:
         enable_pipes = []
         self._model = ja_core_news_sm.load()
         self._model.select_pipes(enable=enable_pipes)

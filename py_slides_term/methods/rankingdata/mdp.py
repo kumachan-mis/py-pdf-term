@@ -15,5 +15,5 @@ class MDPRankingData(BaseRankingData):
     # brute force counting of all lemmatized terms occurrences in the domain
     # count even if the lemmatized term occurs as a part of a lemmatized phrase
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(self, "num_terms", sum(self.term_freq.values()))

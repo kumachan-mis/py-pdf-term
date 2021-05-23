@@ -9,7 +9,7 @@ from py_slides_term.share.data import Term
 
 
 class RepeatSplitter(BaseSplitter):
-    def __init__(self):
+    def __init__(self) -> None:
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
 

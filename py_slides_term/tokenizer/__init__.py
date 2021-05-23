@@ -4,7 +4,7 @@ from .classifiers import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
-from .data import Morpheme, Language
+from .data import Morpheme
 
 __all__ = [
     "Tokenizer",
@@ -14,5 +14,4 @@ __all__ = [
     "JapaneseMorphemeClassifier",
     "EnglishMorphemeClassifier",
     "Morpheme",
-    "Language",
 ]

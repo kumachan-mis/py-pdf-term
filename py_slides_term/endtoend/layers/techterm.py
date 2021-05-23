@@ -15,7 +15,7 @@ class TechnicalTermLayer:
         method_layer: MethodLayer,
         styling_layer: StylingLayer,
         config: Optional[TechnicalTermLayerConfig] = None,
-    ):
+    ) -> None:
         if config is None:
             config = TechnicalTermLayerConfig()
 

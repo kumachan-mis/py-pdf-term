@@ -12,7 +12,7 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
-    def __init__(self):
+    def __init__(self) -> None:
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
 

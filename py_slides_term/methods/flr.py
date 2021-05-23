@@ -7,7 +7,7 @@ from .rankers import FLRRanker
 
 
 class FLRMethod(BaseSingleDomainRankingMethod[FLRRankingData]):
-    def __init__(self):
+    def __init__(self) -> None:
         collector = FLRRankingDataCollector()
         ranker = FLRRanker()
         super().__init__(collector, ranker)

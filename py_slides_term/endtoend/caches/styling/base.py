@@ -6,7 +6,7 @@ from py_slides_term.stylings import PDFStylingScoreList
 
 
 class BaseStylingLayerCache(metaclass=ABCMeta):
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
         pass
 
     @abstractmethod

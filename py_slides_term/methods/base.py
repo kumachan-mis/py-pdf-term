@@ -13,7 +13,7 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         self,
         data_collector: BaseRankingDataCollector[RankingData],
         ranker: BaseSingleDomainRanker[RankingData],
-    ):
+    ) -> None:
         self._data_collector = data_collector
         self._ranker = ranker
 
@@ -42,7 +42,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         self,
         data_collector: BaseRankingDataCollector[RankingData],
         ranker: BaseMultiDomainRanker[RankingData],
-    ):
+    ) -> None:
         self._data_collector = data_collector
         self._ranker = ranker
 

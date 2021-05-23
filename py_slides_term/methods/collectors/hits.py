@@ -8,7 +8,7 @@ from py_slides_term.analysis import (
 
 
 class HITSRankingDataCollector(BaseRankingDataCollector[HITSRankingData]):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()
         self._lrfreq_analyzer = TermLeftRightFrequencyAnalyzer()

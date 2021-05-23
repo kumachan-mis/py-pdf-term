@@ -7,7 +7,7 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def rank_terms(

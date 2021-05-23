@@ -14,7 +14,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         self,
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ):
+    ) -> None:
         self._tfmode = tfmode
         self._idfmode = idfmode
 

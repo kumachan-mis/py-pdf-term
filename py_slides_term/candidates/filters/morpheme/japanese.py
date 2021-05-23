@@ -7,7 +7,7 @@ from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_RE
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
-    def __init__(self):
+    def __init__(self) -> None:
         self._regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
         self._classifier = JapaneseMorphemeClassifier()
 

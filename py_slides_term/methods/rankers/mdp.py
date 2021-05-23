@@ -9,7 +9,9 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
-    def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
+    def __init__(
+        self, compile_scores: Callable[[Iterable[float]], float] = min
+    ) -> None:
         self._compile_scores = compile_scores
 
     def rank_terms(

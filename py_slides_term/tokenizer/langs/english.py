@@ -13,7 +13,7 @@ from py_slides_term.share.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):
-    def __init__(self):
+    def __init__(self) -> None:
         enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
         self._model = en_core_web_sm.load()
         self._model.select_pipes(enable=enable_pipes)

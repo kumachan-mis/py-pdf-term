@@ -7,7 +7,7 @@ AnalysisResult = TypeVar("AnalysisResult")
 
 
 class AnalysisRunner:
-    def __init__(self, ignore_augmented: bool = True):
+    def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
 
     def run_through_candidates(

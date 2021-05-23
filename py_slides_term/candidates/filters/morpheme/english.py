@@ -7,7 +7,7 @@ from py_slides_term.share.consts import ENGLISH_REGEX, NUMBER_REGEX
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
-    def __init__(self):
+    def __init__(self) -> None:
         self._regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX})+")
 
     def inscope(self, morpheme: Morpheme) -> bool:
