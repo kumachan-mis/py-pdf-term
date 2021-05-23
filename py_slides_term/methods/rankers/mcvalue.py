@@ -16,7 +16,9 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
         domain_candidates: DomainCandidateTermList,
         ranking_data: MCValueRankingData,
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
+            to_str=lambda candidate: candidate.lemma()
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(candidate, ranking_data),
@@ -30,10 +32,10 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
     def _calculate_score(
         self, candidate: Term, ranking_data: MCValueRankingData
     ) -> ScoredTerm:
-        candidate_str = str(candidate)
+        candidate_lemma = candidate.lemma()
 
-        term_freq = ranking_data.term_freq.get(candidate_str, 0)
-        container_terms = ranking_data.container_terms.get(candidate_str, set())
+        term_freq = ranking_data.term_freq.get(candidate_lemma, 0)
+        container_terms = ranking_data.container_terms.get(candidate_lemma, set())
         num_containers = len(container_terms)
         container_freq = sum(
             map(
@@ -49,4 +51,4 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
             else term_freq
         )
         score = term_len_score + freq_score
-        return ScoredTerm(candidate_str, score)
+        return ScoredTerm(candidate_lemma, score)

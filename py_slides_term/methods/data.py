@@ -8,6 +8,8 @@ from py_slides_term.share.data import ScoredTerm
 class MethodTermRanking:
     domain: str
     ranking: List[ScoredTerm]
+    # list of pairs of lemmatized term and method score
+    # the list is sorted by the score in descending order
 
     def to_dict(self) -> Dict[str, Any]:
         return {

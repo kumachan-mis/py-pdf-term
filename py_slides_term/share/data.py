@@ -32,6 +32,16 @@ class Term:
     def __str__(self) -> str:
         return GARBAGE_SPACE.sub("", " ".join(map(str, self.morphemes)))
 
+    def surface_form(self) -> str:
+        return GARBAGE_SPACE.sub(
+            "", " ".join(map(lambda morpheme: morpheme.surface_form, self.morphemes))
+        )
+
+    def lemma(self) -> str:
+        return GARBAGE_SPACE.sub(
+            "", " ".join(map(lambda morpheme: morpheme.lemma, self.morphemes))
+        )
+
     def linguistic_sequence(self) -> LinguSeq:
         return tuple(
             (morpheme.pos, morpheme.category, morpheme.subcategory)

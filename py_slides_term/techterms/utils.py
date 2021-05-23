@@ -1,12 +1,6 @@
-from typing import List, Dict, Optional, TypeVar
+from typing import List, Dict, Optional
 
 from .data import ScoredTerm
-
-__T = TypeVar("__T")
-
-
-def list_remove_dup(__ls: List[__T]) -> List[__T]:
-    return [e for i, e in enumerate(__ls) if i == __ls.index(e)]
 
 
 def ranking_to_dict(

@@ -24,7 +24,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[TFIDFRankingData],
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict()
         ranking_data = next(
             filter(
                 lambda item: item.domain == domain_candidates.domain,
@@ -49,12 +49,12 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         ranking_data: TFIDFRankingData,
         ranking_data_list: List[TFIDFRankingData],
     ) -> ScoredTerm:
-        candidate_str = str(candidate)
+        candidate_lemma = candidate.lemma()
 
-        tf = self._calculate_tf(candidate_str, ranking_data, ranking_data_list)
-        idf = self._calculate_idf(candidate_str, ranking_data, ranking_data_list)
+        tf = self._calculate_tf(candidate_lemma, ranking_data, ranking_data_list)
+        idf = self._calculate_idf(candidate_lemma, ranking_data, ranking_data_list)
         score = extended_log10(tf * idf)
-        return ScoredTerm(candidate_str, score)
+        return ScoredTerm(candidate_lemma, score)
 
     def _calculate_tf(
         self,

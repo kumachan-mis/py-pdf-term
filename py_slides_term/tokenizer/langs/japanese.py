@@ -19,10 +19,9 @@ DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 class JapaneseTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
+        enable_pipes = []
         self._model = ja_core_news_sm.load()
-        self._model.select_pipes(
-            disable=["tok2vec", "parser", "ner", "attribute_ruler"]
-        )
+        self._model.select_pipes(enable=enable_pipes)
 
         self._ja_regex = re.compile(JAPANESE_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
@@ -55,7 +54,18 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         while i < num_morpheme:
             if pos in orginal_space_pos:
                 pos += len(str(morphemes[i]))
-                space = Morpheme("ja", " ", "空白", "*", "*", "*", "SPACE", " ", False)
+                space = Morpheme(
+                    "ja",
+                    " ",
+                    "空白",
+                    "*",
+                    "*",
+                    "*",
+                    "SPACE",
+                    " ",
+                    " ",
+                    False,
+                )
                 morphemes.insert(i, space)
                 i += 2
             else:
@@ -68,7 +78,16 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     def _create_morpheme(self, token: Any) -> Morpheme:
         if self._symbol_regex.fullmatch(token.text):
             return Morpheme(
-                "ja", token.text, "補助記号", "一般", "*", "*", "SYM", token.text, False
+                "ja",
+                token.text,
+                "補助記号",
+                "一般",
+                "*",
+                "*",
+                "SYM",
+                token.text,
+                token.text,
+                False,
             )
 
         pos_with_categories = token.tag_.split("-")
@@ -87,6 +106,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
             subcategory,
             subsubcategory,
             token.pos_,
+            token.lemma_.lower(),
             token.shape_,
             token.is_stop,
         )

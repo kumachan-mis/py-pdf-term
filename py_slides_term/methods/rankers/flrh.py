@@ -32,7 +32,9 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
         )
 
         auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
+            to_str=lambda candidate: candidate.lemma()
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(
@@ -52,8 +54,9 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
         hits_ranking_data: HITSRankingData,
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:
+        candidate_lemma = candidate.lemma()
         flr_score = self._flr_ranker._calculate_score(candidate, flr_ranking_data).score
         hits_score = self._hits_ranker._calculate_score(
             candidate, hits_ranking_data, auth_hub_data
         ).score
-        return ScoredTerm(str(candidate), flr_score + hits_score)
+        return ScoredTerm(candidate_lemma, flr_score + hits_score)

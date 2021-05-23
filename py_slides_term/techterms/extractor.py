@@ -4,7 +4,7 @@ from .data import (
     PDFTechnicalTermList,
     PageTechnicalTermList,
 )
-from .utils import list_remove_dup, ranking_to_dict
+from .utils import ranking_to_dict
 from py_slides_term.candidates import (
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -84,18 +84,20 @@ class TechnicalTermExtractor:
         method_score_dict = self._cache
         styling_score_dict = ranking_to_dict(page_styling_scores.ranking)
 
-        def term_score(term: str) -> float:
-            method_score = method_score_dict[term]
-            styling_score = styling_score_dict[term]
+        def term_score(term_lemma: str) -> float:
+            method_score = method_score_dict[term_lemma]
+            styling_score = styling_score_dict[term_lemma]
             if method_score >= 0.0:
                 return method_score * styling_score
             else:
                 return method_score / styling_score
 
         scored_terms = [
-            ScoredTerm(term, term_score(term))
-            for term in list_remove_dup(list(map(str, page_candidates.candidates)))
-            if term in method_score_dict and term in styling_score_dict
+            ScoredTerm(str(term), term_score(term_lemma))
+            for term_lemma, term in page_candidates.to_nostyle_candidates_dict(
+                to_str=lambda term: term.lemma()
+            ).items()
+            if term_lemma in method_score_dict and term_lemma in styling_score_dict
         ]
 
         if len(scored_terms) > self._max_num_terms:
