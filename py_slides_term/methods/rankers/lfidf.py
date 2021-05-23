@@ -23,7 +23,9 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[LFIDFRankingData],
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
+            to_str=lambda candidate: candidate.lemma()
+        )
         ranking_data = next(
             filter(
                 lambda item: item.domain == domain_candidates.domain,
@@ -47,13 +49,13 @@ class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
         ranking_data: LFIDFRankingData,
         ranking_data_list: List[LFIDFRankingData],
     ) -> ScoredTerm:
-        candidate_str = str(candidate)
+        candidate_lemma = candidate.lemma()
         lingu_seq = candidate.linguistic_sequence()
 
         lf = self._calculate_lf(lingu_seq, ranking_data, ranking_data_list)
         idf = self._calculate_idf(lingu_seq, ranking_data, ranking_data_list)
         score = log10(lf * idf + 1.0)
-        return ScoredTerm(candidate_str, score)
+        return ScoredTerm(candidate_lemma, score)
 
     def _calculate_lf(
         self,

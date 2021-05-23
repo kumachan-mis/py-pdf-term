@@ -45,7 +45,7 @@ class StylingScorer:
         self, page_candidates: PageCandidateTermList
     ) -> PageStylingScoreList:
         styling_scores: Dict[str, float] = {
-            str(candidate): 1.0 for candidate in page_candidates.candidates
+            candidate.lemma(): 1.0 for candidate in page_candidates.candidates
         }
 
         for styling_score_cls in self._styling_score_clses:
@@ -53,13 +53,13 @@ class StylingScorer:
 
             scores: Dict[str, float] = dict()
             for candidate in page_candidates.candidates:
-                candidate_str = str(candidate)
+                candidate_lemma = candidate.lemma()
                 score = styling_score.calculate_score(candidate)
-                if candidate_str not in scores or score > scores[candidate_str]:
-                    scores[candidate_str] = score
+                if candidate_lemma not in scores or score > scores[candidate_lemma]:
+                    scores[candidate_lemma] = score
 
-            for candidate_str in styling_scores:
-                styling_scores[candidate_str] *= scores[candidate_str]
+            for candidate_lemma in styling_scores:
+                styling_scores[candidate_lemma] *= scores[candidate_lemma]
 
         ranking = list(map(lambda item: ScoredTerm(*item), styling_scores.items()))
         ranking.sort(key=lambda scored_term: -scored_term.score)

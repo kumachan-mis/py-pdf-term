@@ -15,8 +15,9 @@ from py_slides_term.share.consts import ALPHABET_REGEX, SYMBOL_REGEX
 class EnglishTokenizer(BaseLanguageTokenizer):
     # public
     def __init__(self):
+        enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
         self._model = en_core_web_sm.load()
-        self._model.select_pipes(disable=["parser", "ner", "lemmatizer"])
+        self._model.select_pipes(enable=enable_pipes)
 
         self._en_regex = re.compile(ALPHABET_REGEX)
         self._symbol_regex = re.compile(SYMBOL_REGEX)
@@ -31,7 +32,16 @@ class EnglishTokenizer(BaseLanguageTokenizer):
     def _create_morpheme(self, token: Any) -> Morpheme:
         if self._symbol_regex.fullmatch(token.text):
             return Morpheme(
-                "en", token.text, "SYM", "*", "*", "*", "SYM", token.text, False
+                "en",
+                token.text,
+                "SYM",
+                "*",
+                "*",
+                "*",
+                "SYM",
+                token.text,
+                token.text,
+                False,
             )
 
         return Morpheme(
@@ -42,6 +52,7 @@ class EnglishTokenizer(BaseLanguageTokenizer):
             "*",
             "*",
             token.pos_,
+            token.lemma_.lower(),
             token.shape_,
             token.is_stop,
         )

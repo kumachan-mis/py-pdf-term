@@ -18,7 +18,9 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         domain_candidates: DomainCandidateTermList,
         ranking_data_list: List[MDPRankingData],
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
+            to_str=lambda candidate: candidate.lemma()
+        )
         ranking_data = next(
             filter(
                 lambda item: item.domain == domain_candidates.domain,
@@ -49,6 +51,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         ranking_data: MDPRankingData,
         other_ranking_data_list: List[MDPRankingData],
     ) -> ScoredTerm:
+        candidate_lemma = candidate.lemma()
         score = self._compile_scores(
             map(
                 lambda other_ranking_data: self._calculate_zvalue(
@@ -58,7 +61,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
             )
         )
 
-        return ScoredTerm(str(candidate), score)
+        return ScoredTerm(candidate_lemma, score)
 
     def _calculate_zvalue(
         self,
@@ -66,10 +69,10 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         our_ranking_data: MDPRankingData,
         their_ranking_data: MDPRankingData,
     ) -> float:
-        candidate_str = str(candidate)
+        candidate_lemma = candidate.lemma()
 
-        our_term_freq = our_ranking_data.term_freq.get(candidate_str, 0)
-        their_term_freq = their_ranking_data.term_freq.get(candidate_str, 0)
+        our_term_freq = our_ranking_data.term_freq.get(candidate_lemma, 0)
+        their_term_freq = their_ranking_data.term_freq.get(candidate_lemma, 0)
 
         our_inum_terms = 1 / our_ranking_data.num_terms
         their_inum_terms = 1 / their_ranking_data.num_terms

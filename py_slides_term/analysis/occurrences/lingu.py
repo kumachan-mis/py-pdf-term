@@ -12,10 +12,10 @@ class DomainLinguOccurrence:
     # unique domain name
     lingu_freq: Dict[LinguSeq, int]
     # brute force counting of linguistic sequence occurrences in the domain
-    # count even if the term occurs as a part of a phrase
+    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     doc_lingu_freq: Dict[LinguSeq, int]
     # number of documents in the domain that contain the linguistic sequence
-    # count even if the term occurs as a part of a phrase
+    # count even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 @dataclass(frozen=True)
@@ -24,10 +24,10 @@ class _DomainLinguOccurrence:
     # unique domain name
     lingu_freq: Dict[LinguSeq, int]
     # brute force counting of linguistic sequence occurrences in the domain
-    # count even if the term occurs as a part of a phrase
+    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     doc_lingu_set: Dict[LinguSeq, Set[int]]
     # set of document IDs in the domain that contain the linguistic sequence
-    # add even if the term occurs as a part of a phrase
+    # add even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 class LinguOccurrenceAnalyzer:
@@ -38,7 +38,9 @@ class LinguOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainLinguOccurrence:
-        domain_candidates_set = domain_candidates.to_term_str_set()
+        domain_candidates_set = domain_candidates.to_candidates_str_set(
+            lambda candidate: candidate.lemma()
+        )
 
         def update(
             lingu_occ: _DomainLinguOccurrence,
@@ -46,7 +48,7 @@ class LinguOccurrenceAnalyzer:
             page_num: int,
             subcandidate: Term,
         ):
-            if str(subcandidate) not in domain_candidates_set:
+            if subcandidate.lemma() not in domain_candidates_set:
                 return
             sub_lingu_seq = subcandidate.linguistic_sequence()
             lingu_occ.lingu_freq[sub_lingu_seq] = (

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Set, Dict, Any
+from typing import List, Set, Dict, Any, Callable
 
 from py_slides_term.share.data import Term
 
@@ -9,14 +9,19 @@ class PageCandidateTermList:
     page_num: int
     candidates: List[Term]
 
-    def to_nostyle_term_dict(self) -> Dict[str, Term]:
-        return {
-            str(candidate): Term(candidate.morphemes, 0.0, "", False)
-            for candidate in self.candidates
-        }
+    def to_nostyle_candidates_dict(
+        self, to_str: Callable[[Term], str] = str
+    ) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
+        for candidate in self.candidates:
+            candidate_str = to_str(candidate)
+            if candidate_str in term_dict:
+                continue
+            term_dict[candidate_str] = Term(candidate.morphemes, 0.0, "", False)
+        return term_dict
 
-    def to_term_str_set(self) -> Set[str]:
-        return {str(candidate) for candidate in self.candidates}
+    def to_candidates_str_set(self, to_str: Callable[[Term], str] = str) -> Set[str]:
+        return {to_str(candidate) for candidate in self.candidates}
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -38,16 +43,23 @@ class PDFCandidateTermList:
     pdf_path: str
     pages: List[PageCandidateTermList]
 
-    def to_nostyle_term_dict(self) -> Dict[str, Term]:
-        return {
-            candidate_str: candidate
-            for page in self.pages
-            for candidate_str, candidate in page.to_nostyle_term_dict().items()
-        }
+    def to_nostyle_candidates_dict(
+        self, to_str: Callable[[Term], str] = str
+    ) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
+        for page in self.pages:
+            candidate_items = page.to_nostyle_candidates_dict(to_str).items()
+            for candidate_str, candidate in candidate_items:
+                if candidate_str in term_dict:
+                    continue
+                term_dict[candidate_str] = candidate
+        return term_dict
 
-    def to_term_str_set(self) -> Set[str]:
+    def to_candidates_str_set(self, to_str: Callable[[Term], str] = str) -> Set[str]:
         empty: Set[str] = set()
-        return empty.union(*map(lambda page: page.to_term_str_set(), self.pages))
+        return empty.union(
+            *map(lambda page: page.to_candidates_str_set(to_str), self.pages)
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -69,16 +81,23 @@ class DomainCandidateTermList:
     domain: str
     pdfs: List[PDFCandidateTermList]
 
-    def to_nostyle_term_dict(self) -> Dict[str, Term]:
-        return {
-            candidate_str: candidate
-            for pdf in self.pdfs
-            for candidate_str, candidate in pdf.to_nostyle_term_dict().items()
-        }
+    def to_nostyle_candidates_dict(
+        self, to_str: Callable[[Term], str] = str
+    ) -> Dict[str, Term]:
+        term_dict: Dict[str, Term] = dict()
+        for pdf in self.pdfs:
+            candidate_items = pdf.to_nostyle_candidates_dict(to_str).items()
+            for candidate_str, candidate in candidate_items:
+                if candidate_str in term_dict:
+                    continue
+                term_dict[candidate_str] = candidate
+        return term_dict
 
-    def to_term_str_set(self) -> Set[str]:
+    def to_candidates_str_set(self, to_str: Callable[[Term], str] = str) -> Set[str]:
         empty: Set[str] = set()
-        return empty.union(*map(lambda pdf: pdf.to_term_str_set(), self.pdfs))
+        return empty.union(
+            *map(lambda pdf: pdf.to_candidates_str_set(to_str), self.pdfs)
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         return {

@@ -8,6 +8,8 @@ from py_slides_term.share.data import ScoredTerm
 class PageStylingScoreList:
     page_num: int
     ranking: List[ScoredTerm]
+    # list of pairs of lemmatized term and styling score
+    # the list is sorted by the score in descending order
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

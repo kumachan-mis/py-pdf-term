@@ -16,11 +16,11 @@ class DomainLeftRightFrequency:
     domain: str
     # unique domain name
     left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (left, morpheme) in the domain
+    # number of occurrences of lemmatized (left, morpheme) in the domain
     # if morpheme or left is meaningless (a modifying particle or a symbol),
     # this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of (morpheme, right) in the domain
+    # number of occurrences of lemmatized (morpheme, right) in the domain
     # if morpheme or right is meaningless (a modifying particle or a symbol),
     # this is fixed at zero
 
@@ -45,10 +45,9 @@ class TermLeftRightFrequencyAnalyzer:
             num_morphemes = len(candidate.morphemes)
             for i in range(num_morphemes):
                 morpheme = candidate.morphemes[i]
-                morpheme_str = str(morpheme)
                 if self._is_meaningless_morpheme(morpheme):
-                    lrfreq.left_freq[morpheme_str] = dict()
-                    lrfreq.right_freq[morpheme_str] = dict()
+                    lrfreq.left_freq[morpheme.lemma] = dict()
+                    lrfreq.right_freq[morpheme.lemma] = dict()
                     continue
 
                 self._update_left_freq(lrfreq, candidate, i)
@@ -66,54 +65,48 @@ class TermLeftRightFrequencyAnalyzer:
         self, lrfreq: DomainLeftRightFrequency, candidate: Term, idx: int
     ):
         morpheme = candidate.morphemes[idx]
-        morpheme_str = str(morpheme)
 
         if idx == 0:
-            left = lrfreq.left_freq.get(morpheme_str, dict())
-            lrfreq.left_freq[morpheme_str] = left
+            left = lrfreq.left_freq.get(morpheme.lemma, dict())
+            lrfreq.left_freq[morpheme.lemma] = left
             return
 
         left_morpheme = candidate.morphemes[idx - 1]
-        left_morpheme_str = str(left_morpheme)
-
         if not self._is_meaningless_morpheme(left_morpheme):
-            left = lrfreq.left_freq.get(morpheme_str, dict())
-            left[left_morpheme_str] = left.get(left_morpheme_str, 0) + 1
-            lrfreq.left_freq[morpheme_str] = left
+            left = lrfreq.left_freq.get(morpheme.lemma, dict())
+            left[left_morpheme.lemma] = left.get(left_morpheme.lemma, 0) + 1
+            lrfreq.left_freq[morpheme.lemma] = left
 
-            right = lrfreq.right_freq.get(left_morpheme_str, dict())
-            right[morpheme_str] = right.get(morpheme_str, 0) + 1
-            lrfreq.right_freq[left_morpheme_str] = right
+            right = lrfreq.right_freq.get(left_morpheme.lemma, dict())
+            right[morpheme.lemma] = right.get(morpheme.lemma, 0) + 1
+            lrfreq.right_freq[left_morpheme.lemma] = right
         else:
-            left = lrfreq.left_freq.get(morpheme_str, dict())
-            lrfreq.left_freq[morpheme_str] = left
+            left = lrfreq.left_freq.get(morpheme.lemma, dict())
+            lrfreq.left_freq[morpheme.lemma] = left
 
     def _update_right_freq(
         self, lrfreq: DomainLeftRightFrequency, candidate: Term, idx: int
     ):
         num_morphemes = len(candidate.morphemes)
         morpheme = candidate.morphemes[idx]
-        morpheme_str = str(morpheme)
 
         if idx == num_morphemes - 1:
-            right = lrfreq.right_freq.get(morpheme_str, dict())
-            lrfreq.right_freq[morpheme_str] = right
+            right = lrfreq.right_freq.get(morpheme.lemma, dict())
+            lrfreq.right_freq[morpheme.lemma] = right
             return
 
         right_morpheme = candidate.morphemes[idx + 1]
-        right_morpheme_str = str(right_morpheme)
-
         if not self._is_meaningless_morpheme(right_morpheme):
-            right = lrfreq.right_freq.get(morpheme_str, dict())
-            right[right_morpheme_str] = right.get(right_morpheme_str, 0) + 1
-            lrfreq.right_freq[morpheme_str] = right
+            right = lrfreq.right_freq.get(morpheme.lemma, dict())
+            right[right_morpheme.lemma] = right.get(right_morpheme.lemma, 0) + 1
+            lrfreq.right_freq[morpheme.lemma] = right
 
-            left = lrfreq.left_freq.get(right_morpheme_str, dict())
-            left[morpheme_str] = right.get(morpheme_str, 0) + 1
-            lrfreq.left_freq[right_morpheme_str] = left
+            left = lrfreq.left_freq.get(right_morpheme.lemma, dict())
+            left[morpheme.lemma] = right.get(morpheme.lemma, 0) + 1
+            lrfreq.left_freq[right_morpheme.lemma] = left
         else:
-            right = lrfreq.right_freq.get(morpheme_str, dict())
-            lrfreq.right_freq[morpheme_str] = right
+            right = lrfreq.right_freq.get(morpheme.lemma, dict())
+            lrfreq.right_freq[morpheme.lemma] = right
 
     def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)

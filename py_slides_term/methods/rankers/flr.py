@@ -20,7 +20,9 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRRankingData
     ) -> MethodTermRanking:
-        domain_candidates_dict = domain_candidates.to_nostyle_term_dict()
+        domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
+            to_str=lambda candidate: candidate.lemma()
+        )
         ranking = list(
             map(
                 lambda candidate: self._calculate_score(candidate, ranking_data),
@@ -34,7 +36,7 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
     def _calculate_score(
         self, candidate: Term, ranking_data: FLRRankingData
     ) -> ScoredTerm:
-        candidate_str = str(candidate)
+        candidate_lemma = candidate.lemma()
         num_morphemes = len(candidate.morphemes)
         num_meaningless_morphemes = sum(
             map(
@@ -42,22 +44,21 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
                 candidate.morphemes,
             )
         )
-        term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_str, 0))
+        term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_lemma, 0))
 
         concat_score = 0.0
         for morpheme in candidate.morphemes:
             if self._is_meaningless_morpheme(morpheme):
                 continue
 
-            morpheme_str = str(morpheme)
-            lscore = sum(ranking_data.left_freq.get(morpheme_str, dict()).values())
-            rscore = sum(ranking_data.right_freq.get(morpheme_str, dict()).values())
+            lscore = sum(ranking_data.left_freq.get(morpheme.lemma, dict()).values())
+            rscore = sum(ranking_data.right_freq.get(morpheme.lemma, dict()).values())
             concat_score += 0.5 * (extended_log10(lscore) + extended_log10(rscore))
 
         concat_score /= num_morphemes - num_meaningless_morphemes
 
         score = term_freq_score + concat_score
-        return ScoredTerm(candidate_str, score)
+        return ScoredTerm(candidate_lemma, score)
 
     def _is_meaningless_morpheme(self, morpheme: Morpheme) -> bool:
         is_ja_meaningless = self._ja_classifier.is_meaningless(morpheme)

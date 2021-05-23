@@ -11,11 +11,11 @@ class DomainTermOccurrence:
     domain: str
     # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
+    # brute force counting of lemmatized term occurrences in the domain
+    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     doc_term_freq: Dict[str, int]
-    # number of documents in the domain that contain the term
-    # count even if the term occurs as a part of a phrase
+    # number of documents in the domain that contain the lemmatized term
+    # count even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 @dataclass(frozen=True)
@@ -23,11 +23,11 @@ class _DomainTermOccurrence:
     domain: str
     # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of term occurrences in the domain
-    # count even if the term occurs as a part of a phrase
+    # brute force counting of lemmatized term occurrences in the domain
+    # count even if the term occurs as a part of a lemmatized phrase
     doc_term_set: Dict[str, Set[int]]
-    # set of document IDs in the domain that contain the term
-    # add even if the term occurs as a part of a phrase
+    # set of document IDs in the domain that contain the lemmatized term
+    # add even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 class TermOccurrenceAnalyzer:
@@ -38,7 +38,9 @@ class TermOccurrenceAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainTermOccurrence:
-        domain_candidates_set = domain_candidates.to_term_str_set()
+        domain_candidates_set = domain_candidates.to_candidates_str_set(
+            lambda candidate: candidate.lemma()
+        )
 
         def update(
             term_occ: _DomainTermOccurrence,
@@ -46,15 +48,15 @@ class TermOccurrenceAnalyzer:
             page_num: int,
             subcandidate: Term,
         ):
-            subcandidate_str = str(subcandidate)
-            if subcandidate_str not in domain_candidates_set:
+            subcandidate_lemma = subcandidate.lemma()
+            if subcandidate_lemma not in domain_candidates_set:
                 return
-            term_occ.term_freq[subcandidate_str] = (
-                term_occ.term_freq.get(subcandidate_str, 0) + 1
+            term_occ.term_freq[subcandidate_lemma] = (
+                term_occ.term_freq.get(subcandidate_lemma, 0) + 1
             )
-            doc_term_set = term_occ.doc_term_set.get(subcandidate_str, set())
+            doc_term_set = term_occ.doc_term_set.get(subcandidate_lemma, set())
             doc_term_set.add(pdf_id)
-            term_occ.doc_term_set[subcandidate_str] = doc_term_set
+            term_occ.doc_term_set[subcandidate_lemma] = doc_term_set
 
         term_occ = self._runner.run_through_subcandidates(
             domain_candidates,
