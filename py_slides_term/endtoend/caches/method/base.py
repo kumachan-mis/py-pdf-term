@@ -7,7 +7,6 @@ from py_slides_term.methods.rankingdata import RankingData
 
 
 class BaseMethodLayerRankingCache(metaclass=ABCMeta):
-    # public
     def __init__(self, cache_dir: str):
         pass
 
@@ -34,7 +33,6 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
 
 
 class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
-    # public
     def __init__(self, cache_dir: str):
         pass
 

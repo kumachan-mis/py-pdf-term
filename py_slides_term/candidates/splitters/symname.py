@@ -7,7 +7,6 @@ from py_slides_term.share.consts import ALPHABET_REGEX, NUMBER_REGEX
 
 
 class SymbolNameSplitter(BaseSplitter):
-    # public
     def __init__(self):
         pass
 

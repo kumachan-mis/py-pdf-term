@@ -2,7 +2,6 @@ from ..data import Morpheme
 
 
 class EnglishMorphemeClassifier:
-    # public
     def is_adposition(self, morpheme: Morpheme) -> bool:
         return morpheme.pos == "ADP"
 

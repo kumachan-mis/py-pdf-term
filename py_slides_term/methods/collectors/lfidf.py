@@ -5,7 +5,6 @@ from py_slides_term.analysis import LinguOccurrenceAnalyzer
 
 
 class LFIDFRankingDataCollector(BaseRankingDataCollector[LFIDFRankingData]):
-    # public
     def __init__(self):
         super().__init__()
         self._linguocc_analyzer = LinguOccurrenceAnalyzer()

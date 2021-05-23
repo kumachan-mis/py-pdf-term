@@ -7,7 +7,6 @@ from py_slides_term.share.consts import ENGLISH_REGEX, NUMBER_REGEX
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
-    # public
     def __init__(self):
         self._regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX})+")
 

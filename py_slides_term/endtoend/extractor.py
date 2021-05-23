@@ -35,7 +35,6 @@ from py_slides_term.techterms import PDFTechnicalTermList
 
 
 class PySlidesTermExtractor:
-    # public
     def __init__(
         self,
         xml_config: Optional[XMLLayerConfig] = None,

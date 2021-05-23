@@ -28,7 +28,6 @@ class TextboxState:
 
 
 class TextfulXMLConverter(PDFConverter):
-    # public
     def __init__(
         self,
         rsrcmgr: PDFResourceManager,
@@ -77,7 +76,6 @@ class TextfulXMLConverter(PDFConverter):
     def paint_path(self, graphicstate, stroke, fill, evenodd, path):
         pass
 
-    # private
     def _render(self, item: Any):
         if isinstance(item, LTPage):
             self._render_page(item)

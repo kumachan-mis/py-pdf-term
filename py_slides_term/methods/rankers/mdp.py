@@ -9,7 +9,6 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
-    # public
     def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
         self._compile_scores = compile_scores
 
@@ -44,7 +43,6 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # private
     def _calculate_score(
         self,
         candidate: Term,

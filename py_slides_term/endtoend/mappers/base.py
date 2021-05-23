@@ -6,7 +6,6 @@ MappedValue = TypeVar("MappedValue")
 
 
 class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
-    # public
     def __init__(self):
         self._map: Dict[str, MappedValue] = dict()
 

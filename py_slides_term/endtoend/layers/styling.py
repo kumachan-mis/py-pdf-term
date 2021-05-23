@@ -8,7 +8,6 @@ from py_slides_term.stylings import StylingScorer, PDFStylingScoreList
 
 
 class StylingLayer:
-    # public
     def __init__(
         self,
         candidate_layer: CandidateLayer,

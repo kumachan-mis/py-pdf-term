@@ -10,7 +10,6 @@ PHONETIC_REGEX = ALPHABET_REGEX
 
 
 class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
-    # public
     def __init__(self):
         self._classifier = EnglishMorphemeClassifier()
 
@@ -22,7 +21,6 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
             and not self._has_invalid_adjective(scoped_term)
         )
 
-    # private
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 

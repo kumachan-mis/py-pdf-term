@@ -6,7 +6,6 @@ from py_slides_term.candidates import PDFCandidateTermList
 
 
 class BaseCandidateLayerCache(metaclass=ABCMeta):
-    # public
     def __init__(self, cache_dir: str):
         pass
 

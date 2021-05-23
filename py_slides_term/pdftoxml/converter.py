@@ -11,7 +11,6 @@ from .data import PDFnXMLPath, PDFnXMLElement
 
 
 class PDFtoXMLConverter:
-    # public
     def convert_as_file(
         self,
         pdf_path: str,
@@ -38,7 +37,6 @@ class PDFtoXMLConverter:
 
         return PDFnXMLElement(pdf_path, xml_element)
 
-    # private
     def _run(
         self,
         pdf_file: BufferedReader,

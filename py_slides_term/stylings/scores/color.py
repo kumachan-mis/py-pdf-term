@@ -7,7 +7,6 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class ColorScore(BaseStylingScore):
-    # public
     def __init__(self, page_candidates: PageCandidateTermList):
         super().__init__(page_candidates)
 

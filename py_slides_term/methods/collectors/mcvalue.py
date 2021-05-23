@@ -5,7 +5,6 @@ from py_slides_term.analysis import TermOccurrenceAnalyzer, ContainerTermsAnalyz
 
 
 class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRankingData]):
-    # public
     def __init__(self):
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

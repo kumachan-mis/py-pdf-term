@@ -11,7 +11,6 @@ from py_slides_term.stylings import PDFStylingScoreList
 
 
 class StylingLayerFileCache(BaseStylingLayerCache):
-    # public
     def __init__(self, cache_dir: str):
         super().__init__(cache_dir)
         self._cache_dir = cache_dir

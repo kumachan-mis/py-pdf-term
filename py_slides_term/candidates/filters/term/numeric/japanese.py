@@ -4,7 +4,6 @@ from py_slides_term.share.data import Term
 
 
 class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
-    # public
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 

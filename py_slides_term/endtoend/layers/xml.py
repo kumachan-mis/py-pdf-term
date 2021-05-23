@@ -7,7 +7,6 @@ from py_slides_term.pdftoxml import PDFtoXMLConverter, PDFnXMLElement
 
 
 class XMLLayer:
-    # public
     def __init__(
         self,
         config: Optional[XMLLayerConfig] = None,

@@ -7,7 +7,6 @@ from .rankers import LFIDFRanker
 
 
 class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
-    # public
     def __init__(
         self,
         lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",

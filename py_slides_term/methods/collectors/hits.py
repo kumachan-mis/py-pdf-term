@@ -8,7 +8,6 @@ from py_slides_term.analysis import (
 
 
 class HITSRankingDataCollector(BaseRankingDataCollector[HITSRankingData]):
-    # public
     def __init__(self):
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

@@ -17,7 +17,6 @@ class DomainContainerTerms:
 
 
 class ContainerTermsAnalyzer:
-    # public
     def __init__(self, ignore_augmented: bool = True):
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 

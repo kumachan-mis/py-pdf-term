@@ -4,14 +4,12 @@ from py_slides_term.share.data import Term
 
 
 class JapaneseProperNounFilter(BaseJapaneseCandidateTermFilter):
-    # public
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return not self._is_region_or_person(scoped_term)
 
-    # private
     def _is_region_or_person(self, scoped_term: Term) -> bool:
         def is_region_or_person_morpheme(morpheme: Morpheme) -> bool:
             return (

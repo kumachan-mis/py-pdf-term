@@ -19,7 +19,6 @@ from py_slides_term.methods import (
 
 
 class MethodLayer:
-    # public
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -91,7 +90,6 @@ class MethodLayer:
         self._ranking_cache.remove(pdf_paths, self._config)
         self._data_cache.remove(pdf_paths, self._config)
 
-    # private
     def _run_single_domain_method(
         self,
         domain: str,

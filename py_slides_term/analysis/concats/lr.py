@@ -26,7 +26,6 @@ class DomainLeftRightFrequency:
 
 
 class TermLeftRightFrequencyAnalyzer:
-    # public
     def __init__(self, ignore_augmented: bool = True):
         self._ignore_augmented = ignore_augmented
         self._ja_classifier = JapaneseMorphemeClassifier()

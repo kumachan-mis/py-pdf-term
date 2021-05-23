@@ -10,7 +10,6 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
-    # public
     def __init__(
         self,
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
@@ -42,7 +41,6 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # private
     def _calculate_score(
         self,
         candidate: Term,

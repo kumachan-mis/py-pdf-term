@@ -5,7 +5,6 @@ from py_slides_term.tokenizer import Morpheme
 
 
 class BaseCandidateMorphemeFilter(metaclass=ABCMeta):
-    # public
     def __init__(self):
         pass
 

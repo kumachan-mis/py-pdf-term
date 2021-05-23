@@ -17,7 +17,6 @@ DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
-    # public
     def __init__(self):
         enable_pipes = []
         self._model = ja_core_news_sm.load()
@@ -74,7 +73,6 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
 
         return morphemes
 
-    # private
     def _create_morpheme(self, token: Any) -> Morpheme:
         if self._symbol_regex.fullmatch(token.text):
             return Morpheme(

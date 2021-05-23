@@ -11,7 +11,6 @@ from py_slides_term.share.data import Term
 
 
 class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
-    # public
     def __init__(self, is_separator: Callable[[Morpheme], bool]):
         self._is_separator = is_separator
 
@@ -37,7 +36,6 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
 
 
 class JapaneseModifyingParticleAugmenter(BaseSeparationAugmenter):
-    # public
     def __init__(self):
         classifier = JapaneseMorphemeClassifier()
         super().__init__(classifier.is_modifying_particle)
@@ -50,7 +48,6 @@ class JapaneseModifyingParticleAugmenter(BaseSeparationAugmenter):
 
 
 class EnglishAdpositionAugmenter(BaseSeparationAugmenter):
-    # public
     def __init__(self):
         classifier = EnglishMorphemeClassifier()
         super().__init__(classifier.is_adposition)

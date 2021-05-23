@@ -3,7 +3,6 @@ from py_slides_term.share.data import Term
 
 
 class EnglishProperNounFilter(BaseEnglishCandidateTermFilter):
-    # public
     def __init__(self):
         pass
 

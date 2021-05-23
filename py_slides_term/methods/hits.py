@@ -7,7 +7,6 @@ from .rankers import HITSRanker
 
 
 class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):
-    # public
     def __init__(self, threshold: float = 1e-8):
         collector = HITSRankingDataCollector()
         ranker = HITSRanker(threshold=threshold)

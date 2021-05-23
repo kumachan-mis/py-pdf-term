@@ -8,7 +8,6 @@ from py_slides_term.share.data import Term, ScoredTerm
 
 
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
-    # public
     def __init__(self, threshold: float = 1e-8):
         self._flr_ranker = FLRRanker()
         self._hits_ranker = HITSRanker(threshold=threshold)
@@ -46,7 +45,6 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # public
     def _calculate_score(
         self,
         candidate: Term,

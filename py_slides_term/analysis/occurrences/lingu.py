@@ -31,7 +31,6 @@ class _DomainLinguOccurrence:
 
 
 class LinguOccurrenceAnalyzer:
-    # public
     def __init__(self, ignore_augmented: bool = True):
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
@@ -67,7 +66,6 @@ class LinguOccurrenceAnalyzer:
         lingu_occ = self._finalize(lingu_occ)
         return lingu_occ
 
-    # private
     def _finalize(self, lingu_occ: _DomainLinguOccurrence) -> DomainLinguOccurrence:
         doc_lingu_freq = {
             lingu_seq: len(doc_lingu_set)

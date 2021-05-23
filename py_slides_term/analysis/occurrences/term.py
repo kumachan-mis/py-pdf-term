@@ -31,7 +31,6 @@ class _DomainTermOccurrence:
 
 
 class TermOccurrenceAnalyzer:
-    # public
     def __init__(self, ignore_augmented: bool = True):
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
@@ -66,7 +65,6 @@ class TermOccurrenceAnalyzer:
         term_occ = self._finalize(term_occ)
         return term_occ
 
-    # private
     def _finalize(self, term_occ: _DomainTermOccurrence) -> DomainTermOccurrence:
         doc_term_freq = {
             candidate_str: len(doc_term_set)

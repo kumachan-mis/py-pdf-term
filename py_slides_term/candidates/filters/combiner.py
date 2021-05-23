@@ -21,7 +21,6 @@ from py_slides_term.share.data import Term
 
 
 class FilterCombiner:
-    # public
     def __init__(
         self,
         morpheme_filters: Optional[List[BaseCandidateMorphemeFilter]] = None,

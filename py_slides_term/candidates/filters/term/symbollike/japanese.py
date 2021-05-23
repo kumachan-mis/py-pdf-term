@@ -10,7 +10,6 @@ PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX}"
 
 
 class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
-    # public
     def __init__(self):
         self._classifier = JapaneseMorphemeClassifier()
 
@@ -21,7 +20,6 @@ class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
             and not self._phonetic_morpheme_appears_continuously(scoped_term)
         )
 
-    # private
     def _is_phonetic_or_meaningless_term(self, scoped_term: Term) -> bool:
         phonetic_regex = re.compile(PHONETIC_REGEX)
 

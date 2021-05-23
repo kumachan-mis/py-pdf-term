@@ -16,7 +16,6 @@ from py_slides_term.share.data import Term
 
 
 class CandidateTermExtractor:
-    # public
     def __init__(
         self,
         lang_tokenizer_clses: Optional[List[Type[BaseLanguageTokenizer]]] = None,
@@ -85,7 +84,6 @@ class CandidateTermExtractor:
         morphemes = self._tokenizer.tokenize(text)
         return self._extract_from_morphemes(morphemes, fontsize, ncolor)
 
-    # private
     def _extract_from_xmlroot(
         self, pdf_path: str, xml_root: Element
     ) -> PDFCandidateTermList:

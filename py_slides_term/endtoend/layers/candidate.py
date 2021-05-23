@@ -20,7 +20,6 @@ from py_slides_term.candidates import (
 
 
 class CandidateLayer:
-    # public
     def __init__(
         self,
         xml_layer: XMLLayer,

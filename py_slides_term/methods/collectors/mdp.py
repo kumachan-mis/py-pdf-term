@@ -5,7 +5,6 @@ from py_slides_term.analysis import TermOccurrenceAnalyzer
 
 
 class MDPRankingDataCollector(BaseRankingDataCollector[MDPRankingData]):
-    # public
     def __init__(self):
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()
