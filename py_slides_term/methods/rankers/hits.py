@@ -122,10 +122,10 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         term_freq_score = extended_log10(ranking_data.term_freq.get(candidate_lemma, 0))
 
         if num_morphemes == 1:
-            morpheme_str = str(candidate.morphemes[0])
+            morpheme_lemma = candidate.morphemes[0].lemma
             auth_hub_score = 0.5 * (
-                extended_log10(auth_hub_data.morpheme_hub.get(morpheme_str, 0.0))
-                + extended_log10(auth_hub_data.morpheme_auth.get(morpheme_str, 0.0))
+                extended_log10(auth_hub_data.morpheme_hub.get(morpheme_lemma, 0.0))
+                + extended_log10(auth_hub_data.morpheme_auth.get(morpheme_lemma, 0.0))
             )
             score = term_freq_score + auth_hub_score
             return ScoredTerm(candidate_lemma, score)
