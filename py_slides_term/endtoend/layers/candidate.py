@@ -20,7 +20,6 @@ from py_slides_term.candidates import (
 
 
 class CandidateLayer:
-    # public
     def __init__(
         self,
         xml_layer: XMLLayer,
@@ -32,7 +31,7 @@ class CandidateLayer:
         augmenter_mapper: Optional[AugmenterMapper] = None,
         cache_mapper: Optional[CandidateLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
-    ):
+    ) -> None:
         if config is None:
             config = CandidateLayerConfig()
         if lang_tokenizer_mapper is None:
@@ -93,5 +92,5 @@ class CandidateLayer:
 
         return pdf_candidates
 
-    def remove_cache(self, pdf_path: str):
+    def remove_cache(self, pdf_path: str) -> None:
         self._cache.remove(pdf_path, self._config)

@@ -6,8 +6,7 @@ from py_slides_term.stylings import PDFStylingScoreList
 
 
 class StylingLayerNoCache(BaseStylingLayerCache):
-    # public
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
         pass
 
     def load(

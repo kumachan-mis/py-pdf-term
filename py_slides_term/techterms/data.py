@@ -16,7 +16,7 @@ class PageTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PageTechnicalTermList":
         page_num, terms = obj["page_num"], obj["terms"]
         return cls(page_num, list(map(lambda item: ScoredTerm.from_dict(item), terms)))
 
@@ -33,7 +33,7 @@ class PDFTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PDFTechnicalTermList":
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -53,7 +53,7 @@ class DomainTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "DomainTechnicalTermList":
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

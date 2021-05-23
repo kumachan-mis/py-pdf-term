@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Union
 
-from py_slides_term.tokenizer import Morpheme, Language
+from py_slides_term.tokenizer import Morpheme
 from py_slides_term.share.consts import NOSPACE_REGEX
 
 GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
@@ -19,7 +19,7 @@ class Term:
     augmented: bool = False
 
     @property
-    def lang(self) -> Union[Language, None]:
+    def lang(self) -> Union[str, None]:
         if not self.morphemes:
             return None
 
@@ -57,7 +57,7 @@ class Term:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "Term":
         return cls(
             list(map(lambda item: Morpheme.from_dict(item), obj["morphemes"])),
             obj.get("fontsize", 0),
@@ -78,5 +78,5 @@ class ScoredTerm:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "ScoredTerm":
         return cls(**obj)

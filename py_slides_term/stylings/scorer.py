@@ -15,10 +15,9 @@ from py_slides_term.share.data import ScoredTerm
 
 
 class StylingScorer:
-    # public
     def __init__(
         self, styling_score_clses: Optional[List[Type[BaseStylingScore]]] = None
-    ):
+    ) -> None:
         if styling_score_clses is None:
             styling_score_clses = [FontsizeScore, ColorScore]
 
@@ -40,7 +39,6 @@ class StylingScorer:
             list(map(self._score_page_candidates, pdf_candidates.pages)),
         )
 
-    # private
     def _score_page_candidates(
         self, page_candidates: PageCandidateTermList
     ) -> PageStylingScoreList:

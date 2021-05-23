@@ -6,8 +6,7 @@ from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_RE
 
 
 class BaseCandidateTermFilter(metaclass=ABCMeta):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod
@@ -20,14 +19,12 @@ class BaseCandidateTermFilter(metaclass=ABCMeta):
 
 
 class BaseJapaneseCandidateTermFilter(BaseCandidateTermFilter):
-    # public
     def inscope(self, term: Term) -> bool:
         regex = re.compile(rf"({ENGLISH_REGEX}|{JAPANESE_REGEX}|{NUMBER_REGEX}|\s|\-)+")
         return term.lang == "ja" and regex.fullmatch(str(term)) is not None
 
 
 class BaseEnglishCandidateTermFilter(BaseCandidateTermFilter):
-    # public
     def inscope(self, term: Term) -> bool:
         regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX}|\s|\-)+")
         return term.lang == "en" and regex.fullmatch(str(term)) is not None

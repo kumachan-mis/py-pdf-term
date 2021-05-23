@@ -31,8 +31,7 @@ class _DomainLinguOccurrence:
 
 
 class LinguOccurrenceAnalyzer:
-    # public
-    def __init__(self, ignore_augmented: bool = True):
+    def __init__(self, ignore_augmented: bool = True) -> None:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
@@ -47,7 +46,7 @@ class LinguOccurrenceAnalyzer:
             pdf_id: int,
             page_num: int,
             subcandidate: Term,
-        ):
+        ) -> None:
             if subcandidate.lemma() not in domain_candidates_set:
                 return
             sub_lingu_seq = subcandidate.linguistic_sequence()
@@ -67,7 +66,6 @@ class LinguOccurrenceAnalyzer:
         lingu_occ = self._finalize(lingu_occ)
         return lingu_occ
 
-    # private
     def _finalize(self, lingu_occ: _DomainLinguOccurrence) -> DomainLinguOccurrence:
         doc_lingu_freq = {
             lingu_seq: len(doc_lingu_set)

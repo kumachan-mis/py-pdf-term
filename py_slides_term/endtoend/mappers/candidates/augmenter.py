@@ -11,7 +11,7 @@ from py_slides_term.candidates import (
 
 class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "AugmenterMapper":
         default_mapper = cls()
 
         augmenter_clses = [

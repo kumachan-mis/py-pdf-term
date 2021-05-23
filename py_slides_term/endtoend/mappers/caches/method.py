@@ -14,7 +14,7 @@ from ...caches import (
 
 class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "MethodLayerRankingCacheMapper":
         default_mapper = cls()
 
         cache_clses = [MethodLayerRankingNoCache, MethodLayerRankingFileCache]
@@ -26,7 +26,7 @@ class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]
 
 class MethodLayerDataCacheMapper(BaseMapper[Type[BaseMethodLayerDataCache[Any]]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "MethodLayerDataCacheMapper":
         default_mapper = cls()
 
         cache_clses = [

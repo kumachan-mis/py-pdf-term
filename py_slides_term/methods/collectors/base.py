@@ -6,8 +6,7 @@ from py_slides_term.candidates import DomainCandidateTermList
 
 
 class BaseRankingDataCollector(Generic[RankingData], metaclass=ABCMeta):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod

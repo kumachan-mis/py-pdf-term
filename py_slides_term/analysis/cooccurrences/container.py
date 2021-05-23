@@ -17,8 +17,7 @@ class DomainContainerTerms:
 
 
 class ContainerTermsAnalyzer:
-    # public
-    def __init__(self, ignore_augmented: bool = True):
+    def __init__(self, ignore_augmented: bool = True) -> None:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
@@ -33,7 +32,7 @@ class ContainerTermsAnalyzer:
             pdf_id: int,
             page_num: int,
             candidate: Term,
-        ):
+        ) -> None:
             candidate_lemma = candidate.lemma()
             container_terms.container_terms[
                 candidate_lemma

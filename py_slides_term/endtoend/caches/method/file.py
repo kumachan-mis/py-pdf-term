@@ -12,8 +12,7 @@ from py_slides_term.methods.rankingdata import RankingData
 
 
 class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
-    # public
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
         super().__init__(cache_dir)
         self._cache_dir = cache_dir
 
@@ -69,8 +68,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
 
 
 class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
-    # public
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
         super().__init__(cache_dir)
         self._cache_dir = cache_dir
 

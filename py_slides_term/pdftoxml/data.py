@@ -12,7 +12,7 @@ class PDFnXMLPath:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PDFnXMLPath":
         return cls(**obj)
 
 
@@ -28,5 +28,5 @@ class PDFnXMLElement:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PDFnXMLElement":
         return cls(obj["pdf_path"], fromstring(obj["xml_root"]))

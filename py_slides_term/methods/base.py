@@ -9,12 +9,11 @@ from py_slides_term.candidates import DomainCandidateTermList
 
 
 class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
-    # public
     def __init__(
         self,
         data_collector: BaseRankingDataCollector[RankingData],
         ranker: BaseSingleDomainRanker[RankingData],
-    ):
+    ) -> None:
         self._data_collector = data_collector
         self._ranker = ranker
 
@@ -39,12 +38,11 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
 
 class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
-    # public
     def __init__(
         self,
         data_collector: BaseRankingDataCollector[RankingData],
         ranker: BaseMultiDomainRanker[RankingData],
-    ):
+    ) -> None:
         self._data_collector = data_collector
         self._ranker = ranker
 

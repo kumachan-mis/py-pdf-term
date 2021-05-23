@@ -30,7 +30,7 @@ class PageCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PageCandidateTermList":
         page_num, candidates = obj["page_num"], obj["candidates"]
         return cls(
             page_num,
@@ -68,7 +68,7 @@ class PDFCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "PDFCandidateTermList":
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -106,7 +106,7 @@ class DomainCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "DomainCandidateTermList":
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

@@ -11,7 +11,7 @@ from ...caches import (
 
 class CandidateLayerCacheMapper(BaseMapper[Type[BaseCandidateLayerCache]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "CandidateLayerCacheMapper":
         default_mapper = cls()
 
         cache_clses = [CandidateLayerNoCache, CandidateLayerFileCache]

@@ -10,8 +10,7 @@ PHONETIC_REGEX = ALPHABET_REGEX
 
 
 class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         self._classifier = EnglishMorphemeClassifier()
 
     def is_candidate(self, scoped_term: Term) -> bool:
@@ -21,7 +20,6 @@ class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
             and not self._phonetic_morpheme_appears_continuously(scoped_term)
         )
 
-    # private
     def _is_phonetic_or_meaningless_term(self, scoped_term: Term) -> bool:
         phonetic_regex = re.compile(PHONETIC_REGEX)
 

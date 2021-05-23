@@ -7,13 +7,12 @@ from py_slides_term.pdftoxml import PDFtoXMLConverter, PDFnXMLElement
 
 
 class XMLLayer:
-    # public
     def __init__(
         self,
         config: Optional[XMLLayerConfig] = None,
         cache_mapper: Optional[XMLLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
-    ):
+    ) -> None:
         if config is None:
             config = XMLLayerConfig()
         if cache_mapper is None:
@@ -41,5 +40,5 @@ class XMLLayer:
 
         return pdfnxml
 
-    def remove_cache(self, pdf_path: str):
+    def remove_cache(self, pdf_path: str) -> None:
         self._cache.remove(pdf_path, self._config)

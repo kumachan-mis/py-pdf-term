@@ -7,7 +7,7 @@ from py_slides_term.share.data import Term
 
 
 class SplitterCombiner:
-    def __init__(self, splitters: Optional[List[BaseSplitter]] = None):
+    def __init__(self, splitters: Optional[List[BaseSplitter]] = None) -> None:
         if splitters is None:
             splitters = [SymbolNameSplitter(), RepeatSplitter()]
 

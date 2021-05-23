@@ -7,7 +7,7 @@ from py_slides_term.stylings import BaseStylingScore, FontsizeScore, ColorScore
 
 class StylingScoreMapper(BaseMapper[Type[BaseStylingScore]]):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "StylingScoreMapper":
         default_mapper = cls()
 
         styling_score_clses = [FontsizeScore, ColorScore]

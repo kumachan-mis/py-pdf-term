@@ -1,15 +1,12 @@
 from dataclasses import dataclass, asdict
-from typing import Dict, Literal, ClassVar
-
-
-Language = Literal["ja", "en"]
+from typing import Dict, Any, ClassVar
 
 
 @dataclass(frozen=True)
 class Morpheme:
     NUM_ATTR: ClassVar[int] = 10
 
-    lang: Language
+    lang: str
     surface_form: str
     pos: str
     category: str
@@ -27,5 +24,5 @@ class Morpheme:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, str]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "Morpheme":
         return cls(**obj)

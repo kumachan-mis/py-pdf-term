@@ -9,12 +9,11 @@ from py_slides_term.share.data import Term, ScoredTerm, LinguSeq
 
 
 class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
-    # public
     def __init__(
         self,
         lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ):
+    ) -> None:
         self._lfmode = lfmode
         self._idfmode = idfmode
 

@@ -8,7 +8,7 @@ def extractor() -> CandidateTermExtractor:
     return CandidateTermExtractor()
 
 
-def test_japanese_backward_repeat_splitter(extractor: CandidateTermExtractor):
+def test_japanese_backward_repeat_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("エントロピークロスエントロピー情報エントロピー")
 
     assert len(candidates) == 3
@@ -26,7 +26,7 @@ def test_japanese_backward_repeat_splitter(extractor: CandidateTermExtractor):
     assert str(candidate) == "情報エントロピー"
 
 
-def test_japanese_forward_repeat_splitter(extractor: CandidateTermExtractor):
+def test_japanese_forward_repeat_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("IPアドレスIPヘッダIP層")
 
     assert len(candidates) == 3
@@ -44,7 +44,9 @@ def test_japanese_forward_repeat_splitter(extractor: CandidateTermExtractor):
     assert str(candidate) == "IP層"
 
 
-def test_japanese_bidirectional_repeat_splitter(extractor: CandidateTermExtractor):
+def test_japanese_bidirectional_repeat_splitter(
+    extractor: CandidateTermExtractor,
+) -> None:
     candidates = extractor.extract_from_text("ソフトウェア開発ソフトウェア工学要求工学")
 
     assert len(candidates) == 3
@@ -62,7 +64,7 @@ def test_japanese_bidirectional_repeat_splitter(extractor: CandidateTermExtracto
     assert str(candidate) == "要求工学"
 
 
-def test_english_backward_repeat_splitter(extractor: CandidateTermExtractor):
+def test_english_backward_repeat_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text(
         "black box testing white box testing gray box testing"
     )
@@ -82,7 +84,7 @@ def test_english_backward_repeat_splitter(extractor: CandidateTermExtractor):
     assert str(candidate) == "gray box testing"
 
 
-def test_english_forward_repeat_splitter(extractor: CandidateTermExtractor):
+def test_english_forward_repeat_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text(
         "lambda abstraction lambda calculus lambda expression"
     )
@@ -102,7 +104,9 @@ def test_english_forward_repeat_splitter(extractor: CandidateTermExtractor):
     assert str(candidate) == "lambda expression"
 
 
-def test_english_bidirectional_repeat_splitter(extractor: CandidateTermExtractor):
+def test_english_bidirectional_repeat_splitter(
+    extractor: CandidateTermExtractor,
+) -> None:
     candidates = extractor.extract_from_text(
         "software development software engineering requirements engineering"
     )
@@ -122,7 +126,7 @@ def test_english_bidirectional_repeat_splitter(extractor: CandidateTermExtractor
     assert str(candidate) == "requirements engineering"
 
 
-def test_japanese_symname_splitter(extractor: CandidateTermExtractor):
+def test_japanese_symname_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("ソフトウェア開発技術1")
 
     assert len(candidates) == 1
@@ -132,7 +136,7 @@ def test_japanese_symname_splitter(extractor: CandidateTermExtractor):
     assert str(candidate) == "ソフトウェア開発技術"
 
 
-def test_english_symname_splitter(extractor: CandidateTermExtractor):
+def test_english_symname_splitter(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("Programming Language C")
 
     assert len(candidates) == 1

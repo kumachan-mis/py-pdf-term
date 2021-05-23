@@ -14,7 +14,7 @@ class MultiDomainRankingMethodMapper(
     BaseMapper[Type[BaseMultiDomainRankingMethod[Any]]]
 ):
     @classmethod
-    def default_mapper(cls):
+    def default_mapper(cls) -> "MultiDomainRankingMethodMapper":
         default_mapper = cls()
 
         multi_domain_clses = [TFIDFMethod, LFIDFMethod, MDPMethod]

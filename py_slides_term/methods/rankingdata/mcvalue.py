@@ -27,7 +27,7 @@ class MCValueRankingData(BaseRankingData):
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "MCValueRankingData":
         container_terms = {
             term: set(containers) for term, containers in obj["container_terms"].items()
         }

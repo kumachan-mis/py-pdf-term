@@ -5,8 +5,7 @@ from py_slides_term.analysis import TermOccurrenceAnalyzer
 
 
 class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()
 

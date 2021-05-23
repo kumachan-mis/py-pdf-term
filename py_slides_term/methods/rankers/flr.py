@@ -12,8 +12,7 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
 
@@ -32,7 +31,6 @@ class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # private
     def _calculate_score(
         self, candidate: Term, ranking_data: FLRRankingData
     ) -> ScoredTerm:

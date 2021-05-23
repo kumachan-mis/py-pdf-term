@@ -11,7 +11,6 @@ from .data import PDFnXMLPath, PDFnXMLElement
 
 
 class PDFtoXMLConverter:
-    # public
     def convert_as_file(
         self,
         pdf_path: str,
@@ -38,7 +37,6 @@ class PDFtoXMLConverter:
 
         return PDFnXMLElement(pdf_path, xml_element)
 
-    # private
     def _run(
         self,
         pdf_file: BufferedReader,
@@ -46,7 +44,7 @@ class PDFtoXMLConverter:
         nfc_norm: bool,
         include_parrern: Optional[str],
         exclude_parrern: Optional[str],
-    ):
+    ) -> None:
         manager = PDFResourceManager()
         laparams = LAParams(char_margin=2.0, line_margin=0.5, word_margin=0.2)
         converter = TextfulXMLConverter(

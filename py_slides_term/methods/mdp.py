@@ -7,8 +7,9 @@ from .rankers import MDPRanker
 
 
 class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):
-    # public
-    def __init__(self, compile_scores: Callable[[Iterable[float]], float] = min):
+    def __init__(
+        self, compile_scores: Callable[[Iterable[float]], float] = min
+    ) -> None:
         collector = MDPRankingDataCollector()
         ranker = MDPRanker(compile_scores=compile_scores)
         super().__init__(collector, ranker)

@@ -8,7 +8,7 @@ def extractor() -> CandidateTermExtractor:
     return CandidateTermExtractor()
 
 
-def test_japanese_compound_noun(extractor: CandidateTermExtractor):
+def test_japanese_compound_noun(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("ソフトウェア開発とは何か？")
     assert len(candidates) == 1
 
@@ -17,7 +17,7 @@ def test_japanese_compound_noun(extractor: CandidateTermExtractor):
     assert str(candidate) == "ソフトウェア開発"
 
 
-def test_english_compound_noun(extractor: CandidateTermExtractor):
+def test_english_compound_noun(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("What is Software Delelopment?")
     assert len(candidates) == 1
 
@@ -26,7 +26,7 @@ def test_english_compound_noun(extractor: CandidateTermExtractor):
     assert str(candidate) == "Software Delelopment"
 
 
-def test_mixed_compound_noun(extractor: CandidateTermExtractor):
+def test_mixed_compound_noun(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("Hoare Logic（Hoare理論）")
     assert len(candidates) == 2
 
@@ -39,7 +39,7 @@ def test_mixed_compound_noun(extractor: CandidateTermExtractor):
     assert str(candidate) == "Hoare理論"
 
 
-def test_japanese_symbol(extractor: CandidateTermExtractor):
+def test_japanese_symbol(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("ラムダ計算とラムダ式")
     assert len(candidates) == 2
 

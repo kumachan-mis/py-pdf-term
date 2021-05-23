@@ -20,8 +20,7 @@ from py_slides_term.share.data import ScoredTerm
 
 
 class TechnicalTermExtractor:
-    # public
-    def __init__(self, max_num_terms: int = 10, acceptance_rate: float = 0.75):
+    def __init__(self, max_num_terms: int = 10, acceptance_rate: float = 0.75) -> None:
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
         self._cache: Optional[Dict[str, float]] = None
@@ -70,7 +69,6 @@ class TechnicalTermExtractor:
 
         return PDFTechnicalTermList(pdf_candidates.pdf_path, page_techterms)
 
-    # private
     def _extract_from_page(
         self,
         page_candidates: PageCandidateTermList,

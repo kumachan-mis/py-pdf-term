@@ -7,8 +7,7 @@ from py_slides_term.candidates import DomainCandidateTermList
 
 
 class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod
@@ -21,8 +20,7 @@ class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
 
 
 class BaseMultiDomainRanker(Generic[RankingData], metaclass=ABCMeta):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod

@@ -2,7 +2,6 @@ from ..data import Morpheme
 
 
 class JapaneseMorphemeClassifier:
-    # public
     def is_modifying_particle(self, morpheme: Morpheme) -> bool:
         return morpheme.surface_form == "の" and morpheme.pos == "助詞"
 

@@ -4,8 +4,7 @@ from py_slides_term.share.data import Term
 
 
 class EnglishNumericFilter(BaseEnglishCandidateTermFilter):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         self._classifier = EnglishMorphemeClassifier()
 
     def is_candidate(self, scoped_term: Term) -> bool:

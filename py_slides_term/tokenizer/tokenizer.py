@@ -9,8 +9,9 @@ from .langs import (
 
 
 class Tokenizer:
-    # public
-    def __init__(self, lang_tokenizers: Optional[List[BaseLanguageTokenizer]] = None):
+    def __init__(
+        self, lang_tokenizers: Optional[List[BaseLanguageTokenizer]] = None
+    ) -> None:
         if lang_tokenizers is None:
             lang_tokenizers = [JapaneseTokenizer(), EnglishTokenizer()]
 

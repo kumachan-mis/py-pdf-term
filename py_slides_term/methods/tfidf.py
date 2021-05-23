@@ -7,12 +7,11 @@ from .rankers import TFIDFRanker
 
 
 class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
-    # public
     def __init__(
         self,
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ):
+    ) -> None:
         collector = TFIDFRankingDataCollector()
         ranker = TFIDFRanker(tfmode=tfmode, idfmode=idfmode)
         super().__init__(collector, ranker)

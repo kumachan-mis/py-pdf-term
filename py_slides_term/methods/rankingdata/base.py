@@ -11,7 +11,7 @@ class BaseRankingData:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "BaseRankingData":
         return cls(**obj)
 
 

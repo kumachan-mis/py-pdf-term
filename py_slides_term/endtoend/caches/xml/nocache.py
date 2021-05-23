@@ -6,8 +6,7 @@ from py_slides_term.pdftoxml import PDFnXMLElement
 
 
 class XMLLayerNoCache(BaseXMLLayerCache):
-    # public
-    def __init__(self, cache_dir: str):
+    def __init__(self, cache_dir: str) -> None:
         pass
 
     def load(

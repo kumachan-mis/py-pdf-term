@@ -35,7 +35,6 @@ from py_slides_term.techterms import PDFTechnicalTermList
 
 
 class PySlidesTermExtractor:
-    # public
     def __init__(
         self,
         xml_config: Optional[XMLLayerConfig] = None,
@@ -57,7 +56,7 @@ class PySlidesTermExtractor:
         method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
         styling_cache_mapper: Optional[StylingLayerCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
-    ):
+    ) -> None:
         xml_layer = XMLLayer(
             config=xml_config,
             cache_mapper=xml_cache_mapper,

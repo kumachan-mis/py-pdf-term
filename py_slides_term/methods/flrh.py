@@ -7,8 +7,7 @@ from .rankers import FLRHRanker
 
 
 class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
-    # public
-    def __init__(self, threshold: float = 1e-8):
+    def __init__(self, threshold: float = 1e-8) -> None:
         collector = FLRHRankingDataCollector()
         ranker = FLRHRanker(threshold=threshold)
         super().__init__(collector, ranker)

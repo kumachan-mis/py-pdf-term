@@ -18,7 +18,7 @@ class MethodTermRanking:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]):
+    def from_dict(cls, obj: Dict[str, Any]) -> "MethodTermRanking":
         return cls(
             obj["domain"],
             list(map(lambda item: ScoredTerm.from_dict(item), obj["ranking"])),

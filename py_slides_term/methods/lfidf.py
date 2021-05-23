@@ -7,12 +7,11 @@ from .rankers import LFIDFRanker
 
 
 class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
-    # public
     def __init__(
         self,
         lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ):
+    ) -> None:
         collector = LFIDFRankingDataCollector()
         ranker = LFIDFRanker(lfmode=lfmode, idfmode=idfmode)
         super().__init__(collector, ranker)

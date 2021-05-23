@@ -7,8 +7,7 @@ from py_slides_term.share.data import Term
 
 
 class FontsizeScore(BaseStylingScore):
-    # public
-    def __init__(self, page_candidates: PageCandidateTermList):
+    def __init__(self, page_candidates: PageCandidateTermList) -> None:
         super().__init__(page_candidates)
 
         self._num_candidates = len(page_candidates.candidates)

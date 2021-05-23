@@ -28,8 +28,7 @@ class HITSAuthHubData:
 
 
 class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
-    # public
-    def __init__(self, threshold: float = 1e-8):
+    def __init__(self, threshold: float = 1e-8) -> None:
         self._threshold = threshold
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
@@ -52,7 +51,6 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # private
     def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:
         morpheme_auth: Dict[str, float] = {
             morpheme_lemma: 1.0 for morpheme_lemma in ranking_data.left_freq

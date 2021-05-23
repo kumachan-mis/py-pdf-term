@@ -7,8 +7,7 @@ from py_slides_term.share.extended_math import extended_log10
 
 
 class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
-    # public
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def rank_terms(
@@ -28,7 +27,6 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
         ranking.sort(key=lambda term: -term.score)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
-    # private
     def _calculate_score(
         self, candidate: Term, ranking_data: MCValueRankingData
     ) -> ScoredTerm:

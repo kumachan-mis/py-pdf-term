@@ -19,7 +19,6 @@ from py_slides_term.methods import (
 
 
 class MethodLayer:
-    # public
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -29,7 +28,7 @@ class MethodLayer:
         ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
         data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
-    ):
+    ) -> None:
         if config is None:
             config = MethodLayerConfig()
         if single_method_mapper is None:
@@ -87,11 +86,10 @@ class MethodLayer:
         else:
             raise RuntimeError("unreachable statement")
 
-    def remove_cache(self, pdf_paths: List[str]):
+    def remove_cache(self, pdf_paths: List[str]) -> None:
         self._ranking_cache.remove(pdf_paths, self._config)
         self._data_cache.remove(pdf_paths, self._config)
 
-    # private
     def _run_single_domain_method(
         self,
         domain: str,
