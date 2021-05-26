@@ -42,7 +42,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             return (
                 scoped_morpheme.category == "名詞的"
                 and scoped_morpheme.subcategory in {"一般", "サ変可能", "形状詞可能", "助数詞"}
-            )
+            ) or scoped_morpheme.category == "形状詞的"
         elif scoped_morpheme.pos == "助詞":
             return self._classifier.is_modifying_particle(scoped_morpheme)
         elif scoped_morpheme.pos == "記号":
