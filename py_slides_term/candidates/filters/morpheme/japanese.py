@@ -19,6 +19,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
 
     def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
+        num_morphemes = len(morphemes)
 
         if scoped_morpheme.pos == "名詞":
             return (
@@ -30,18 +31,36 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
                 or scoped_morpheme.category == "固有名詞"
                 or scoped_morpheme.category == "数詞"
             )
-        elif scoped_morpheme.pos == "形状詞":
-            return scoped_morpheme.category in {"一般"}
+        elif scoped_morpheme.pos in {"形状詞", "形容詞"}:
+            return (
+                scoped_morpheme.category in {"一般"}
+                and idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"名詞", "記号", "接尾辞", "形状詞", "形容詞"}
+            )
         elif scoped_morpheme.pos == "動詞":
-            return scoped_morpheme.category in {"一般"}
-        elif scoped_morpheme.pos == "形容詞":
-            return scoped_morpheme.category in {"一般"}
+            return (
+                scoped_morpheme.category in {"一般"}
+                and idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"接尾辞", "動詞"}
+            )
         elif scoped_morpheme.pos == "接頭辞":
-            return True
+            return (
+                idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"名詞", "記号", "形状詞"}
+                # No line break
+            )
         elif scoped_morpheme.pos == "接尾辞":
             return (
-                scoped_morpheme.category == "名詞的"
-                and scoped_morpheme.subcategory in {"一般", "サ変可能", "形状詞可能", "助数詞"}
+                (
+                    (
+                        scoped_morpheme.category == "名詞的"
+                        and scoped_morpheme.subcategory
+                        in {"一般", "サ変可能", "形状詞可能", "助数詞"}
+                    )
+                    or scoped_morpheme.category == "形状詞的"
+                )
+                and idx > 0
+                and morphemes[idx - 1].pos in {"名詞", "形状詞", "動詞", "形容詞", "記号"}
             )
         elif scoped_morpheme.pos == "助詞":
             return self._classifier.is_modifying_particle(scoped_morpheme)
@@ -49,17 +68,12 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             return self._regex.match(str(scoped_morpheme)) is not None
         elif scoped_morpheme.pos == "補助記号":
             scoped_morpheme_str = str(scoped_morpheme)
-            if scoped_morpheme_str == "-":
-                return (
-                    0 < idx < len(morphemes) - 1
-                    and self._regex.match(str(morphemes[idx - 1])) is not None
-                    and self._regex.match(str(morphemes[idx + 1])) is not None
-                )
-            elif scoped_morpheme_str == "・":
-                return (
-                    0 < idx < len(morphemes) - 1
-                    and self._regex.match(str(morphemes[idx - 1])) is not None
-                    and self._regex.match(str(morphemes[idx + 1])) is not None
-                )
+            if scoped_morpheme_str not in {"-", "・"}:
+                return False
+            return (
+                0 < idx < num_morphemes - 1
+                and self._regex.match(str(morphemes[idx - 1])) is not None
+                and self._regex.match(str(morphemes[idx + 1])) is not None
+            )
 
         return False

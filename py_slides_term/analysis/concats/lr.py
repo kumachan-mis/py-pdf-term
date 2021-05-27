@@ -17,12 +17,10 @@ class DomainLeftRightFrequency:
     # unique domain name
     left_freq: Dict[str, Dict[str, int]]
     # number of occurrences of lemmatized (left, morpheme) in the domain
-    # if morpheme or left is meaningless (a modifying particle or a symbol),
-    # this is fixed at zero
+    # if morpheme or left is meaningless, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
     # number of occurrences of lemmatized (morpheme, right) in the domain
-    # if morpheme or right is meaningless (a modifying particle or a symbol),
-    # this is fixed at zero
+    # if morpheme or right is meaningless, this is fixed at zero
 
 
 class TermLeftRightFrequencyAnalyzer:
@@ -75,10 +73,6 @@ class TermLeftRightFrequencyAnalyzer:
             left = lrfreq.left_freq.get(morpheme.lemma, dict())
             left[left_morpheme.lemma] = left.get(left_morpheme.lemma, 0) + 1
             lrfreq.left_freq[morpheme.lemma] = left
-
-            right = lrfreq.right_freq.get(left_morpheme.lemma, dict())
-            right[morpheme.lemma] = right.get(morpheme.lemma, 0) + 1
-            lrfreq.right_freq[left_morpheme.lemma] = right
         else:
             left = lrfreq.left_freq.get(morpheme.lemma, dict())
             lrfreq.left_freq[morpheme.lemma] = left
@@ -99,10 +93,6 @@ class TermLeftRightFrequencyAnalyzer:
             right = lrfreq.right_freq.get(morpheme.lemma, dict())
             right[right_morpheme.lemma] = right.get(right_morpheme.lemma, 0) + 1
             lrfreq.right_freq[morpheme.lemma] = right
-
-            left = lrfreq.left_freq.get(right_morpheme.lemma, dict())
-            left[morpheme.lemma] = right.get(morpheme.lemma, 0) + 1
-            lrfreq.left_freq[right_morpheme.lemma] = left
         else:
             right = lrfreq.right_freq.get(morpheme.lemma, dict())
             lrfreq.right_freq[morpheme.lemma] = right

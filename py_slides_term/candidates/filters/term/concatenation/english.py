@@ -81,14 +81,19 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
     def _has_invalid_adjective(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def invalid_adjective_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos != "ADJ":
+        def invalid_adjective_or_appears_at(i: int) -> bool:
+            morpheme = scoped_term.morphemes[i]
+            if not (
+                morpheme.pos == "ADJ"
+                or (morpheme.pos == "VERB" and morpheme.category == "VBN")
+            ):
                 return False
 
-            valid_part_of_speeches = {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
             return (
                 i == num_morphemes - 1
-                or scoped_term.morphemes[i + 1].pos not in valid_part_of_speeches
+                or scoped_term.morphemes[i + 1].pos
+                not in {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+                # No line break
             )
 
-        return any(map(invalid_adjective_appears_at, range(num_morphemes)))
+        return any(map(invalid_adjective_or_appears_at, range(num_morphemes)))

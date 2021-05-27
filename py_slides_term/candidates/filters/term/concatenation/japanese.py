@@ -20,7 +20,8 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
             and not self._has_invalid_modifying_particle(scoped_term)
             and not self._has_invalid_prefix(scoped_term)
             and not self._has_invalid_postfix(scoped_term)
-            and not self._has_adjverb_without_nounization(scoped_term)
+            and not self._has_invalid_adjective(scoped_term)
+            and not self._has_invalid_verb(scoped_term)
         )
 
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
@@ -78,13 +79,14 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_prefix_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos != "接頭辞":
+            morpheme = scoped_term.morphemes[i]
+            if morpheme.pos != "接頭辞":
                 return False
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
-                "名詞",
-                "記号",
-                "形状詞",
-            }
+            return (
+                i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos not in {"名詞", "記号", "形状詞"}
+                # No line break
+            )
 
         return any(map(invalid_prefix_appears_at, range(num_morphemes)))
 
@@ -92,22 +94,45 @@ class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
         num_morphemes = len(scoped_term.morphemes)
 
         def invalid_postfix_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos != "接尾辞":
+            morpheme = scoped_term.morphemes[i]
+            if morpheme.pos != "接尾辞":
                 return False
-            return i == 0 or scoped_term.morphemes[i - 1].pos not in {
-                "名詞",
-                "記号",
-                "形状詞",
-            }
+            return (
+                i == 0
+                or scoped_term.morphemes[i - 1].pos
+                not in {"名詞", "記号", "形状詞", "動詞", "形容詞"}
+                # No line break
+            )
 
         return any(map(invalid_postfix_appears_at, range(num_morphemes)))
 
-    def _has_adjverb_without_nounization(self, scoped_term: Term) -> bool:
+    def _has_invalid_adjective(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def adjverb_without_nounization_appears_at(i: int) -> bool:
-            if scoped_term.morphemes[i].pos not in {"動詞", "形容詞"}:
+        def invalid_adjective_appears_at(i: int) -> bool:
+            morpheme = scoped_term.morphemes[i]
+            if morpheme.pos not in {"形状詞", "形容詞"}:
                 return False
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos != "接尾辞"
+            return (
+                morpheme.category == ""
+                or i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos
+                not in {"名詞", "記号", "接尾辞", "形状詞", "形容詞"}
+            )
 
-        return any(map(adjverb_without_nounization_appears_at, range(num_morphemes)))
+        return any(map(invalid_adjective_appears_at, range(num_morphemes)))
+
+    def _has_invalid_verb(self, scoped_term: Term) -> bool:
+        num_morphemes = len(scoped_term.morphemes)
+
+        def invalid__verb_appears_at(i: int) -> bool:
+            morpheme = scoped_term.morphemes[i]
+            if morpheme.pos != "動詞":
+                return False
+            return (
+                i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos not in {"接尾辞", "動詞"}
+                # No line break
+            )
+
+        return any(map(invalid__verb_appears_at, range(num_morphemes)))
