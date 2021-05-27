@@ -18,17 +18,28 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
 
     def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
         scoped_morpheme = morphemes[idx]
+        num_morphemes = len(morphemes)
 
-        if scoped_morpheme.pos == "NOUN":
-            return True
-        elif scoped_morpheme.pos == "PROPN":
-            return True
-        elif scoped_morpheme.pos == "NUM":
+        if scoped_morpheme.pos in {"NOUN", "PROPN", "NUM"}:
             return True
         elif scoped_morpheme.pos == "ADJ":
-            return True
+            return idx < num_morphemes - 1 or morphemes[idx + 1].pos in {
+                "NOUN",
+                "PROPN",
+                "ADJ",
+                "VERB",
+            }
         elif scoped_morpheme.pos == "VERB":
-            return scoped_morpheme.category in {"VBG", "VBN"}
+            if scoped_morpheme.category == "VBG":
+                return True
+            elif scoped_morpheme.category == "VBN":
+                return idx < num_morphemes - 1 or morphemes[idx + 1].pos in {
+                    "NOUN",
+                    "PROPN",
+                    "ADJ",
+                    "VERB",
+                }
+            return False
         elif scoped_morpheme.pos == "ADP":
             return scoped_morpheme.category == "IN"
         elif scoped_morpheme.pos == "SYM":

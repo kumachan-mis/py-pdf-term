@@ -39,6 +39,23 @@ def test_mixed_compound_noun(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "Hoare理論"
 
 
+def test_japanese_advective_or_verb(extractor: CandidateTermExtractor) -> None:
+    candidates = extractor.extract_from_text("通る経路の長さ")
+    assert len(candidates) == 3
+
+    candidate = candidates[0]
+    assert candidate.lang == "ja"
+    assert str(candidate) == "経路"
+
+    candidate = candidates[1]
+    assert candidate.lang == "ja"
+    assert str(candidate) == "長さ"
+
+    candidate = candidates[2]
+    assert candidate.lang == "ja"
+    assert str(candidate) == "経路の長さ"
+
+
 def test_japanese_nounal_postfix(extractor: CandidateTermExtractor) -> None:
     candidates = extractor.extract_from_text("パイプライン化する")
     assert len(candidates) == 1
