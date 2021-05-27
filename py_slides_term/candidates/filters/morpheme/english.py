@@ -28,6 +28,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
                 "PROPN",
                 "ADJ",
                 "VERB",
+                "SYM",
             }
         elif scoped_morpheme.pos == "VERB":
             if scoped_morpheme.category == "VBG":
@@ -38,6 +39,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
                     "PROPN",
                     "ADJ",
                     "VERB",
+                    "SYM",
                 }
             return False
         elif scoped_morpheme.pos == "ADP":
@@ -45,7 +47,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         elif scoped_morpheme.pos == "SYM":
             return (
                 scoped_morpheme.surface_form == "-"
-                and 0 < idx < len(morphemes) - 1
+                and 0 < idx < num_morphemes - 1
                 and self._regex.match(str(morphemes[idx - 1])) is not None
                 and self._regex.match(str(morphemes[idx + 1])) is not None
             )
