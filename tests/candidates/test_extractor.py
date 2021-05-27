@@ -48,11 +48,15 @@ def test_japanese_advective_or_verb(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "経路"
 
     candidate = candidates[1]
+    morpheme = candidate.morphemes[0]
     assert candidate.lang == "ja"
+    assert morpheme.pos == "形容詞", "test is broken!"
     assert str(candidate) == "長さ"
 
     candidate = candidates[2]
+    morpheme = candidate.morphemes[2]
     assert candidate.lang == "ja"
+    assert morpheme.pos == "形容詞", "test is broken!"
     assert str(candidate) == "経路の長さ"
 
 
@@ -105,3 +109,16 @@ def test_japanese_symbol(extractor: CandidateTermExtractor) -> None:
     assert candidate.lang == "ja"
     assert morpheme.pos == "記号", "test is broken!"
     assert str(candidate) == "ラムダ式"
+
+
+def test_english_advective_or_verb(extractor: CandidateTermExtractor) -> None:
+    candidates = extractor.extract_from_text("unsupervised feature embedding")
+    assert len(candidates) == 1
+
+    candidate = candidates[0]
+    assert candidate.lang == "en"
+    morpheme = candidate.morphemes[0]
+    assert morpheme.pos == "ADJ", "test is broken!"
+    morpheme = candidate.morphemes[2]
+    assert morpheme.pos == "VERB" and morpheme.category == "VBG", "test is broken!"
+    assert str(candidate) == "unsupervised feature embedding"
