@@ -1,3 +1,5 @@
+from typing import Dict
+
 import pytest
 
 from py_slides_term.analysis import TermLeftRightFrequencyAnalyzer
@@ -61,37 +63,37 @@ def test_lr_freq(extractor: CandidateTermExtractor) -> None:
             ],
         )
     )
-    expected_left_freq = {
+    expected_left_freq: Dict[str, Dict[str, int]] = {
         "processor": {"set": 1, "signal": 1, "network": 1, "core": 1, "end": 1},
         "unit": {"processing": 3, "point": 1},
         "processing": {"central": 1, "graphic": 1, "physics": 1},
-        "central": {},
-        "microprocessor": {},
-        "application": {},
-        "specific": {},
+        "central": dict(),
+        "microprocessor": dict(),
+        "application": dict(),
+        "specific": dict(),
         "instruction": {"specific": 1},
         "set": {"instruction": 1},
-        "graphic": {},
-        "physics": {},
-        "digital": {},
+        "graphic": dict(),
+        "physics": dict(),
+        "digital": dict(),
         "signal": {"digital": 1},
-        "coprocessor": {},
-        "floating": {},
-        "point": {},
-        "network": {},
-        "multi": {},
-        "core": {},
-        "front": {},
-        "end": {},
-        "-": {},
+        "coprocessor": dict(),
+        "floating": dict(),
+        "point": dict(),
+        "network": dict(),
+        "multi": dict(),
+        "core": dict(),
+        "front": dict(),
+        "end": dict(),
+        "-": dict(),
     }
-    expected_right_freq = {
-        "processor": {},
-        "unit": {},
+    expected_right_freq: Dict[str, Dict[str, int]] = {
+        "processor": dict(),
+        "unit": dict(),
         "processing": {"unit": 3},
         "central": {"processing": 1},
-        "microprocessor": {},
-        "application": {},
+        "microprocessor": dict(),
+        "application": dict(),
         "specific": {"instruction": 1},
         "instruction": {"set": 1},
         "set": {"processor": 1},
@@ -99,15 +101,15 @@ def test_lr_freq(extractor: CandidateTermExtractor) -> None:
         "physics": {"processing": 1},
         "digital": {"signal": 1},
         "signal": {"processor": 1},
-        "coprocessor": {},
-        "floating": {},
+        "coprocessor": dict(),
+        "floating": dict(),
         "point": {"unit": 1},
         "network": {"processor": 1},
-        "multi": {},
+        "multi": dict(),
         "core": {"processor": 1},
-        "front": {},
+        "front": dict(),
         "end": {"processor": 1},
-        "-": {},
+        "-": dict(),
     }
     assert result.domain == "test"
     assert result.left_freq == expected_left_freq
