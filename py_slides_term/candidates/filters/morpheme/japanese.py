@@ -44,11 +44,11 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
                 and morphemes[idx + 1].pos in {"接尾辞", "動詞"}
             )
         elif scoped_morpheme.pos == "接頭辞":
-            return idx < num_morphemes - 1 and morphemes[idx + 1].pos in {
-                "名詞",
-                "記号",
-                "形状詞",
-            }
+            return (
+                idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"名詞", "記号", "形状詞"}
+                # No line break
+            )
         elif scoped_morpheme.pos == "接尾辞":
             return (
                 (

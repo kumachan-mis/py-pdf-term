@@ -23,25 +23,17 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         if scoped_morpheme.pos in {"NOUN", "PROPN", "NUM"}:
             return True
         elif scoped_morpheme.pos == "ADJ":
-            return idx < num_morphemes - 1 and morphemes[idx + 1].pos in {
-                "NOUN",
-                "PROPN",
-                "ADJ",
-                "VERB",
-                "SYM",
-            }
+            return (
+                idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+                # No line break
+            )
         elif scoped_morpheme.pos == "VERB":
-            if scoped_morpheme.category == "VBG":
-                return True
-            elif scoped_morpheme.category == "VBN":
-                return idx < num_morphemes - 1 and morphemes[idx + 1].pos in {
-                    "NOUN",
-                    "PROPN",
-                    "ADJ",
-                    "VERB",
-                    "SYM",
-                }
-            return False
+            return scoped_morpheme.category == "VBG" or (
+                scoped_morpheme.category == "VBN"
+                and idx < num_morphemes - 1
+                and morphemes[idx + 1].pos in {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+            )
         elif scoped_morpheme.pos == "ADP":
             return scoped_morpheme.category == "IN"
         elif scoped_morpheme.pos == "SYM":

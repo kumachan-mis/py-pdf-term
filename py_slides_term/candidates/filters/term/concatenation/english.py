@@ -18,7 +18,7 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
             self._is_norn_phrase(scoped_term)
             and not self._has_invalid_connector_symbol(scoped_term)
             and not self._has_invalid_adposition(scoped_term)
-            and not self._has_invalid_adjective_or_past_participle(scoped_term)
+            and not self._has_invalid_adjective(scoped_term)
         )
 
     def _is_norn_phrase(self, scoped_term: Term) -> bool:
@@ -78,10 +78,10 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
 
         return any(map(invalid_adposition_appears_at, range(num_morphemes)))
 
-    def _has_invalid_adjective_or_past_participle(self, scoped_term: Term) -> bool:
+    def _has_invalid_adjective(self, scoped_term: Term) -> bool:
         num_morphemes = len(scoped_term.morphemes)
 
-        def invalid_adjective_or_past_participle_appears_at(i: int) -> bool:
+        def invalid_adjective_or_appears_at(i: int) -> bool:
             morpheme = scoped_term.morphemes[i]
             if not (
                 morpheme.pos == "ADJ"
@@ -89,14 +89,11 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
             ):
                 return False
 
-            return i == num_morphemes - 1 or scoped_term.morphemes[i + 1].pos not in {
-                "NOUN",
-                "PROPN",
-                "ADJ",
-                "VERB",
-                "SYM",
-            }
+            return (
+                i == num_morphemes - 1
+                or scoped_term.morphemes[i + 1].pos
+                not in {"NOUN", "PROPN", "ADJ", "VERB", "SYM"}
+                # No line break
+            )
 
-        return any(
-            map(invalid_adjective_or_past_participle_appears_at, range(num_morphemes))
-        )
+        return any(map(invalid_adjective_or_appears_at, range(num_morphemes)))
