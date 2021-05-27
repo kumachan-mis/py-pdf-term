@@ -13,9 +13,7 @@ class FLRHRankingData(BaseRankingData):
     # count even if the lemmatized term occurs as a part of a lemmatized phrase
     left_freq: Dict[str, Dict[str, int]]
     # number of occurrences of lemmatized (left, morpheme) in the domain
-    # if morpheme or left is meaningless (a modifying particle or a symbol),
-    # this is fixed at zero
+    # if morpheme or left is meaningless this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
     # number of occurrences of lemmatized (morpheme, right) in the domain
-    # if morpheme or right is meaningless (a modifying particle or a symbol),
-    # this is fixed at zero
+    # if morpheme or right is meaningless this is fixed at zero

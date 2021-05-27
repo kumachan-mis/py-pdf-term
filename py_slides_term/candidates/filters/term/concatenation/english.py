@@ -94,6 +94,7 @@ class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
                 "PROPN",
                 "ADJ",
                 "VERB",
+                "SYM",
             }
 
         return any(
