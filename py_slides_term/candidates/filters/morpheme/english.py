@@ -23,7 +23,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
         if scoped_morpheme.pos in {"NOUN", "PROPN", "NUM"}:
             return True
         elif scoped_morpheme.pos == "ADJ":
-            return idx < num_morphemes - 1 or morphemes[idx + 1].pos in {
+            return idx < num_morphemes - 1 and morphemes[idx + 1].pos in {
                 "NOUN",
                 "PROPN",
                 "ADJ",
@@ -33,7 +33,7 @@ class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):
             if scoped_morpheme.category == "VBG":
                 return True
             elif scoped_morpheme.category == "VBN":
-                return idx < num_morphemes - 1 or morphemes[idx + 1].pos in {
+                return idx < num_morphemes - 1 and morphemes[idx + 1].pos in {
                     "NOUN",
                     "PROPN",
                     "ADJ",
