@@ -1,16 +1,8 @@
-import pytest
-
 from py_slides_term.candidates import CandidateTermExtractor
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_japanese_modifying_particle_augmenter(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_japanese_modifying_particle_augmenter() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("クイックソートの計算量の最悪ケースを考える")
 
     assert len(candidates) == 6
@@ -40,7 +32,8 @@ def test_japanese_modifying_particle_augmenter(
     assert str(candidate) == "クイックソートの計算量の最悪ケース"
 
 
-def test_english_adposition_augmenter(extractor: CandidateTermExtractor) -> None:
+def test_english_adposition_augmenter() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("Introduction to Information Retrieval")
 
     assert len(candidates) == 3

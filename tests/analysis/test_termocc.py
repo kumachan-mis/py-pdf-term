@@ -1,5 +1,3 @@
-import pytest
-
 from py_slides_term.analysis import TermOccurrenceAnalyzer
 from py_slides_term.candidates import (
     CandidateTermExtractor,
@@ -9,12 +7,8 @@ from py_slides_term.candidates import (
 )
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_term_occ_with_no_subterm(extractor: CandidateTermExtractor) -> None:
+def test_term_occ_with_no_subterm() -> None:
+    extractor = CandidateTermExtractor()
     analyzer = TermOccurrenceAnalyzer()
     candidates = extractor.extract_from_text(
         "[線形識別 (Linear Classification) とパーセプトロン (Perceptron)]"
@@ -77,7 +71,8 @@ def test_term_occ_with_no_subterm(extractor: CandidateTermExtractor) -> None:
     assert result.term_freq == expected_term_freq
 
 
-def test_term_occ_with_subterm(extractor: CandidateTermExtractor) -> None:
+def test_term_occ_with_subterm() -> None:
+    extractor = CandidateTermExtractor()
     analyzer = TermOccurrenceAnalyzer()
     candidates = extractor.extract_from_text(
         "子を持たないノードを葉ないし外部ノード (external node) と呼ぶ。"
@@ -153,7 +148,8 @@ def test_term_occ_with_subterm(extractor: CandidateTermExtractor) -> None:
     assert result.term_freq == expected_term_freq
 
 
-def test_term_occ_with_augmented(extractor: CandidateTermExtractor) -> None:
+def test_term_occ_with_augmented() -> None:
+    extractor = CandidateTermExtractor()
     analyzer = TermOccurrenceAnalyzer(ignore_augmented=False)
     candidates = extractor.extract_from_text("ローカル変数とグローバル変数での変数の値の評価")
     expected_candidates_lemma = [

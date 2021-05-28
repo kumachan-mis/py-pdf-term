@@ -1,7 +1,5 @@
 from typing import Dict, Set
 
-import pytest
-
 from py_slides_term.analysis import ContainerTermsAnalyzer
 from py_slides_term.candidates import (
     CandidateTermExtractor,
@@ -11,12 +9,8 @@ from py_slides_term.candidates import (
 )
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_container(extractor: CandidateTermExtractor) -> None:
+def test_container() -> None:
+    extractor = CandidateTermExtractor()
     analyzer = ContainerTermsAnalyzer()
     candidates = extractor.extract_from_text(
         "Processor,"

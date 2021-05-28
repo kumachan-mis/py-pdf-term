@@ -1,14 +1,8 @@
-import pytest
-
 from py_slides_term.candidates import CandidateTermExtractor
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_japanese_compound_noun(extractor: CandidateTermExtractor) -> None:
+def test_japanese_compound_noun() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("ソフトウェア開発とは何か？")
     assert len(candidates) == 1
 
@@ -17,7 +11,8 @@ def test_japanese_compound_noun(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "ソフトウェア開発"
 
 
-def test_english_compound_noun(extractor: CandidateTermExtractor) -> None:
+def test_english_compound_noun() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("What is Software Delelopment?")
     assert len(candidates) == 1
 
@@ -26,7 +21,8 @@ def test_english_compound_noun(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "Software Delelopment"
 
 
-def test_mixed_compound_noun(extractor: CandidateTermExtractor) -> None:
+def test_mixed_compound_noun() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("Hoare Logic（Hoare理論）")
     assert len(candidates) == 2
 
@@ -39,7 +35,8 @@ def test_mixed_compound_noun(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "Hoare理論"
 
 
-def test_japanese_advective_or_verb(extractor: CandidateTermExtractor) -> None:
+def test_japanese_advective_or_verb() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("通る経路の長さ")
     assert len(candidates) == 3
 
@@ -60,7 +57,8 @@ def test_japanese_advective_or_verb(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "経路の長さ"
 
 
-def test_japanese_nounal_postfix(extractor: CandidateTermExtractor) -> None:
+def test_japanese_nounal_postfix() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("パイプライン化する")
     assert len(candidates) == 1
 
@@ -71,7 +69,8 @@ def test_japanese_nounal_postfix(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "パイプライン化"
 
 
-def test_japanese_adjectival_postfix(extractor: CandidateTermExtractor) -> None:
+def test_japanese_adjectival_postfix() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("データ的側面と機能的側面と振舞的側面")
     assert len(candidates) == 3
 
@@ -94,7 +93,8 @@ def test_japanese_adjectival_postfix(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "振舞的側面"
 
 
-def test_japanese_symbol(extractor: CandidateTermExtractor) -> None:
+def test_japanese_symbol() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("ラムダ計算とラムダ式")
     assert len(candidates) == 2
 
@@ -111,7 +111,8 @@ def test_japanese_symbol(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "ラムダ式"
 
 
-def test_english_advective_or_verb(extractor: CandidateTermExtractor) -> None:
+def test_english_advective_or_verb() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("unsupervised feature embedding")
     assert len(candidates) == 1
 
