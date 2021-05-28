@@ -57,6 +57,20 @@ def test_japanese_advective_or_verb() -> None:
     assert str(candidate) == "経路の長さ"
 
 
+def test_english_advective_or_verb() -> None:
+    extractor = CandidateTermExtractor()
+    candidates = extractor.extract_from_text("unsupervised feature embedding")
+    assert len(candidates) == 1
+
+    candidate = candidates[0]
+    assert candidate.lang == "en"
+    morpheme = candidate.morphemes[0]
+    assert morpheme.pos == "ADJ", "test is broken!"
+    morpheme = candidate.morphemes[2]
+    assert morpheme.pos == "VERB" and morpheme.category == "VBG", "test is broken!"
+    assert str(candidate) == "unsupervised feature embedding"
+
+
 def test_japanese_nounal_postfix() -> None:
     extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("パイプライン化する")
@@ -109,17 +123,3 @@ def test_japanese_symbol() -> None:
     assert candidate.lang == "ja"
     assert morpheme.pos == "記号", "test is broken!"
     assert str(candidate) == "ラムダ式"
-
-
-def test_english_advective_or_verb() -> None:
-    extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("unsupervised feature embedding")
-    assert len(candidates) == 1
-
-    candidate = candidates[0]
-    assert candidate.lang == "en"
-    morpheme = candidate.morphemes[0]
-    assert morpheme.pos == "ADJ", "test is broken!"
-    morpheme = candidate.morphemes[2]
-    assert morpheme.pos == "VERB" and morpheme.category == "VBG", "test is broken!"
-    assert str(candidate) == "unsupervised feature embedding"
