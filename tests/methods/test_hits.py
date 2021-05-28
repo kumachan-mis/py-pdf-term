@@ -47,4 +47,6 @@ def test_hits_method() -> None:
     assert len(ranking) == len(score_dict)
     assert set(score_dict.keys()) == set(expected_candidates_lemma)
     assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
+
     assert score_dict["モデル"] >= score_dict["実装"]
+    # more compound terms are consist of "モデル" than "実装"

@@ -15,8 +15,8 @@ def test_mdp_method() -> None:
     expected_candidates_lemma = ["主成分分析", "主成分分析", "問題", "問題"]
     assert list(map(lambda c: c.lemma(), their_candidates)) == expected_candidates_lemma
 
-    our_candidates = extractor.extract_from_text("パイプライン、パイプライン、問題、問題")
-    expected_candidates_lemma = ["パイプライン", "パイプライン", "問題", "問題"]
+    our_candidates = extractor.extract_from_text("パイプライン、パイプライン、IF、問題、問題")
+    expected_candidates_lemma = ["パイプライン", "パイプライン", "if", "問題", "問題"]
     assert list(map(lambda c: c.lemma(), our_candidates)) == expected_candidates_lemma
 
     method_ranking = method.rank_domain_terms(
@@ -52,4 +52,8 @@ def test_mdp_method() -> None:
     assert len(ranking) == len(score_dict)
     assert set(score_dict.keys()) == set(expected_candidates_lemma)
     assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
+
+    assert score_dict["パイプライン"] >= score_dict["if"]
+    # "パイプライン" appears more frequently than "IF"
     assert score_dict["パイプライン"] >= score_dict["問題"]
+    # "パイプライン" is more domain-specific than "問題"
