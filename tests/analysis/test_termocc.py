@@ -12,8 +12,8 @@ def test_term_occ_with_no_subterm() -> None:
     analyzer = TermOccurrenceAnalyzer()
     candidates = extractor.extract_from_text(
         "[線形識別 (Linear Classification) とパーセプトロン (Perceptron)]"
-        "特徴空間を超平面で分割してクラス識別を行うのが線形識別である。"
-        "線形識別はパーセプトロンとしてモデル化される。"
+        + "特徴空間を超平面で分割してクラス識別を行うのが線形識別である。"
+        + "線形識別はパーセプトロンとしてモデル化される。"
     )
     expected_candidates_lemma = [
         "線形識別",
@@ -76,8 +76,8 @@ def test_term_occ_with_subterm() -> None:
     analyzer = TermOccurrenceAnalyzer()
     candidates = extractor.extract_from_text(
         "子を持たないノードを葉ないし外部ノード (external node) と呼ぶ。"
-        "葉でないノードを内部ノード (internal node) と呼ぶ。"
-        "あるノードの深さはルートからそのノードまでにたどる経路の長さである。"
+        + "葉でないノードを内部ノード (internal node) と呼ぶ。"
+        + "あるノードの深さはルートからそのノードまでにたどる経路の長さである。"
     )
     expected_candidates_lemma = [
         "子",

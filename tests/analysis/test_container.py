@@ -14,18 +14,18 @@ def test_container() -> None:
     analyzer = ContainerTermsAnalyzer()
     candidates = extractor.extract_from_text(
         "Processor,"
-        "Unit,"
-        "Central processing unit,"
-        "Microprocessor,"
-        "Application-specific instruction set processor,"
-        "Graphics processing unit,"
-        "Physics processing unit,"
-        "Digital signal processor,"
-        "Coprocessor,"
-        "Floating-point unit,"
-        "Network processor,"
-        "Multi-core processor,"
-        "Front-end processor,"
+        + "Unit,"
+        + "Central processing unit,"
+        + "Microprocessor,"
+        + "Application-specific instruction set processor,"
+        + "Graphics processing unit,"
+        + "Physics processing unit,"
+        + "Digital signal processor,"
+        + "Coprocessor,"
+        + "Floating-point unit,"
+        + "Network processor,"
+        + "Multi-core processor,"
+        + "Front-end processor,"
     )
     expected_candidates_lemma = [
         "processor",
