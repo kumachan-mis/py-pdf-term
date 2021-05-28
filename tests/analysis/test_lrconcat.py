@@ -49,7 +49,7 @@ def test_lr_freq() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide1.pdf",
+                    "test/slide.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],

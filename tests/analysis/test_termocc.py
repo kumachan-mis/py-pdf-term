@@ -36,7 +36,7 @@ def test_term_occ_with_no_subterm() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide1.pdf",
+                    "test/slide.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -105,7 +105,7 @@ def test_term_occ_with_subterm() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide1.pdf",
+                    "test/slide.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -169,7 +169,7 @@ def test_term_occ_with_augmented() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide1.pdf",
+                    "test/slide.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
