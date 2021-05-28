@@ -14,18 +14,18 @@ def test_lr_freq() -> None:
     analyzer = TermLeftRightFrequencyAnalyzer()
     candidates = extractor.extract_from_text(
         "Processor,"
-        "Unit,"
-        "Central processing unit,"
-        "Microprocessor,"
-        "Application-specific instruction set processor,"
-        "Graphics processing unit,"
-        "Physics processing unit,"
-        "Digital signal processor,"
-        "Coprocessor,"
-        "Floating-point unit,"
-        "Network processor,"
-        "Multi-core processor,"
-        "Front-end processor,"
+        + "Unit,"
+        + "Central processing unit,"
+        + "Microprocessor,"
+        + "Application-specific instruction set processor,"
+        + "Graphics processing unit,"
+        + "Physics processing unit,"
+        + "Digital signal processor,"
+        + "Coprocessor,"
+        + "Floating-point unit,"
+        + "Network processor,"
+        + "Multi-core processor,"
+        + "Front-end processor,"
     )
     expected_candidates_lemma = [
         "processor",
@@ -49,7 +49,7 @@ def test_lr_freq() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide1.pdf",
+                    "test/slide.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
