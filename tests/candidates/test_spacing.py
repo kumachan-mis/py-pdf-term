@@ -1,14 +1,8 @@
-import pytest
-
 from py_slides_term.candidates import CandidateTermExtractor
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_meaningful_space(extractor: CandidateTermExtractor) -> None:
+def test_meaningful_space() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("プログラミング言語 型体系")
     assert len(candidates) == 2
 
@@ -21,7 +15,8 @@ def test_meaningful_space(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "型体系"
 
 
-def test_meaningless_space(extractor: CandidateTermExtractor) -> None:
+def test_meaningless_space() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("情報通信ネットワ ーク")
     assert len(candidates) == 1
 
@@ -30,9 +25,8 @@ def test_meaningless_space(extractor: CandidateTermExtractor) -> None:
     assert str(candidate) == "情報通信ネットワーク"
 
 
-def test_meaningful_space_with_space_post_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningful_space_with_space_post_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("型体系 プログラミング言語 Programming Language")
     assert len(candidates) == 2
 
@@ -45,9 +39,8 @@ def test_meaningful_space_with_space_post_english(
     assert str(candidate) == "プログラミング言語Programming Language"
 
 
-def test_meaningful_space_with_nospace_post_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningful_space_with_nospace_post_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("型体系 プログラミング言語Programming Language")
     assert len(candidates) == 2
 
@@ -60,9 +53,8 @@ def test_meaningful_space_with_nospace_post_english(
     assert str(candidate) == "プログラミング言語Programming Language"
 
 
-def test_meaningful_space_with_space_pre_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningful_space_with_space_pre_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("Programming Language プログラミング言語 型体系")
     assert len(candidates) == 2
 
@@ -75,9 +67,8 @@ def test_meaningful_space_with_space_pre_english(
     assert str(candidate) == "型体系"
 
 
-def test_meaningful_space_with_nospace_pre_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningful_space_with_nospace_pre_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("Programming Languageプログラミング言語 型体系")
     assert len(candidates) == 2
 
@@ -90,9 +81,8 @@ def test_meaningful_space_with_nospace_pre_english(
     assert str(candidate) == "型体系"
 
 
-def test_meaningless_space_with_space_post_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningless_space_with_space_post_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("情報通信ネ ットワー ク OSI reference model")
     assert len(candidates) == 1
 
@@ -101,9 +91,8 @@ def test_meaningless_space_with_space_post_english(
     assert str(candidate) == "情報通信ネットワークOSI reference model"
 
 
-def test_meaningless_space_with_nospace_post_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningless_space_with_nospace_post_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("情報通信ネ ットワー クOSI reference model")
     assert len(candidates) == 1
 
@@ -112,9 +101,8 @@ def test_meaningless_space_with_nospace_post_english(
     assert str(candidate) == "情報通信ネットワークOSI reference model"
 
 
-def test_meaningless_space_with_space_pre_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningless_space_with_space_pre_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("computer network 情報通信ネ ットワー ク")
 
     assert len(candidates) == 1
@@ -124,9 +112,8 @@ def test_meaningless_space_with_space_pre_english(
     assert str(candidate) == "computer network情報通信ネットワーク"
 
 
-def test_meaningless_space_with_nospace_pre_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningless_space_with_nospace_pre_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("computer network情報通信ネ ットワー ク")
 
     assert len(candidates) == 1
@@ -136,9 +123,8 @@ def test_meaningless_space_with_nospace_pre_english(
     assert str(candidate) == "computer network情報通信ネットワーク"
 
 
-def test_meaningful_spaces_both_sides_of_english(
-    extractor: CandidateTermExtractor,
-) -> None:
+def test_meaningful_spaces_both_sides_of_english() -> None:
+    extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text("分散 分析 ANOVA が 使える")
 
     assert len(candidates) == 2

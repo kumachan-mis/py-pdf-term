@@ -1,7 +1,5 @@
 from typing import Dict
 
-import pytest
-
 from py_slides_term.analysis import TermLeftRightFrequencyAnalyzer
 from py_slides_term.candidates import (
     CandidateTermExtractor,
@@ -11,12 +9,8 @@ from py_slides_term.candidates import (
 )
 
 
-@pytest.fixture
-def extractor() -> CandidateTermExtractor:
-    return CandidateTermExtractor()
-
-
-def test_lr_freq(extractor: CandidateTermExtractor) -> None:
+def test_lr_freq() -> None:
+    extractor = CandidateTermExtractor()
     analyzer = TermLeftRightFrequencyAnalyzer()
     candidates = extractor.extract_from_text(
         "Processor,"
