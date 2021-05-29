@@ -87,9 +87,6 @@ class CandidateLayer:
 
         self._cache.store(pdf_candidates, self._config)
 
-        if self._config.remove_lower_layer_cache:
-            self._xml_layer.remove_cache(pdf_path)
-
         return pdf_candidates
 
     def remove_cache(self, pdf_path: str) -> None:

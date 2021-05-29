@@ -45,14 +45,4 @@ class TechnicalTermLayer:
             pdf_candidates, term_ranking, pdf_styling_scores
         )
 
-        if self._config.remove_lower_layer_cache:
-            if single_domain_pdfs is not None:
-                domain_pdfs = single_domain_pdfs
-                self._method_layer.remove_cache(domain_pdfs.pdf_paths)
-            if multi_domain_pdfs is not None:
-                domain_pdfs = next(
-                    filter(lambda item: item.domain == domain, multi_domain_pdfs)
-                )
-                self._method_layer.remove_cache(domain_pdfs.pdf_paths)
-
         return techterms
