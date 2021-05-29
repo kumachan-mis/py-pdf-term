@@ -1,7 +1,7 @@
 from typing import Dict, Any, Type, TypeVar
 from dataclasses import dataclass, asdict
 
-CACHE_CONFIGS = ["cache", "data_cache", "ranking_cache", "remove_lower_layer_cache"]
+CACHE_CONFIGS = ["cache", "data_cache", "ranking_cache"]
 
 
 @dataclass(frozen=True)

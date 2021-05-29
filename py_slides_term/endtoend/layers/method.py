@@ -113,10 +113,6 @@ class MethodLayer:
 
         self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
 
-        if self._config.remove_lower_layer_cache:
-            for pdf_path in domain_pdfs.pdf_paths:
-                self._candidate_layer.remove_cache(pdf_path)
-
         return term_ranking
 
     def _run_multi_domain_method(
@@ -149,10 +145,6 @@ class MethodLayer:
             )
 
         self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
-
-        if self._config.remove_lower_layer_cache:
-            for pdf_path in domain_pdfs.pdf_paths:
-                self._candidate_layer.remove_cache(pdf_path)
 
         return term_ranking
 

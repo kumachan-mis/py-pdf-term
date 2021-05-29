@@ -43,4 +43,3 @@ class CandidateLayerConfig(BaseLayerConfig):
         ]
     )
     cache: str = "py_slides_term.CandidateLayerFileCache"
-    remove_lower_layer_cache: bool = False
