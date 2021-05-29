@@ -51,14 +51,7 @@ class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):
             )
         elif scoped_morpheme.pos == "接尾辞":
             return (
-                (
-                    (
-                        scoped_morpheme.category == "名詞的"
-                        and scoped_morpheme.subcategory
-                        in {"一般", "サ変可能", "形状詞可能", "助数詞"}
-                    )
-                    or scoped_morpheme.category == "形状詞的"
-                )
+                scoped_morpheme.category in {"名詞的", "形状詞的"}
                 and idx > 0
                 and morphemes[idx - 1].pos in {"名詞", "形状詞", "動詞", "形容詞", "記号"}
             )
