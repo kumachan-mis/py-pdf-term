@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from .base import BaseLayerConfig
-from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
+from py_slides_term._common.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
 @dataclass(frozen=True)

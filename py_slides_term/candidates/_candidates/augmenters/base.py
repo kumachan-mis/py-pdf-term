@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class BaseAugmenter(metaclass=ABCMeta):

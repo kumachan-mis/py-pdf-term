@@ -9,7 +9,7 @@ import en_core_web_sm
 
 from .base import BaseLanguageTokenizer
 from ..data import Morpheme
-from py_slides_term.share.consts import ALPHABET_REGEX, SYMBOL_REGEX
+from py_slides_term._common.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):

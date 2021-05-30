@@ -7,8 +7,8 @@ from py_slides_term.tokenizer import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
-from py_slides_term.share.data import Term, ScoredTerm
-from py_slides_term.share.extended_math import extended_log10
+from py_slides_term._common.data import Term, ScoredTerm
+from py_slides_term._common.extended_math import extended_log10
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):

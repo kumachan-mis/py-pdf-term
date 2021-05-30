@@ -4,7 +4,7 @@ from .hits import HITSRanker, HITSAuthHubData
 from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.share.data import Term, ScoredTerm
+from py_slides_term._common.data import Term, ScoredTerm
 
 
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):

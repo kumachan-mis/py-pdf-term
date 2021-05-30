@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Dict, Any
 
-from py_slides_term.share.data import ScoredTerm
+from py_slides_term._common.data import ScoredTerm
 
 
 @dataclass(frozen=True)

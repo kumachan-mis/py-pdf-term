@@ -11,7 +11,7 @@ from py_slides_term.candidates import (
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.share.data import ScoredTerm
+from py_slides_term._common.data import ScoredTerm
 
 
 class StylingScorer:

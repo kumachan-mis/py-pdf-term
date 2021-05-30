@@ -3,7 +3,7 @@ from dataclasses import dataclass, asdict
 from typing import List, Tuple, Dict, Any, Union
 
 from py_slides_term.tokenizer import Morpheme
-from py_slides_term.share.consts import NOSPACE_REGEX
+from py_slides_term._common.consts import NOSPACE_REGEX
 
 GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
 

@@ -3,7 +3,7 @@ from typing import List, Optional
 from .base import BaseSplitter
 from .symname import SymbolNameSplitter
 from .repeat import RepeatSplitter
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class SplitterCombiner:

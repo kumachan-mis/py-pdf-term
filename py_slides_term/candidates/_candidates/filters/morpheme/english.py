@@ -3,7 +3,7 @@ from typing import List
 
 from .base import BaseCandidateMorphemeFilter
 from py_slides_term.tokenizer import Morpheme
-from py_slides_term.share.consts import ENGLISH_REGEX, NUMBER_REGEX
+from py_slides_term._common.consts import ENGLISH_REGEX, NUMBER_REGEX
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):

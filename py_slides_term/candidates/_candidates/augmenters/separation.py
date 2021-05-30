@@ -7,7 +7,7 @@ from py_slides_term.tokenizer import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):

@@ -16,7 +16,7 @@ from py_slides_term.stylings import (
     PDFStylingScoreList,
     PageStylingScoreList,
 )
-from py_slides_term.share.data import ScoredTerm
+from py_slides_term._common.data import ScoredTerm
 
 
 class TechnicalTermExtractor:

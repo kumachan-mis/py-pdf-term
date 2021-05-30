@@ -12,7 +12,7 @@ from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTe
 from .utils import textnode_text, textnode_fontsize, textnode_ncolor
 from py_slides_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
 from py_slides_term.tokenizer import Tokenizer, BaseLanguageTokenizer, Morpheme
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class CandidateTermExtractor:

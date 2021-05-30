@@ -17,7 +17,7 @@ from .term import (
     EnglishNumericFilter,
 )
 from py_slides_term.tokenizer import Morpheme
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class FilterCombiner:

@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import Dict
 
-from ..share import AnalysisRunner
+from ..runner import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
 from py_slides_term.tokenizer import (
     Morpheme,
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 @dataclass(frozen=True)

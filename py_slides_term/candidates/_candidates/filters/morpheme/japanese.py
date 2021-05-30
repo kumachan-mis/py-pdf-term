@@ -3,7 +3,7 @@ from typing import List
 
 from .base import BaseCandidateMorphemeFilter
 from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
-from py_slides_term.share.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
+from py_slides_term._common.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):

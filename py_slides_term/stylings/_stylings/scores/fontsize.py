@@ -3,7 +3,7 @@ from statistics import mean, stdev
 
 from .base import BaseStylingScore
 from py_slides_term.candidates import PageCandidateTermList
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class FontsizeScore(BaseStylingScore):

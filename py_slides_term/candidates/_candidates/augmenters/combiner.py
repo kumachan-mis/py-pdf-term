@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from .base import BaseAugmenter
 from .separation import JapaneseModifyingParticleAugmenter, EnglishAdpositionAugmenter
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class AugmenterCombiner:

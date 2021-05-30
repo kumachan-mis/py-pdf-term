@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Set, Dict
 
-from ..share import AnalysisRunner
+from ..runner import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.share.data import Term, LinguSeq
+from py_slides_term._common.data import Term, LinguSeq
 
 
 @dataclass(frozen=True)

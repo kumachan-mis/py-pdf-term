@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Dict
 
 from .base import BaseRankingData
-from py_slides_term.share.data import LinguSeq
+from py_slides_term._common.data import LinguSeq
 
 
 @dataclass(frozen=True)

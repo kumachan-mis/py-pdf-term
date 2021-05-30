@@ -2,7 +2,7 @@ import re
 from unicodedata import normalize
 from typing import Optional
 
-from py_slides_term.share.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
+from py_slides_term._common.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
 
 ERROR = re.compile(r"[\x00-\x08\x0b-\x0c\x0e-\x1f]|\(cid:\d+\)")
 SPACES = re.compile(r"\s+")

@@ -2,8 +2,8 @@ from typing import Dict
 
 from .base import BaseStylingScore
 from py_slides_term.candidates import PageCandidateTermList
-from py_slides_term.share.data import Term
-from py_slides_term.share.extended_math import extended_log10
+from py_slides_term._common.data import Term
+from py_slides_term._common.extended_math import extended_log10
 
 
 class ColorScore(BaseStylingScore):

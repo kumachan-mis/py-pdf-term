@@ -10,7 +10,7 @@ import ja_core_news_sm
 
 from .base import BaseLanguageTokenizer
 from ..data import Morpheme
-from py_slides_term.share.consts import JAPANESE_REGEX, SYMBOL_REGEX, NOSPACE_REGEX
+from py_slides_term._common.consts import JAPANESE_REGEX, SYMBOL_REGEX, NOSPACE_REGEX
 
 SPACES = re.compile(r"\s+")
 DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")

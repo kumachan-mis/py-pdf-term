@@ -2,8 +2,8 @@ import re
 
 from ..base import BaseJapaneseCandidateTermFilter
 from py_slides_term.tokenizer import JapaneseMorphemeClassifier
-from py_slides_term.share.data import Term
-from py_slides_term.share.consts import HIRAGANA_REGEX, KATAKANA_REGEX, ALPHABET_REGEX
+from py_slides_term._common.data import Term
+from py_slides_term._common.consts import HIRAGANA_REGEX, KATAKANA_REGEX, ALPHABET_REGEX
 
 
 PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX}"

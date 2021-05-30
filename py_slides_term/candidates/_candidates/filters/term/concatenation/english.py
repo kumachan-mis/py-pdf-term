@@ -2,8 +2,8 @@ import re
 
 from ..base import BaseEnglishCandidateTermFilter
 from py_slides_term.tokenizer import EnglishMorphemeClassifier
-from py_slides_term.share.data import Term
-from py_slides_term.share.consts import ALPHABET_REGEX
+from py_slides_term._common.data import Term
+from py_slides_term._common.consts import ALPHABET_REGEX
 
 
 PHONETIC_REGEX = ALPHABET_REGEX

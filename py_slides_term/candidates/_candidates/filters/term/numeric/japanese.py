@@ -1,6 +1,6 @@
 from ..base import BaseJapaneseCandidateTermFilter
 from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):

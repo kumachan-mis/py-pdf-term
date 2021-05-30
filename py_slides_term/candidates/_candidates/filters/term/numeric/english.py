@@ -1,6 +1,6 @@
 from ..base import BaseEnglishCandidateTermFilter
 from py_slides_term.tokenizer import Morpheme, EnglishMorphemeClassifier
-from py_slides_term.share.data import Term
+from py_slides_term._common.data import Term
 
 
 class EnglishNumericFilter(BaseEnglishCandidateTermFilter):
