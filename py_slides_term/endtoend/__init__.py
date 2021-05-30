@@ -23,6 +23,7 @@ from .mappers import (
     StylingLayerCacheMapper,
 )
 from .data import DomainPDFList
+from py_slides_term.techterms import PDFTechnicalTermList
 
 __all__ = [
     "PySlidesTermExtractor",
@@ -46,4 +47,5 @@ __all__ = [
     "MethodLayerDataCacheMapper",
     "StylingLayerCacheMapper",
     "DomainPDFList",
+    "PDFTechnicalTermList",
 ]

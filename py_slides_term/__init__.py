@@ -19,8 +19,8 @@ from .endtoend import (
     MethodLayerDataCacheMapper,
     StylingLayerCacheMapper,
     DomainPDFList,
+    PDFTechnicalTermList,
 )
-from .techterms import DomainTechnicalTermList, PDFTechnicalTermList
 
 __all__ = [
     "PySlidesTermExtractor",
@@ -43,6 +43,5 @@ __all__ = [
     "MethodLayerDataCacheMapper",
     "StylingLayerCacheMapper",
     "DomainPDFList",
-    "DomainTechnicalTermList",
     "PDFTechnicalTermList",
 ]
