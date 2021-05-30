@@ -12,7 +12,6 @@ __all__ = [
     "LinguOccurrenceAnalyzer",
     "ContainerTermsAnalyzer",
     "TermLeftRightFrequencyAnalyzer",
-    "TermMaxsizeAnalyzer",
     "DomainTermOccurrence",
     "DomainLinguOccurrence",
     "DomainContainerTerms",
