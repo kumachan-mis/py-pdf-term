@@ -1,10 +1,13 @@
-from .endtoend import (
-    PySlidesTermExtractor,
+from .extractor import PySlidesTermExtractor
+from .configs import (
+    BaseLayerConfig,
     XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
     StylingLayerConfig,
     TechnicalTermLayerConfig,
+)
+from .mappers import (
     LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
@@ -18,12 +21,13 @@ from .endtoend import (
     MethodLayerRankingCacheMapper,
     MethodLayerDataCacheMapper,
     StylingLayerCacheMapper,
-    DomainPDFList,
-    PDFTechnicalTermList,
 )
+from .data import DomainPDFList
+from py_slides_term.techterms import PDFTechnicalTermList
 
 __all__ = [
     "PySlidesTermExtractor",
+    "BaseLayerConfig",
     "XMLLayerConfig",
     "CandidateLayerConfig",
     "MethodLayerConfig",
