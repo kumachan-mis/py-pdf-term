@@ -8,7 +8,7 @@ from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_paths
 from py_slides_term.methods import MethodTermRanking
-from py_slides_term.methods.rankingdata import RankingData
+from py_slides_term.methods._methods.rankingdata import RankingData
 
 
 class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):

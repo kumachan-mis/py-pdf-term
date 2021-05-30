@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Union, Callable
 from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
 from ...configs import MethodLayerConfig
 from py_slides_term.methods import MethodTermRanking
-from py_slides_term.methods.rankingdata import RankingData
+from py_slides_term.methods._methods.rankingdata import RankingData
 
 
 class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
