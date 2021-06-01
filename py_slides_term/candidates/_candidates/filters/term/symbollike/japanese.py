@@ -19,7 +19,9 @@ class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
         self._classifier = JapaneseMorphemeClassifier()
         self._phonetic_regex = re.compile(PHONETIC_REGEX)
         self._indexed_phonetic_regex = re.compile(
-            rf"({ALPHABET_REGEX}{NUMBER_REGEX}+)+|({NUMBER_REGEX}+{ALPHABET_REGEX})+"
+            rf"({PHONETIC_REGEX}{NUMBER_REGEX}+)+{PHONETIC_REGEX}?"
+            + "|"
+            + rf"({NUMBER_REGEX}+{PHONETIC_REGEX})+({NUMBER_REGEX}+)?"
         )
 
     def is_candidate(self, scoped_term: Term) -> bool:

@@ -14,7 +14,9 @@ class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
         self._classifier = EnglishMorphemeClassifier()
         self._phonetic_regex = re.compile(PHONETIC_REGEX)
         self._indexed_phonetic_regex = re.compile(
-            rf"({PHONETIC_REGEX}{NUMBER_REGEX}+)+|({NUMBER_REGEX}+{PHONETIC_REGEX})+"
+            rf"({PHONETIC_REGEX}{NUMBER_REGEX}+)+{PHONETIC_REGEX}?"
+            + "|"
+            + rf"({NUMBER_REGEX}+{PHONETIC_REGEX})+({NUMBER_REGEX}+)?"
         )
 
     def is_candidate(self, scoped_term: Term) -> bool:
