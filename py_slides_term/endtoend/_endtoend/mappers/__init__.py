@@ -1,3 +1,6 @@
+from .pdftoxml import (
+    BinaryOpenerMapper,
+)
 from .candidates import (
     LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
@@ -21,6 +24,7 @@ from .caches import (
 )
 
 __all__ = [
+    "BinaryOpenerMapper",
     "LanguageTokenizerMapper",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
