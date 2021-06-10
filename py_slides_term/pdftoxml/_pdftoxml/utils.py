@@ -13,7 +13,7 @@ def clean_content_text(
     text: str,
     nfc_norm: bool,
     include_pattern: Optional[str],
-    exclude_parrern: Optional[str],
+    exclude_pattern: Optional[str],
 ) -> str:
     text = ERROR.sub("", text)
     text = SPACES.sub(" ", text).strip()
@@ -25,6 +25,6 @@ def clean_content_text(
     return (
         text
         if (include_pattern is None or re.search(include_pattern, text) is not None)
-        and (exclude_parrern is None or re.search(exclude_parrern, text) is None)
+        and (exclude_pattern is None or re.search(exclude_pattern, text) is None)
         else ""
     )

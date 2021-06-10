@@ -8,6 +8,7 @@ from .configs import (
     TechnicalTermLayerConfig,
 )
 from .mappers import (
+    BinaryOpenerMapper,
     LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
@@ -42,6 +43,7 @@ class PySlidesTermExtractor:
         method_config: Optional[MethodLayerConfig] = None,
         styling_config: Optional[StylingLayerConfig] = None,
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
+        bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
         morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
@@ -59,6 +61,7 @@ class PySlidesTermExtractor:
     ) -> None:
         xml_layer = XMLLayer(
             config=xml_config,
+            bin_opener_mapper=bin_opener_mapper,
             cache_mapper=xml_cache_mapper,
             cache_dir=cache_dir,
         )

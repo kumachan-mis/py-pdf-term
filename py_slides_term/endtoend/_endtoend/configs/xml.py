@@ -7,6 +7,7 @@ from py_slides_term._common.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_
 
 @dataclass(frozen=True)
 class XMLLayerConfig(BaseLayerConfig):
+    open_bin: str = "python.open"
     include_pattern: Optional[str] = rf"{ENGLISH_REGEX}|{JAPANESE_REGEX}|{NUMBER_REGEX}"
     exclude_pattern: Optional[str] = None
     nfc_norm: bool = True
