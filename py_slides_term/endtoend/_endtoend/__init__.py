@@ -8,6 +8,7 @@ from .configs import (
     TechnicalTermLayerConfig,
 )
 from .mappers import (
+    BinaryOpenerMapper,
     LanguageTokenizerMapper,
     CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
@@ -33,6 +34,7 @@ __all__ = [
     "MethodLayerConfig",
     "StylingLayerConfig",
     "TechnicalTermLayerConfig",
+    "BinaryOpenerMapper",
     "LanguageTokenizerMapper",
     "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
