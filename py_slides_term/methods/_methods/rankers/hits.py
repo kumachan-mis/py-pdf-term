@@ -28,8 +28,9 @@ class HITSAuthHubData:
 
 
 class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
-    def __init__(self, threshold: float = 1e-8) -> None:
+    def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         self._threshold = threshold
+        self._max_loop = max_loop
         self._ja_classifier = JapaneseMorphemeClassifier()
         self._en_classifier = EnglishMorphemeClassifier()
 
@@ -60,7 +61,8 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         }
 
         converged = False
-        while not converged:
+        loop = 0
+        while not converged and loop < self._max_loop:
             new_morpheme_auth = {
                 morpheme: sum(map(lambda hub: morpheme_hub[hub], left.keys()), 0.0)
                 for morpheme, left in ranking_data.left_freq.items()
@@ -96,6 +98,8 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
             morpheme_auth = new_morpheme_auth
             morpheme_hub = new_morpheme_hub
+
+            loop += 1
 
         return HITSAuthHubData(morpheme_auth, morpheme_hub)
 
