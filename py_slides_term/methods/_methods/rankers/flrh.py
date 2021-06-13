@@ -8,9 +8,9 @@ from py_slides_term._common.data import Term, ScoredTerm
 
 
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
-    def __init__(self, threshold: float = 1e-8) -> None:
+    def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         self._flr_ranker = FLRRanker()
-        self._hits_ranker = HITSRanker(threshold=threshold)
+        self._hits_ranker = HITSRanker(threshold=threshold, max_loop=max_loop)
 
     # pyright:reportPrivateUsage=false
     # FLRHRanker is a friend of FLRRanker and HITSRanker
