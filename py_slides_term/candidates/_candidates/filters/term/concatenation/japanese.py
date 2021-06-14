@@ -1,7 +1,7 @@
 import re
 
 from ..base import BaseJapaneseCandidateTermFilter
-from py_slides_term.tokenizer import JapaneseMorphemeClassifier
+from py_slides_term.tokenizer.langs import JapaneseMorphemeClassifier
 from py_slides_term._common.data import Term
 from py_slides_term._common.consts import HIRAGANA_REGEX, KATAKANA_REGEX, ALPHABET_REGEX
 

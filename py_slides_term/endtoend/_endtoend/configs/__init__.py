@@ -9,7 +9,6 @@ __all__ = [
     "BaseLayerConfig",
     "XMLLayerConfig",
     "CandidateLayerConfig",
-    "AnalysisLayerConfig",
     "MethodLayerConfig",
     "StylingLayerConfig",
     "TechnicalTermLayerConfig",

@@ -2,8 +2,8 @@ from .base import BaseSingleDomainRanker
 from ..rankingdata import FLRRankingData
 from ..data import MethodTermRanking
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.tokenizer import (
-    Morpheme,
+from py_slides_term.tokenizer import Morpheme
+from py_slides_term.tokenizer.langs import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )

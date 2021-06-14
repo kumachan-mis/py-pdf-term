@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from .base import BaseSplitter
-from py_slides_term.tokenizer import (
+from py_slides_term.tokenizer.langs import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )

@@ -2,8 +2,8 @@ from abc import ABCMeta
 from typing import List, Callable
 
 from .base import BaseAugmenter
-from py_slides_term.tokenizer import (
-    Morpheme,
+from py_slides_term.tokenizer import Morpheme
+from py_slides_term.tokenizer.langs import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )

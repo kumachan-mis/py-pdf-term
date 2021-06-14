@@ -2,7 +2,7 @@ from typing import Type
 
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from py_slides_term.tokenizer import (
+from py_slides_term.tokenizer.langs import (
     BaseLanguageTokenizer,
     JapaneseTokenizer,
     EnglishTokenizer,

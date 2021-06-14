@@ -2,7 +2,11 @@ from typing import Type
 
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from py_slides_term.candidates import BaseSplitter, SymbolNameSplitter, RepeatSplitter
+from py_slides_term.candidates.splitters import (
+    BaseSplitter,
+    SymbolNameSplitter,
+    RepeatSplitter,
+)
 
 
 class SplitterMapper(BaseMapper[Type[BaseSplitter]]):
