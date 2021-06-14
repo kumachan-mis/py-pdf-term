@@ -91,11 +91,9 @@ class TechnicalTermExtractor:
                 return method_score / styling_score
 
         scored_terms = [
-            ScoredTerm(str(term), term_score(term_lemma))
-            for term_lemma, term in page_candidates.to_nostyle_candidates_dict(
-                to_str=lambda term: term.lemma()
-            ).items()
-            if term_lemma in method_score_dict and term_lemma in styling_score_dict
+            ScoredTerm(term_str, term_score(term.lemma()))
+            for term_str, term in page_candidates.to_nostyle_candidates_dict().items()
+            if term.lemma() in method_score_dict and term.lemma() in styling_score_dict
         ]
 
         if len(scored_terms) > self._max_num_terms:
