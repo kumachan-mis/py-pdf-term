@@ -1,7 +1,8 @@
 import re
 
 from ..base import BaseJapaneseCandidateTermFilter
-from py_slides_term.tokenizer import Morpheme, JapaneseMorphemeClassifier
+from py_slides_term.tokenizer import Morpheme
+from py_slides_term.tokenizer.langs import JapaneseMorphemeClassifier
 from py_slides_term._common.data import Term
 from py_slides_term._common.consts import (
     HIRAGANA_REGEX,
@@ -11,7 +12,7 @@ from py_slides_term._common.consts import (
 )
 
 
-PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX}"
+PHONETIC_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX})"
 
 
 class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
@@ -26,8 +27,7 @@ class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return (
-            str(scoped_term) != ""
-            and not self._is_phonetic_or_meaningless_term(scoped_term)
+            not self._is_phonetic_or_meaningless_term(scoped_term)
             and not self._is_indexed_phonetic(scoped_term)
             and not self._phonetic_morpheme_appears_continuously(scoped_term)
         )

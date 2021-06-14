@@ -2,7 +2,8 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term import PySlidesTermExtractor, MethodLayerConfig
+from py_slides_term import PySlidesTermExtractor
+from py_slides_term.configs import MethodLayerConfig
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,

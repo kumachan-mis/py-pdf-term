@@ -2,7 +2,7 @@ from typing import Type
 
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from py_slides_term.candidates import (
+from py_slides_term.candidates.filters import (
     BaseCandidateMorphemeFilter,
     JapaneseMorphemeFilter,
     EnglishMorphemeFilter,

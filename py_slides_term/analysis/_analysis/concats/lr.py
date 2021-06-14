@@ -3,8 +3,8 @@ from typing import Dict
 
 from ..runner import AnalysisRunner
 from py_slides_term.candidates import DomainCandidateTermList
-from py_slides_term.tokenizer import (
-    Morpheme,
+from py_slides_term.tokenizer import Morpheme
+from py_slides_term.tokenizer.langs import (
     JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
 )
