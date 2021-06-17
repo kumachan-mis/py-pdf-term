@@ -53,19 +53,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         while i < num_morpheme:
             if pos in orginal_space_pos:
                 pos += len(str(morphemes[i]))
-                space = Morpheme(
-                    "ja",
-                    " ",
-                    "空白",
-                    "*",
-                    "*",
-                    "*",
-                    "SPACE",
-                    " ",
-                    " ",
-                    False,
-                )
-                morphemes.insert(i, space)
+                morphemes.insert(i, Morpheme("ja", " ", "空白", None, None, " "))
                 i += 2
             else:
                 pos += len(str(morphemes[i]))
@@ -75,36 +63,22 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
 
     def _create_morpheme(self, token: Any) -> Morpheme:
         if self._symbol_regex.fullmatch(token.text):
-            return Morpheme(
-                "ja",
-                token.text,
-                "補助記号",
-                "一般",
-                "*",
-                "*",
-                "SYM",
-                token.text,
-                token.text,
-                False,
-            )
+            return Morpheme("ja", token.text, "補助記号", "一般", None, token.text)
 
         pos_with_categories = token.tag_.split("-")
         num_categories = len(pos_with_categories) - 1
 
         pos = pos_with_categories[0]
-        category = pos_with_categories[1] if num_categories >= 1 else "*"
-        subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
-        subsubcategory = pos_with_categories[3] if num_categories >= 3 else "*"
-
-        return Morpheme(
-            "ja",
-            token.text,
-            pos,
-            category,
-            subcategory,
-            subsubcategory,
-            token.pos_,
-            token.lemma_.lower(),
-            token.shape_,
-            token.is_stop,
+        category = (
+            pos_with_categories[1]
+            if num_categories >= 1 and pos_with_categories[1] not in {"", "*"}
+            else None
         )
+        subcategory = (
+            pos_with_categories[2]
+            if num_categories >= 2 and pos_with_categories[2] not in {"", "*"}
+            else None
+        )
+        lemma = token.lemma_.lower()
+
+        return Morpheme("ja", token.text, pos, category, subcategory, lemma)

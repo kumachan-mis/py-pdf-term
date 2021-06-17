@@ -1,21 +1,15 @@
 from dataclasses import dataclass, asdict
-from typing import Dict, Any, ClassVar
+from typing import Dict, Any, Optional
 
 
 @dataclass(frozen=True)
 class Morpheme:
-    NUM_ATTR: ClassVar[int] = 10
-
     lang: str
     surface_form: str
     pos: str
-    category: str
-    subcategory: str
-    subsubcategory: str
-    universal_tag: str
+    category: Optional[str]
+    subcategory: Optional[str]
     lemma: str
-    shape: str
-    is_stop: bool
 
     def __str__(self) -> str:
         return self.surface_form

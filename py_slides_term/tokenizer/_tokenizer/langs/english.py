@@ -29,28 +29,8 @@ class EnglishTokenizer(BaseLanguageTokenizer):
 
     def _create_morpheme(self, token: Any) -> Morpheme:
         if self._symbol_regex.fullmatch(token.text):
-            return Morpheme(
-                "en",
-                token.text,
-                "SYM",
-                "*",
-                "*",
-                "*",
-                "SYM",
-                token.text,
-                token.text,
-                False,
-            )
+            return Morpheme("en", token.text, "SYM", None, None, token.text)
 
-        return Morpheme(
-            "en",
-            token.text,
-            token.pos_,
-            token.tag_,
-            "*",
-            "*",
-            token.pos_,
-            token.lemma_.lower(),
-            token.shape_,
-            token.is_stop,
-        )
+        tag = token.tag_ if token.tag_ not in {"", "*"} else None
+        lemma = token.lemma_.lower()
+        return Morpheme("en", token.text, token.pos_, tag, None, lemma)
