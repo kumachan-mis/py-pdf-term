@@ -1,11 +1,11 @@
-from py_slides_term.candidates import (
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.methods import MethodTermRanking
-from py_slides_term.stylings import PDFStylingScoreList
-from py_slides_term.techterms import TechnicalTermExtractor
+from py_pdf_term.methods import MethodTermRanking
+from py_pdf_term.stylings import PDFStylingScoreList
+from py_pdf_term.techterms import TechnicalTermExtractor
 
 
 def test_extractor() -> None:
@@ -48,7 +48,7 @@ def test_extractor() -> None:
     assert list(map(lambda c: c.lemma(), p2_candidates)) == p2_expected_candidates_lemma
 
     page_candidates = PDFCandidateTermList(
-        "test/slides.pdf",
+        "test/test.pdf",
         [
             PageCandidateTermList(1, p1_candidates),
             PageCandidateTermList(2, p2_candidates),
@@ -82,7 +82,7 @@ def test_extractor() -> None:
     )
     pdf_styling_scores = PDFStylingScoreList.from_dict(
         {
-            "pdf_path": "test/slides.pdf",
+            "pdf_path": "test/test.pdf",
             "pages": [
                 {
                     "page_num": 1,
@@ -105,7 +105,7 @@ def test_extractor() -> None:
         page_candidates, method_ranking, pdf_styling_scores
     )
 
-    assert techterms.pdf_path == "test/slides.pdf"
+    assert techterms.pdf_path == "test/test.pdf"
     assert len(techterms.pages) == 2
 
     page = techterms.pages[0]

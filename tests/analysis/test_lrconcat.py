@@ -1,7 +1,7 @@
 from typing import Dict
 
-from py_slides_term.analysis import TermLeftRightFrequencyAnalyzer
-from py_slides_term.candidates import (
+from py_pdf_term.analysis import TermLeftRightFrequencyAnalyzer
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -37,7 +37,7 @@ def test_lr_freq() -> None:
         "physics processing unit",
         "digital signal processor",
         "coprocessor",
-        "floating-point unit",
+        "float-point unit",
         "network processor",
         "multi-core processor",
         "front-end processor",
@@ -49,7 +49,7 @@ def test_lr_freq() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -72,7 +72,7 @@ def test_lr_freq() -> None:
         "digital": dict(),
         "signal": {"digital": 1},
         "coprocessor": dict(),
-        "floating": dict(),
+        "float": dict(),
         "point": dict(),
         "network": dict(),
         "multi": dict(),
@@ -96,7 +96,7 @@ def test_lr_freq() -> None:
         "digital": {"signal": 1},
         "signal": {"processor": 1},
         "coprocessor": dict(),
-        "floating": dict(),
+        "float": dict(),
         "point": {"unit": 1},
         "network": {"processor": 1},
         "multi": dict(),

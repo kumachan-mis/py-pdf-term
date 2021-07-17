@@ -1,4 +1,4 @@
-from py_slides_term.candidates import CandidateTermExtractor
+from py_pdf_term.candidates import CandidateTermExtractor
 
 
 def test_meaningful_space() -> None:

@@ -1,10 +1,10 @@
-from py_slides_term.candidates import (
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.methods import MDPMethod
+from py_pdf_term.methods import MDPMethod
 
 
 def test_mdp_method() -> None:
@@ -26,7 +26,7 @@ def test_mdp_method() -> None:
                 "theirtest",
                 [
                     PDFCandidateTermList(
-                        "theirtest/slide.pdf",
+                        "theirtest/test.pdf",
                         [
                             PageCandidateTermList(1, their_candidates),
                         ],
@@ -37,7 +37,7 @@ def test_mdp_method() -> None:
                 "ourtest",
                 [
                     PDFCandidateTermList(
-                        "ourtest/slide.pdf",
+                        "ourtest/test.pdf",
                         [
                             PageCandidateTermList(1, our_candidates),
                         ],

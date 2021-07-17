@@ -1,7 +1,7 @@
 from typing import Dict, Set
 
-from py_slides_term.analysis import ContainerTermsAnalyzer
-from py_slides_term.candidates import (
+from py_pdf_term.analysis import ContainerTermsAnalyzer
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -37,7 +37,7 @@ def test_container() -> None:
         "physics processing unit",
         "digital signal processor",
         "coprocessor",
-        "floating-point unit",
+        "float-point unit",
         "network processor",
         "multi-core processor",
         "front-end processor",
@@ -49,7 +49,7 @@ def test_container() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -70,7 +70,7 @@ def test_container() -> None:
             "central processing unit",
             "graphic processing unit",
             "physics processing unit",
-            "floating-point unit",
+            "float-point unit",
         },
         "central processing unit": set(),
         "microprocessor": set(),
@@ -79,7 +79,7 @@ def test_container() -> None:
         "physics processing unit": set(),
         "digital signal processor": set(),
         "coprocessor": set(),
-        "floating-point unit": set(),
+        "float-point unit": set(),
         "network processor": set(),
         "multi-core processor": set(),
         "front-end processor": set(),
