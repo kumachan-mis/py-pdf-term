@@ -1,5 +1,5 @@
-from py_slides_term.analysis import TermOccurrenceAnalyzer
-from py_slides_term.candidates import (
+from py_pdf_term.analysis import TermOccurrenceAnalyzer
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -36,7 +36,7 @@ def test_term_occ_with_no_subterm() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -105,7 +105,7 @@ def test_term_occ_with_subterm() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -169,7 +169,7 @@ def test_term_occ_with_augmented() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],

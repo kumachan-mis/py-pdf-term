@@ -1,9 +1,9 @@
-# py-slides-term
-A python module for terminology extraction from presentation slides
+# py-pdf-term
+A python module for terminology extraction from pdf
 
 ## Installation
 ```
-pip install py-slides-term
+pip install py-pdf-term
 ```
 
 You also need to install spaCy models `ja_core_news_sm` and `en_core_web_sm`, which this module depends on.

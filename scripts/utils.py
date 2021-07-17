@@ -3,10 +3,10 @@ import json
 from glob import iglob
 from typing import List, Optional, Iterator, Iterable
 
-from py_slides_term import DomainPDFList
-from py_slides_term.candidates import DomainCandidateTermList, PDFCandidateTermList
-from py_slides_term.methods import MethodTermRanking
-from py_slides_term.stylings import DomainStylingScoreList, PDFStylingScoreList
+from py_pdf_term import DomainPDFList
+from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
+from py_pdf_term.methods import MethodTermRanking
+from py_pdf_term.stylings import DomainStylingScoreList, PDFStylingScoreList
 from scripts.settings import (
     BASE_DIR,
     PDF_DIR,

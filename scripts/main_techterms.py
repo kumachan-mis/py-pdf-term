@@ -2,7 +2,7 @@ import os
 import json
 from argparse import ArgumentParser
 
-from py_slides_term.techterms import TechnicalTermExtractor
+from py_pdf_term.techterms import TechnicalTermExtractor
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,

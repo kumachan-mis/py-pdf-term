@@ -2,7 +2,7 @@ import os
 from argparse import ArgumentParser
 from xml.etree.ElementTree import tostring
 
-from py_slides_term.pdftoxml import PDFtoXMLConverter
+from py_pdf_term.pdftoxml import PDFtoXMLConverter
 from scripts.utils import generate_pdf_path, pdf_to_xml_path
 
 script_name = os.path.basename(__file__)

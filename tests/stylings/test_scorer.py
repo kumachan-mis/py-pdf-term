@@ -1,9 +1,9 @@
-from py_slides_term.candidates import (
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.stylings import StylingScorer
+from py_pdf_term.stylings import StylingScorer
 
 
 def test_fontsize_score() -> None:
@@ -37,9 +37,9 @@ def test_fontsize_score() -> None:
     assert candidates_sized_lemma == expected_candidates_sized_lemma
 
     pdf_styling_scores = scorer.score_pdf_candidates(
-        PDFCandidateTermList("test/slides.pdf", [PageCandidateTermList(1, candidates)])
+        PDFCandidateTermList("test/test.pdf", [PageCandidateTermList(1, candidates)])
     )
-    assert pdf_styling_scores.pdf_path == "test/slides.pdf"
+    assert pdf_styling_scores.pdf_path == "test/test.pdf"
     assert len(pdf_styling_scores.pages) == 1
 
     page = pdf_styling_scores.pages[0]
@@ -81,9 +81,9 @@ def test_color_score() -> None:
     assert candidates_colored_lemma == expected_candidates_colored_lemma
 
     pdf_styling_scores = scorer.score_pdf_candidates(
-        PDFCandidateTermList("test/slides.pdf", [PageCandidateTermList(1, candidates)])
+        PDFCandidateTermList("test/test.pdf", [PageCandidateTermList(1, candidates)])
     )
-    assert pdf_styling_scores.pdf_path == "test/slides.pdf"
+    assert pdf_styling_scores.pdf_path == "test/test.pdf"
     assert len(pdf_styling_scores.pages) == 1
 
     page = pdf_styling_scores.pages[0]
@@ -140,9 +140,9 @@ def test_mixed_score() -> None:
     assert candidates_mixed_lemma == expected_candidates_mixed_lemma
 
     pdf_styling_scores = scorer.score_pdf_candidates(
-        PDFCandidateTermList("test/slides.pdf", [PageCandidateTermList(1, candidates)])
+        PDFCandidateTermList("test/test.pdf", [PageCandidateTermList(1, candidates)])
     )
-    assert pdf_styling_scores.pdf_path == "test/slides.pdf"
+    assert pdf_styling_scores.pdf_path == "test/test.pdf"
     assert len(pdf_styling_scores.pages) == 1
 
     page = pdf_styling_scores.pages[0]

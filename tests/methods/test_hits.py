@@ -1,10 +1,10 @@
-from py_slides_term.candidates import (
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.methods import HITSMethod
+from py_pdf_term.methods import HITSMethod
 
 
 def test_hits_method() -> None:
@@ -33,7 +33,7 @@ def test_hits_method() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],

@@ -1,7 +1,7 @@
 from typing import Dict, Set
 
-from py_slides_term.analysis import ContainerTermsAnalyzer
-from py_slides_term.candidates import (
+from py_pdf_term.analysis import ContainerTermsAnalyzer
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
@@ -49,7 +49,7 @@ def test_container() -> None:
             "test",
             [
                 PDFCandidateTermList(
-                    "test/slide.pdf",
+                    "test/test.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],

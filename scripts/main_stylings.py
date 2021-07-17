@@ -1,7 +1,7 @@
 import os
 import json
 
-from py_slides_term.stylings import StylingScorer
+from py_pdf_term.stylings import StylingScorer
 from scripts.utils import (
     relpath_from_basedir,
     get_domains,

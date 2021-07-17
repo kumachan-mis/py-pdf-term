@@ -1,10 +1,10 @@
-from py_slides_term.candidates import (
+from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
     PageCandidateTermList,
 )
-from py_slides_term.methods import FLRMethod
+from py_pdf_term.methods import FLRMethod
 
 
 def test_flr_method() -> None:

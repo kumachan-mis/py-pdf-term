@@ -3,7 +3,7 @@ dataset/*
 !dataset/pdf/
 dataset/pdf/*
 !dataset/pdf/.gitkeep
-__py_slides_term_cache__/
+__py_pdf_term_cache__/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
