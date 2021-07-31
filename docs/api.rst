@@ -8,6 +8,7 @@ py_pdf_term package
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 
 py_pdf_term.pdftoxml package
