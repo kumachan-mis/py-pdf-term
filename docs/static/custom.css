@@ -1,7 +1,4 @@
-/*
-  Document
-*/
-
+/* Document */
 div.document {
     width: 1240px;
 }
@@ -11,11 +8,7 @@ div.body {
 }
 
 
-/*
-  One parameter per line
-  reference: https://github.com/sphinx-doc/sphinx/issues/1514#issuecomment-742703082
-*/
-
+/* One parameter per line */
 .sig-param::before {
     content: "\a\20\20\20\20";
     white-space: pre;
@@ -28,4 +21,14 @@ dt em.sig-param:last-of-type::after {
 
 dl.class > dt:first-of-type {
     display: block;
+}
+
+
+/* Two Columns */
+div.twocol {
+    display: flex;
+}
+div.column {
+    flex: 50%;
+    float: left;
 }

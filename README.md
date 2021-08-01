@@ -1,7 +1,9 @@
 # py-pdf-term
+
 A python module for terminology extraction from pdf
 
 ## Installation
+
 ```
 pip install py-pdf-term
 ```

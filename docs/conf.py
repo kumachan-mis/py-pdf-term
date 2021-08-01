@@ -9,7 +9,7 @@ author = "Yuya Suwa"
 
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
 
-add_module_names = False
+add_module_names = True
 
 autodoc_member_order = "bysource"
 
@@ -27,3 +27,10 @@ html_theme = "alabaster"
 html_static_path = ["static"]
 
 html_css_files = ["custom.css"]
+
+html_theme_options = {
+    "github_user": "kumachan-mis",
+    "github_repo": "py-pdf-term",
+    "github_button": False,
+    "github_banner": True,
+}

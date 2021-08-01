@@ -14,10 +14,11 @@ PRIVATE_OBJECT_PATH_REGEX = "".join(
     ]
 )
 
-with open(os.path.join(BUILD_DIR, "api.html"), mode="r") as api_html_file:
-    api_html = api_html_file.read()
+for html_filename in ["index.html", "api.html"]:
+    with open(os.path.join(BUILD_DIR, html_filename), mode="r") as html_file:
+        html_str = html_file.read()
 
-api_html = re.sub(PRIVATE_OBJECT_PATH_REGEX, r"\1", api_html)
+    html_str = re.sub(PRIVATE_OBJECT_PATH_REGEX, r"\1", html_str)
 
-with open(os.path.join(BUILD_DIR, "api.html"), mode="w") as api_html_file:
-    api_html_file.write(api_html)
+    with open(os.path.join(BUILD_DIR, html_filename), mode="w") as html_file:
+        html_file.write(html_str)

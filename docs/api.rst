@@ -11,6 +11,24 @@ py_pdf_term package
    :noindex:
 
 
+py_pdf_term.configs subpackage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: py_pdf_term.configs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+py_pdf_term.mappers subpackage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: py_pdf_term.mappers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 py_pdf_term.pdftoxml package
 ----------------------------
 
