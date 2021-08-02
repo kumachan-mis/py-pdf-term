@@ -97,7 +97,7 @@ caluculations are go from the top to the bottom (red bold arrows).
          This layer depends on `spaCy <https://spacy.io>`_.
 
       Method Layer
-         This layer calculates ranking scores of candidates based on
+         This layer calculates method scores of candidates based on
          occurence/co-occurence/concatenation frequency, document frequency, colocation likelihood and so on.
          It's up to an algorithm what values are used to find scores.
 
@@ -109,7 +109,7 @@ caluculations are go from the top to the bottom (red bold arrows).
          If an emphasized color is used, the text must be important.
 
       Technical Term Layer
-         This layer selects terminologies from candidates based on ranking scores and styling scores.
+         This layer selects terminologies from candidates based on method scores and styling scores.
          The order of the terminologies is the same as the appearance order in the PDF file.
 
    .. container:: column
