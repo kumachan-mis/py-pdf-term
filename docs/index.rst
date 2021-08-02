@@ -126,6 +126,58 @@ Top level API and examples
    :show-inheritance:
    :noindex:
 
+.. code-block:: python
+
+   from py_pdf_term import PyPDFTermExtractor, DomainPDFList
+
+   def extract_terminologies():
+      # define a function to open a PDF file
+      def open_storage_binary_file(path: str, mode: str):
+         ...
+
+      # define a name to find the function
+      open_bin = "example.open_storage_binary_file"
+
+      # registrate the function to the mapper
+      bin_opener_mapper = BinaryOpenerMapper()
+      bin_opener_mapper.add(open_bin, open_storage_binary_file)
+
+      # create an extractor instance with following configs:
+      #   - deactive the caches in all layers
+      #   - costomize the function to open a PDF file
+      extractor = PyPDFTermExtractor(
+         xml_config=XMLLayerConfig(
+            open_bin=open_bin,
+            cache="py_pdf_term.XMLLayerNoCache",
+         ),
+         candidate_config=CandidateLayerConfig(
+            cache="py_pdf_term.CandidateLayerNoCache",
+         ),
+         method_config=MethodLayerConfig(
+            ranking_cache="py_pdf_term.MethodLayerRankingNoCache",
+            data_cache="py_pdf_term.MethodLayerDataNoCache",
+         ),
+         styling_config=StylingLayerConfig(
+            cache="py_pdf_term.StylingLayerNoCache",
+         ),
+         bin_opener_mapper=bin_opener_mapper,
+      )
+
+      # define input: domain name and list of PDF paths
+      domain = "example"
+      pdf_path = "example/file1.pdf"
+      domain_pdfs = DomainPDFList(
+         "example",
+         ["example/file1.pdf", "example/file2.pdf", "example/file3.pdf"],
+      )
+
+      # receive output: extracted terminologies
+      terminologies = self._extractor.extract(
+         domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
+      )
+
+      return terminologies.to_dict()
+
 
 API reference
 ==================
