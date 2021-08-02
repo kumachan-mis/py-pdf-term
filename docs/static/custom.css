@@ -32,3 +32,13 @@ div.column {
     flex: 50%;
     float: left;
 }
+
+
+/* API document */
+dl.py.class {
+    margin-bottom: 50px;
+}
+
+dl.py.method {
+    margin-bottom: 25px;
+}
