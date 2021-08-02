@@ -1,0 +1,44 @@
+/* Document */
+div.document {
+    width: 1240px;
+}
+
+div.body {
+    max-width: unset;
+}
+
+
+/* One parameter per line */
+.sig-param::before {
+    content: "\a\20\20\20\20";
+    white-space: pre;
+}
+
+dt em.sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+dl.class > dt:first-of-type {
+    display: block;
+}
+
+
+/* Two Columns */
+div.twocol {
+    display: flex;
+}
+div.column {
+    flex: 50%;
+    float: left;
+}
+
+
+/* API document */
+dl.py.class {
+    margin-bottom: 50px;
+}
+
+dl.py.method {
+    margin-bottom: 25px;
+}

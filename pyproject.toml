@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "py-pdf-term"
 version = "0.14.0"
-description = "A python module for terminology extraction from pdf"
+description = "A fully-configurable terminology extraction module written in Python"
 authors = ["Yuya Suwa"]
 license = "MIT License"
 readme = "README.md"
@@ -12,7 +12,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.7"
 "pdfminer.six" = "^20201018"
-spacy = "^3.1.0"
+spacy = "^3.1.1"
 
 [tool.poetry.dev-dependencies.en_core_web_sm]
 url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0.tar.gz"
@@ -21,12 +21,14 @@ url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_s
 url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.1.0/ja_core_news_sm-3.1.0.tar.gz"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^3.9.2"
 black = "^21.7b0"
-pep8-naming = "^0.12.0"
+flake8 = "^3.9.2"
 flake8-quotes = "^3.2.0"
+ghp-import = "^2.0.1"
+pep8-naming = "^0.12.0"
 pre-commit = "^2.13.0"
 pytest = "^6.2.4"
+Sphinx = "^4.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
