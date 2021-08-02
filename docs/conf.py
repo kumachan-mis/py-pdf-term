@@ -7,7 +7,7 @@ author = "Yuya Suwa"
 
 # -- General configuration -------------------------------------------------------------
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx.ext.githubpages"]
 
 add_module_names = True
 

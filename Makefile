@@ -7,4 +7,7 @@ build:
 clean:
 	rm -Rf build
 
-.PHONY: clean_build build clean
+publish: clean build
+	poetry run ghp-import -p build
+
+.PHONY: clean_build build clean publish
