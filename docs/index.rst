@@ -130,6 +130,7 @@ Here is a zero-config example
     from py_pdf_term import PyPDFTermExtractor, DomainPDFList
 
     def extract_terminologies_from_example_pdfs():
+        # create an extractor instance with zero-config
         extractor = PyPDFTermExtractor()
     
         # define input: domain name and list of PDF paths
@@ -187,6 +188,8 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
         # create an extractor instance with following configs:
         #    - deactive the caches in all layers
         #    - costomize the function to open a PDF file
+        #
+        # see API reference to check all configs
         extractor = PyPDFTermExtractor(
             xml_config=XMLLayerConfig(
                 open_bin=open_bin,
