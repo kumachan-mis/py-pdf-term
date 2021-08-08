@@ -141,7 +141,7 @@ Here is a zero-config example
         )
 
         # receive output: extracted terminologies
-        terminologies = self._extractor.extract(
+        terminologies = extractor.extract(
             domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
         )
 
@@ -214,7 +214,7 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
         )
 
         # receive output: extracted terminologies
-        terminologies = self._extractor.extract(
+        terminologies = extractor.extract(
             domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
         )
 
