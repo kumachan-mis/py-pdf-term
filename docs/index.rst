@@ -4,9 +4,9 @@ Welcome to py-pdf-term's documentation!
 py-pdf-term is a fully-configurable terminology extraction module written in Python.
 
 input
-   PDF files, widely-spread data format for sharing information with other people.
+    PDF files, widely-spread data format for sharing information with other people.
 output
-   terminology list per PDF page, convertable to JSON format.
+    terminology list per PDF page, convertable to JSON format.
 
 
 Motivation
@@ -23,14 +23,14 @@ Installation
 ============
 .. code-block::
 
-   pip install py-pdf-term
+    pip install py-pdf-term
 
 You also need to install spaCy models ja_core_news_sm and en_core_web_sm, which this module depends on.
 
 .. code-block::
 
-   pip install https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.1.0/ja_core_news_sm-3.1.0.tar.gz
-   pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0.tar.gz
+    pip install https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.1.0/ja_core_news_sm-3.1.0.tar.gz
+    pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0.tar.gz
 
 
 Features
@@ -84,105 +84,147 @@ caluculations are go from the top to the bottom (red bold arrows).
 
 .. container:: twocol
 
-   .. container:: column
+    .. container:: column
 
-      XML Layer
-         This layer coverts a PDF file to a XML file containing sentensized texts with styling attributes
-         such as font size, font color and coordinate in the PDF page.
-         This layer depends on `pdfminer.six <https://github.com/pdfminer/pdfminer.six>`_.
+        XML Layer
+            This layer coverts a PDF file to a XML file containing sentensized texts with styling attributes
+            such as font size, font color and coordinate in the PDF page.
+            This layer depends on `pdfminer.six <https://github.com/pdfminer/pdfminer.six>`_.
 
-      Candidate Term Layer
-         This layer extracts candidates of terminologies from a XML data.
-         It splits texts into tokens, then constructs candidates from tokens.
-         This layer depends on `spaCy <https://spacy.io>`_.
+        Candidate Term Layer
+            This layer extracts candidates of terminologies from a XML data.
+            It splits texts into tokens, then constructs candidates from tokens.
+            This layer depends on `spaCy <https://spacy.io>`_.
 
-      Method Layer
-         This layer calculates method scores of candidates based on
-         occurence/co-occurence/concatenation frequency, document frequency, colocation likelihood and so on.
-         It's up to an algorithm what values are used to find scores.
+        Method Layer
+            This layer calculates method scores of candidates based on
+            occurence/co-occurence/concatenation frequency, document frequency, colocation likelihood and so on.
+            It's up to an algorithm what values are used to find scores.
 
-      Styling Layer
-         This layer calculates styling scores of candidates based on
-         font size, font color and coordinate in the PDF page and so on.
-         Styling scores reflects our intuitions such as:
-         The larger the font size is, the more important the text must be.
-         If an emphasized color is used, the text must be important.
+        Styling Layer
+            This layer calculates styling scores of candidates based on
+            font size, font color and coordinate in the PDF page and so on.
+            Styling scores reflects our intuitions such as:
+            The larger the font size is, the more important the text must be.
+            If an emphasized color is used, the text must be important.
 
-      Technical Term Layer
-         This layer selects terminologies from candidates based on method scores and styling scores.
-         The order of the terminologies is the same as the appearance order in the PDF file.
+        Technical Term Layer
+            This layer selects terminologies from candidates based on method scores and styling scores.
+            The order of the terminologies is the same as the appearance order in the PDF file.
 
-   .. container:: column
+    .. container:: column
 
-      .. image:: static/architecture.png
+        .. image:: static/architecture.png
 
 
-Top level API and examples
+Examples
 ==========================
 
-.. autoclass:: py_pdf_term.PyPDFTermExtractor
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :noindex:
+Simplest example
+----------------
+
+Here is a zero-config example
 
 .. code-block:: python
 
-   from py_pdf_term import PyPDFTermExtractor, DomainPDFList
+    from py_pdf_term import PyPDFTermExtractor, DomainPDFList
 
-   def extract_terminologies():
-      # define a function to open a PDF file
-      def open_storage_binary_file(path: str, mode: str):
-         ...
+    def extract_terminologies_from_example_pdfs():
+        extractor = PyPDFTermExtractor()
+    
+        # define input: domain name and list of PDF paths
+        domain = "example"
+        pdf_path = "example/file1.pdf"
+        domain_pdfs = DomainPDFList(
+            "example",
+            ["example/file1.pdf", "example/file2.pdf", "example/file3.pdf"],
+        )
 
-      # define a name to find the function
-      open_bin = "example.open_storage_binary_file"
+        # receive output: extracted terminologies
+        terminologies = self._extractor.extract(
+            domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
+        )
 
-      # registrate the function to the mapper
-      bin_opener_mapper = BinaryOpenerMapper()
-      bin_opener_mapper.add(open_bin, open_storage_binary_file)
+        return terminologies.to_dict()
 
-      # create an extractor instance with following configs:
-      #   - deactive the caches in all layers
-      #   - costomize the function to open a PDF file
-      extractor = PyPDFTermExtractor(
-         xml_config=XMLLayerConfig(
-            open_bin=open_bin,
-            cache="py_pdf_term.XMLLayerNoCache",
-         ),
-         candidate_config=CandidateLayerConfig(
-            cache="py_pdf_term.CandidateLayerNoCache",
-         ),
-         method_config=MethodLayerConfig(
-            ranking_cache="py_pdf_term.MethodLayerRankingNoCache",
-            data_cache="py_pdf_term.MethodLayerDataNoCache",
-         ),
-         styling_config=StylingLayerConfig(
-            cache="py_pdf_term.StylingLayerNoCache",
-         ),
-         bin_opener_mapper=bin_opener_mapper,
-      )
 
-      # define input: domain name and list of PDF paths
-      domain = "example"
-      pdf_path = "example/file1.pdf"
-      domain_pdfs = DomainPDFList(
-         "example",
-         ["example/file1.pdf", "example/file2.pdf", "example/file3.pdf"],
-      )
+Django Example
+--------------
 
-      # receive output: extracted terminologies
-      terminologies = self._extractor.extract(
-         domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
-      )
+Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
 
-      return terminologies.to_dict()
+.. code-block:: python
+
+    from django.db import models
+    from py_pdf_term import PyPDFTermExtractor, DomainPDFList
+
+
+    class PDFFile(models.Model):
+        id = models.AutoField(primary_key=True)
+        file = models.FileField(upload_to=pdf_upload_to, max_length=200)
+
+
+    def extract_terminologies_from_example_pdf():
+        # define a function to open a PDF file on Django FileField
+        def open_storage_binary_file(path: str, mode: str):
+            try:
+                pdf_file = PDFFile.objects.get(file=path)
+            except PDFFile.DoesNotExist:
+                raise RuntimeError()
+
+            pdf_file.file.open(mode=mode)
+            bytesio = BytesIO(pdf_file.file.read())
+            pdf_file.file.close()
+            return bytesio
+
+        # define a name to find the function
+        open_bin = "example.open_storage_binary_file"
+
+        # registrate the function to the mapper
+        bin_opener_mapper = BinaryOpenerMapper()
+        bin_opener_mapper.add(open_bin, open_storage_binary_file)
+
+        # create an extractor instance with following configs:
+        #    - deactive the caches in all layers
+        #    - costomize the function to open a PDF file
+        extractor = PyPDFTermExtractor(
+            xml_config=XMLLayerConfig(
+                open_bin=open_bin,
+                cache="py_pdf_term.XMLLayerNoCache",
+            ),
+            candidate_config=CandidateLayerConfig(
+                cache="py_pdf_term.CandidateLayerNoCache",
+            ),
+            method_config=MethodLayerConfig(
+                ranking_cache="py_pdf_term.MethodLayerRankingNoCache",
+                data_cache="py_pdf_term.MethodLayerDataNoCache",
+            ),
+            styling_config=StylingLayerConfig(
+                cache="py_pdf_term.StylingLayerNoCache",
+            ),
+            bin_opener_mapper=bin_opener_mapper,
+        )
+
+        # define input: domain name and list of PDF paths
+        domain = "example"
+        pdf_path = "example/file1.pdf"
+        domain_pdfs = DomainPDFList(
+            "example",
+            ["example/file1.pdf", "example/file2.pdf", "example/file3.pdf"],
+        )
+
+        # receive output: extracted terminologies
+        terminologies = self._extractor.extract(
+            domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
+        )
+
+        return terminologies.to_dict()
 
 
 API reference
 ==================
 
 .. toctree::
-   :maxdepth: 3
+    :maxdepth: 3
 
-   api
+    api
