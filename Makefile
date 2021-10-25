@@ -1,13 +1,17 @@
-clean_build: clean build
-
-build:
+build-docs:
 	poetry run sphinx-build docs build
 	poetry run python docs/scripts/postprocess.py
 
-clean:
+clean-build-docs: clean build
+
+clean-docs:
 	rm -Rf build
 
-publish: clean build
+gen-test-coverage:
+	poetry run poetry run pytest --cov=py_pdf_term --cov-branch --cov-report=xml
+
+publish-docs: clean build
 	poetry run ghp-import -p build
 
-.PHONY: clean_build build clean publish
+test:
+	poetry run poetry run pytest --cov=py_pdf_term --cov-branch --cov-report=term-missing
