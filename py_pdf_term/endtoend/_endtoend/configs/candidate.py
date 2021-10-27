@@ -12,10 +12,10 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_pdf_term.EnglishTokenizer",
         ]
     )
-    morpheme_filters: List[str] = field(
+    token_filters: List[str] = field(
         default_factory=lambda: [
-            "py_pdf_term.JapaneseMorphemeFilter",
-            "py_pdf_term.EnglishMorphemeFilter",
+            "py_pdf_term.JapaneseTokenFilter",
+            "py_pdf_term.EnglishTokenFilter",
         ]
     )
     term_filters: List[str] = field(

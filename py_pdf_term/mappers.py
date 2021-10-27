@@ -2,8 +2,8 @@ from .endtoend._endtoend.mappers import (
     AugmenterMapper,
     BinaryOpenerMapper,
     CandidateLayerCacheMapper,
-    CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
+    CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     MethodLayerDataCacheMapper,
     MethodLayerRankingCacheMapper,
@@ -15,12 +15,13 @@ from .endtoend._endtoend.mappers import (
     XMLLayerCacheMapper,
 )
 
+# isort: unique-list
 __all__ = [
     "AugmenterMapper",
     "BinaryOpenerMapper",
     "CandidateLayerCacheMapper",
-    "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
+    "CandidateTokenFilterMapper",
     "LanguageTokenizerMapper",
     "MethodLayerDataCacheMapper",
     "MethodLayerRankingCacheMapper",

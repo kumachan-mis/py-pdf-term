@@ -1,11 +1,12 @@
 from .base import BaseLanguageTokenizer
-from .english import EnglishMorphemeClassifier, EnglishTokenizer
-from .japanese import JapaneseMorphemeClassifier, JapaneseTokenizer
+from .english import EnglishTokenClassifier, EnglishTokenizer
+from .japanese import JapaneseTokenClassifier, JapaneseTokenizer
 
+# isort: unique-list
 __all__ = [
     "BaseLanguageTokenizer",
-    "EnglishMorphemeClassifier",
+    "EnglishTokenClassifier",
     "EnglishTokenizer",
-    "JapaneseMorphemeClassifier",
+    "JapaneseTokenClassifier",
     "JapaneseTokenizer",
 ]

@@ -1,12 +1,13 @@
 from .augmenter import AugmenterMapper
-from .filters import CandidateMorphemeFilterMapper, CandidateTermFilterMapper
+from .filters import CandidateTermFilterMapper, CandidateTokenFilterMapper
 from .langs import LanguageTokenizerMapper
 from .splitter import SplitterMapper
 
+# isort: unique-list
 __all__ = [
     "AugmenterMapper",
-    "CandidateMorphemeFilterMapper",
     "CandidateTermFilterMapper",
+    "CandidateTokenFilterMapper",
     "LanguageTokenizerMapper",
     "SplitterMapper",
 ]

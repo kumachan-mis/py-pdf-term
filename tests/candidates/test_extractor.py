@@ -45,15 +45,15 @@ def test_japanese_advective_or_verb() -> None:
     assert str(candidate) == "経路"
 
     candidate = candidates[1]
-    morpheme = candidate.morphemes[0]
+    token = candidate.tokens[0]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "形容詞", "test is broken!"
+    assert token.pos == "形容詞", "test is broken!"
     assert str(candidate) == "長さ"
 
     candidate = candidates[2]
-    morpheme = candidate.morphemes[2]
+    token = candidate.tokens[2]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "形容詞", "test is broken!"
+    assert token.pos == "形容詞", "test is broken!"
     assert str(candidate) == "経路の長さ"
 
 
@@ -64,10 +64,10 @@ def test_english_advective_or_verb() -> None:
 
     candidate = candidates[0]
     assert candidate.lang == "en"
-    morpheme = candidate.morphemes[0]
-    assert morpheme.pos == "ADJ", "test is broken!"
-    morpheme = candidate.morphemes[2]
-    assert morpheme.pos == "VERB" and morpheme.category == "VBG", "test is broken!"
+    token = candidate.tokens[0]
+    assert token.pos == "ADJ", "test is broken!"
+    token = candidate.tokens[2]
+    assert token.pos == "VERB" and token.category == "VBG", "test is broken!"
     assert str(candidate) == "unsupervised feature embedding"
 
 
@@ -77,9 +77,9 @@ def test_japanese_nounal_postfix() -> None:
     assert len(candidates) == 1
 
     candidate = candidates[0]
-    morpheme = candidate.morphemes[-1]
+    token = candidate.tokens[-1]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "接尾辞" and morpheme.category == "名詞的", "test is broken!"
+    assert token.pos == "接尾辞" and token.category == "名詞的", "test is broken!"
     assert str(candidate) == "パイプライン化"
 
 
@@ -89,21 +89,21 @@ def test_japanese_adjectival_postfix() -> None:
     assert len(candidates) == 3
 
     candidate = candidates[0]
-    morpheme = candidate.morphemes[1]
+    token = candidate.tokens[1]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "接尾辞" and morpheme.category == "形状詞的", "test is broken!"
+    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
     assert str(candidate) == "データ的側面"
 
     candidate = candidates[1]
-    morpheme = candidate.morphemes[1]
+    token = candidate.tokens[1]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "接尾辞" and morpheme.category == "形状詞的", "test is broken!"
+    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
     assert str(candidate) == "機能的側面"
 
     candidate = candidates[2]
-    morpheme = candidate.morphemes[1]
+    token = candidate.tokens[1]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "接尾辞" and morpheme.category == "形状詞的", "test is broken!"
+    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
     assert str(candidate) == "振舞的側面"
 
 
@@ -113,13 +113,13 @@ def test_japanese_symbol() -> None:
     assert len(candidates) == 2
 
     candidate = candidates[0]
-    morpheme = candidate.morphemes[0]
+    token = candidate.tokens[0]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "記号", "test is broken!"
+    assert token.pos == "記号", "test is broken!"
     assert str(candidate) == "ラムダ計算"
 
     candidate = candidates[1]
-    morpheme = candidate.morphemes[0]
+    token = candidate.tokens[0]
     assert candidate.lang == "ja"
-    assert morpheme.pos == "記号", "test is broken!"
+    assert token.pos == "記号", "test is broken!"
     assert str(candidate) == "ラムダ式"

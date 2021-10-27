@@ -22,13 +22,13 @@ component "Candidate Layer" as CandidateLayer {
 
         component candidates {
             component FilterCombiner {
-                component morpheme {
-                    component XXXMorphemeFilter
-                    component YYYMorphemeFilter
-                    component ZZZMorphemeFilter
+                component token {
+                    component XXXTokenFilter
+                    component YYYTokenFilter
+                    component ZZZTokenFilter
 
-                    XXXMorphemeFilter -[hidden]right- YYYMorphemeFilter
-                    YYYMorphemeFilter -[hidden]right- ZZZMorphemeFilter
+                    XXXTokenFilter -[hidden]right- YYYTokenFilter
+                    YYYTokenFilter -[hidden]right- ZZZTokenFilter
                 }
 
                 component term {
@@ -39,7 +39,7 @@ component "Candidate Layer" as CandidateLayer {
                     XXXTermFilter -[hidden]right- YYYTermFilter
                     YYYTermFilter -[hidden]right- ZZZTermFilter
                 }
-                morpheme -down-> term
+                token -down-> term
             }
 
             component SplitterCombiner {

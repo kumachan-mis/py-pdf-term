@@ -6,6 +6,7 @@ from .endtoend._endtoend.configs import (
     XMLLayerConfig,
 )
 
+# isort: unique-list
 __all__ = [
     "CandidateLayerConfig",
     "MethodLayerConfig",

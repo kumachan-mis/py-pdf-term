@@ -8,6 +8,7 @@ from .mcvalue import MCValueMethod
 from .mdp import MDPMethod
 from .tfidf import TFIDFMethod
 
+# isort: unique-list
 __all__ = [
     "BaseMultiDomainRankingMethod",
     "BaseSingleDomainRankingMethod",

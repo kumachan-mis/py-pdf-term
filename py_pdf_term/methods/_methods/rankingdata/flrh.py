@@ -12,8 +12,8 @@ class FLRHRankingData(BaseRankingData):
     # brute force counting of lemmatized term occurrences in the domain
     # count even if the lemmatized term occurs as a part of a lemmatized phrase
     left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of lemmatized (left, morpheme) in the domain
-    # if morpheme or left is meaningless this is fixed at zero
+    # number of occurrences of lemmatized (left, token) in the domain
+    # if token or left is meaningless this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of lemmatized (morpheme, right) in the domain
-    # if morpheme or right is meaningless this is fixed at zero
+    # number of occurrences of lemmatized (token, right) in the domain
+    # if token or right is meaningless this is fixed at zero

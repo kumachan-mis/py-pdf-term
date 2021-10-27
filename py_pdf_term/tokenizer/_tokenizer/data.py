@@ -3,7 +3,7 @@ from typing import Any, ClassVar, Dict
 
 
 @dataclass(frozen=True)
-class Morpheme:
+class Token:
     NUM_ATTR: ClassVar[int] = 10
 
     lang: str
@@ -24,5 +24,5 @@ class Morpheme:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "Morpheme":
+    def from_dict(cls, obj: Dict[str, Any]) -> "Token":
         return cls(**obj)

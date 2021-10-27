@@ -9,7 +9,7 @@ import en_core_web_sm
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
-from ..data import Morpheme
+from ..data import Token
 from .base import BaseLanguageTokenizer
 
 
@@ -25,12 +25,12 @@ class EnglishTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return self._en_regex.search(text) is not None
 
-    def tokenize(self, text: str) -> List[Morpheme]:
-        return list(map(self._create_morpheme, self._model(text)))
+    def tokenize(self, text: str) -> List[Token]:
+        return list(map(self._create_token, self._model(text)))
 
-    def _create_morpheme(self, token: Any) -> Morpheme:
+    def _create_token(self, token: Any) -> Token:
         if self._symbol_regex.fullmatch(token.text):
-            return Morpheme(
+            return Token(
                 "en",
                 token.text,
                 "SYM",
@@ -43,7 +43,7 @@ class EnglishTokenizer(BaseLanguageTokenizer):
                 False,
             )
 
-        return Morpheme(
+        return Token(
             "en",
             token.text,
             token.pos_,
@@ -57,15 +57,15 @@ class EnglishTokenizer(BaseLanguageTokenizer):
         )
 
 
-class EnglishMorphemeClassifier:
-    def is_adposition(self, morpheme: Morpheme) -> bool:
-        return morpheme.pos == "ADP"
+class EnglishTokenClassifier:
+    def is_adposition(self, token: Token) -> bool:
+        return token.pos == "ADP"
 
-    def is_symbol(self, morpheme: Morpheme) -> bool:
-        return morpheme.pos == "SYM"
+    def is_symbol(self, token: Token) -> bool:
+        return token.pos == "SYM"
 
-    def is_connector_symbol(self, morpheme: Morpheme) -> bool:
-        return morpheme.surface_form == "-" and morpheme.pos == "SYM"
+    def is_connector_symbol(self, token: Token) -> bool:
+        return token.surface_form == "-" and token.pos == "SYM"
 
-    def is_meaningless(self, morpheme: Morpheme) -> bool:
-        return self.is_symbol(morpheme) or self.is_adposition(morpheme)
+    def is_meaningless(self, token: Token) -> bool:
+        return self.is_symbol(token) or self.is_adposition(token)

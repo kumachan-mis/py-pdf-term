@@ -17,7 +17,7 @@ class PageCandidateTermList:
             candidate_str = to_str(candidate)
             if candidate_str in term_dict:
                 continue
-            term_dict[candidate_str] = Term(candidate.morphemes, 0.0, "", False)
+            term_dict[candidate_str] = Term(candidate.tokens, 0.0, "", False)
         return term_dict
 
     def to_candidates_str_set(self, to_str: Callable[[Term], str] = str) -> Set[str]:

@@ -1,41 +1,38 @@
 from typing import List, Tuple
 
 from py_pdf_term._common.data import Term
-from py_pdf_term.tokenizer.langs import (
-    EnglishMorphemeClassifier,
-    JapaneseMorphemeClassifier,
-)
+from py_pdf_term.tokenizer.langs import EnglishTokenClassifier, JapaneseTokenClassifier
 
 from .base import BaseSplitter
 
 
 class RepeatSplitter(BaseSplitter):
     def __init__(self) -> None:
-        self._ja_classifier = JapaneseMorphemeClassifier()
-        self._en_classifier = EnglishMorphemeClassifier()
+        self._ja_classifier = JapaneseTokenClassifier()
+        self._en_classifier = EnglishTokenClassifier()
 
     def split(self, term: Term) -> List[Term]:
-        if self._contains_connector_morpheme(term):
+        if self._contains_connector_token(term):
             return [term]
 
         head, backward_splitted_terms = self._backward_split(term)
         forward_splitted_terms, center_term = self._forward_split(head)
         return forward_splitted_terms + [center_term] + backward_splitted_terms
 
-    def _contains_connector_morpheme(self, term: Term) -> bool:
+    def _contains_connector_token(self, term: Term) -> bool:
         return any(
             map(
-                lambda morpheme: self._ja_classifier.is_modifying_particle(morpheme)
-                or self._ja_classifier.is_connector_symbol(morpheme)
-                or self._en_classifier.is_adposition(morpheme)
-                or self._en_classifier.is_connector_symbol(morpheme),
-                term.morphemes,
+                lambda token: self._ja_classifier.is_modifying_particle(token)
+                or self._ja_classifier.is_connector_symbol(token)
+                or self._en_classifier.is_adposition(token)
+                or self._en_classifier.is_connector_symbol(token),
+                term.tokens,
             )
         )
 
     def _backward_split(self, term: Term) -> Tuple[Term, List[Term]]:
         splitted_terms: List[Term] = []
-        head = term.morphemes
+        head = term.tokens
         fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 
         while True:
@@ -57,7 +54,7 @@ class RepeatSplitter(BaseSplitter):
 
     def _forward_split(self, term: Term) -> Tuple[List[Term], Term]:
         splitted_terms: List[Term] = []
-        tail = term.morphemes
+        tail = term.tokens
         fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 
         while True:

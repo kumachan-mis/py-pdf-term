@@ -15,6 +15,7 @@ from .method import (
 from .styling import BaseStylingLayerCache, StylingLayerFileCache, StylingLayerNoCache
 from .xml import BaseXMLLayerCache, XMLLayerFileCache, XMLLayerNoCache
 
+# isort: unique-list
 __all__ = [
     "BaseCandidateLayerCache",
     "BaseMethodLayerDataCache",

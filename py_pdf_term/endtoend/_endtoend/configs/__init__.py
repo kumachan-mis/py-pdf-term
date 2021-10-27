@@ -5,6 +5,7 @@ from .styling import StylingLayerConfig
 from .techterm import TechnicalTermLayerConfig
 from .xml import XMLLayerConfig
 
+# isort: unique-list
 __all__ = [
     "BaseLayerConfig",
     "CandidateLayerConfig",

@@ -1,9 +1,4 @@
 from .combiner import FilterCombiner
-from .morpheme import (
-    BaseCandidateMorphemeFilter,
-    EnglishMorphemeFilter,
-    JapaneseMorphemeFilter,
-)
 from .term import (
     BaseCandidateTermFilter,
     EnglishConcatenationFilter,
@@ -15,19 +10,21 @@ from .term import (
     JapaneseProperNounFilter,
     JapaneseSymbolLikeFilter,
 )
+from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFilter
 
+# isort: unique-list
 __all__ = [
-    "BaseCandidateMorphemeFilter",
     "BaseCandidateTermFilter",
+    "BaseCandidateTokenFilter",
     "EnglishConcatenationFilter",
-    "EnglishMorphemeFilter",
     "EnglishNumericFilter",
     "EnglishProperNounFilter",
     "EnglishSymbolLikeFilter",
+    "EnglishTokenFilter",
     "FilterCombiner",
     "JapaneseConcatenationFilter",
-    "JapaneseMorphemeFilter",
     "JapaneseNumericFilter",
     "JapaneseProperNounFilter",
     "JapaneseSymbolLikeFilter",
+    "JapaneseTokenFilter",
 ]

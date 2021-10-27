@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from ..data import Morpheme
+from ..data import Token
 
 
 class BaseLanguageTokenizer(metaclass=ABCMeta):
@@ -10,5 +10,5 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.inscope()")
 
     @abstractmethod
-    def tokenize(self, text: str) -> List[Morpheme]:
+    def tokenize(self, text: str) -> List[Token]:
         raise NotImplementedError(f"{self.__class__.__name__}.tokenize()")
