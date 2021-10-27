@@ -1,9 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Any, Union, Callable, Generic
+from typing import Any, Callable, Dict, Generic, List, Union
 
-from ...configs import MethodLayerConfig
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
+
+from ...configs import MethodLayerConfig
 
 
 class BaseMethodLayerRankingCache(metaclass=ABCMeta):

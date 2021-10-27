@@ -1,7 +1,4 @@
-from .japanese import JapaneseNumericFilter
 from .english import EnglishNumericFilter
+from .japanese import JapaneseNumericFilter
 
-__all__ = [
-    "JapaneseNumericFilter",
-    "EnglishNumericFilter",
-]
+__all__ = ["EnglishNumericFilter", "JapaneseNumericFilter"]

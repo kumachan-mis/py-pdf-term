@@ -1,10 +1,11 @@
 import re
 from typing import List
 
-from .base import BaseCandidateMorphemeFilter
+from py_pdf_term._common.consts import ENGLISH_REGEX, JAPANESE_REGEX, NUMBER_REGEX
 from py_pdf_term.tokenizer import Morpheme
 from py_pdf_term.tokenizer.langs import JapaneseMorphemeClassifier
-from py_pdf_term._common.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
+
+from .base import BaseCandidateMorphemeFilter
 
 
 class JapaneseMorphemeFilter(BaseCandidateMorphemeFilter):

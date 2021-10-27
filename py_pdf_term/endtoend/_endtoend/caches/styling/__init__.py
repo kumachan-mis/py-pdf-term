@@ -1,9 +1,5 @@
 from .base import BaseStylingLayerCache
-from .nocache import StylingLayerNoCache
 from .file import StylingLayerFileCache
+from .nocache import StylingLayerNoCache
 
-__all__ = [
-    "BaseStylingLayerCache",
-    "StylingLayerNoCache",
-    "StylingLayerFileCache",
-]
+__all__ = ["BaseStylingLayerCache", "StylingLayerFileCache", "StylingLayerNoCache"]

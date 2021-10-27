@@ -1,13 +1,14 @@
 import os
 from glob import glob
 from shutil import rmtree
-from xml.etree.ElementTree import fromstring, tostring, ParseError
 from typing import Union
+from xml.etree.ElementTree import ParseError, fromstring, tostring
 
-from .base import BaseXMLLayerCache
+from py_pdf_term.pdftoxml import PDFnXMLElement
+
 from ...configs import XMLLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_path
-from py_pdf_term.pdftoxml import PDFnXMLElement
+from .base import BaseXMLLayerCache
 
 
 class XMLLayerFileCache(BaseXMLLayerCache):

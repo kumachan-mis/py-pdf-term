@@ -1,9 +1,9 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from .base import BaseSingleDomainRankingMethod
-from .rankingdata import HITSRankingData
 from .collectors import HITSRankingDataCollector
 from .rankers import HITSRanker
+from .rankingdata import HITSRankingData
 
 
 class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):

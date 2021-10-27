@@ -1,20 +1,20 @@
-import os
 import json
+import os
 from argparse import ArgumentParser
 
 from py_pdf_term.methods import (
-    BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
-    MCValueMethod,
-    TFIDFMethod,
-    LFIDFMethod,
+    BaseSingleDomainRankingMethod,
+    FLRHMethod,
     FLRMethod,
     HITSMethod,
-    FLRHMethod,
+    LFIDFMethod,
+    MCValueMethod,
     MDPMethod,
+    TFIDFMethod,
 )
 from scripts.settings import METHODS_DIR
-from scripts.utils import relpath_from_basedir, get_domains, generate_domain_candidates
+from scripts.utils import generate_domain_candidates, get_domains, relpath_from_basedir
 
 script_name = os.path.basename(__file__)
 

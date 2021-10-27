@@ -1,8 +1,8 @@
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
-    PDFCandidateTermList,
     PageCandidateTermList,
+    PDFCandidateTermList,
 )
 from py_pdf_term.methods import MCValueMethod
 

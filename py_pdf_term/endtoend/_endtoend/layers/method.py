@@ -1,21 +1,22 @@
 from typing import Any, List, Optional
 
-from ..caches import DEFAULT_CACHE_DIR
-from ..configs import MethodLayerConfig
-from ..mappers import (
-    SingleDomainRankingMethodMapper,
-    MultiDomainRankingMethodMapper,
-    MethodLayerRankingCacheMapper,
-    MethodLayerDataCacheMapper,
-)
-from ..data import DomainPDFList
-from .candidate import CandidateLayer
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.methods import (
-    BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
+    BaseSingleDomainRankingMethod,
     MethodTermRanking,
 )
+
+from ..caches import DEFAULT_CACHE_DIR
+from ..configs import MethodLayerConfig
+from ..data import DomainPDFList
+from ..mappers import (
+    MethodLayerDataCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MultiDomainRankingMethodMapper,
+    SingleDomainRankingMethodMapper,
+)
+from .candidate import CandidateLayer
 
 
 class MethodLayer:

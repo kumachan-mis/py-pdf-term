@@ -1,10 +1,11 @@
+from py_pdf_term._common.data import ScoredTerm, Term
+from py_pdf_term.candidates import DomainCandidateTermList
+
+from ..data import MethodTermRanking
+from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
 from .base import BaseSingleDomainRanker
 from .flr import FLRRanker
-from .hits import HITSRanker, HITSAuthHubData
-from ..rankingdata import FLRHRankingData, FLRRankingData, HITSRankingData
-from ..data import MethodTermRanking
-from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term._common.data import Term, ScoredTerm
+from .hits import HITSAuthHubData, HITSRanker
 
 
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):

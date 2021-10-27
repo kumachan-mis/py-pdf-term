@@ -1,5 +1,3 @@
 from .openbin import BinaryOpenerMapper
 
-__all__ = [
-    "BinaryOpenerMapper",
-]
+__all__ = ["BinaryOpenerMapper"]

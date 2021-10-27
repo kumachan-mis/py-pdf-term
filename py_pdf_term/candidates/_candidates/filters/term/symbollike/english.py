@@ -1,11 +1,11 @@
 import re
 
-from ..base import BaseEnglishCandidateTermFilter
+from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
+from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Morpheme
 from py_pdf_term.tokenizer.langs import EnglishMorphemeClassifier
-from py_pdf_term._common.data import Term
-from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
 
+from ..base import BaseEnglishCandidateTermFilter
 
 PHONETIC_REGEX = ALPHABET_REGEX
 

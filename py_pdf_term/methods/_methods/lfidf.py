@@ -1,9 +1,9 @@
-from typing import Dict, Any, Literal
+from typing import Any, Dict, Literal
 
 from .base import BaseMultiDomainRankingMethod
-from .rankingdata import LFIDFRankingData
 from .collectors import LFIDFRankingDataCollector
 from .rankers import LFIDFRanker
+from .rankingdata import LFIDFRankingData
 
 
 class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):

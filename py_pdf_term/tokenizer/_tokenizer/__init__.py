@@ -1,7 +1,4 @@
-from .tokenizer import Tokenizer
 from .data import Morpheme
+from .tokenizer import Tokenizer
 
-__all__ = [
-    "Tokenizer",
-    "Morpheme",
-]
+__all__ = ["Morpheme", "Tokenizer"]

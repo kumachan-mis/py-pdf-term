@@ -1,9 +1,10 @@
-from .base import BaseSingleDomainRanker
-from ..rankingdata import MCValueRankingData
-from ..data import MethodTermRanking
-from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term._common.data import Term, ScoredTerm
+from py_pdf_term._common.data import ScoredTerm, Term
 from py_pdf_term._common.extended_math import extended_log10
+from py_pdf_term.candidates import DomainCandidateTermList
+
+from ..data import MethodTermRanking
+from ..rankingdata import MCValueRankingData
+from .base import BaseSingleDomainRanker
 
 
 class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):

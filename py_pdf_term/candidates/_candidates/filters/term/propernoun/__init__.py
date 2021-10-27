@@ -1,7 +1,4 @@
-from .japanese import JapaneseProperNounFilter
 from .english import EnglishProperNounFilter
+from .japanese import JapaneseProperNounFilter
 
-__all__ = [
-    "JapaneseProperNounFilter",
-    "EnglishProperNounFilter",
-]
+__all__ = ["EnglishProperNounFilter", "JapaneseProperNounFilter"]

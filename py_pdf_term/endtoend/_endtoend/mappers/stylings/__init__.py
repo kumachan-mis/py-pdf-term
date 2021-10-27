@@ -1,5 +1,3 @@
 from .score import StylingScoreMapper
 
-__all__ = [
-    "StylingScoreMapper",
-]
+__all__ = ["StylingScoreMapper"]

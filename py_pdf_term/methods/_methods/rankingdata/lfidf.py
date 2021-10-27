@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from typing import Dict
 
-from .base import BaseRankingData
 from py_pdf_term._common.data import LinguSeq
+
+from .base import BaseRankingData
 
 
 @dataclass(frozen=True)

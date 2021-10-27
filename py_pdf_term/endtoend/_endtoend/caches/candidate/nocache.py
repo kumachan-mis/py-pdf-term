@@ -1,8 +1,9 @@
 from typing import Union
 
-from .base import BaseCandidateLayerCache
-from ...configs import CandidateLayerConfig
 from py_pdf_term.candidates import PDFCandidateTermList
+
+from ...configs import CandidateLayerConfig
+from .base import BaseCandidateLayerCache
 
 
 class CandidateLayerNoCache(BaseCandidateLayerCache):

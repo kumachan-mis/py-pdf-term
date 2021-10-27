@@ -1,9 +1,5 @@
 from .base import BaseXMLLayerCache
-from .nocache import XMLLayerNoCache
 from .file import XMLLayerFileCache
+from .nocache import XMLLayerNoCache
 
-__all__ = [
-    "BaseXMLLayerCache",
-    "XMLLayerNoCache",
-    "XMLLayerFileCache",
-]
+__all__ = ["BaseXMLLayerCache", "XMLLayerFileCache", "XMLLayerNoCache"]

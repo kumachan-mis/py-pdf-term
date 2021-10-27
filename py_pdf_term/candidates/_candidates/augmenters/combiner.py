@@ -1,8 +1,9 @@
 from typing import List, Optional
 
-from .base import BaseAugmenter
-from .separation import JapaneseModifyingParticleAugmenter, EnglishAdpositionAugmenter
 from py_pdf_term._common.data import Term
+
+from .base import BaseAugmenter
+from .separation import EnglishAdpositionAugmenter, JapaneseModifyingParticleAugmenter
 
 
 class AugmenterCombiner:

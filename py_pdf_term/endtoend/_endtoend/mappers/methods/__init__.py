@@ -1,7 +1,4 @@
-from .single import SingleDomainRankingMethodMapper
 from .multi import MultiDomainRankingMethodMapper
+from .single import SingleDomainRankingMethodMapper
 
-__all__ = [
-    "SingleDomainRankingMethodMapper",
-    "MultiDomainRankingMethodMapper",
-]
+__all__ = ["MultiDomainRankingMethodMapper", "SingleDomainRankingMethodMapper"]

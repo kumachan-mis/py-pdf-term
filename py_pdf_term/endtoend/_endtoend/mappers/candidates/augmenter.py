@@ -1,12 +1,13 @@
 from typing import Type
 
-from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 from py_pdf_term.candidates.augmenters import (
     BaseAugmenter,
-    JapaneseModifyingParticleAugmenter,
     EnglishAdpositionAugmenter,
+    JapaneseModifyingParticleAugmenter,
 )
+
+from ..base import BaseMapper
+from ..consts import PACKAGE_NAME
 
 
 class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):

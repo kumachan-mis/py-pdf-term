@@ -1,14 +1,15 @@
-from .base import BaseSingleDomainRanker
-from ..rankingdata import FLRRankingData
-from ..data import MethodTermRanking
+from py_pdf_term._common.data import ScoredTerm, Term
+from py_pdf_term._common.extended_math import extended_log10
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizer import Morpheme
 from py_pdf_term.tokenizer.langs import (
-    JapaneseMorphemeClassifier,
     EnglishMorphemeClassifier,
+    JapaneseMorphemeClassifier,
 )
-from py_pdf_term._common.data import Term, ScoredTerm
-from py_pdf_term._common.extended_math import extended_log10
+
+from ..data import MethodTermRanking
+from ..rankingdata import FLRRankingData
+from .base import BaseSingleDomainRanker
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):

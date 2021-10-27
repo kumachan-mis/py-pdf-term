@@ -1,5 +1,6 @@
-from ..base import BaseEnglishCandidateTermFilter
 from py_pdf_term._common.data import Term
+
+from ..base import BaseEnglishCandidateTermFilter
 
 
 class EnglishProperNounFilter(BaseEnglishCandidateTermFilter):

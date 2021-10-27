@@ -1,22 +1,22 @@
-from .base import BaseSingleDomainRankingMethod, BaseMultiDomainRankingMethod
-from .mcvalue import MCValueMethod
-from .tfidf import TFIDFMethod
-from .lfidf import LFIDFMethod
-from .flr import FLRMethod
-from .hits import HITSMethod
-from .flrh import FLRHMethod
-from .mdp import MDPMethod
+from .base import BaseMultiDomainRankingMethod, BaseSingleDomainRankingMethod
 from .data import MethodTermRanking
+from .flr import FLRMethod
+from .flrh import FLRHMethod
+from .hits import HITSMethod
+from .lfidf import LFIDFMethod
+from .mcvalue import MCValueMethod
+from .mdp import MDPMethod
+from .tfidf import TFIDFMethod
 
 __all__ = [
-    "BaseSingleDomainRankingMethod",
     "BaseMultiDomainRankingMethod",
-    "MCValueMethod",
-    "TFIDFMethod",
-    "LFIDFMethod",
+    "BaseSingleDomainRankingMethod",
+    "FLRHMethod",
     "FLRMethod",
     "HITSMethod",
-    "FLRHMethod",
+    "LFIDFMethod",
+    "MCValueMethod",
     "MDPMethod",
     "MethodTermRanking",
+    "TFIDFMethod",
 ]

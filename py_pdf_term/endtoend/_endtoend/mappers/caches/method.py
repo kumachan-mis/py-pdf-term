@@ -1,15 +1,15 @@
 from typing import Any, Type
 
+from ...caches import (
+    BaseMethodLayerDataCache,
+    BaseMethodLayerRankingCache,
+    MethodLayerDataFileCache,
+    MethodLayerDataNoCache,
+    MethodLayerRankingFileCache,
+    MethodLayerRankingNoCache,
+)
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from ...caches import (
-    BaseMethodLayerRankingCache,
-    MethodLayerRankingNoCache,
-    MethodLayerRankingFileCache,
-    BaseMethodLayerDataCache,
-    MethodLayerDataNoCache,
-    MethodLayerDataFileCache,
-)
 
 
 class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]]):

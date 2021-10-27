@@ -1,14 +1,15 @@
-from typing import Type, Any
+from typing import Any, Type
+
+from py_pdf_term.methods import (
+    BaseSingleDomainRankingMethod,
+    FLRHMethod,
+    FLRMethod,
+    HITSMethod,
+    MCValueMethod,
+)
 
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from py_pdf_term.methods import (
-    BaseSingleDomainRankingMethod,
-    MCValueMethod,
-    FLRMethod,
-    HITSMethod,
-    FLRHMethod,
-)
 
 
 class SingleDomainRankingMethodMapper(

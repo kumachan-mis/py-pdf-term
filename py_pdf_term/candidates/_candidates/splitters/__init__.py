@@ -1,11 +1,6 @@
-from .combiner import SplitterCombiner
 from .base import BaseSplitter
-from .symname import SymbolNameSplitter
+from .combiner import SplitterCombiner
 from .repeat import RepeatSplitter
+from .symname import SymbolNameSplitter
 
-__all__ = [
-    "SplitterCombiner",
-    "BaseSplitter",
-    "SymbolNameSplitter",
-    "RepeatSplitter",
-]
+__all__ = ["BaseSplitter", "RepeatSplitter", "SplitterCombiner", "SymbolNameSplitter"]

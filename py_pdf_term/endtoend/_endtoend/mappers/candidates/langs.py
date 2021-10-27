@@ -1,12 +1,13 @@
 from typing import Type
 
-from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 from py_pdf_term.tokenizer.langs import (
     BaseLanguageTokenizer,
-    JapaneseTokenizer,
     EnglishTokenizer,
+    JapaneseTokenizer,
 )
+
+from ..base import BaseMapper
+from ..consts import PACKAGE_NAME
 
 
 class LanguageTokenizerMapper(BaseMapper[Type[BaseLanguageTokenizer]]):

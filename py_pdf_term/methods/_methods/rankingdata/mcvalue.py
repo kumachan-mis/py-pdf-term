@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Set, Dict, Any
+from typing import Any, Dict, Set
 
 from .base import BaseRankingData
 

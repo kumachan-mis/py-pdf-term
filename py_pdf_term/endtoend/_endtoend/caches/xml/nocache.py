@@ -1,8 +1,9 @@
 from typing import Union
 
-from .base import BaseXMLLayerCache
-from ...configs import XMLLayerConfig
 from py_pdf_term.pdftoxml import PDFnXMLElement
+
+from ...configs import XMLLayerConfig
+from .base import BaseXMLLayerCache
 
 
 class XMLLayerNoCache(BaseXMLLayerCache):

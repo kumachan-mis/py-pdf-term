@@ -1,23 +1,24 @@
 from typing import List, Optional
 
+from py_pdf_term._common.data import Term
+from py_pdf_term.tokenizer import Morpheme
+
 from .morpheme import (
     BaseCandidateMorphemeFilter,
-    JapaneseMorphemeFilter,
     EnglishMorphemeFilter,
+    JapaneseMorphemeFilter,
 )
 from .term import (
     BaseCandidateTermFilter,
-    JapaneseConcatenationFilter,
     EnglishConcatenationFilter,
-    JapaneseSymbolLikeFilter,
-    EnglishSymbolLikeFilter,
-    JapaneseProperNounFilter,
-    EnglishProperNounFilter,
-    JapaneseNumericFilter,
     EnglishNumericFilter,
+    EnglishProperNounFilter,
+    EnglishSymbolLikeFilter,
+    JapaneseConcatenationFilter,
+    JapaneseNumericFilter,
+    JapaneseProperNounFilter,
+    JapaneseSymbolLikeFilter,
 )
-from py_pdf_term.tokenizer import Morpheme
-from py_pdf_term._common.data import Term
 
 
 class FilterCombiner:

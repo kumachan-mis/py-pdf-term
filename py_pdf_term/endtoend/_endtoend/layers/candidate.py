@@ -1,22 +1,23 @@
 from typing import List, Optional
 
-from .xml import XMLLayer
-from ..data import DomainPDFList
-from ..caches import DEFAULT_CACHE_DIR
-from ..configs import CandidateLayerConfig
-from ..mappers import (
-    LanguageTokenizerMapper,
-    CandidateMorphemeFilterMapper,
-    CandidateTermFilterMapper,
-    SplitterMapper,
-    AugmenterMapper,
-    CandidateLayerCacheMapper,
-)
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
     PDFCandidateTermList,
 )
+
+from ..caches import DEFAULT_CACHE_DIR
+from ..configs import CandidateLayerConfig
+from ..data import DomainPDFList
+from ..mappers import (
+    AugmenterMapper,
+    CandidateLayerCacheMapper,
+    CandidateMorphemeFilterMapper,
+    CandidateTermFilterMapper,
+    LanguageTokenizerMapper,
+    SplitterMapper,
+)
+from .xml import XMLLayer
 
 
 class CandidateLayer:

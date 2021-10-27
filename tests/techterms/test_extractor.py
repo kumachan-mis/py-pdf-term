@@ -1,7 +1,7 @@
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
-    PDFCandidateTermList,
     PageCandidateTermList,
+    PDFCandidateTermList,
 )
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.stylings import PDFStylingScoreList

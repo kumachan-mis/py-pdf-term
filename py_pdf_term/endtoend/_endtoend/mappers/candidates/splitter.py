@@ -1,12 +1,13 @@
 from typing import Type
 
-from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 from py_pdf_term.candidates.splitters import (
     BaseSplitter,
-    SymbolNameSplitter,
     RepeatSplitter,
+    SymbolNameSplitter,
 )
+
+from ..base import BaseMapper
+from ..consts import PACKAGE_NAME
 
 
 class SplitterMapper(BaseMapper[Type[BaseSplitter]]):

@@ -1,13 +1,14 @@
-import os
 import json
+import os
 from glob import glob
 from shutil import rmtree
 from typing import Union
 
-from .base import BaseCandidateLayerCache
+from py_pdf_term.candidates import PDFCandidateTermList
+
 from ...configs import CandidateLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_path
-from py_pdf_term.candidates import PDFCandidateTermList
+from .base import BaseCandidateLayerCache
 
 
 class CandidateLayerFileCache(BaseCandidateLayerCache):

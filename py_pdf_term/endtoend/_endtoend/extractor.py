@@ -1,38 +1,39 @@
 from typing import List, Optional
 
+from py_pdf_term.techterms import PDFTechnicalTermList
+
+from .caches import DEFAULT_CACHE_DIR
 from .configs import (
-    XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
     StylingLayerConfig,
     TechnicalTermLayerConfig,
+    XMLLayerConfig,
 )
-from .mappers import (
-    BinaryOpenerMapper,
-    LanguageTokenizerMapper,
-    CandidateMorphemeFilterMapper,
-    CandidateTermFilterMapper,
-    SplitterMapper,
-    AugmenterMapper,
-    SingleDomainRankingMethodMapper,
-    MultiDomainRankingMethodMapper,
-    StylingScoreMapper,
-    XMLLayerCacheMapper,
-    CandidateLayerCacheMapper,
-    MethodLayerRankingCacheMapper,
-    MethodLayerDataCacheMapper,
-    StylingLayerCacheMapper,
-)
+from .data import DomainPDFList
 from .layers import (
-    XMLLayer,
     CandidateLayer,
     MethodLayer,
     StylingLayer,
     TechnicalTermLayer,
+    XMLLayer,
 )
-from .caches import DEFAULT_CACHE_DIR
-from .data import DomainPDFList
-from py_pdf_term.techterms import PDFTechnicalTermList
+from .mappers import (
+    AugmenterMapper,
+    BinaryOpenerMapper,
+    CandidateLayerCacheMapper,
+    CandidateMorphemeFilterMapper,
+    CandidateTermFilterMapper,
+    LanguageTokenizerMapper,
+    MethodLayerDataCacheMapper,
+    MethodLayerRankingCacheMapper,
+    MultiDomainRankingMethodMapper,
+    SingleDomainRankingMethodMapper,
+    SplitterMapper,
+    StylingLayerCacheMapper,
+    StylingScoreMapper,
+    XMLLayerCacheMapper,
+)
 
 
 class PyPDFTermExtractor:

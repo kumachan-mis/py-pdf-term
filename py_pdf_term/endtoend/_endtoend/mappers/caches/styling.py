@@ -1,8 +1,8 @@
 from typing import Type
 
+from ...caches import BaseStylingLayerCache, StylingLayerFileCache, StylingLayerNoCache
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from ...caches import BaseStylingLayerCache, StylingLayerNoCache, StylingLayerFileCache
 
 
 class StylingLayerCacheMapper(BaseMapper[Type[BaseStylingLayerCache]]):

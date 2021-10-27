@@ -1,43 +1,35 @@
-from .xml import (
-    BaseXMLLayerCache,
-    XMLLayerNoCache,
-    XMLLayerFileCache,
-)
 from .candidate import (
     BaseCandidateLayerCache,
-    CandidateLayerNoCache,
     CandidateLayerFileCache,
-)
-from .method import (
-    BaseMethodLayerRankingCache,
-    MethodLayerRankingNoCache,
-    MethodLayerRankingFileCache,
-    BaseMethodLayerDataCache,
-    MethodLayerDataNoCache,
-    MethodLayerDataFileCache,
-)
-from .styling import (
-    BaseStylingLayerCache,
-    StylingLayerNoCache,
-    StylingLayerFileCache,
+    CandidateLayerNoCache,
 )
 from .consts import DEFAULT_CACHE_DIR
+from .method import (
+    BaseMethodLayerDataCache,
+    BaseMethodLayerRankingCache,
+    MethodLayerDataFileCache,
+    MethodLayerDataNoCache,
+    MethodLayerRankingFileCache,
+    MethodLayerRankingNoCache,
+)
+from .styling import BaseStylingLayerCache, StylingLayerFileCache, StylingLayerNoCache
+from .xml import BaseXMLLayerCache, XMLLayerFileCache, XMLLayerNoCache
 
 __all__ = [
-    "BaseXMLLayerCache",
-    "XMLLayerNoCache",
-    "XMLLayerFileCache",
     "BaseCandidateLayerCache",
-    "CandidateLayerNoCache",
-    "CandidateLayerFileCache",
-    "BaseMethodLayerRankingCache",
-    "MethodLayerRankingNoCache",
-    "MethodLayerRankingFileCache",
     "BaseMethodLayerDataCache",
-    "MethodLayerDataNoCache",
-    "MethodLayerDataFileCache",
+    "BaseMethodLayerRankingCache",
     "BaseStylingLayerCache",
-    "StylingLayerNoCache",
-    "StylingLayerFileCache",
+    "BaseXMLLayerCache",
+    "CandidateLayerFileCache",
+    "CandidateLayerNoCache",
     "DEFAULT_CACHE_DIR",
+    "MethodLayerDataFileCache",
+    "MethodLayerDataNoCache",
+    "MethodLayerRankingFileCache",
+    "MethodLayerRankingNoCache",
+    "StylingLayerFileCache",
+    "StylingLayerNoCache",
+    "XMLLayerFileCache",
+    "XMLLayerNoCache",
 ]

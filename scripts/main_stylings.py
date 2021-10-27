@@ -1,12 +1,12 @@
-import os
 import json
+import os
 
 from py_pdf_term.stylings import StylingScorer
 from scripts.utils import (
-    relpath_from_basedir,
-    get_domains,
     generate_domain_candidates,
+    get_domains,
     pdf_to_styling_path,
+    relpath_from_basedir,
 )
 
 script_name = os.path.basename(__file__)

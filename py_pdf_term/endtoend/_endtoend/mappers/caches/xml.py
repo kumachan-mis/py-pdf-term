@@ -1,8 +1,8 @@
 from typing import Type
 
+from ...caches import BaseXMLLayerCache, XMLLayerFileCache, XMLLayerNoCache
 from ..base import BaseMapper
 from ..consts import PACKAGE_NAME
-from ...caches import BaseXMLLayerCache, XMLLayerNoCache, XMLLayerFileCache
 
 
 class XMLLayerCacheMapper(BaseMapper[Type[BaseXMLLayerCache]]):

@@ -1,6 +1,3 @@
-from .lr import TermLeftRightFrequencyAnalyzer, DomainLeftRightFrequency
+from .lr import DomainLeftRightFrequency, TermLeftRightFrequencyAnalyzer
 
-__all__ = [
-    "TermLeftRightFrequencyAnalyzer",
-    "DomainLeftRightFrequency",
-]
+__all__ = ["DomainLeftRightFrequency", "TermLeftRightFrequencyAnalyzer"]

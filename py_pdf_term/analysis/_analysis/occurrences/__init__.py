@@ -1,9 +1,9 @@
-from .term import TermOccurrenceAnalyzer, DomainTermOccurrence
-from .lingu import LinguOccurrenceAnalyzer, DomainLinguOccurrence
+from .lingu import DomainLinguOccurrence, LinguOccurrenceAnalyzer
+from .term import DomainTermOccurrence, TermOccurrenceAnalyzer
 
 __all__ = [
-    "TermOccurrenceAnalyzer",
-    "LinguOccurrenceAnalyzer",
-    "DomainTermOccurrence",
     "DomainLinguOccurrence",
+    "DomainTermOccurrence",
+    "LinguOccurrenceAnalyzer",
+    "TermOccurrenceAnalyzer",
 ]

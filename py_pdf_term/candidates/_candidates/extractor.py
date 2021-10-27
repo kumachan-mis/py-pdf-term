@@ -1,19 +1,20 @@
-from xml.etree.ElementTree import parse, Element
 from typing import List, Optional, Type, cast
+from xml.etree.ElementTree import Element, parse
 
+from py_pdf_term._common.data import Term
+from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
+from py_pdf_term.tokenizer import Morpheme, Tokenizer
+from py_pdf_term.tokenizer.langs import BaseLanguageTokenizer
+
+from .augmenters import AugmenterCombiner, BaseAugmenter
+from .data import DomainCandidateTermList, PageCandidateTermList, PDFCandidateTermList
 from .filters import (
-    FilterCombiner,
     BaseCandidateMorphemeFilter,
     BaseCandidateTermFilter,
+    FilterCombiner,
 )
-from .splitters import SplitterCombiner, BaseSplitter
-from .augmenters import AugmenterCombiner, BaseAugmenter
-from .data import DomainCandidateTermList, PDFCandidateTermList, PageCandidateTermList
-from .utils import textnode_text, textnode_fontsize, textnode_ncolor
-from py_pdf_term.pdftoxml import PDFnXMLPath, PDFnXMLElement
-from py_pdf_term.tokenizer import Tokenizer, Morpheme
-from py_pdf_term.tokenizer.langs import BaseLanguageTokenizer
-from py_pdf_term._common.data import Term
+from .splitters import BaseSplitter, SplitterCombiner
+from .utils import textnode_fontsize, textnode_ncolor, textnode_text
 
 
 class CandidateTermExtractor:

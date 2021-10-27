@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Set, Dict, Any, Callable
+from typing import Any, Callable, Dict, List, Set
 
 from py_pdf_term._common.data import Term
 
