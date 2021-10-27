@@ -1,4 +1,4 @@
-from typing import Any, Dict, Literal
+from typing import Any, Dict
 
 from .base import BaseMultiDomainRankingMethod
 from .collectors import LFIDFRankingDataCollector
@@ -7,11 +7,7 @@ from .rankingdata import LFIDFRankingData
 
 
 class LFIDFMethod(BaseMultiDomainRankingMethod[LFIDFRankingData]):
-    def __init__(
-        self,
-        lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
-        idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ) -> None:
+    def __init__(self, lfmode: str = "log", idfmode: str = "natural") -> None:
         collector = LFIDFRankingDataCollector()
         ranker = LFIDFRanker(lfmode=lfmode, idfmode=idfmode)
         super().__init__(collector, ranker)

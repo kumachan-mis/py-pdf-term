@@ -3,14 +3,14 @@
     "editor.rulers": [88],
     "editor.formatOnSave": true
   },
-  "python.pythonPath": ".venv/bin/python3.9",
+  "python.pythonPath": ".venv/bin/python3.7",
   "python.terminal.activateEnvironment": false,
   "python.autoComplete.extraPaths": [
-    ".venv/lib/python3.9/site-packages",
+    ".venv/lib/python3.7/site-packages",
   ],
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.extraPaths": [
-    ".venv/lib/python3.9/site-packages"
+    ".venv/lib/python3.7/site-packages"
   ],
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,

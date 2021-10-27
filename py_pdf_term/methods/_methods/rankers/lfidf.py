@@ -1,5 +1,5 @@
 from math import log10
-from typing import List, Literal
+from typing import List
 
 from py_pdf_term._common.data import LinguSeq, ScoredTerm, Term
 from py_pdf_term.candidates import DomainCandidateTermList
@@ -10,11 +10,7 @@ from .base import BaseMultiDomainRanker
 
 
 class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):
-    def __init__(
-        self,
-        lfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
-        idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ) -> None:
+    def __init__(self, lfmode: str = "log", idfmode: str = "natural") -> None:
         self._lfmode = lfmode
         self._idfmode = idfmode
 
