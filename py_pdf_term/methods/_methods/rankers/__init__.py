@@ -7,6 +7,7 @@ from .mcvalue import MCValueRanker
 from .mdp import MDPRanker
 from .tfidf import TFIDFRanker
 
+# isort: unique-list
 __all__ = [
     "BaseMultiDomainRanker",
     "BaseSingleDomainRanker",

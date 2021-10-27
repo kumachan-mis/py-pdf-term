@@ -7,6 +7,7 @@ from .mcvalue import MCValueRankingData
 from .mdp import MDPRankingData
 from .tfidf import TFIDFRankingData
 
+# isort: unique-list
 __all__ = [
     "BaseRankingData",
     "FLRHRankingData",

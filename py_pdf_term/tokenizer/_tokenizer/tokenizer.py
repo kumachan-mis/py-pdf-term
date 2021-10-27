@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from .data import Morpheme
+from .data import Token
 from .langs import BaseLanguageTokenizer, EnglishTokenizer, JapaneseTokenizer
 
 
@@ -13,7 +13,7 @@ class Tokenizer:
 
         self._lang_tokenizers = lang_tokenizers
 
-    def tokenize(self, text: str) -> List[Morpheme]:
+    def tokenize(self, text: str) -> List[Token]:
         if not text:
             return []
 

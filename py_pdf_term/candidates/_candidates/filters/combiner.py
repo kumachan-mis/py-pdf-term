@@ -1,13 +1,8 @@
 from typing import List, Optional
 
 from py_pdf_term._common.data import Term
-from py_pdf_term.tokenizer import Morpheme
+from py_pdf_term.tokenizer import Token
 
-from .morpheme import (
-    BaseCandidateMorphemeFilter,
-    EnglishMorphemeFilter,
-    JapaneseMorphemeFilter,
-)
 from .term import (
     BaseCandidateTermFilter,
     EnglishConcatenationFilter,
@@ -19,18 +14,19 @@ from .term import (
     JapaneseProperNounFilter,
     JapaneseSymbolLikeFilter,
 )
+from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFilter
 
 
 class FilterCombiner:
     def __init__(
         self,
-        morpheme_filters: Optional[List[BaseCandidateMorphemeFilter]] = None,
+        token_filters: Optional[List[BaseCandidateTokenFilter]] = None,
         term_filters: Optional[List[BaseCandidateTermFilter]] = None,
     ) -> None:
-        if morpheme_filters is None:
-            morpheme_filters = [
-                JapaneseMorphemeFilter(),
-                EnglishMorphemeFilter(),
+        if token_filters is None:
+            token_filters = [
+                JapaneseTokenFilter(),
+                EnglishTokenFilter(),
             ]
         if term_filters is None:
             term_filters = [
@@ -44,19 +40,18 @@ class FilterCombiner:
                 EnglishNumericFilter(),
             ]
 
-        self._morpheme_filters = morpheme_filters
+        self._token_filters = token_filters
         self._term_filters = term_filters
 
-    def is_partof_candidate(self, morphemes: List[Morpheme], idx: int) -> bool:
-        morpheme = morphemes[idx]
-        if all(map(lambda mf: not mf.inscope(morpheme), self._morpheme_filters)):
+    def is_partof_candidate(self, tokens: List[Token], idx: int) -> bool:
+        token = tokens[idx]
+        if all(map(lambda mf: not mf.inscope(token), self._token_filters)):
             return False
 
         return all(
             map(
-                lambda mf: not mf.inscope(morpheme)
-                or mf.is_partof_candidate(morphemes, idx),
-                self._morpheme_filters,
+                lambda mf: not mf.inscope(token) or mf.is_partof_candidate(tokens, idx),
+                self._token_filters,
             )
         )
 

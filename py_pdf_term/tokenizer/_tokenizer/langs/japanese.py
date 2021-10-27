@@ -10,7 +10,7 @@ import ja_core_news_sm
 
 from py_pdf_term._common.consts import JAPANESE_REGEX, NOSPACE_REGEX, SYMBOL_REGEX
 
-from ..data import Morpheme
+from ..data import Token
 from .base import BaseLanguageTokenizer
 
 SPACES = re.compile(r"\s+")
@@ -29,7 +29,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return self._ja_regex.search(text) is not None
 
-    def tokenize(self, text: str) -> List[Morpheme]:
+    def tokenize(self, text: str) -> List[Token]:
         text = SPACES.sub(" ", text).strip()
         orginal_space_pos = {
             match.start() - offset
@@ -38,23 +38,23 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         }
 
         text = DELIM_SPASE.sub("", text)
-        morphemes = list(map(self._create_morpheme, self._model(text)))
+        tokens = list(map(self._create_token, self._model(text)))
 
         if not orginal_space_pos:
-            return morphemes
+            return tokens
 
         tokenized_space_pos = set(
-            accumulate(map(lambda morpheme: len(str(morpheme)), morphemes))
+            accumulate(map(lambda token: len(str(token)), tokens))
         )
         if not orginal_space_pos.issubset(tokenized_space_pos):
-            return morphemes
+            return tokens
 
         pos, i = 0, 0
-        num_morpheme = len(morphemes) + len(orginal_space_pos)
-        while i < num_morpheme:
+        num_token = len(tokens) + len(orginal_space_pos)
+        while i < num_token:
             if pos in orginal_space_pos:
-                pos += len(str(morphemes[i]))
-                space = Morpheme(
+                pos += len(str(tokens[i]))
+                space = Token(
                     "ja",
                     " ",
                     "空白",
@@ -66,17 +66,17 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
                     " ",
                     False,
                 )
-                morphemes.insert(i, space)
+                tokens.insert(i, space)
                 i += 2
             else:
-                pos += len(str(morphemes[i]))
+                pos += len(str(tokens[i]))
                 i += 1
 
-        return morphemes
+        return tokens
 
-    def _create_morpheme(self, token: Any) -> Morpheme:
+    def _create_token(self, token: Any) -> Token:
         if self._symbol_regex.fullmatch(token.text):
-            return Morpheme(
+            return Token(
                 "ja",
                 token.text,
                 "補助記号",
@@ -97,7 +97,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
         subsubcategory = pos_with_categories[3] if num_categories >= 3 else "*"
 
-        return Morpheme(
+        return Token(
             "ja",
             token.text,
             pos,
@@ -111,15 +111,15 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         )
 
 
-class JapaneseMorphemeClassifier:
-    def is_modifying_particle(self, morpheme: Morpheme) -> bool:
-        return morpheme.surface_form == "の" and morpheme.pos == "助詞"
+class JapaneseTokenClassifier:
+    def is_modifying_particle(self, token: Token) -> bool:
+        return token.surface_form == "の" and token.pos == "助詞"
 
-    def is_symbol(self, morpheme: Morpheme) -> bool:
-        return morpheme.pos in {"補助記号"}
+    def is_symbol(self, token: Token) -> bool:
+        return token.pos in {"補助記号"}
 
-    def is_connector_symbol(self, morpheme: Morpheme) -> bool:
-        return morpheme.surface_form in {"・", "-"} and morpheme.pos == "補助記号"
+    def is_connector_symbol(self, token: Token) -> bool:
+        return token.surface_form in {"・", "-"} and token.pos == "補助記号"
 
-    def is_meaningless(self, morpheme: Morpheme) -> bool:
-        return self.is_symbol(morpheme) or self.is_modifying_particle(morpheme)
+    def is_meaningless(self, token: Token) -> bool:
+        return self.is_symbol(token) or self.is_modifying_particle(token)

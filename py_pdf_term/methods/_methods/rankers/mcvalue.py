@@ -43,7 +43,7 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
             )
         )
 
-        term_len_score = extended_log10(len(candidate.morphemes))
+        term_len_score = extended_log10(len(candidate.tokens))
         freq_score = extended_log10(
             term_freq - container_freq / num_containers
             if num_containers > 0

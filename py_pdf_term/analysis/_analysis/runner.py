@@ -43,11 +43,11 @@ class AnalysisRunner:
                     if self._ignore_augmented and candidate.augmented:
                         continue
 
-                    num_morphemes = len(candidate.morphemes)
-                    for i in range(num_morphemes):
-                        for j in range(i + 1, num_morphemes + 1):
+                    num_tokens = len(candidate.tokens)
+                    for i in range(num_tokens):
+                        for j in range(i + 1, num_tokens + 1):
                             subcandidate = Term(
-                                candidate.morphemes[i:j],
+                                candidate.tokens[i:j],
                                 candidate.fontsize,
                                 candidate.ncolor,
                                 candidate.augmented,

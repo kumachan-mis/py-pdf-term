@@ -3,16 +3,12 @@ from xml.etree.ElementTree import Element, parse
 
 from py_pdf_term._common.data import Term
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
-from py_pdf_term.tokenizer import Morpheme, Tokenizer
+from py_pdf_term.tokenizer import Token, Tokenizer
 from py_pdf_term.tokenizer.langs import BaseLanguageTokenizer
 
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .data import DomainCandidateTermList, PageCandidateTermList, PDFCandidateTermList
-from .filters import (
-    BaseCandidateMorphemeFilter,
-    BaseCandidateTermFilter,
-    FilterCombiner,
-)
+from .filters import BaseCandidateTermFilter, BaseCandidateTokenFilter, FilterCombiner
 from .splitters import BaseSplitter, SplitterCombiner
 from .utils import textnode_fontsize, textnode_ncolor, textnode_text
 
@@ -21,7 +17,7 @@ class CandidateTermExtractor:
     def __init__(
         self,
         lang_tokenizer_clses: Optional[List[Type[BaseLanguageTokenizer]]] = None,
-        morpheme_filter_clses: Optional[List[Type[BaseCandidateMorphemeFilter]]] = None,
+        token_filter_clses: Optional[List[Type[BaseCandidateTokenFilter]]] = None,
         term_filter_clses: Optional[List[Type[BaseCandidateTermFilter]]] = None,
         splitter_clses: Optional[List[Type[BaseSplitter]]] = None,
         augmenter_clses: Optional[List[Type[BaseAugmenter]]] = None,
@@ -33,9 +29,9 @@ class CandidateTermExtractor:
         )
         self._tokenizer = Tokenizer(lang_tokenizers=lang_tokenizers)
 
-        morpheme_filters = (
-            list(map(lambda cls: cls(), morpheme_filter_clses))
-            if morpheme_filter_clses is not None
+        token_filters = (
+            list(map(lambda cls: cls(), token_filter_clses))
+            if token_filter_clses is not None
             else None
         )
         term_filters = (
@@ -43,7 +39,7 @@ class CandidateTermExtractor:
             if term_filter_clses is not None
             else None
         )
-        self._filter = FilterCombiner(morpheme_filters, term_filters)
+        self._filter = FilterCombiner(token_filters, term_filters)
 
         splitters = (
             list(map(lambda cls: cls(), splitter_clses))
@@ -83,8 +79,8 @@ class CandidateTermExtractor:
     def extract_from_text(
         self, text: str, fontsize: float = 0.0, ncolor: str = ""
     ) -> List[Term]:
-        morphemes = self._tokenizer.tokenize(text)
-        return self._extract_from_morphemes(morphemes, fontsize, ncolor)
+        tokens = self._tokenizer.tokenize(text)
+        return self._extract_from_tokens(tokens, fontsize, ncolor)
 
     def _extract_from_xmlroot(
         self, pdf_path: str, xml_root: Element
@@ -103,35 +99,35 @@ class CandidateTermExtractor:
             text = textnode_text(textnode)
             fontsize = textnode_fontsize(textnode)
             ncolor = textnode_ncolor(textnode)
-            morphemes = self._tokenizer.tokenize(text)
-            terms = self._extract_from_morphemes(morphemes, fontsize, ncolor)
+            tokens = self._tokenizer.tokenize(text)
+            terms = self._extract_from_tokens(tokens, fontsize, ncolor)
             candicate_terms.extend(terms)
 
         return PageCandidateTermList(page_num, candicate_terms)
 
-    def _extract_from_morphemes(
-        self, morphemes: List[Morpheme], fontsize: float, ncolor: str
+    def _extract_from_tokens(
+        self, tokens: List[Token], fontsize: float, ncolor: str
     ) -> List[Term]:
         candicate_terms: List[Term] = []
-        candicate_morphemes: List[Morpheme] = []
-        for idx, morpheme in enumerate(morphemes):
-            if self._filter.is_partof_candidate(morphemes, idx):
-                candicate_morphemes.append(morpheme)
+        candicate_tokens: List[Token] = []
+        for idx, token in enumerate(tokens):
+            if self._filter.is_partof_candidate(tokens, idx):
+                candicate_tokens.append(token)
                 continue
 
-            terms = self._terms_from_morphemes(candicate_morphemes, fontsize, ncolor)
+            terms = self._terms_from_tokens(candicate_tokens, fontsize, ncolor)
             candicate_terms.extend(terms)
-            candicate_morphemes = []
+            candicate_tokens = []
 
-        terms = self._terms_from_morphemes(candicate_morphemes, fontsize, ncolor)
+        terms = self._terms_from_tokens(candicate_tokens, fontsize, ncolor)
         candicate_terms.extend(terms)
 
         return candicate_terms
 
-    def _terms_from_morphemes(
-        self, candicate_morphemes: List[Morpheme], fontsize: float, ncolor: str
+    def _terms_from_tokens(
+        self, candicate_tokens: List[Token], fontsize: float, ncolor: str
     ) -> List[Term]:
-        candidate_term = Term(candicate_morphemes, fontsize, ncolor)
+        candidate_term = Term(candicate_tokens, fontsize, ncolor)
 
         candicate_terms: List[Term] = []
         splitted_candidates = self._splitter.split(candidate_term)

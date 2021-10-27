@@ -22,8 +22,8 @@ from .mappers import (
     AugmenterMapper,
     BinaryOpenerMapper,
     CandidateLayerCacheMapper,
-    CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
+    CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     MethodLayerDataCacheMapper,
     MethodLayerRankingCacheMapper,
@@ -64,9 +64,9 @@ class PyPDFTermExtractor:
             tokenize texts in a specific language with spaCy. This is used in Candidate
             Term Layer.
 
-        morpheme_filter_mapper:
-            Mapper from an element in `candidate_config.morpheme_filters` to a class to
-            filter morphemes which are likely to be parts of candidates. This is used in
+        token_filter_mapper:
+            Mapper from an element in `candidate_config.token_filters` to a class to
+            filter tokens which are likely to be parts of candidates. This is used in
             Candidate Term Layer.
 
         term_filter_mapper:
@@ -156,7 +156,7 @@ class PyPDFTermExtractor:
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
+        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
         augmenter_mapper: Optional[AugmenterMapper] = None,
@@ -180,7 +180,7 @@ class PyPDFTermExtractor:
             xml_layer=xml_layer,
             config=candidate_config,
             lang_tokenizer_mapper=lang_tokenizer_mapper,
-            morpheme_filter_mapper=morpheme_filter_mapper,
+            token_filter_mapper=token_filter_mapper,
             term_filter_mapper=term_filter_mapper,
             splitter_mapper=splitter_mapper,
             augmenter_mapper=augmenter_mapper,

@@ -7,8 +7,8 @@ from py_pdf_term._common.consts import (
     NUMBER_REGEX,
 )
 from py_pdf_term._common.data import Term
-from py_pdf_term.tokenizer import Morpheme
-from py_pdf_term.tokenizer.langs import JapaneseMorphemeClassifier
+from py_pdf_term.tokenizer import Token
+from py_pdf_term.tokenizer.langs import JapaneseTokenClassifier
 
 from ..base import BaseJapaneseCandidateTermFilter
 
@@ -17,7 +17,7 @@ PHONETIC_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX})"
 
 class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
     def __init__(self) -> None:
-        self._classifier = JapaneseMorphemeClassifier()
+        self._classifier = JapaneseTokenClassifier()
         self._phonetic_regex = re.compile(PHONETIC_REGEX)
         self._indexed_phonetic_regex = re.compile(
             rf"({PHONETIC_REGEX}{NUMBER_REGEX}+)+{PHONETIC_REGEX}?"
@@ -29,32 +29,32 @@ class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
         return (
             not self._is_phonetic_or_meaningless_term(scoped_term)
             and not self._is_indexed_phonetic(scoped_term)
-            and not self._phonetic_morpheme_appears_continuously(scoped_term)
+            and not self._phonetic_token_appears_continuously(scoped_term)
         )
 
     def _is_phonetic_or_meaningless_term(self, scoped_term: Term) -> bool:
-        def is_phonetic_or_meaningless_morpheme(morpheme: Morpheme) -> bool:
-            is_phonetic = self._phonetic_regex.fullmatch(str(morpheme)) is not None
-            is_meaningless = self._classifier.is_meaningless(morpheme)
+        def is_phonetic_or_meaningless_token(token: Token) -> bool:
+            is_phonetic = self._phonetic_regex.fullmatch(str(token)) is not None
+            is_meaningless = self._classifier.is_meaningless(token)
             return is_phonetic or is_meaningless
 
-        return all(map(is_phonetic_or_meaningless_morpheme, scoped_term.morphemes))
+        return all(map(is_phonetic_or_meaningless_token, scoped_term.tokens))
 
     def _is_indexed_phonetic(self, scoped_term: Term) -> bool:
         return self._indexed_phonetic_regex.fullmatch(str(scoped_term)) is not None
 
-    def _phonetic_morpheme_appears_continuously(self, scoped_term: Term) -> bool:
-        num_morphemes = len(scoped_term.morphemes)
+    def _phonetic_token_appears_continuously(self, scoped_term: Term) -> bool:
+        num_tokens = len(scoped_term.tokens)
 
-        def phonetic_morpheme_appears_continuously_at(i: int) -> bool:
-            if i == num_morphemes - 1:
+        def phonetic_token_appears_continuously_at(i: int) -> bool:
+            if i == num_tokens - 1:
                 return False
 
-            morpheme_str = str(scoped_term.morphemes[i])
-            next_morpheme_str = str(scoped_term.morphemes[i + 1])
+            token_str = str(scoped_term.tokens[i])
+            next_token_str = str(scoped_term.tokens[i + 1])
             return (
-                self._phonetic_regex.fullmatch(morpheme_str) is not None
-                and self._phonetic_regex.fullmatch(next_morpheme_str) is not None
+                self._phonetic_regex.fullmatch(token_str) is not None
+                and self._phonetic_regex.fullmatch(next_token_str) is not None
             )
 
-        return any(map(phonetic_morpheme_appears_continuously_at, range(num_morphemes)))
+        return any(map(phonetic_token_appears_continuously_at, range(num_tokens)))

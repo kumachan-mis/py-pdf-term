@@ -1,29 +1,29 @@
 from py_pdf_term._common.data import Term
-from py_pdf_term.tokenizer import Morpheme
-from py_pdf_term.tokenizer.langs import JapaneseMorphemeClassifier
+from py_pdf_term.tokenizer import Token
+from py_pdf_term.tokenizer.langs import JapaneseTokenClassifier
 
 from ..base import BaseJapaneseCandidateTermFilter
 
 
 class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
     def __init__(self) -> None:
-        self._classifier = JapaneseMorphemeClassifier()
+        self._classifier = JapaneseTokenClassifier()
 
     def is_candidate(self, scoped_term: Term) -> bool:
         return not self._is_numeric_phrase(scoped_term)
 
     def _is_numeric_phrase(self, scoped_term: Term) -> bool:
-        def is_numeric_or_meaningless(morpheme: Morpheme) -> bool:
+        def is_numeric_or_meaningless(token: Token) -> bool:
             return (
-                morpheme.pos == "接頭辞"
-                or (morpheme.pos == "名詞" and morpheme.category == "数詞")
+                token.pos == "接頭辞"
+                or (token.pos == "名詞" and token.category == "数詞")
                 or (
-                    morpheme.pos == "名詞"
-                    and morpheme.category == "普通名詞"
-                    and morpheme.subcategory == "助数詞可能"
+                    token.pos == "名詞"
+                    and token.category == "普通名詞"
+                    and token.subcategory == "助数詞可能"
                 )
-                or morpheme.pos == "接尾辞"
-                or self._classifier.is_meaningless(morpheme)
+                or token.pos == "接尾辞"
+                or self._classifier.is_meaningless(token)
             )
 
-        return all(map(is_numeric_or_meaningless, scoped_term.morphemes))
+        return all(map(is_numeric_or_meaningless, scoped_term.tokens))

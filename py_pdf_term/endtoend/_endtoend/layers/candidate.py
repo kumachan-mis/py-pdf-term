@@ -12,8 +12,8 @@ from ..data import DomainPDFList
 from ..mappers import (
     AugmenterMapper,
     CandidateLayerCacheMapper,
-    CandidateMorphemeFilterMapper,
     CandidateTermFilterMapper,
+    CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
 )
@@ -26,7 +26,7 @@ class CandidateLayer:
         xml_layer: XMLLayer,
         config: Optional[CandidateLayerConfig] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        morpheme_filter_mapper: Optional[CandidateMorphemeFilterMapper] = None,
+        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
         augmenter_mapper: Optional[AugmenterMapper] = None,
@@ -37,8 +37,8 @@ class CandidateLayer:
             config = CandidateLayerConfig()
         if lang_tokenizer_mapper is None:
             lang_tokenizer_mapper = LanguageTokenizerMapper.default_mapper()
-        if morpheme_filter_mapper is None:
-            morpheme_filter_mapper = CandidateMorphemeFilterMapper.default_mapper()
+        if token_filter_mapper is None:
+            token_filter_mapper = CandidateTokenFilterMapper.default_mapper()
         if term_filter_mapper is None:
             term_filter_mapper = CandidateTermFilterMapper.default_mapper()
         if splitter_mapper is None:
@@ -49,9 +49,7 @@ class CandidateLayer:
             cache_mapper = CandidateLayerCacheMapper.default_mapper()
 
         lang_tokenizer_clses = lang_tokenizer_mapper.bulk_find(config.lang_tokenizers)
-        morpheme_filter_clses = morpheme_filter_mapper.bulk_find(
-            config.morpheme_filters
-        )
+        token_filter_clses = token_filter_mapper.bulk_find(config.token_filters)
         term_filter_clses = term_filter_mapper.bulk_find(config.term_filters)
         splitter_clses = splitter_mapper.bulk_find(config.splitters)
         augmenter_clses = augmenter_mapper.bulk_find(config.augmenters)
@@ -59,7 +57,7 @@ class CandidateLayer:
 
         self._extractor = CandidateTermExtractor(
             lang_tokenizer_clses=lang_tokenizer_clses,
-            morpheme_filter_clses=morpheme_filter_clses,
+            token_filter_clses=token_filter_clses,
             term_filter_clses=term_filter_clses,
             splitter_clses=splitter_clses,
             augmenter_clses=augmenter_clses,

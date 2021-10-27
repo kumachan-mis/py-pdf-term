@@ -7,6 +7,7 @@ from .occurrences import (
     TermOccurrenceAnalyzer,
 )
 
+# isort: unique-list
 __all__ = [
     "ContainerTermsAnalyzer",
     "DomainContainerTerms",

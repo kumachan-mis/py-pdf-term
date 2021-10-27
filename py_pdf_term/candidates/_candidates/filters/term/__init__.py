@@ -4,6 +4,7 @@ from .numeric import EnglishNumericFilter, JapaneseNumericFilter
 from .propernoun import EnglishProperNounFilter, JapaneseProperNounFilter
 from .symbollike import EnglishSymbolLikeFilter, JapaneseSymbolLikeFilter
 
+# isort: unique-list
 __all__ = [
     "BaseCandidateTermFilter",
     "EnglishConcatenationFilter",

@@ -1,4 +1,5 @@
-from .data import Morpheme
+from .data import Token
 from .tokenizer import Tokenizer
 
-__all__ = ["Morpheme", "Tokenizer"]
+# isort: unique-list
+__all__ = ["Token", "Tokenizer"]

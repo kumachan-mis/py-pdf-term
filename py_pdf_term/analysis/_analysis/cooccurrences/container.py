@@ -39,12 +39,12 @@ class ContainerTermsAnalyzer:
                 candidate_lemma
             ] = container_terms.container_terms.get(candidate_lemma, set())
 
-            num_morphemes = len(candidate.morphemes)
-            for i in range(num_morphemes):
-                jstart, jstop = i + 1, (num_morphemes + 1 if i > 0 else num_morphemes)
+            num_tokens = len(candidate.tokens)
+            for i in range(num_tokens):
+                jstart, jstop = i + 1, (num_tokens + 1 if i > 0 else num_tokens)
                 for j in range(jstart, jstop):
                     subcandidate = Term(
-                        candidate.morphemes[i:j],
+                        candidate.tokens[i:j],
                         candidate.fontsize,
                         candidate.ncolor,
                         candidate.augmented,
