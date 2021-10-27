@@ -1,5 +1,5 @@
 from math import log10
-from typing import List, Literal
+from typing import List
 
 from py_pdf_term._common.data import ScoredTerm, Term
 from py_pdf_term._common.extended_math import extended_log10
@@ -11,11 +11,7 @@ from .base import BaseMultiDomainRanker
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
-    def __init__(
-        self,
-        tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
-        idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ) -> None:
+    def __init__(self, tfmode: str = "log", idfmode: str = "natural") -> None:
         self._tfmode = tfmode
         self._idfmode = idfmode
 
