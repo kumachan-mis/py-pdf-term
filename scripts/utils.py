@@ -1,7 +1,7 @@
-import os
 import json
+import os
 from glob import iglob
-from typing import List, Optional, Iterator, Iterable
+from typing import Iterable, Iterator, List, Optional
 
 from py_pdf_term import DomainPDFList
 from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
@@ -9,12 +9,12 @@ from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.stylings import DomainStylingScoreList, PDFStylingScoreList
 from scripts.settings import (
     BASE_DIR,
-    PDF_DIR,
-    XML_DIR,
     CANDIDATE_DIR,
     METHODS_DIR,
+    PDF_DIR,
     STYLINGS_DIR,
     TECHTERM_DIR,
+    XML_DIR,
 )
 
 

@@ -4,13 +4,14 @@
 
 import re
 from itertools import accumulate
-from typing import List, Any
+from typing import Any, List
 
 import ja_core_news_sm
 
-from .base import BaseLanguageTokenizer
+from py_pdf_term._common.consts import JAPANESE_REGEX, NOSPACE_REGEX, SYMBOL_REGEX
+
 from ..data import Morpheme
-from py_pdf_term._common.consts import JAPANESE_REGEX, SYMBOL_REGEX, NOSPACE_REGEX
+from .base import BaseLanguageTokenizer
 
 SPACES = re.compile(r"\s+")
 DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")

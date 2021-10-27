@@ -1,9 +1,10 @@
 from typing import List, Optional
 
-from .base import BaseSplitter
-from .symname import SymbolNameSplitter
-from .repeat import RepeatSplitter
 from py_pdf_term._common.data import Term
+
+from .base import BaseSplitter
+from .repeat import RepeatSplitter
+from .symname import SymbolNameSplitter
 
 
 class SplitterCombiner:

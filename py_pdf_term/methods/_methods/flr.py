@@ -1,9 +1,9 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from .base import BaseSingleDomainRankingMethod
-from .rankingdata import FLRRankingData
 from .collectors import FLRRankingDataCollector
 from .rankers import FLRRanker
+from .rankingdata import FLRRankingData
 
 
 class FLRMethod(BaseSingleDomainRankingMethod[FLRRankingData]):

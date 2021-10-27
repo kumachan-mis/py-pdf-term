@@ -5,14 +5,20 @@
 # pyright:reportUnknownArgumentType=false
 # pyright:reportIncompatibleMethodOverride=false
 
-from typing import BinaryIO
 from dataclasses import dataclass
-from typing import Any, Union, Optional
+from typing import Any, BinaryIO, Optional, Union
 
-from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.converter import PDFConverter
-from pdfminer.layout import LTPage, LTTextBox, LTTextLine, LTChar, LTText, LTAnno
-from pdfminer.layout import LAParams
+from pdfminer.layout import (
+    LAParams,
+    LTAnno,
+    LTChar,
+    LTPage,
+    LTText,
+    LTTextBox,
+    LTTextLine,
+)
+from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.utils import bbox2str, enc
 
 from .utils import clean_content_text

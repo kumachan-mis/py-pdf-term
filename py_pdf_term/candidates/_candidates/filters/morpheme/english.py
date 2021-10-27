@@ -1,9 +1,10 @@
 import re
 from typing import List
 
-from .base import BaseCandidateMorphemeFilter
-from py_pdf_term.tokenizer import Morpheme
 from py_pdf_term._common.consts import ENGLISH_REGEX, NUMBER_REGEX
+from py_pdf_term.tokenizer import Morpheme
+
+from .base import BaseCandidateMorphemeFilter
 
 
 class EnglishMorphemeFilter(BaseCandidateMorphemeFilter):

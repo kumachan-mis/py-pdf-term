@@ -1,9 +1,9 @@
 from .base import BaseCandidateLayerCache
-from .nocache import CandidateLayerNoCache
 from .file import CandidateLayerFileCache
+from .nocache import CandidateLayerNoCache
 
 __all__ = [
     "BaseCandidateLayerCache",
-    "CandidateLayerNoCache",
     "CandidateLayerFileCache",
+    "CandidateLayerNoCache",
 ]

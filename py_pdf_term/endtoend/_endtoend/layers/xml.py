@@ -1,9 +1,10 @@
 from typing import Optional
 
+from py_pdf_term.pdftoxml import PDFnXMLElement, PDFtoXMLConverter
+
 from ..caches import DEFAULT_CACHE_DIR
 from ..configs import XMLLayerConfig
 from ..mappers import BinaryOpenerMapper, XMLLayerCacheMapper
-from py_pdf_term.pdftoxml import PDFtoXMLConverter, PDFnXMLElement
 
 
 class XMLLayer:

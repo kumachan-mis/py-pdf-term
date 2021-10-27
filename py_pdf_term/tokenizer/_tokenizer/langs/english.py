@@ -3,13 +3,14 @@
 # pyright:reportUnknownLambdaType=false
 
 import re
-from typing import List, Any
+from typing import Any, List
 
 import en_core_web_sm
 
-from .base import BaseLanguageTokenizer
-from ..data import Morpheme
 from py_pdf_term._common.consts import ALPHABET_REGEX, SYMBOL_REGEX
+
+from ..data import Morpheme
+from .base import BaseLanguageTokenizer
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):

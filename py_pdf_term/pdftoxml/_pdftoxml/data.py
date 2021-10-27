@@ -1,6 +1,6 @@
-from dataclasses import dataclass, asdict
-from xml.etree.ElementTree import tostring, fromstring, Element
-from typing import Dict, Any
+from dataclasses import asdict, dataclass
+from typing import Any, Dict
+from xml.etree.ElementTree import Element, fromstring, tostring
 
 
 @dataclass(frozen=True)

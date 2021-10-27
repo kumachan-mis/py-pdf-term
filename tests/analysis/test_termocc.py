@@ -2,8 +2,8 @@ from py_pdf_term.analysis import TermOccurrenceAnalyzer
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
-    PDFCandidateTermList,
     PageCandidateTermList,
+    PDFCandidateTermList,
 )
 
 

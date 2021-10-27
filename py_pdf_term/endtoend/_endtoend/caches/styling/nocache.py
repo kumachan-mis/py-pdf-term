@@ -1,8 +1,9 @@
 from typing import Union
 
-from .base import BaseStylingLayerCache
-from ...configs import StylingLayerConfig
 from py_pdf_term.stylings import PDFStylingScoreList
+
+from ...configs import StylingLayerConfig
+from .base import BaseStylingLayerCache
 
 
 class StylingLayerNoCache(BaseStylingLayerCache):

@@ -1,12 +1,13 @@
 from math import log10
 from typing import List, Literal
 
-from .base import BaseMultiDomainRanker
-from ..rankingdata import TFIDFRankingData
-from ..data import MethodTermRanking
-from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term._common.data import Term, ScoredTerm
+from py_pdf_term._common.data import ScoredTerm, Term
 from py_pdf_term._common.extended_math import extended_log10
+from py_pdf_term.candidates import DomainCandidateTermList
+
+from ..data import MethodTermRanking
+from ..rankingdata import TFIDFRankingData
+from .base import BaseMultiDomainRanker
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):

@@ -1,20 +1,20 @@
-from .base import BaseSingleDomainRanker, BaseMultiDomainRanker
-from .mcvalue import MCValueRanker
-from .tfidf import TFIDFRanker
-from .lfidf import LFIDFRanker
+from .base import BaseMultiDomainRanker, BaseSingleDomainRanker
 from .flr import FLRRanker
-from .hits import HITSRanker
 from .flrh import FLRHRanker
+from .hits import HITSRanker
+from .lfidf import LFIDFRanker
+from .mcvalue import MCValueRanker
 from .mdp import MDPRanker
+from .tfidf import TFIDFRanker
 
 __all__ = [
-    "BaseSingleDomainRanker",
     "BaseMultiDomainRanker",
-    "MCValueRanker",
-    "TFIDFRanker",
-    "LFIDFRanker",
+    "BaseSingleDomainRanker",
+    "FLRHRanker",
     "FLRRanker",
     "HITSRanker",
-    "FLRHRanker",
+    "LFIDFRanker",
+    "MCValueRanker",
     "MDPRanker",
+    "TFIDFRanker",
 ]

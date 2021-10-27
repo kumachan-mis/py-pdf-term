@@ -1,12 +1,12 @@
-from .xml import XMLLayerCacheMapper
 from .candidate import CandidateLayerCacheMapper
-from .method import MethodLayerRankingCacheMapper, MethodLayerDataCacheMapper
+from .method import MethodLayerDataCacheMapper, MethodLayerRankingCacheMapper
 from .styling import StylingLayerCacheMapper
+from .xml import XMLLayerCacheMapper
 
 __all__ = [
-    "XMLLayerCacheMapper",
     "CandidateLayerCacheMapper",
-    "MethodLayerRankingCacheMapper",
     "MethodLayerDataCacheMapper",
+    "MethodLayerRankingCacheMapper",
     "StylingLayerCacheMapper",
+    "XMLLayerCacheMapper",
 ]

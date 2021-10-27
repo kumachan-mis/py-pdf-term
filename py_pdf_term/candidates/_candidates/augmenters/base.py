@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
+
 from py_pdf_term._common.data import Term
 
 

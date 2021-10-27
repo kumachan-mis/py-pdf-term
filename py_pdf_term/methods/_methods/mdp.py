@@ -1,9 +1,9 @@
-from typing import Dict, Any, Callable, Iterable
+from typing import Any, Callable, Dict, Iterable
 
 from .base import BaseMultiDomainRankingMethod
-from .rankingdata import MDPRankingData
 from .collectors import MDPRankingDataCollector
 from .rankers import MDPRanker
+from .rankingdata import MDPRankingData
 
 
 class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):

@@ -1,7 +1,8 @@
-from .base import BaseRankingDataCollector
-from ..rankingdata import LFIDFRankingData
-from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.analysis import LinguOccurrenceAnalyzer
+from py_pdf_term.candidates import DomainCandidateTermList
+
+from ..rankingdata import LFIDFRankingData
+from .base import BaseRankingDataCollector
 
 
 class LFIDFRankingDataCollector(BaseRankingDataCollector[LFIDFRankingData]):

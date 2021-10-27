@@ -1,11 +1,12 @@
 from typing import List, Optional
 
+from py_pdf_term.techterms import PDFTechnicalTermList, TechnicalTermExtractor
+
 from ..configs import TechnicalTermLayerConfig
 from ..data import DomainPDFList
 from .candidate import CandidateLayer
 from .method import MethodLayer
 from .styling import StylingLayer
-from py_pdf_term.techterms import TechnicalTermExtractor, PDFTechnicalTermList
 
 
 class TechnicalTermLayer:

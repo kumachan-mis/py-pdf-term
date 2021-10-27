@@ -1,8 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from typing import Union
 
-from ...configs import StylingLayerConfig
 from py_pdf_term.stylings import PDFStylingScoreList
+
+from ...configs import StylingLayerConfig
 
 
 class BaseStylingLayerCache(metaclass=ABCMeta):

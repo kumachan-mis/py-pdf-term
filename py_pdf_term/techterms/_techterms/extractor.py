@@ -1,22 +1,20 @@
 from typing import Dict, Optional
-from .data import (
-    DomainTechnicalTermList,
-    PDFTechnicalTermList,
-    PageTechnicalTermList,
-)
-from .utils import ranking_to_dict
+
+from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import (
     DomainCandidateTermList,
-    PDFCandidateTermList,
     PageCandidateTermList,
+    PDFCandidateTermList,
 )
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.stylings import (
     DomainStylingScoreList,
-    PDFStylingScoreList,
     PageStylingScoreList,
+    PDFStylingScoreList,
 )
-from py_pdf_term._common.data import ScoredTerm
+
+from .data import DomainTechnicalTermList, PageTechnicalTermList, PDFTechnicalTermList
+from .utils import ranking_to_dict
 
 
 class TechnicalTermExtractor:

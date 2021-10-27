@@ -1,4 +1,4 @@
-from typing import Callable, BinaryIO
+from typing import BinaryIO, Callable
 
 from ..base import BaseMapper
 

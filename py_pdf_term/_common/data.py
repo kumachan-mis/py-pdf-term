@@ -1,9 +1,9 @@
 import re
-from dataclasses import dataclass, asdict
-from typing import List, Tuple, Dict, Any, Union
+from dataclasses import asdict, dataclass
+from typing import Any, Dict, List, Tuple, Union
 
-from py_pdf_term.tokenizer import Morpheme
 from py_pdf_term._common.consts import NOSPACE_REGEX
+from py_pdf_term.tokenizer import Morpheme
 
 GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
 

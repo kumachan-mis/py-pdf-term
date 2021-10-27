@@ -1,13 +1,13 @@
 from io import BytesIO
-from typing import Callable, Optional, BinaryIO
+from typing import BinaryIO, Callable, Optional
 from xml.etree.ElementTree import fromstring
 
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfpage import PDFPage
 from pdfminer.layout import LAParams
+from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
+from pdfminer.pdfpage import PDFPage
 
+from .data import PDFnXMLElement, PDFnXMLPath
 from .textful import TextfulXMLConverter
-from .data import PDFnXMLPath, PDFnXMLElement
 
 
 class PDFtoXMLConverter:

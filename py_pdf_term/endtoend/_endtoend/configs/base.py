@@ -1,5 +1,5 @@
-from typing import Dict, Any, Type, TypeVar
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
+from typing import Any, Dict, Type, TypeVar
 
 CACHE_CONFIGS = ["cache", "data_cache", "ranking_cache"]
 

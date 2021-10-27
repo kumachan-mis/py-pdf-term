@@ -1,11 +1,12 @@
 from math import log10
 from typing import List, Literal
 
-from .base import BaseMultiDomainRanker
-from ..rankingdata import LFIDFRankingData
-from ..data import MethodTermRanking
+from py_pdf_term._common.data import LinguSeq, ScoredTerm, Term
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term._common.data import Term, ScoredTerm, LinguSeq
+
+from ..data import MethodTermRanking
+from ..rankingdata import LFIDFRankingData
+from .base import BaseMultiDomainRanker
 
 
 class LFIDFRanker(BaseMultiDomainRanker[LFIDFRankingData]):

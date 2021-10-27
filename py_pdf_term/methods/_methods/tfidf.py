@@ -1,9 +1,9 @@
-from typing import Dict, Any, Literal
+from typing import Any, Dict, Literal
 
 from .base import BaseMultiDomainRankingMethod
-from .rankingdata import TFIDFRankingData
 from .collectors import TFIDFRankingDataCollector
 from .rankers import TFIDFRanker
+from .rankingdata import TFIDFRankingData
 
 
 class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):

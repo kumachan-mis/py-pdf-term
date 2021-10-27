@@ -1,9 +1,10 @@
 from dataclasses import dataclass
-from typing import Set, Dict
+from typing import Dict, Set
+
+from py_pdf_term._common.data import LinguSeq, Term
+from py_pdf_term.candidates import DomainCandidateTermList
 
 from ..runner import AnalysisRunner
-from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term._common.data import Term, LinguSeq
 
 
 @dataclass(frozen=True)

@@ -1,20 +1,20 @@
-from .base import RankingData, BaseRankingData
-from .mcvalue import MCValueRankingData
-from .tfidf import TFIDFRankingData
-from .lfidf import LFIDFRankingData
+from .base import BaseRankingData, RankingData
 from .flr import FLRRankingData
-from .hits import HITSRankingData
 from .flrh import FLRHRankingData
+from .hits import HITSRankingData
+from .lfidf import LFIDFRankingData
+from .mcvalue import MCValueRankingData
 from .mdp import MDPRankingData
+from .tfidf import TFIDFRankingData
 
 __all__ = [
-    "RankingData",
     "BaseRankingData",
-    "MCValueRankingData",
-    "TFIDFRankingData",
-    "LFIDFRankingData",
+    "FLRHRankingData",
     "FLRRankingData",
     "HITSRankingData",
-    "FLRHRankingData",
+    "LFIDFRankingData",
+    "MCValueRankingData",
     "MDPRankingData",
+    "RankingData",
+    "TFIDFRankingData",
 ]

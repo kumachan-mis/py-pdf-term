@@ -1,8 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from typing import Union
 
-from ...configs import CandidateLayerConfig
 from py_pdf_term.candidates import PDFCandidateTermList
+
+from ...configs import CandidateLayerConfig
 
 
 class BaseCandidateLayerCache(metaclass=ABCMeta):

@@ -1,7 +1,8 @@
-from .base import BaseRankingDataCollector
-from ..rankingdata import MCValueRankingData
+from py_pdf_term.analysis import ContainerTermsAnalyzer, TermOccurrenceAnalyzer
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term.analysis import TermOccurrenceAnalyzer, ContainerTermsAnalyzer
+
+from ..rankingdata import MCValueRankingData
+from .base import BaseRankingDataCollector
 
 
 class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRankingData]):

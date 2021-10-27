@@ -1,21 +1,22 @@
 from typing import Type
 
-from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 from py_pdf_term.candidates.filters import (
     BaseCandidateMorphemeFilter,
-    JapaneseMorphemeFilter,
-    EnglishMorphemeFilter,
     BaseCandidateTermFilter,
-    JapaneseConcatenationFilter,
     EnglishConcatenationFilter,
-    JapaneseSymbolLikeFilter,
-    EnglishSymbolLikeFilter,
-    JapaneseProperNounFilter,
-    EnglishProperNounFilter,
-    JapaneseNumericFilter,
+    EnglishMorphemeFilter,
     EnglishNumericFilter,
+    EnglishProperNounFilter,
+    EnglishSymbolLikeFilter,
+    JapaneseConcatenationFilter,
+    JapaneseMorphemeFilter,
+    JapaneseNumericFilter,
+    JapaneseProperNounFilter,
+    JapaneseSymbolLikeFilter,
 )
+
+from ..base import BaseMapper
+from ..consts import PACKAGE_NAME
 
 
 class CandidateMorphemeFilterMapper(BaseMapper[Type[BaseCandidateMorphemeFilter]]):

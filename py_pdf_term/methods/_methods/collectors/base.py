@@ -1,8 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from typing import Generic
 
-from ..rankingdata.base import RankingData
 from py_pdf_term.candidates import DomainCandidateTermList
+
+from ..rankingdata.base import RankingData
 
 
 class BaseRankingDataCollector(Generic[RankingData], metaclass=ABCMeta):

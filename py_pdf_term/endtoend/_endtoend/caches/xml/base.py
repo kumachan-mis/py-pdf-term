@@ -1,8 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from typing import Union
 
-from ...configs import XMLLayerConfig
 from py_pdf_term.pdftoxml import PDFnXMLElement
+
+from ...configs import XMLLayerConfig
 
 
 class BaseXMLLayerCache(metaclass=ABCMeta):

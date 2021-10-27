@@ -1,11 +1,11 @@
 from .base import BaseLanguageTokenizer
-from .japanese import JapaneseTokenizer, JapaneseMorphemeClassifier
-from .english import EnglishTokenizer, EnglishMorphemeClassifier
+from .english import EnglishMorphemeClassifier, EnglishTokenizer
+from .japanese import JapaneseMorphemeClassifier, JapaneseTokenizer
 
 __all__ = [
     "BaseLanguageTokenizer",
-    "JapaneseTokenizer",
+    "EnglishMorphemeClassifier",
     "EnglishTokenizer",
     "JapaneseMorphemeClassifier",
-    "EnglishMorphemeClassifier",
+    "JapaneseTokenizer",
 ]

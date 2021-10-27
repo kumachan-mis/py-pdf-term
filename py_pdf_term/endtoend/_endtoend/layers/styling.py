@@ -1,10 +1,11 @@
 from typing import Optional
 
-from .candidate import CandidateLayer
+from py_pdf_term.stylings import PDFStylingScoreList, StylingScorer
+
 from ..caches import DEFAULT_CACHE_DIR
 from ..configs import StylingLayerConfig
-from ..mappers import StylingScoreMapper, StylingLayerCacheMapper
-from py_pdf_term.stylings import StylingScorer, PDFStylingScoreList
+from ..mappers import StylingLayerCacheMapper, StylingScoreMapper
+from .candidate import CandidateLayer
 
 
 class StylingLayer:

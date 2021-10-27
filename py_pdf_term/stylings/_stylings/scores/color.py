@@ -1,9 +1,10 @@
 from typing import Dict
 
-from .base import BaseStylingScore
-from py_pdf_term.candidates import PageCandidateTermList
 from py_pdf_term._common.data import Term
 from py_pdf_term._common.extended_math import extended_log10
+from py_pdf_term.candidates import PageCandidateTermList
+
+from .base import BaseStylingScore
 
 
 class ColorScore(BaseStylingScore):

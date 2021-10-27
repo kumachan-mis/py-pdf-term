@@ -1,8 +1,8 @@
 import re
 from abc import ABCMeta, abstractmethod
 
+from py_pdf_term._common.consts import ENGLISH_REGEX, JAPANESE_REGEX, NUMBER_REGEX
 from py_pdf_term._common.data import Term
-from py_pdf_term._common.consts import JAPANESE_REGEX, ENGLISH_REGEX, NUMBER_REGEX
 
 
 class BaseCandidateTermFilter(metaclass=ABCMeta):

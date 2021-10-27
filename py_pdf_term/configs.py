@@ -1,15 +1,15 @@
 from .endtoend._endtoend.configs import (
-    XMLLayerConfig,
     CandidateLayerConfig,
     MethodLayerConfig,
     StylingLayerConfig,
     TechnicalTermLayerConfig,
+    XMLLayerConfig,
 )
 
 __all__ = [
-    "XMLLayerConfig",
     "CandidateLayerConfig",
     "MethodLayerConfig",
     "StylingLayerConfig",
     "TechnicalTermLayerConfig",
+    "XMLLayerConfig",
 ]

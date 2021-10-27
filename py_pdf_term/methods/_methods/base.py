@@ -1,11 +1,12 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Any, Generic, Iterator, Optional
+from typing import Any, Dict, Generic, Iterator, List, Optional
+
+from py_pdf_term.candidates import DomainCandidateTermList
 
 from .collectors import BaseRankingDataCollector
-from .rankers import BaseSingleDomainRanker, BaseMultiDomainRanker
 from .data import MethodTermRanking
+from .rankers import BaseMultiDomainRanker, BaseSingleDomainRanker
 from .rankingdata.base import RankingData
-from py_pdf_term.candidates import DomainCandidateTermList
 
 
 class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):

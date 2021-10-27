@@ -1,14 +1,15 @@
-import os
 import json
+import os
 from glob import glob
 from shutil import rmtree
-from typing import List, Dict, Any, Union, Callable
+from typing import Any, Callable, Dict, List, Union
 
-from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
-from ...configs import MethodLayerConfig
-from ..util import create_dir_name_from_config, create_file_name_from_paths
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
+
+from ...configs import MethodLayerConfig
+from ..util import create_dir_name_from_config, create_file_name_from_paths
+from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
 
 class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):

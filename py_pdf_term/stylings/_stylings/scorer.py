@@ -1,17 +1,14 @@
-from typing import List, Dict, Optional, Type
+from typing import Dict, List, Optional, Type
 
-from .scores import BaseStylingScore, FontsizeScore, ColorScore
-from .data import (
-    DomainStylingScoreList,
-    PDFStylingScoreList,
-    PageStylingScoreList,
-)
+from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import (
     DomainCandidateTermList,
-    PDFCandidateTermList,
     PageCandidateTermList,
+    PDFCandidateTermList,
 )
-from py_pdf_term._common.data import ScoredTerm
+
+from .data import DomainStylingScoreList, PageStylingScoreList, PDFStylingScoreList
+from .scores import BaseStylingScore, ColorScore, FontsizeScore
 
 
 class StylingScorer:

@@ -1,6 +1,6 @@
 import re
-from unicodedata import normalize
 from typing import Optional
+from unicodedata import normalize
 
 from py_pdf_term._common.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
 

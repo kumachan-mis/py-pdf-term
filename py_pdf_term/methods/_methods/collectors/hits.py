@@ -1,10 +1,8 @@
-from .base import BaseRankingDataCollector
-from ..rankingdata import HITSRankingData
+from py_pdf_term.analysis import TermLeftRightFrequencyAnalyzer, TermOccurrenceAnalyzer
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term.analysis import (
-    TermOccurrenceAnalyzer,
-    TermLeftRightFrequencyAnalyzer,
-)
+
+from ..rankingdata import HITSRankingData
+from .base import BaseRankingDataCollector
 
 
 class HITSRankingDataCollector(BaseRankingDataCollector[HITSRankingData]):

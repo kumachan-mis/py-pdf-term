@@ -1,7 +1,4 @@
-from .japanese import JapaneseSymbolLikeFilter
 from .english import EnglishSymbolLikeFilter
+from .japanese import JapaneseSymbolLikeFilter
 
-__all__ = [
-    "JapaneseSymbolLikeFilter",
-    "EnglishSymbolLikeFilter",
-]
+__all__ = ["EnglishSymbolLikeFilter", "JapaneseSymbolLikeFilter"]

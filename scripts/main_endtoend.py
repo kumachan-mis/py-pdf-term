@@ -1,14 +1,14 @@
-import os
 import json
+import os
 from argparse import ArgumentParser
 
 from py_pdf_term import PyPDFTermExtractor
 from py_pdf_term.configs import MethodLayerConfig
 from scripts.utils import (
-    relpath_from_basedir,
-    get_domains,
     generate_domain_pdfs,
+    get_domains,
     pdf_to_techterm_path,
+    relpath_from_basedir,
 )
 
 script_name = os.path.basename(__file__)

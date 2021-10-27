@@ -1,6 +1,7 @@
 from __future__ import annotations
+
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Union, Generic, TypeVar
+from typing import Dict, Generic, List, TypeVar, Union
 
 MappedValue = TypeVar("MappedValue")
 

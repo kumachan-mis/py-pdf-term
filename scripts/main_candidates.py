@@ -1,13 +1,13 @@
-import os
 import json
+import os
 
-from py_pdf_term.pdftoxml import PDFnXMLPath
 from py_pdf_term.candidates import CandidateTermExtractor
+from py_pdf_term.pdftoxml import PDFnXMLPath
 from scripts.utils import (
-    relpath_from_basedir,
     generate_pdf_path,
-    pdf_to_xml_path,
     pdf_to_candidate_path,
+    pdf_to_xml_path,
+    relpath_from_basedir,
 )
 
 script_name = os.path.basename(__file__)

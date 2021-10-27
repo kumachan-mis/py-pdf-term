@@ -1,11 +1,7 @@
 from typing import List, Optional
 
 from .data import Morpheme
-from .langs import (
-    BaseLanguageTokenizer,
-    JapaneseTokenizer,
-    EnglishTokenizer,
-)
+from .langs import BaseLanguageTokenizer, EnglishTokenizer, JapaneseTokenizer
 
 
 class Tokenizer:

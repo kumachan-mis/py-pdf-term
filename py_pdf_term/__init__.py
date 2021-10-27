@@ -1,7 +1,3 @@
-from .endtoend import PyPDFTermExtractor, DomainPDFList, PDFTechnicalTermList
+from .endtoend import DomainPDFList, PDFTechnicalTermList, PyPDFTermExtractor
 
-__all__ = [
-    "PyPDFTermExtractor",
-    "DomainPDFList",
-    "PDFTechnicalTermList",
-]
+__all__ = ["DomainPDFList", "PDFTechnicalTermList", "PyPDFTermExtractor"]

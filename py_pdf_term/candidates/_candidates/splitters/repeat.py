@@ -1,11 +1,12 @@
 from typing import List, Tuple
 
-from .base import BaseSplitter
-from py_pdf_term.tokenizer.langs import (
-    JapaneseMorphemeClassifier,
-    EnglishMorphemeClassifier,
-)
 from py_pdf_term._common.data import Term
+from py_pdf_term.tokenizer.langs import (
+    EnglishMorphemeClassifier,
+    JapaneseMorphemeClassifier,
+)
+
+from .base import BaseSplitter
 
 
 class RepeatSplitter(BaseSplitter):

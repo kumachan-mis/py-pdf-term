@@ -1,5 +1,5 @@
-from dataclasses import dataclass, asdict
-from typing import Dict, List, Any
+from dataclasses import asdict, dataclass
+from typing import Any, Dict, List
 
 from py_pdf_term._common.data import ScoredTerm
 

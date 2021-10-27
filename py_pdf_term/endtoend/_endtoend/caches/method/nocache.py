@@ -1,9 +1,10 @@
-from typing import List, Dict, Any, Union, Callable
+from typing import Any, Callable, Dict, List, Union
 
-from .base import BaseMethodLayerRankingCache, BaseMethodLayerDataCache
-from ...configs import MethodLayerConfig
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
+
+from ...configs import MethodLayerConfig
+from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
 
 class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):

@@ -1,9 +1,5 @@
 from .base import BaseStylingScore
-from .fontsize import FontsizeScore
 from .color import ColorScore
+from .fontsize import FontsizeScore
 
-__all__ = [
-    "BaseStylingScore",
-    "FontsizeScore",
-    "ColorScore",
-]
+__all__ = ["BaseStylingScore", "ColorScore", "FontsizeScore"]

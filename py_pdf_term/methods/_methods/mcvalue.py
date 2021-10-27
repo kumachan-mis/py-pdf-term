@@ -1,9 +1,9 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from .base import BaseSingleDomainRankingMethod
-from .rankingdata import MCValueRankingData
 from .collectors import MCValueRankingDataCollector
 from .rankers import MCValueRanker
+from .rankingdata import MCValueRankingData
 
 
 class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRankingData]):
