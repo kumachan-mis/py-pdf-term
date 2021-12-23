@@ -11,9 +11,9 @@ ASCII_FULL2HALF_TABLE = str.maketrans(FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHA
 
 def clean_content_text(
     text: str,
-    nfc_norm: bool = True,
-    include_pattern: Optional[str] = None,
-    exclude_pattern: Optional[str] = None,
+    nfc_norm: bool,
+    include_pattern: Optional[str],
+    exclude_pattern: Optional[str],
 ) -> str:
     text = ERROR.sub("", text)
     text = SPACES.sub(" ", text).strip()
