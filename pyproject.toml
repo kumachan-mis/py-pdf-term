@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-pdf-term"
-version = "0.16.0"
+version = "0.16.1"
 description = "A fully-configurable terminology extraction module written in Python"
 authors = ["Yuya Suwa"]
 license = "MIT License"
