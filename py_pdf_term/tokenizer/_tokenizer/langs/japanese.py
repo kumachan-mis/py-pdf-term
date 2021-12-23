@@ -39,7 +39,6 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
 
         text = DELIM_SPACE.sub("", text)
         text = self._symbol_regex.sub(r" \1 ", text)
-        print(text)
         tokens = list(map(self._create_token, self._model(text)))
 
         if not orginal_space_pos:
