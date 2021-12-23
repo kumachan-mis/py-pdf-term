@@ -38,7 +38,7 @@ SYMBOL_REGEX = (
     + "".join(
         [
             # Basic Latin Symbol
-            "\u0020-\u002F",
+            "\u0021-\u002F",
             "\u003A-\u0040",
             "\u005B-\u0060",
             "\u007B-\u007F",

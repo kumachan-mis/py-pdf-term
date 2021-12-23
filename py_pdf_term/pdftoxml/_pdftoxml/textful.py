@@ -1,8 +1,9 @@
 # pyright:reportGeneralTypeIssues=false
-# pyright:reportUnknownVariableType=false
 # pyright:reportUnknownMemberType=false
 # pyright:reportUnknownParameterType=false
 # pyright:reportUnknownArgumentType=false
+# pyright:reportMissingParameterType=false
+# pyright:reportMissingTypeArgument=false
 # pyright:reportIncompatibleMethodOverride=false
 
 from dataclasses import dataclass

@@ -14,7 +14,7 @@ from ..data import Token
 from .base import BaseLanguageTokenizer
 
 SPACES = re.compile(r"\s+")
-DELIM_SPASE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
+DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
@@ -24,7 +24,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         self._model.select_pipes(enable=enable_pipes)
 
         self._ja_regex = re.compile(JAPANESE_REGEX)
-        self._symbol_regex = re.compile(SYMBOL_REGEX)
+        self._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
 
     def inscope(self, text: str) -> bool:
         return self._ja_regex.search(text) is not None
@@ -34,10 +34,12 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         orginal_space_pos = {
             match.start() - offset
             for offset, match in enumerate(re.finditer(r" ", text))
-            if DELIM_SPASE.match(text, match.start()) is not None
+            if DELIM_SPACE.match(text, match.start()) is not None
         }
 
-        text = DELIM_SPASE.sub("", text)
+        text = DELIM_SPACE.sub("", text)
+        text = self._symbol_regex.sub(r" \1 ", text)
+        print(text)
         tokens = list(map(self._create_token, self._model(text)))
 
         if not orginal_space_pos:
