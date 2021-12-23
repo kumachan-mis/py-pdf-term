@@ -20,12 +20,13 @@ class EnglishTokenizer(BaseLanguageTokenizer):
         self._model.select_pipes(enable=enable_pipes)
 
         self._en_regex = re.compile(ALPHABET_REGEX)
-        self._symbol_regex = re.compile(SYMBOL_REGEX)
+        self._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
 
     def inscope(self, text: str) -> bool:
         return self._en_regex.search(text) is not None
 
     def tokenize(self, text: str) -> List[Token]:
+        text = self._symbol_regex.sub(r" \1 ", text)
         return list(map(self._create_token, self._model(text)))
 
     def _create_token(self, token: Any) -> Token:
