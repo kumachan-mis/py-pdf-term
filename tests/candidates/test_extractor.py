@@ -23,7 +23,7 @@ def test_english_compound_noun() -> None:
 
 def test_mixed_compound_noun() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("Hoare Logic（Hoare理論）")
+    candidates = extractor.extract_from_text("Hoare Logic(Hoare理論)")
     assert len(candidates) == 2
 
     candidate = candidates[0]

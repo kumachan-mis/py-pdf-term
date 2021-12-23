@@ -12,7 +12,7 @@ def test_extractor() -> None:
     techterm_extractor = TechnicalTermExtractor(max_num_terms=4, acceptance_rate=0.5)
     candidate_extractor = CandidateTermExtractor()
     p1_candidates = candidate_extractor.extract_from_text(
-        "OSI参照モデル（OSI reference model）は、"
+        "OSI参照モデル(OSI reference model)は、"
         "OSIにおいて「コンピュータの持つべき」だとされた、"
         "通信機能を階層構造に分割したモデルである。"
     )
@@ -31,7 +31,7 @@ def test_extractor() -> None:
     p2_candidates = candidate_extractor.extract_from_text(
         "国際標準化機構 (ISO) によって制定された、ネットワーク構造の設計方針"
         "「開放型システム間相互接続 (Open Systems Interconnection)」に基づいて"
-        "7階層（レイヤー）がある"
+        "7階層(レイヤー)がある"
     )
     p2_expected_candidates_lemma = [
         "国際標準化機構",
