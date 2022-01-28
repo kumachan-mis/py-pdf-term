@@ -1,14 +1,11 @@
 import re
 from dataclasses import asdict, dataclass
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Union
 
 from py_pdf_term._common.consts import NOSPACE_REGEX
 from py_pdf_term.tokenizer import Token
 
 GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_REGEX})")
-
-
-LinguSeq = Tuple[Tuple[str, str, str], ...]
 
 
 @dataclass(frozen=True)
@@ -40,11 +37,6 @@ class Term:
     def lemma(self) -> str:
         return GARBAGE_SPACE.sub(
             "", " ".join(map(lambda token: token.lemma, self.tokens))
-        )
-
-    def linguistic_sequence(self) -> LinguSeq:
-        return tuple(
-            (token.pos, token.category, token.subcategory) for token in self.tokens
         )
 
     def to_dict(self) -> Dict[str, Any]:
