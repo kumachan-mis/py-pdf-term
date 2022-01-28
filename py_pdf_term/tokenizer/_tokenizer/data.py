@@ -4,18 +4,14 @@ from typing import Any, ClassVar, Dict
 
 @dataclass(frozen=True)
 class Token:
-    NUM_ATTR: ClassVar[int] = 10
+    NUM_ATTR: ClassVar[int] = 6
 
     lang: str
     surface_form: str
     pos: str
     category: str
     subcategory: str
-    subsubcategory: str
-    universal_tag: str
     lemma: str
-    shape: str
-    is_stop: bool
 
     def __str__(self) -> str:
         return self.surface_form

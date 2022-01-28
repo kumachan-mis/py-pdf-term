@@ -31,30 +31,10 @@ class EnglishTokenizer(BaseLanguageTokenizer):
 
     def _create_token(self, token: Any) -> Token:
         if self._symbol_regex.fullmatch(token.text):
-            return Token(
-                "en",
-                token.text,
-                "SYM",
-                "*",
-                "*",
-                "*",
-                "SYM",
-                token.text,
-                token.text,
-                False,
-            )
+            return Token("en", token.text, "SYM", "*", "*", token.text)
 
         return Token(
-            "en",
-            token.text,
-            token.pos_,
-            token.tag_,
-            "*",
-            "*",
-            token.pos_,
-            token.lemma_.lower(),
-            token.shape_,
-            token.is_stop,
+            "en", token.text, token.pos_, token.tag_, "*", token.lemma_.lower()
         )
 
 

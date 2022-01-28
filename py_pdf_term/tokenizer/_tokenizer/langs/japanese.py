@@ -55,18 +55,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         while i < num_token:
             if pos in orginal_space_pos:
                 pos += len(str(tokens[i]))
-                space = Token(
-                    "ja",
-                    " ",
-                    "空白",
-                    "*",
-                    "*",
-                    "*",
-                    "SPACE",
-                    " ",
-                    " ",
-                    False,
-                )
+                space = Token("ja", " ", "空白", "*", "*", " ")
                 tokens.insert(i, space)
                 i += 2
             else:
@@ -77,18 +66,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
 
     def _create_token(self, token: Any) -> Token:
         if self._symbol_regex.fullmatch(token.text):
-            return Token(
-                "ja",
-                token.text,
-                "補助記号",
-                "一般",
-                "*",
-                "*",
-                "SYM",
-                token.text,
-                token.text,
-                False,
-            )
+            return Token("ja", token.text, "補助記号", "一般", "*", token.text)
 
         pos_with_categories = token.tag_.split("-")
         num_categories = len(pos_with_categories) - 1
@@ -96,20 +74,8 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         pos = pos_with_categories[0]
         category = pos_with_categories[1] if num_categories >= 1 else "*"
         subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
-        subsubcategory = pos_with_categories[3] if num_categories >= 3 else "*"
 
-        return Token(
-            "ja",
-            token.text,
-            pos,
-            category,
-            subcategory,
-            subsubcategory,
-            token.pos_,
-            token.lemma_.lower(),
-            token.shape_,
-            token.is_stop,
-        )
+        return Token("ja", token.text, pos, category, subcategory, token.lemma_.lower())
 
 
 class JapaneseTokenClassifier:

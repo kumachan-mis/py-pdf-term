@@ -19,7 +19,6 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--mcvalue", help="use MC-Value method", action="store_true")
     group.add_argument("--tfidf", help="use TF-IDF method", action="store_true")
-    group.add_argument("--lfidf", help="use LF-IDF method", action="store_true")
     group.add_argument("--flr", help="use FLR method", action="store_true")
     group.add_argument("--hits", help="use HITS method", action="store_true")
     group.add_argument("--flrh", help="use FLRH method", action="store_true")
@@ -30,8 +29,6 @@ if __name__ == "__main__":
         method_name = "mcvalue"
     elif args.tfidf:
         method_name = "tfidf"
-    elif args.lfidf:
-        method_name = "lfidf"
     elif args.flr:
         method_name = "flr"
     elif args.hits:
