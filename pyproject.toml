@@ -12,7 +12,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.7,<4.0"
 "pdfminer.six" = "^20211012"
-spacy = "^3.2.1"
+spacy = "^3.2.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
@@ -22,7 +22,7 @@ ghp-import = "^2.0.1"
 isort = "^5.10.1"
 pep8-naming = "^0.12.1"
 pre-commit = "^2.17.0"
-pytest = "^7.0.0"
+pytest = "^7.0.1"
 pytest-cov = "^3.0.0"
 Sphinx = "^4.3.2"
 
