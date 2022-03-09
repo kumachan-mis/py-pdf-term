@@ -4,7 +4,7 @@ from .base import BaseTokenClassifier
 
 class JapaneseTokenClassifier(BaseTokenClassifier):
     def inscope(self, token: Token) -> bool:
-        return token.lang == "en"
+        return token.lang == "ja"
 
     def is_symbol(self, token: Token) -> bool:
         return token.pos in {"補助記号"}
