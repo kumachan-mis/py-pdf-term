@@ -1,11 +1,11 @@
 from .base import BaseAugmenter
 from .combiner import AugmenterCombiner
-from .separation import EnglishAdpositionAugmenter, JapaneseModifyingParticleAugmenter
+from .separation import EnglishConnectorTermAugmenter, JapaneseConnectorTermAugmenter
 
 # isort: unique-list
 __all__ = [
     "AugmenterCombiner",
     "BaseAugmenter",
-    "EnglishAdpositionAugmenter",
-    "JapaneseModifyingParticleAugmenter",
+    "EnglishConnectorTermAugmenter",
+    "JapaneseConnectorTermAugmenter",
 ]

@@ -10,7 +10,7 @@ import ja_core_news_sm
 
 from py_pdf_term._common.consts import JAPANESE_REGEX, NOSPACE_REGEX, SYMBOL_REGEX
 
-from ..data import Token
+from .data import Token
 from .base import BaseLanguageTokenizer
 
 SPACES = re.compile(r"\s+")
@@ -76,17 +76,3 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
 
         return Token("ja", token.text, pos, category, subcategory, token.lemma_.lower())
-
-
-class JapaneseTokenClassifier:
-    def is_modifying_particle(self, token: Token) -> bool:
-        return token.surface_form == "の" and token.pos == "助詞"
-
-    def is_symbol(self, token: Token) -> bool:
-        return token.pos in {"補助記号"}
-
-    def is_connector_symbol(self, token: Token) -> bool:
-        return token.surface_form in {"・", "-"} and token.pos == "補助記号"
-
-    def is_meaningless(self, token: Token) -> bool:
-        return self.is_symbol(token) or self.is_modifying_particle(token)

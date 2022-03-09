@@ -1,6 +1,6 @@
 from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import JapaneseTokenClassifier
+from ....classifiers import JapaneseTokenClassifier
 
 from ..base import BaseJapaneseCandidateTermFilter
 

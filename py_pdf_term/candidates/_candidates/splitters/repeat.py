@@ -22,9 +22,9 @@ class RepeatSplitter(BaseSplitter):
     def _contains_connector_token(self, term: Term) -> bool:
         return any(
             map(
-                lambda token: self._ja_classifier.is_modifying_particle(token)
+                lambda token: self._ja_classifier.is_connector_term(token)
                 or self._ja_classifier.is_connector_symbol(token)
-                or self._en_classifier.is_adposition(token)
+                or self._en_classifier.is_connector_term(token)
                 or self._en_classifier.is_connector_symbol(token),
                 term.tokens,
             )

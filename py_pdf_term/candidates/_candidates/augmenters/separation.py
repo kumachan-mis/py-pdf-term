@@ -3,7 +3,7 @@ from typing import Callable, List
 
 from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import EnglishTokenClassifier, JapaneseTokenClassifier
+from ..classifiers import EnglishTokenClassifier, JapaneseTokenClassifier
 
 from .base import BaseAugmenter
 
@@ -33,10 +33,10 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
         return augmented_terms
 
 
-class JapaneseModifyingParticleAugmenter(BaseSeparationAugmenter):
+class JapaneseConnectorTermAugmenter(BaseSeparationAugmenter):
     def __init__(self) -> None:
         classifier = JapaneseTokenClassifier()
-        super().__init__(classifier.is_modifying_particle)
+        super().__init__(classifier.is_connector_term)
 
     def augment(self, term: Term) -> List[Term]:
         if term.lang != "ja":
@@ -45,10 +45,10 @@ class JapaneseModifyingParticleAugmenter(BaseSeparationAugmenter):
         return super().augment(term)
 
 
-class EnglishAdpositionAugmenter(BaseSeparationAugmenter):
+class EnglishConnectorTermAugmenter(BaseSeparationAugmenter):
     def __init__(self) -> None:
         classifier = EnglishTokenClassifier()
-        super().__init__(classifier.is_adposition)
+        super().__init__(classifier.is_connector_term)
 
     def augment(self, term: Term) -> List[Term]:
         if term.lang != "en":

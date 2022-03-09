@@ -1,6 +1,6 @@
 from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import JapaneseTokenClassifier
+from ....classifiers import JapaneseTokenClassifier
 
 from ..base import BaseJapaneseCandidateTermFilter
 
@@ -20,7 +20,7 @@ class JapaneseProperNounFilter(BaseJapaneseCandidateTermFilter):
                     and token.category == "固有名詞"
                     and token.subcategory in {"人名", "地名"}
                 )
-                or self._classifier.is_modifying_particle(token)
+                or self._classifier.is_connector_term(token)
                 or self._classifier.is_connector_symbol(token)
             )
 

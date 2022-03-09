@@ -3,15 +3,15 @@ from typing import List, Optional
 from py_pdf_term._common.data import Term
 
 from .base import BaseAugmenter
-from .separation import EnglishAdpositionAugmenter, JapaneseModifyingParticleAugmenter
+from .separation import EnglishConnectorTermAugmenter, JapaneseConnectorTermAugmenter
 
 
 class AugmenterCombiner:
     def __init__(self, augmenters: Optional[List[BaseAugmenter]] = None) -> None:
         if augmenters is None:
             augmenters = [
-                JapaneseModifyingParticleAugmenter(),
-                EnglishAdpositionAugmenter(),
+                JapaneseConnectorTermAugmenter(),
+                EnglishConnectorTermAugmenter(),
             ]
 
         self._augmenters = augmenters
