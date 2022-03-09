@@ -46,14 +46,6 @@ py_pdf_term.tokenizer package
    :undoc-members:
    :show-inheritance:
 
-py_pdf_term.tokenizer.langs subpackage
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. automodule:: py_pdf_term.tokenizer.langs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 py_pdf_term.candidates package
 ------------------------------
@@ -85,6 +77,15 @@ py_pdf_term.candidates.filters subpackage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. automodule:: py_pdf_term.candidates.filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+py_pdf_term.candidates.classifiers subpackage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: py_pdf_term.candidates.classifiers
    :members:
    :undoc-members:
    :show-inheritance:
