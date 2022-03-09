@@ -2,8 +2,8 @@ from typing import Type
 
 from py_pdf_term.candidates.augmenters import (
     BaseAugmenter,
-    EnglishAdpositionAugmenter,
-    JapaneseModifyingParticleAugmenter,
+    EnglishConnectorTermAugmenter,
+    JapaneseConnectorTermAugmenter,
 )
 
 from ..base import BaseMapper
@@ -16,8 +16,8 @@ class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
         default_mapper = cls()
 
         augmenter_clses = [
-            JapaneseModifyingParticleAugmenter,
-            EnglishAdpositionAugmenter,
+            JapaneseConnectorTermAugmenter,
+            EnglishConnectorTermAugmenter,
         ]
         for augmenter_cls in augmenter_clses:
             default_mapper.add(

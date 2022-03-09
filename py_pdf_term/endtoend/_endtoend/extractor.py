@@ -32,6 +32,7 @@ from .mappers import (
     SplitterMapper,
     StylingLayerCacheMapper,
     StylingScoreMapper,
+    TokenClassifilerMapper,
     XMLLayerCacheMapper,
 )
 
@@ -63,6 +64,11 @@ class PyPDFTermExtractor:
             Mapper from an element in `candidate_config.lang_tokenizers` to a class to
             tokenize texts in a specific language with spaCy. This is used in Candidate
             Term Layer.
+
+        token_classifier_mapper:
+            Mapper from an element in `candidate_config.token_classifiers` to a class to
+            classify tokens into True/False by several funmctions. This is used in
+            Candidate Term Layer.
 
         token_filter_mapper:
             Mapper from an element in `candidate_config.token_filters` to a class to
@@ -156,6 +162,7 @@ class PyPDFTermExtractor:
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
         token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -180,6 +187,7 @@ class PyPDFTermExtractor:
             xml_layer=xml_layer,
             config=candidate_config,
             lang_tokenizer_mapper=lang_tokenizer_mapper,
+            token_classifier_mapper=token_classifier_mapper,
             token_filter_mapper=token_filter_mapper,
             term_filter_mapper=term_filter_mapper,
             splitter_mapper=splitter_mapper,

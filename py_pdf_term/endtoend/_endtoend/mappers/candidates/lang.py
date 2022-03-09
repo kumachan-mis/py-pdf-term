@@ -1,6 +1,6 @@
 from typing import Type
 
-from py_pdf_term.tokenizer.langs import (
+from py_pdf_term.tokenizer import (
     BaseLanguageTokenizer,
     EnglishTokenizer,
     JapaneseTokenizer,

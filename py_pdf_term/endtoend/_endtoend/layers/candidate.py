@@ -16,6 +16,7 @@ from ..mappers import (
     CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
+    TokenClassifilerMapper,
 )
 from .xml import XMLLayer
 
@@ -26,6 +27,7 @@ class CandidateLayer:
         xml_layer: XMLLayer,
         config: Optional[CandidateLayerConfig] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
         token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -37,6 +39,8 @@ class CandidateLayer:
             config = CandidateLayerConfig()
         if lang_tokenizer_mapper is None:
             lang_tokenizer_mapper = LanguageTokenizerMapper.default_mapper()
+        if token_classifier_mapper is None:
+            token_classifier_mapper = TokenClassifilerMapper.default_mapper()
         if token_filter_mapper is None:
             token_filter_mapper = CandidateTokenFilterMapper.default_mapper()
         if term_filter_mapper is None:
@@ -49,6 +53,7 @@ class CandidateLayer:
             cache_mapper = CandidateLayerCacheMapper.default_mapper()
 
         lang_tokenizer_clses = lang_tokenizer_mapper.bulk_find(config.lang_tokenizers)
+        classifier_clses = token_classifier_mapper.bulk_find(config.token_classifiers)
         token_filter_clses = token_filter_mapper.bulk_find(config.token_filters)
         term_filter_clses = term_filter_mapper.bulk_find(config.term_filters)
         splitter_clses = splitter_mapper.bulk_find(config.splitters)
@@ -57,6 +62,7 @@ class CandidateLayer:
 
         self._extractor = CandidateTermExtractor(
             lang_tokenizer_clses=lang_tokenizer_clses,
+            token_classifier_clses=classifier_clses,
             token_filter_clses=token_filter_clses,
             term_filter_clses=term_filter_clses,
             splitter_clses=splitter_clses,

@@ -9,7 +9,7 @@ import en_core_web_sm
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
-from ..data import Token
+from .data import Token
 from .base import BaseLanguageTokenizer
 
 
@@ -36,17 +36,3 @@ class EnglishTokenizer(BaseLanguageTokenizer):
         return Token(
             "en", token.text, token.pos_, token.tag_, "*", token.lemma_.lower()
         )
-
-
-class EnglishTokenClassifier:
-    def is_adposition(self, token: Token) -> bool:
-        return token.pos == "ADP"
-
-    def is_symbol(self, token: Token) -> bool:
-        return token.pos == "SYM"
-
-    def is_connector_symbol(self, token: Token) -> bool:
-        return token.surface_form == "-" and token.pos == "SYM"
-
-    def is_meaningless(self, token: Token) -> bool:
-        return self.is_symbol(token) or self.is_adposition(token)

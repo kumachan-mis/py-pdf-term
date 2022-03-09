@@ -1,15 +1,16 @@
 import re
-from typing import List
+from typing import List, Optional
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
 from py_pdf_term._common.data import Term
 
 from .base import BaseSplitter
+from ..classifiers import BaseTokenClassifier
 
 
 class SymbolNameSplitter(BaseSplitter):
-    def __init__(self) -> None:
-        pass
+    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+        super().__init__(classifiers=classifiers)
 
     def split(self, term: Term) -> List[Term]:
         num_tokens = len(term.tokens)

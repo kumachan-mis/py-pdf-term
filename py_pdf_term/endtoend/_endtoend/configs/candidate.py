@@ -12,6 +12,12 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_pdf_term.EnglishTokenizer",
         ]
     )
+    token_classifiers: List[str] = field(
+        default_factory=lambda: [
+            "py_pdf_term.JapaneseTokenClassifier",
+            "py_pdf_term.EnglishTokenClassifier",
+        ]
+    )
     token_filters: List[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseTokenFilter",
@@ -38,8 +44,8 @@ class CandidateLayerConfig(BaseLayerConfig):
     )
     augmenters: List[str] = field(
         default_factory=lambda: [
-            "py_pdf_term.JapaneseModifyingParticleAugmenter",
-            "py_pdf_term.EnglishAdpositionAugmenter",
+            "py_pdf_term.JapaneseConnectorTermAugmenter",
+            "py_pdf_term.EnglishConnectorTermAugmenter",
         ]
     )
     cache: str = "py_pdf_term.CandidateLayerFileCache"

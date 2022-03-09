@@ -3,7 +3,6 @@ from typing import List
 
 from py_pdf_term._common.consts import ENGLISH_REGEX, JAPANESE_REGEX, NUMBER_REGEX
 from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import JapaneseTokenClassifier
 
 from .base import BaseCandidateTokenFilter
 
@@ -11,7 +10,6 @@ from .base import BaseCandidateTokenFilter
 class JapaneseTokenFilter(BaseCandidateTokenFilter):
     def __init__(self) -> None:
         self._regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
-        self._classifier = JapaneseTokenClassifier()
 
     def inscope(self, token: Token) -> bool:
         token_str = str(token)
@@ -58,7 +56,7 @@ class JapaneseTokenFilter(BaseCandidateTokenFilter):
                 and tokens[idx - 1].pos in {"名詞", "形状詞", "動詞", "形容詞", "記号"}
             )
         elif scoped_token.pos == "助詞":
-            return self._classifier.is_modifying_particle(scoped_token)
+            return scoped_token.surface_form == "の"
         elif scoped_token.pos == "記号":
             return self._regex.match(str(scoped_token)) is not None
         elif scoped_token.pos == "補助記号":

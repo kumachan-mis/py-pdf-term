@@ -1,7 +1,8 @@
 from .augmenter import AugmenterMapper
-from .filters import CandidateTermFilterMapper, CandidateTokenFilterMapper
-from .langs import LanguageTokenizerMapper
+from .filter import CandidateTermFilterMapper, CandidateTokenFilterMapper
+from .lang import LanguageTokenizerMapper
 from .splitter import SplitterMapper
+from .classifier import TokenClassifilerMapper
 
 # isort: unique-list
 __all__ = [
@@ -10,4 +11,5 @@ __all__ = [
     "CandidateTokenFilterMapper",
     "LanguageTokenizerMapper",
     "SplitterMapper",
+    "TokenClassifilerMapper",
 ]

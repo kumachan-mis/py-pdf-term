@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from ..data import Token
+from .data import Token
 
 
 class BaseLanguageTokenizer(metaclass=ABCMeta):

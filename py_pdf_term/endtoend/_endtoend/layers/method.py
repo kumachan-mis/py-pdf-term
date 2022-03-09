@@ -94,50 +94,58 @@ class MethodLayer:
     def _run_single_domain_method(
         self,
         domain: str,
-        domain_pdfs: DomainPDFList,
+        single_domain_pdfs: DomainPDFList,
     ) -> MethodTermRanking:
         if not isinstance(self._method, BaseSingleDomainRankingMethod):
             raise RuntimeError("unreachable statement")
 
-        if domain != domain_pdfs.domain:
+        if domain != single_domain_pdfs.domain:
             raise ValueError(
                 f"domain of 'single_domain_pdfs is expected to be '{domain}'"
-                f" but got '{domain_pdfs.domain}'"
+                f" but got '{single_domain_pdfs.domain}'"
             )
 
-        term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
+        term_ranking = self._ranking_cache.load(
+            single_domain_pdfs.pdf_paths, self._config
+        )
 
         if term_ranking is None:
-            candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
-            ranking_data = self._create_ranking_data(domain_pdfs, candidates)
+            candidates = self._candidate_layer.create_domain_candiates(
+                single_domain_pdfs
+            )
+            ranking_data = self._create_ranking_data(single_domain_pdfs, candidates)
             term_ranking = self._method.rank_terms(candidates, ranking_data)
 
-        self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+        self._ranking_cache.store(
+            single_domain_pdfs.pdf_paths, term_ranking, self._config
+        )
 
         return term_ranking
 
     def _run_multi_domain_method(
         self,
         domain: str,
-        domain_pdfs_list: List[DomainPDFList],
+        multi_domain_pdfs: List[DomainPDFList],
     ) -> MethodTermRanking:
         if not isinstance(self._method, BaseMultiDomainRankingMethod):
             raise RuntimeError("unreachable statement")
 
-        domain_pdfs = next(
-            filter(lambda item: item.domain == domain, domain_pdfs_list), None
+        target_domain_pdfs = next(
+            filter(lambda item: item.domain == domain, multi_domain_pdfs), None
         )
-        if domain_pdfs is None:
+        if target_domain_pdfs is None:
             raise ValueError(f"'multi_domain_pdfs' does not contain domain '{domain}'")
 
-        term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
+        term_ranking = self._ranking_cache.load(
+            target_domain_pdfs.pdf_paths, self._config
+        )
 
         if term_ranking is None:
             domain_candidates_list: List[DomainCandidateTermList] = []
             ranking_data_list: List[Any] = []
-            for _domain_pdfs in domain_pdfs_list:
-                candidates = self._candidate_layer.create_domain_candiates(_domain_pdfs)
-                ranking_data = self._create_ranking_data(_domain_pdfs, candidates)
+            for domain_pdfs in multi_domain_pdfs:
+                candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
+                ranking_data = self._create_ranking_data(domain_pdfs, candidates)
                 domain_candidates_list.append(candidates)
                 ranking_data_list.append(ranking_data)
 
@@ -145,7 +153,9 @@ class MethodLayer:
                 domain, domain_candidates_list, ranking_data_list
             )
 
-        self._ranking_cache.store(domain_pdfs.pdf_paths, term_ranking, self._config)
+        self._ranking_cache.store(
+            target_domain_pdfs.pdf_paths, term_ranking, self._config
+        )
 
         return term_ranking
 

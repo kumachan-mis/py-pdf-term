@@ -2,7 +2,7 @@ from dataclasses import asdict, dataclass
 from typing import Any, ClassVar, Dict
 
 
-@dataclass(frozen=True)
+@dataclass
 class Token:
     NUM_ATTR: ClassVar[int] = 6
 
@@ -12,6 +12,7 @@ class Token:
     category: str
     subcategory: str
     lemma: str
+    is_meaningless: bool = False
 
     def __str__(self) -> str:
         return self.surface_form
