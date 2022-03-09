@@ -3,8 +3,7 @@ from typing import Dict
 
 from py_pdf_term._common.data import Term
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import EnglishTokenClassifier, JapaneseTokenClassifier
+
 
 from ..runner import AnalysisRunner
 
@@ -24,8 +23,6 @@ class DomainLeftRightFrequency:
 class TermLeftRightFrequencyAnalyzer:
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
-        self._ja_classifier = JapaneseTokenClassifier()
-        self._en_classifier = EnglishTokenClassifier()
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
@@ -40,7 +37,7 @@ class TermLeftRightFrequencyAnalyzer:
             num_tokens = len(candidate.tokens)
             for i in range(num_tokens):
                 token = candidate.tokens[i]
-                if self._is_meaningless_token(token):
+                if token.is_meaningless:
                     lrfreq.left_freq[token.lemma] = dict()
                     lrfreq.right_freq[token.lemma] = dict()
                     continue
@@ -67,7 +64,7 @@ class TermLeftRightFrequencyAnalyzer:
             return
 
         left_token = candidate.tokens[idx - 1]
-        if not self._is_meaningless_token(left_token):
+        if not left_token.is_meaningless:
             left = lrfreq.left_freq.get(token.lemma, dict())
             left[left_token.lemma] = left.get(left_token.lemma, 0) + 1
             lrfreq.left_freq[token.lemma] = left
@@ -87,15 +84,10 @@ class TermLeftRightFrequencyAnalyzer:
             return
 
         right_token = candidate.tokens[idx + 1]
-        if not self._is_meaningless_token(right_token):
+        if not right_token.is_meaningless:
             right = lrfreq.right_freq.get(token.lemma, dict())
             right[right_token.lemma] = right.get(right_token.lemma, 0) + 1
             lrfreq.right_freq[token.lemma] = right
         else:
             right = lrfreq.right_freq.get(token.lemma, dict())
             lrfreq.right_freq[token.lemma] = right
-
-    def _is_meaningless_token(self, token: Token) -> bool:
-        is_ja_meaningless = self._ja_classifier.is_meaningless(token)
-        is_en_meaningless = self._en_classifier.is_meaningless(token)
-        return is_ja_meaningless or is_en_meaningless

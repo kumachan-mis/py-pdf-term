@@ -3,6 +3,9 @@ from .base import BaseTokenClassifier
 
 
 class EnglishTokenClassifier(BaseTokenClassifier):
+    def inscope(self, token: Token) -> bool:
+        return token.lang == "en"
+
     def is_symbol(self, token: Token) -> bool:
         return token.pos in {"SYM"}
 

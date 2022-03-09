@@ -5,8 +5,6 @@ from typing import Dict
 from py_pdf_term._common.data import ScoredTerm, Term
 from py_pdf_term._common.extended_math import extended_log10
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term.tokenizer import Token
-from py_pdf_term.tokenizer.langs import EnglishTokenClassifier, JapaneseTokenClassifier
 
 from ..data import MethodTermRanking
 from ..rankingdata import HITSRankingData
@@ -29,8 +27,6 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         self._threshold = threshold
         self._max_loop = max_loop
-        self._ja_classifier = JapaneseTokenClassifier()
-        self._en_classifier = EnglishTokenClassifier()
 
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: HITSRankingData
@@ -108,10 +104,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         candidate_lemma = candidate.lemma()
         num_tokens = len(candidate.tokens)
         num_meaningless_tokens = sum(
-            map(
-                lambda token: 1 if self._is_meaningless_token(token) else 0,
-                candidate.tokens,
-            )
+            map(lambda token: 1 if token.is_meaningless else 0, candidate.tokens)
         )
 
         if num_tokens == 0:
@@ -130,7 +123,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
         auth_hub_score = 0.0
         for i, token in enumerate(candidate.tokens):
-            if self._is_meaningless_token(token):
+            if token.is_meaningless:
                 continue
 
             if i == 0:
@@ -154,8 +147,3 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
 
         score = term_freq_score + auth_hub_score
         return ScoredTerm(candidate_lemma, score)
-
-    def _is_meaningless_token(self, token: Token) -> bool:
-        is_ja_meaningless = self._ja_classifier.is_meaningless(token)
-        is_en_meaningless = self._en_classifier.is_meaningless(token)
-        return is_ja_meaningless or is_en_meaningless

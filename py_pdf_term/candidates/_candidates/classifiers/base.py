@@ -7,6 +7,10 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def inscope(self, token: Token) -> bool:
+        raise NotImplementedError(f"{self.__class__.__name__}.inscope()")
+
+    @abstractmethod
     def is_symbol(self, token: Token) -> bool:
         raise NotImplementedError(f"{self.__class__.__name__}.is_symbol()")
 

@@ -4,9 +4,10 @@ from xml.etree.ElementTree import Element, parse
 from py_pdf_term._common.data import Term
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
 from py_pdf_term.tokenizer import Token, Tokenizer
-from py_pdf_term.tokenizer.langs import BaseLanguageTokenizer
+from py_pdf_term.tokenizer import BaseLanguageTokenizer
 
 from .augmenters import AugmenterCombiner, BaseAugmenter
+from .classifiers import BaseTokenClassifier, MeaninglessMarker
 from .data import DomainCandidateTermList, PageCandidateTermList, PDFCandidateTermList
 from .filters import BaseCandidateTermFilter, BaseCandidateTokenFilter, FilterCombiner
 from .splitters import BaseSplitter, SplitterCombiner
@@ -17,6 +18,7 @@ class CandidateTermExtractor:
     def __init__(
         self,
         lang_tokenizer_clses: Optional[List[Type[BaseLanguageTokenizer]]] = None,
+        token_classifier_clses: Optional[List[Type[BaseTokenClassifier]]] = None,
         token_filter_clses: Optional[List[Type[BaseCandidateTokenFilter]]] = None,
         term_filter_clses: Optional[List[Type[BaseCandidateTermFilter]]] = None,
         splitter_clses: Optional[List[Type[BaseSplitter]]] = None,
@@ -41,8 +43,15 @@ class CandidateTermExtractor:
         )
         self._filter = FilterCombiner(token_filters, term_filters)
 
+        classifiers = (
+            list(map(lambda cls: cls(), token_classifier_clses))
+            if token_classifier_clses is not None
+            else None
+        )
+        self._marker = MeaninglessMarker(classifiers)
+
         splitters = (
-            list(map(lambda cls: cls(), splitter_clses))
+            list(map(lambda cls: cls(classifiers), splitter_clses))
             if splitter_clses is not None
             else None
         )
@@ -136,4 +145,6 @@ class CandidateTermExtractor:
             candicate_terms.extend(augmented_candidates)
             candicate_terms.append(splitted_candidate)
 
-        return list(filter(self._filter.is_candidate, candicate_terms))
+        return list(
+            map(self._marker.mark, filter(self._filter.is_candidate, candicate_terms))
+        )

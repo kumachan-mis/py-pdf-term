@@ -1,15 +1,14 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 from py_pdf_term._common.data import Term
-from py_pdf_term.tokenizer.langs import EnglishTokenClassifier, JapaneseTokenClassifier
 
 from .base import BaseSplitter
+from ..classifiers import BaseTokenClassifier
 
 
 class RepeatSplitter(BaseSplitter):
-    def __init__(self) -> None:
-        self._ja_classifier = JapaneseTokenClassifier()
-        self._en_classifier = EnglishTokenClassifier()
+    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+        super().__init__(classifiers=classifiers)
 
     def split(self, term: Term) -> List[Term]:
         if self._contains_connector_token(term):
@@ -22,10 +21,12 @@ class RepeatSplitter(BaseSplitter):
     def _contains_connector_token(self, term: Term) -> bool:
         return any(
             map(
-                lambda token: self._ja_classifier.is_connector_term(token)
-                or self._ja_classifier.is_connector_symbol(token)
-                or self._en_classifier.is_connector_term(token)
-                or self._en_classifier.is_connector_symbol(token),
+                lambda token: any(
+                    map(
+                        lambda classifier: classifier.is_connector(token),
+                        self._classifiers,
+                    )
+                ),
                 term.tokens,
             )
         )
