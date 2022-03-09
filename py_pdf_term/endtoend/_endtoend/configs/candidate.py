@@ -45,7 +45,7 @@ class CandidateLayerConfig(BaseLayerConfig):
     augmenters: List[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseConnectorTermAugmenter",
-            "py_pdf_term.EnglishConnectorTermnAugmenter",
+            "py_pdf_term.EnglishConnectorTermAugmenter",
         ]
     )
     cache: str = "py_pdf_term.CandidateLayerFileCache"
