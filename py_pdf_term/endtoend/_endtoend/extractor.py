@@ -67,7 +67,7 @@ class PyPDFTermExtractor:
 
         token_classifier_mapper:
             Mapper from an element in `candidate_config.token_classifiers` to a class to
-            classify tokens into True/False by several funmctions. This is used in
+            classify tokens into True/False by several functions. This is used in
             Candidate Term Layer.
 
         token_filter_mapper:
