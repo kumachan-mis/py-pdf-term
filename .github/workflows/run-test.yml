@@ -17,7 +17,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: Gr1N/setup-poetry@v4
-      - run: poetry self update
-      - run: poetry install
+      - run: |
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+        echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - run: poetry install --no-interaction
       - run: poetry run pytest
