@@ -82,22 +82,22 @@ def test_english_backward_repeat_splitter() -> None:
 def test_english_forward_repeat_splitter() -> None:
     extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text(
-        "lambda abstraction lambda calculus lambda expression"
+        "data engineering data solution data driven development"
     )
 
     assert len(candidates) == 3
 
     candidate = candidates[0]
     assert candidate.lang == "en"
-    assert str(candidate) == "lambda abstraction"
+    assert str(candidate) == "data engineering"
 
     candidate = candidates[1]
     assert candidate.lang == "en"
-    assert str(candidate) == "lambda calculus"
+    assert str(candidate) == "data solution"
 
     candidate = candidates[2]
     assert candidate.lang == "en"
-    assert str(candidate) == "lambda expression"
+    assert str(candidate) == "data driven development"
 
 
 def test_english_bidirectional_repeat_splitter() -> None:
