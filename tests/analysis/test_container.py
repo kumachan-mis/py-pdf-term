@@ -18,7 +18,7 @@ def test_container() -> None:
         + "Central processing unit,"
         + "Microprocessor,"
         + "Application-specific instruction set processor,"
-        + "Graphics processing unit,"
+        + "Graphic processing unit,"
         + "Physics processing unit,"
         + "Digital signal processor,"
         + "Coprocessor,"
