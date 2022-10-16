@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8.x]
+        python-version: [3.8.14]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - uses: Gr1N/setup-poetry@v4
+      - run: poetry self update
       - run: poetry install
       - run: poetry run pytest
