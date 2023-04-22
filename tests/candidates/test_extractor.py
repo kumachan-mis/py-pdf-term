@@ -59,7 +59,7 @@ def test_japanese_advective_or_verb() -> None:
 
 def test_english_advective_or_verb() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("unsupervised feature embedding")
+    candidates = extractor.extract_from_text("fast feature embedding")
     assert len(candidates) == 1
 
     candidate = candidates[0]
@@ -68,7 +68,7 @@ def test_english_advective_or_verb() -> None:
     assert token.pos == "ADJ", "test is broken!"
     token = candidate.tokens[2]
     assert token.pos == "VERB" and token.category == "VBG", "test is broken!"
-    assert str(candidate) == "unsupervised feature embedding"
+    assert str(candidate) == "fast feature embedding"
 
 
 def test_japanese_nounal_postfix() -> None:

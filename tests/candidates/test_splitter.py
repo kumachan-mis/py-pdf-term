@@ -82,7 +82,7 @@ def test_english_backward_repeat_splitter() -> None:
 def test_english_forward_repeat_splitter() -> None:
     extractor = CandidateTermExtractor()
     candidates = extractor.extract_from_text(
-        "data engineering data solution data driven development"
+        "data engineering data solution data based development"
     )
 
     assert len(candidates) == 3
@@ -97,7 +97,7 @@ def test_english_forward_repeat_splitter() -> None:
 
     candidate = candidates[2]
     assert candidate.lang == "en"
-    assert str(candidate) == "data driven development"
+    assert str(candidate) == "data based development"
 
 
 def test_english_bidirectional_repeat_splitter() -> None:
