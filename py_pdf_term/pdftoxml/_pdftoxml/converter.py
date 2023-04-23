@@ -24,8 +24,8 @@ class PDFtoXMLConverter:
     ) -> PDFnXMLPath:
         pdf_io, xml_io = self.open_bin(pdf_path, "rb"), self.open_bin(xml_path, "wb")
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)
-        pdf_io.close(), xml_io.close()
-
+        pdf_io.close()
+        xml_io.close()
         return PDFnXMLPath(pdf_path, xml_path)
 
     def convert_as_element(
@@ -38,7 +38,8 @@ class PDFtoXMLConverter:
         pdf_io, xml_io = self.open_bin(pdf_path, "rb"), BytesIO()
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)
         xml_element = fromstring(xml_io.getvalue().decode("utf-8"))
-        pdf_io.close(), xml_io.close()
+        pdf_io.close()
+        xml_io.close()
         return PDFnXMLElement(pdf_path, xml_element)
 
     def _run(

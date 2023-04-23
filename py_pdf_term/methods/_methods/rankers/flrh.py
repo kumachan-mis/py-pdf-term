@@ -13,8 +13,6 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
         self._flr_ranker = FLRRanker()
         self._hits_ranker = HITSRanker(threshold=threshold, max_loop=max_loop)
 
-    # pyright:reportPrivateUsage=false
-    # FLRHRanker is a friend of FLRRanker and HITSRanker
     def rank_terms(
         self, domain_candidates: DomainCandidateTermList, ranking_data: FLRHRankingData
     ) -> MethodTermRanking:
@@ -31,7 +29,9 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
             ranking_data.right_freq,
         )
 
-        auth_hub_data = self._hits_ranker._create_auth_hub_data(hits_ranking_data)
+        auth_hub_data = self._hits_ranker._create_auth_hub_data(  # pyright: ignore[reportPrivateUsage] # noqa: E501
+            hits_ranking_data
+        )
         domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
             to_str=lambda candidate: candidate.lemma()
         )
@@ -43,7 +43,7 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
                 domain_candidates_dict.values(),
             )
         )
-        ranking.sort(key=lambda term: -term.score)
+        ranking.sort(key=lambda scored_term: scored_term.score, reverse=True)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _calculate_score(
@@ -54,8 +54,10 @@ class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
         auth_hub_data: HITSAuthHubData,
     ) -> ScoredTerm:
         candidate_lemma = candidate.lemma()
-        flr_score = self._flr_ranker._calculate_score(candidate, flr_ranking_data).score
-        hits_score = self._hits_ranker._calculate_score(
+        flr_score = self._flr_ranker._calculate_score(  # pyright: ignore[reportPrivateUsage] # noqa: E501
+            candidate, flr_ranking_data
+        ).score
+        hits_score = self._hits_ranker._calculate_score(  # pyright: ignore[reportPrivateUsage] # noqa: E501
             candidate, hits_ranking_data, auth_hub_data
         ).score
         return ScoredTerm(candidate_lemma, flr_score + hits_score)

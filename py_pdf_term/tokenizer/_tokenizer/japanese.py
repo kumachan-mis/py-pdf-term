@@ -1,7 +1,3 @@
-# pyright:reportUnknownMemberType=false
-# pyright:reportUnknownArgumentType=false
-# pyright:reportUnknownLambdaType=false
-
 import re
 from itertools import accumulate
 from typing import Any, List
@@ -20,7 +16,7 @@ DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 class JapaneseTokenizer(BaseLanguageTokenizer):
     def __init__(self) -> None:
         enable_pipes = []
-        self._model = ja_core_news_sm.load()
+        self._model = ja_core_news_sm.load()  # pyright: ignore[reportUnknownMemberType]
         self._model.select_pipes(enable=enable_pipes)
 
         self._ja_regex = re.compile(JAPANESE_REGEX)

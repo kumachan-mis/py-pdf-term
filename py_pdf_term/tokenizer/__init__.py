@@ -1,2 +1,2 @@
-from ._tokenizer import *  # NoQA
-from ._tokenizer import __all__  # NoQA
+from ._tokenizer import *  # noqa F403 F401
+from ._tokenizer import __all__  # noqa: F401

@@ -13,7 +13,6 @@ from .base import BaseXMLLayerCache
 
 class XMLLayerFileCache(BaseXMLLayerCache):
     def __init__(self, cache_dir: str) -> None:
-
         self._cache_dir = cache_dir
 
     def load(
