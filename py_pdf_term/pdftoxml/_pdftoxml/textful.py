@@ -1,15 +1,14 @@
-# pyright:reportGeneralTypeIssues=false
-# pyright:reportUnknownMemberType=false
-# pyright:reportUnknownParameterType=false
-# pyright:reportUnknownArgumentType=false
-# pyright:reportMissingParameterType=false
-# pyright:reportMissingTypeArgument=false
-# pyright:reportIncompatibleMethodOverride=false
-
 from dataclasses import dataclass
-from typing import Any, BinaryIO, Optional, Union
+from typing import Any, BinaryIO, Optional, Union, Tuple, Sequence
 
-from pdfminer.converter import PDFConverter
+from pdfminer.converter import (
+    PDFConverter,
+    PDFStream,
+    PDFGraphicState,
+    PathSegment,
+    Matrix,
+    Rect,
+)
 from pdfminer.layout import (
     LAParams,
     LTAnno,
@@ -24,17 +23,19 @@ from pdfminer.utils import bbox2str, enc
 
 from .utils import clean_content_text
 
+NColor = Union[float, Tuple[float, float, float], Tuple[float, float, float, float]]
+
 
 @dataclass
 class TextboxState:
     within_section: bool
     size: float
-    ncolor: str
+    ncolor: Optional[NColor]
     bbox: str
     text: str
 
 
-class TextfulXMLConverter(PDFConverter):
+class TextfulXMLConverter(PDFConverter[BinaryIO]):
     def __init__(
         self,
         rsrcmgr: PDFResourceManager,
@@ -46,7 +47,7 @@ class TextfulXMLConverter(PDFConverter):
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> None:
-        PDFConverter.__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
+        PDFConverter[BinaryIO].__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
 
         def _clean_content_text(text: str) -> str:
             return clean_content_text(text, nfc_norm, include_pattern, exclude_pattern)
@@ -54,11 +55,7 @@ class TextfulXMLConverter(PDFConverter):
         self._clean_content_text = _clean_content_text
 
     def write_header(self) -> None:
-        if self.codec:
-            self._write('<?xml version="1.0" encoding="%s" ?>\n' % self.codec)
-        else:
-            self._write('<?xml version="1.0" ?>\n')
-
+        self._write('<?xml version="1.0" encoding="%s" ?>\n' % self.codec)
         self._write("<pages>\n")
 
     def receive_layout(self, ltpage: LTPage) -> None:
@@ -68,19 +65,26 @@ class TextfulXMLConverter(PDFConverter):
         self._write("</pages>\n")
 
     # override to ignore LTFigure
-    def begin_figure(self, name, bbox, matrix) -> None:
+    def begin_figure(self, name: str, bbox: Rect, matrix: Matrix) -> None:
         pass
 
     # override to ignore LTFigure
-    def end_figure(self, name) -> None:
+    def end_figure(self, _: str) -> None:
         pass
 
     # override to ignore LTImage
-    def render_image(self, name, stream) -> None:
+    def render_image(self, name: str, stream: PDFStream) -> None:
         pass
 
     # override to ignore LTLine, LTRect and LTCurve
-    def paint_path(self, graphicstate, stroke, fill, evenodd, path) -> None:
+    def paint_path(
+        self,
+        gstate: PDFGraphicState,
+        stroke: bool,
+        fill: bool,
+        evenodd: bool,
+        path: Sequence[PathSegment],
+    ) -> None:
         pass
 
     def _render(self, item: Any) -> None:
@@ -98,7 +102,7 @@ class TextfulXMLConverter(PDFConverter):
         self._write("</page>\n")
 
     def _render_textbox(self, lttextbox: LTTextBox) -> None:
-        state = TextboxState(False, 0.0, "", "", "")
+        state = TextboxState(False, 0.0, None, "", "")
 
         def render_textbox_child(child: Any) -> None:
             if isinstance(child, LTTextLine):
@@ -122,7 +126,7 @@ class TextfulXMLConverter(PDFConverter):
                 else:
                     exit_text_section()
 
-        def enter_text_section(item: Union[LTChar, LTAnno]) -> None:
+        def enter_text_section(item: LTChar) -> None:
             state.within_section = True
             state.size = item.size
             state.ncolor = item.graphicstate.ncolor
@@ -152,7 +156,7 @@ class TextfulXMLConverter(PDFConverter):
 
             state.within_section = False
             state.size = 0.0
-            state.ncolor = ""
+            state.ncolor = None
             state.bbox = ""
             state.text = ""
 
@@ -169,6 +173,5 @@ class TextfulXMLConverter(PDFConverter):
             self._write("</text>\n")
 
     def _write(self, text: str) -> None:
-        if self.codec:
-            text = text.encode(self.codec)
-        self.outfp.write(text)
+        text_bytes = text.encode(self.codec)
+        self.outfp.write(text_bytes)

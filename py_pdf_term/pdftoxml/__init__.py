@@ -1,2 +1,2 @@
-from ._pdftoxml import *  # NoQA
-from ._pdftoxml import __all__  # NoQA
+from ._pdftoxml import *  # noqa F403 F401
+from ._pdftoxml import __all__  # noqa: F401

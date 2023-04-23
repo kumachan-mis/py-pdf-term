@@ -1,7 +1,3 @@
-# pyright:reportUnknownMemberType=false
-# pyright:reportUnknownArgumentType=false
-# pyright:reportUnknownLambdaType=false
-
 import re
 from typing import Any, List
 
@@ -16,7 +12,7 @@ from .base import BaseLanguageTokenizer
 class EnglishTokenizer(BaseLanguageTokenizer):
     def __init__(self) -> None:
         enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
-        self._model = en_core_web_sm.load()
+        self._model = en_core_web_sm.load()  # pyright: ignore[reportUnknownMemberType]
         self._model.select_pipes(enable=enable_pipes)
 
         self._en_regex = re.compile(ALPHABET_REGEX)

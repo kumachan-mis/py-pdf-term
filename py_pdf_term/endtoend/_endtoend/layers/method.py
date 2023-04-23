@@ -58,14 +58,12 @@ class MethodLayer:
 
         self._candidate_layer = candidate_layer
 
-    # pyright:reportUnnecessaryIsInstance=false
     def create_term_ranking(
         self,
         domain: str,
         single_domain_pdfs: Optional[DomainPDFList] = None,
         multi_domain_pdfs: Optional[List[DomainPDFList]] = None,
     ) -> MethodTermRanking:
-
         if isinstance(self._method, BaseSingleDomainRankingMethod):
             if single_domain_pdfs is None:
                 raise ValueError(
@@ -75,7 +73,9 @@ class MethodLayer:
             term_ranking = self._run_single_domain_method(domain, single_domain_pdfs)
             return term_ranking
 
-        elif isinstance(self._method, BaseMultiDomainRankingMethod):
+        elif isinstance(
+            self._method, BaseMultiDomainRankingMethod
+        ):  # pyright: ignore[reportUnnecessaryIsInstance]
             if multi_domain_pdfs is None:
                 raise ValueError(
                     "'multi_domain_pdfs' is required"
