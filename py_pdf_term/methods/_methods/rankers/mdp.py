@@ -1,3 +1,4 @@
+from sys import float_info
 from typing import Callable, Iterable, List
 
 from py_pdf_term._common.data import ScoredTerm, Term
@@ -43,7 +44,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
                 domain_candidates_dict.values(),
             )
         )
-        ranking.sort(key=lambda term: -term.score)
+        ranking.sort(key=lambda term: term.score, reverse=True)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _calculate_score(
@@ -72,18 +73,21 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     ) -> float:
         candidate_lemma = candidate.lemma()
 
+        num_terms = our_ranking_data.num_terms + their_ranking_data.num_terms
+
         our_term_freq = our_ranking_data.term_freq.get(candidate_lemma, 0)
         their_term_freq = their_ranking_data.term_freq.get(candidate_lemma, 0)
+        term_freq = our_term_freq + their_term_freq
+
+        if term_freq == 0 or term_freq == num_terms:
+            return float_info.min
 
         our_inum_terms = 1 / our_ranking_data.num_terms
         their_inum_terms = 1 / their_ranking_data.num_terms
 
         our_term_prob = our_term_freq / our_ranking_data.num_terms
         their_term_prob = their_term_freq / their_ranking_data.num_terms
-
-        term_prob = (our_term_freq + their_term_freq) / (
-            our_ranking_data.num_terms + their_ranking_data.num_terms
-        )
+        term_prob = term_freq / num_terms
 
         return extended_log10(
             (our_term_prob - their_term_prob)
