@@ -80,7 +80,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         term_freq = our_term_freq + their_term_freq
 
         if term_freq == 0 or term_freq == num_terms:
-            return float_info.min
+            return -float_info.max
 
         our_inum_terms = 1 / our_ranking_data.num_terms
         their_inum_terms = 1 / their_ranking_data.num_terms
