@@ -3,8 +3,7 @@ from xml.etree.ElementTree import Element, parse
 
 from py_pdf_term._common.data import Term
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
-from py_pdf_term.tokenizer import Token, Tokenizer
-from py_pdf_term.tokenizer import BaseLanguageTokenizer
+from py_pdf_term.tokenizer import BaseLanguageTokenizer, Token, Tokenizer
 
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .classifiers import BaseTokenClassifier, MeaninglessMarker

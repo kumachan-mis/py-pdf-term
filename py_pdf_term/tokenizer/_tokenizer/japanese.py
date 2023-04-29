@@ -6,8 +6,8 @@ import ja_core_news_sm
 
 from py_pdf_term._common.consts import JAPANESE_REGEX, NOSPACE_REGEX, SYMBOL_REGEX
 
-from .data import Token
 from .base import BaseLanguageTokenizer
+from .data import Token
 
 SPACES = re.compile(r"\s+")
 DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")

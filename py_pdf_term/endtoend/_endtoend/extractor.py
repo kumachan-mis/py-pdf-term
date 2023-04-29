@@ -1,3 +1,4 @@
+from abc import ABCMeta
 from typing import List, Optional
 
 from py_pdf_term.techterms import PDFTechnicalTermList
@@ -5,7 +6,8 @@ from py_pdf_term.techterms import PDFTechnicalTermList
 from .caches import DEFAULT_CACHE_DIR
 from .configs import (
     CandidateLayerConfig,
-    MethodLayerConfig,
+    MultiDomainMethodLayerConfig,
+    SingleDomainMethodLayerConfig,
     StylingLayerConfig,
     TechnicalTermLayerConfig,
     XMLLayerConfig,
@@ -13,9 +15,11 @@ from .configs import (
 from .data import DomainPDFList
 from .layers import (
     CandidateLayer,
-    MethodLayer,
+    MultiDomainMethodLayer,
+    MultiDomainTechnicalTermLayer,
+    SingleDomainMethodLayer,
+    SingleDomainTechnicalTermLayer,
     StylingLayer,
-    TechnicalTermLayer,
     XMLLayer,
 )
 from .mappers import (
@@ -37,10 +41,11 @@ from .mappers import (
 )
 
 
-class PyPDFTermExtractor:
-    """Top level class of py-pdf-term. E2E class to extract terminologies from PDF file.
+class BasePyPDFTermExtractor(metaclass=ABCMeta):
+    """Top level class of py-pdf-term. The class to extract terminologies from PDF file.
 
-    Args:
+    Args
+    ----
         xml_config:
             Config of XML Layer.
 
@@ -82,46 +87,23 @@ class PyPDFTermExtractor:
 
         splitter_mapper:
             Mapper from an element in `candidate_config.splitters` to a class to split
-            too long terms or wrongly concatenated terms. When XML Layer extracts a text
-            from a table, figure or something in a PDF file, texts in them are often
-            wrongly concatenated so that the text looks like one too long candidate
-            term. This is used in Candidate Term Layer.
-            e.g. If a PDF have a table to compare sort algorithms and the header text
-            wanna mean "Selection Sort" | "Quick Sort" | "Merge Sort", the text is
-            recognized as a word like "Selection Sort Quick Sort Merge Sort". This
-            wrongly concatenated word must be split down into three algorithm names.
+            too long terms or wrongly concatenated terms. This is used in Candidate Term
+            Layer.
 
         augmenter_mapper:
             Mapper from an element in `candidate_config.augmenters` to a class to
-            augment candidates. The augumentation means that if a long candidate term is
-            found, sub-terms of the original term could also be candidates. This is used
-            in Candidate Term Layer.
-            e.g. Original long term: "Structure of Layered Architecture". Augmented sub-
-            terms: "Structure" and "Layered Architecture".
+            augment candidates. The augumentation means that if a long candidate is
+            found, sub-terms of it could also be candidates. This is used in Candidate
+            Term Layer.
 
-        single_method_mapper:
+        method_mapper:
             Mapper from `method_config.method` to a class to calculate method scores of
-            candidate terms when `method_config.method_type` equals to "single".
-            A single-domain ranking method is an ranking algorithm which can calculate
-            method scores without cross-domain information.
-            e.g. Term-Frequency algorithm uses only frequency of occurcences of terms.
-            Therefore, TF is a single-domain ranking method.
-
-        multi_method_mapper:
-            Mapper from `method_config.method` to a class to calculate method scores of
-            candidate terms when `method_config.method_type` equals to "multi".
-            A multi-domain ranking method is an ranking algorithm which calculate method
-            scores with cross-domain information.
-            e.g. TF-IDF algorithm uses Inverse Document Frequency, which goes to high
-            then a term appears frequently in a target domain but not in the other
-            domains. To find IDF score, cross-domain data are required. Therefore,
-            TF-IDF is a multi-domain ranking method.
+            candidate terms. This is used in Method Layer.
 
         styling_score_mapper:
             Mapper from an element in `styling_config.styling_scores` to a class to
-            calculate styling scores of candidate terms. Each scoring class is expected
-            to focus one specific styling feature. Then different types of scores are
-            combined later.
+            calculate scores of candidate terms based on their styling such as color,
+            fontsize and so on. This is used in Styling Layer.
 
         xml_cache_mapper:
             Mapper from `xml_config.cache` to a class to provide XML Layer with the
@@ -150,14 +132,16 @@ class PyPDFTermExtractor:
 
         cache_dir:
             Path like string where cache files to be stored. For example, path to a
-            local dirctory, a url or a bucket name of a cloud storage service.
+            local directory, a url or a bucket name of a cloud storage service.
     """
 
+
+class PyPDFTermSingleDomainExtractor(BasePyPDFTermExtractor):
     def __init__(
         self,
         xml_config: Optional[XMLLayerConfig] = None,
         candidate_config: Optional[CandidateLayerConfig] = None,
-        method_config: Optional[MethodLayerConfig] = None,
+        method_config: Optional[SingleDomainMethodLayerConfig] = None,
         styling_config: Optional[StylingLayerConfig] = None,
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
@@ -167,8 +151,7 @@ class PyPDFTermExtractor:
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
         augmenter_mapper: Optional[AugmenterMapper] = None,
-        single_method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
-        multi_method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
+        method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
         styling_score_mapper: Optional[StylingScoreMapper] = None,
         xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
         candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
@@ -195,11 +178,10 @@ class PyPDFTermExtractor:
             cache_mapper=candidate_cache_mapper,
             cache_dir=cache_dir,
         )
-        method_layer = MethodLayer(
+        method_layer = SingleDomainMethodLayer(
             candidate_layer=candidate_layer,
             config=method_config,
-            single_method_mapper=single_method_mapper,
-            multi_method_mapper=multi_method_mapper,
+            method_mapper=method_mapper,
             ranking_cache_mapper=method_ranking_cache_mapper,
             data_cache_mapper=method_data_cache_mapper,
             cache_dir=cache_dir,
@@ -211,7 +193,7 @@ class PyPDFTermExtractor:
             cache_mapper=styling_cache_mapper,
             cache_dir=cache_dir,
         )
-        techterm_layer = TechnicalTermLayer(
+        techterm_layer = SingleDomainTechnicalTermLayer(
             candidate_layer=candidate_layer,
             method_layer=method_layer,
             styling_layer=styling_layer,
@@ -221,13 +203,99 @@ class PyPDFTermExtractor:
         self._techterm_layer = techterm_layer
 
     def extract(
-        self,
-        domain: str,
-        pdf_path: str,
-        single_domain_pdfs: Optional[DomainPDFList] = None,
-        multi_domain_pdfs: Optional[List[DomainPDFList]] = None,
+        self, pdf_path: str, domain_pdfs: DomainPDFList
     ) -> PDFTechnicalTermList:
-        """Function to extract terminologies from PDF file.
+        """Function to extract terminologies from PDF file without cross-domain
+        information.
+
+        Args:
+            pdf_path:
+                Path like string to the input PDF file which terminologies to be
+                extracted. The file MUST belong to `domain`.
+
+            domain_pdfs:
+                List of path like strings to the PDF files which belong to a specific
+                domain.
+
+        Returns:
+            PDFTechnicalTermList:
+                Terminology list per page from the input PDF file.
+        """
+        pdf_techterms = self._techterm_layer.create_pdf_techterms(pdf_path, domain_pdfs)
+        return pdf_techterms
+
+
+class PyPDFTermMultiDomainExtractor:
+    def __init__(
+        self,
+        xml_config: Optional[XMLLayerConfig] = None,
+        candidate_config: Optional[CandidateLayerConfig] = None,
+        method_config: Optional[MultiDomainMethodLayerConfig] = None,
+        styling_config: Optional[StylingLayerConfig] = None,
+        techterm_config: Optional[TechnicalTermLayerConfig] = None,
+        bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
+        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
+        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
+        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
+        splitter_mapper: Optional[SplitterMapper] = None,
+        augmenter_mapper: Optional[AugmenterMapper] = None,
+        method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
+        styling_score_mapper: Optional[StylingScoreMapper] = None,
+        xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
+        candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
+        method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
+        method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
+        styling_cache_mapper: Optional[StylingLayerCacheMapper] = None,
+        cache_dir: str = DEFAULT_CACHE_DIR,
+    ) -> None:
+        xml_layer = XMLLayer(
+            config=xml_config,
+            bin_opener_mapper=bin_opener_mapper,
+            cache_mapper=xml_cache_mapper,
+            cache_dir=cache_dir,
+        )
+        candidate_layer = CandidateLayer(
+            xml_layer=xml_layer,
+            config=candidate_config,
+            lang_tokenizer_mapper=lang_tokenizer_mapper,
+            token_classifier_mapper=token_classifier_mapper,
+            token_filter_mapper=token_filter_mapper,
+            term_filter_mapper=term_filter_mapper,
+            splitter_mapper=splitter_mapper,
+            augmenter_mapper=augmenter_mapper,
+            cache_mapper=candidate_cache_mapper,
+            cache_dir=cache_dir,
+        )
+        method_layer = MultiDomainMethodLayer(
+            candidate_layer=candidate_layer,
+            config=method_config,
+            method_mapper=method_mapper,
+            ranking_cache_mapper=method_ranking_cache_mapper,
+            data_cache_mapper=method_data_cache_mapper,
+            cache_dir=cache_dir,
+        )
+        styling_layer = StylingLayer(
+            candidate_layer=candidate_layer,
+            config=styling_config,
+            styling_score_mapper=styling_score_mapper,
+            cache_mapper=styling_cache_mapper,
+            cache_dir=cache_dir,
+        )
+        techterm_layer = MultiDomainTechnicalTermLayer(
+            candidate_layer=candidate_layer,
+            method_layer=method_layer,
+            styling_layer=styling_layer,
+            config=techterm_config,
+        )
+
+        self._techterm_layer = techterm_layer
+
+    def extract(
+        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+    ) -> PDFTechnicalTermList:
+        """Function to extract terminologies from PDF file with cross-domain
+        information.
 
         Args:
             domain:
@@ -238,22 +306,16 @@ class PyPDFTermExtractor:
                 Path like string to the input PDF file which terminologies to be
                 extracted. The file MUST belong to `domain`.
 
-            single_domain_pdfs:
-                List of path like strings to the PDF files which belong to `domain`.
-                `single_domain_pdfs.domain` MUST equals to `domain`. This argument is
-                required when a single-domain ranking method is to be used.
-
             multi_domain_pdfs:
                 List of path like strings to the PDF files which classified by domain.
                 There MUST be an element in `multi_domain_pdfs` whose domain equals to
-                `domain`. This argument is required when a multi-domain ranking method
-                is to be used.
+                `domain`.
 
         Returns:
             PDFTechnicalTermList:
                 Terminology list per page from the input PDF file.
         """
         pdf_techterms = self._techterm_layer.create_pdf_techterms(
-            domain, pdf_path, single_domain_pdfs, multi_domain_pdfs
+            domain, pdf_path, multi_domain_pdfs
         )
         return pdf_techterms

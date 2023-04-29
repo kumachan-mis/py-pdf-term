@@ -1,9 +1,10 @@
 from typing import List, Optional
 
 from py_pdf_term._common.data import Term
+
 from .base import BaseTokenClassifier
-from .japanese import JapaneseTokenClassifier
 from .english import EnglishTokenClassifier
+from .japanese import JapaneseTokenClassifier
 
 
 class MeaninglessMarker:

@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import List, Optional
 
 from py_pdf_term._common.data import Term
+
 from ..classifiers import (
     BaseTokenClassifier,
     EnglishTokenClassifier,

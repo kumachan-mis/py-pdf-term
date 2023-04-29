@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from .data import Token
 from .base import BaseLanguageTokenizer
+from .data import Token
 from .english import EnglishTokenizer
 from .japanese import JapaneseTokenizer
 

@@ -3,8 +3,8 @@ from typing import Callable, List
 
 from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Token
-from ..classifiers import EnglishTokenClassifier, JapaneseTokenClassifier
 
+from ..classifiers import EnglishTokenClassifier, JapaneseTokenClassifier
 from .base import BaseAugmenter
 
 

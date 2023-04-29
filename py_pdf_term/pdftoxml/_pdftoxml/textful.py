@@ -1,12 +1,12 @@
 from dataclasses import dataclass
-from typing import Any, BinaryIO, Optional, Union, Tuple, Sequence
+from typing import Any, BinaryIO, Optional, Sequence, Tuple, Union
 
 from pdfminer.converter import (
-    PDFConverter,
-    PDFStream,
-    PDFGraphicState,
-    PathSegment,
     Matrix,
+    PathSegment,
+    PDFConverter,
+    PDFGraphicState,
+    PDFStream,
     Rect,
 )
 from pdfminer.layout import (
@@ -47,7 +47,7 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> None:
-        PDFConverter[BinaryIO].__init__(self, rsrcmgr, outfp, codec, pageno, laparams)
+        super().__init__(rsrcmgr, outfp, codec, pageno, laparams)
 
         def _clean_content_text(text: str) -> str:
             return clean_content_text(text, nfc_norm, include_pattern, exclude_pattern)

@@ -7,7 +7,7 @@ from typing import Any, Callable, Dict, List, Union
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
 
-from ...configs import MethodLayerConfig
+from ...configs import BaseMethodLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_paths
 from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
@@ -20,7 +20,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
     def load(
         self,
         pdf_paths: List[str],
-        config: MethodLayerConfig,
+        config: BaseMethodLayerConfig,
     ) -> Union[MethodTermRanking, None]:
         dir_name = create_dir_name_from_config(config, prefix="rank")
         file_name = create_file_name_from_paths(pdf_paths, "json")
@@ -41,7 +41,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
         self,
         pdf_paths: List[str],
         term_ranking: MethodTermRanking,
-        config: MethodLayerConfig,
+        config: BaseMethodLayerConfig,
     ) -> None:
         dir_name = create_dir_name_from_config(config, prefix="rank")
         file_name = create_file_name_from_paths(pdf_paths, "json")
@@ -52,7 +52,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
         with open(cache_file_path, "w") as json_file:
             json.dump(term_ranking.to_dict(), json_file, ensure_ascii=False, indent=2)
 
-    def remove(self, pdf_paths: List[str], config: MethodLayerConfig) -> None:
+    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="rank")
         file_name = create_file_name_from_paths(pdf_paths, "json")
         cache_dir_path = os.path.join(self._cache_dir, dir_name)
@@ -76,7 +76,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
     def load(
         self,
         pdf_paths: List[str],
-        config: MethodLayerConfig,
+        config: BaseMethodLayerConfig,
         from_dict: Callable[[Dict[str, Any]], RankingData],
     ) -> Union[RankingData, None]:
         dir_name = create_dir_name_from_config(config, prefix="data")
@@ -95,7 +95,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         self,
         pdf_paths: List[str],
         ranking_data: RankingData,
-        config: MethodLayerConfig,
+        config: BaseMethodLayerConfig,
     ) -> None:
         dir_name = create_dir_name_from_config(config, prefix="data")
         file_name = create_file_name_from_paths(pdf_paths, "json")
@@ -106,7 +106,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         with open(cache_file_path, "w") as json_file:
             json.dump(ranking_data.to_dict(), json_file, ensure_ascii=False, indent=2)
 
-    def remove(self, pdf_paths: List[str], config: MethodLayerConfig) -> None:
+    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="data")
         file_name = create_file_name_from_paths(pdf_paths, "json")
         cache_dir_path = os.path.join(self._cache_dir, dir_name)
