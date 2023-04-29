@@ -1,4 +1,3 @@
-from abc import ABCMeta
 from typing import List, Optional
 
 from py_pdf_term.techterms import PDFTechnicalTermList
@@ -41,7 +40,7 @@ from .mappers import (
 )
 
 
-class BasePyPDFTermExtractor(metaclass=ABCMeta):
+class PyPDFTermSingleDomainExtractor:
     """Top level class of py-pdf-term. The class to extract terminologies from PDF file.
 
     Args
@@ -135,8 +134,6 @@ class BasePyPDFTermExtractor(metaclass=ABCMeta):
             local directory, a url or a bucket name of a cloud storage service.
     """
 
-
-class PyPDFTermSingleDomainExtractor(BasePyPDFTermExtractor):
     def __init__(
         self,
         xml_config: Optional[XMLLayerConfig] = None,
@@ -226,6 +223,99 @@ class PyPDFTermSingleDomainExtractor(BasePyPDFTermExtractor):
 
 
 class PyPDFTermMultiDomainExtractor:
+    """Top level class of py-pdf-term. The class to extract terminologies from PDF file.
+
+    Args
+    ----
+        xml_config:
+            Config of XML Layer.
+
+        candidate_config:
+            Config of Candidate Term Layer.
+
+        method_config:
+            Config of Method Layer.
+
+        styling_config:
+            Config of Styling Layer.
+
+        techterm_config:
+            Config of Technial Term Layer.
+
+        bin_opener_mapper:
+            Mapper from `xml_config.open_bin` to a function to open a input PDF file in
+            the binary mode. This is used in XML Layer.
+
+        lang_tokenizer_mapper:
+            Mapper from an element in `candidate_config.lang_tokenizers` to a class to
+            tokenize texts in a specific language with spaCy. This is used in Candidate
+            Term Layer.
+
+        token_classifier_mapper:
+            Mapper from an element in `candidate_config.token_classifiers` to a class to
+            classify tokens into True/False by several functions. This is used in
+            Candidate Term Layer.
+
+        token_filter_mapper:
+            Mapper from an element in `candidate_config.token_filters` to a class to
+            filter tokens which are likely to be parts of candidates. This is used in
+            Candidate Term Layer.
+
+        term_filter_mapper:
+            Mapper from an element in `candidate_config.term_filters` to a class to
+            filter terms which are likely to be candidates. This is used in Candidate
+            Term Layer.
+
+        splitter_mapper:
+            Mapper from an element in `candidate_config.splitters` to a class to split
+            too long terms or wrongly concatenated terms. This is used in Candidate Term
+            Layer.
+
+        augmenter_mapper:
+            Mapper from an element in `candidate_config.augmenters` to a class to
+            augment candidates. The augumentation means that if a long candidate is
+            found, sub-terms of it could also be candidates. This is used in Candidate
+            Term Layer.
+
+        method_mapper:
+            Mapper from `method_config.method` to a class to calculate method scores of
+            candidate terms. This is used in Method Layer.
+
+        styling_score_mapper:
+            Mapper from an element in `styling_config.styling_scores` to a class to
+            calculate scores of candidate terms based on their styling such as color,
+            fontsize and so on. This is used in Styling Layer.
+
+        xml_cache_mapper:
+            Mapper from `xml_config.cache` to a class to provide XML Layer with the
+            cache  mechanism. The xml cache manages XML files converted from input PDF
+            files.
+
+        candidate_cache_mapper:
+            Mapper from `candidate_config.cache` to a class to provide Candidate Term
+            Layer with the cache mechanism. The candidate cache manages lists of
+            candidate terms.
+
+        method_ranking_cache_mapper:
+            Mapper from `method_config.ranking_cache` to a class to provide Method Layer
+            with the cache mechanism. The method ranking cache manages candidate terms
+            ordered by the method scores.
+
+        method_data_cache_mapper:
+            Mapper from `method_config.data_cache` to a class to provide Method Layer
+            with the cache mechanism. The method data cache manages analysis data of the
+            candidate terms such as frequency or likelihood.
+
+        styling_cache_mapper:
+            Mapper from `styling_config.cache` to a class to provide Styling Layer with
+            the cache mechanism. The styling cache manages candidate terms ordered by
+            the styling scores.
+
+        cache_dir:
+            Path like string where cache files to be stored. For example, path to a
+            local directory, a url or a bucket name of a cloud storage service.
+    """
+
     def __init__(
         self,
         xml_config: Optional[XMLLayerConfig] = None,
