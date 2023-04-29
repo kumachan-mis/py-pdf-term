@@ -2,8 +2,8 @@ import re
 
 from py_pdf_term._common.consts import ALPHABET_REGEX
 from py_pdf_term._common.data import Term
-from ....classifiers import EnglishTokenClassifier
 
+from ....classifiers import EnglishTokenClassifier
 from ..base import BaseEnglishCandidateTermFilter
 
 PHONETIC_REGEX = ALPHABET_REGEX

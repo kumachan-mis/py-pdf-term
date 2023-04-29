@@ -25,7 +25,7 @@ class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
                 domain_candidates_dict.values(),
             )
         )
-        ranking.sort(key=lambda term: -term.score)
+        ranking.sort(key=lambda term: term.score, reverse=True)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _calculate_score(

@@ -1,14 +1,16 @@
 from .candidate import CandidateLayer
-from .method import MethodLayer
+from .method import MultiDomainMethodLayer, SingleDomainMethodLayer
 from .styling import StylingLayer
-from .techterm import TechnicalTermLayer
+from .techterm import MultiDomainTechnicalTermLayer, SingleDomainTechnicalTermLayer
 from .xml import XMLLayer
 
 # isort: unique-list
 __all__ = [
     "CandidateLayer",
-    "MethodLayer",
+    "MultiDomainMethodLayer",
+    "MultiDomainTechnicalTermLayer",
+    "SingleDomainMethodLayer",
+    "SingleDomainTechnicalTermLayer",
     "StylingLayer",
-    "TechnicalTermLayer",
     "XMLLayer",
 ]

@@ -4,7 +4,6 @@ from .endtoend._endtoend.mappers import (
     CandidateLayerCacheMapper,
     CandidateTermFilterMapper,
     CandidateTokenFilterMapper,
-    TokenClassifilerMapper,
     LanguageTokenizerMapper,
     MethodLayerDataCacheMapper,
     MethodLayerRankingCacheMapper,
@@ -13,6 +12,7 @@ from .endtoend._endtoend.mappers import (
     SplitterMapper,
     StylingLayerCacheMapper,
     StylingScoreMapper,
+    TokenClassifilerMapper,
     XMLLayerCacheMapper,
 )
 
@@ -31,6 +31,6 @@ __all__ = [
     "SplitterMapper",
     "StylingLayerCacheMapper",
     "StylingScoreMapper",
-    "XMLLayerCacheMapper",
     "TokenClassifilerMapper",
+    "XMLLayerCacheMapper",
 ]

@@ -127,11 +127,11 @@ Here is a zero-config example
 
 .. code-block:: python
 
-    from py_pdf_term import PyPDFTermExtractor, DomainPDFList
+    from py_pdf_term import PyPDFTermSingleDomainExtractor, DomainPDFList
 
     def extract_terminologies_from_example_pdfs():
         # create an extractor instance with zero-config
-        extractor = PyPDFTermExtractor()
+        extractor = PyPDFTermSingleDomainExtractor()
     
         # define input: domain name and list of PDF paths
         domain = "example"
@@ -142,9 +142,7 @@ Here is a zero-config example
         )
 
         # receive output: extracted terminologies
-        terminologies = extractor.extract(
-            domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
-        )
+        terminologies = extractor.extract(pdf_path=pdf_path, domain_pdfs=domain_pdfs)
 
         return terminologies.to_dict()
 
@@ -157,7 +155,7 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
 .. code-block:: python
 
     from django.db import models
-    from py_pdf_term import PyPDFTermExtractor, DomainPDFList
+    from py_pdf_term import PyPDFTermSingleDomainExtractor, DomainPDFList
 
 
     class PDFFile(models.Model):
@@ -190,7 +188,7 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
         #    - costomize the function to open a PDF file
         #
         # see API reference to check all configs
-        extractor = PyPDFTermExtractor(
+        extractor = PyPDFTermSingleDomainExtractor(
             xml_config=XMLLayerConfig(
                 open_bin=open_bin,
                 cache="py_pdf_term.XMLLayerNoCache",
@@ -217,9 +215,7 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
         )
 
         # receive output: extracted terminologies
-        terminologies = extractor.extract(
-            domain=domain, pdf_path=pdf_path, single_domain_pdfs=domain_pdfs
-        )
+        terminologies = extractor.extract(pdf_path=pdf_path, domain_pdfs=domain_pdfs)
 
         return terminologies.to_dict()
 

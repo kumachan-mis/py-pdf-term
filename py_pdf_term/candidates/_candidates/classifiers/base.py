@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+
 from py_pdf_term.tokenizer import Token
 
 

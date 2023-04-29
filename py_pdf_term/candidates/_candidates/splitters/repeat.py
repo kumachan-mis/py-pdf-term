@@ -1,9 +1,9 @@
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
 
 from py_pdf_term._common.data import Term
 
-from .base import BaseSplitter
 from ..classifiers import BaseTokenClassifier
+from .base import BaseSplitter
 
 
 class RepeatSplitter(BaseSplitter):

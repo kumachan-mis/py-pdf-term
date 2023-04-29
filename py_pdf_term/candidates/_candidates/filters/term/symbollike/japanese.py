@@ -8,8 +8,8 @@ from py_pdf_term._common.consts import (
 )
 from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizer import Token
-from ....classifiers import JapaneseTokenClassifier
 
+from ....classifiers import JapaneseTokenClassifier
 from ..base import BaseJapaneseCandidateTermFilter
 
 PHONETIC_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX})"

@@ -1,6 +1,7 @@
 from .endtoend._endtoend.configs import (
     CandidateLayerConfig,
-    MethodLayerConfig,
+    MultiDomainMethodLayerConfig,
+    SingleDomainMethodLayerConfig,
     StylingLayerConfig,
     TechnicalTermLayerConfig,
     XMLLayerConfig,
@@ -9,7 +10,8 @@ from .endtoend._endtoend.configs import (
 # isort: unique-list
 __all__ = [
     "CandidateLayerConfig",
-    "MethodLayerConfig",
+    "MultiDomainMethodLayerConfig",
+    "SingleDomainMethodLayerConfig",
     "StylingLayerConfig",
     "TechnicalTermLayerConfig",
     "XMLLayerConfig",

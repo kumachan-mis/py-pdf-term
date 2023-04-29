@@ -5,8 +5,8 @@ import en_core_web_sm
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, SYMBOL_REGEX
 
-from .data import Token
 from .base import BaseLanguageTokenizer
+from .data import Token
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):

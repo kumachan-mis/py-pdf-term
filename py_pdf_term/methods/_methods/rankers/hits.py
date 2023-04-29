@@ -43,7 +43,7 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
                 domain_candidates_dict.values(),
             )
         )
-        ranking.sort(key=lambda term: -term.score)
+        ranking.sort(key=lambda term: term.score, reverse=True)
         return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:

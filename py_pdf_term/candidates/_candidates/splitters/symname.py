@@ -4,8 +4,8 @@ from typing import List, Optional
 from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
 from py_pdf_term._common.data import Term
 
-from .base import BaseSplitter
 from ..classifiers import BaseTokenClassifier
+from .base import BaseSplitter
 
 
 class SymbolNameSplitter(BaseSplitter):

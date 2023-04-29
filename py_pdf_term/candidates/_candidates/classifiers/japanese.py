@@ -1,4 +1,5 @@
 from py_pdf_term.tokenizer import Token
+
 from .base import BaseTokenClassifier
 
 
