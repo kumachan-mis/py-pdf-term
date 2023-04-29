@@ -57,5 +57,5 @@ class StylingScorer:
                 styling_scores[candidate_lemma] *= scores[candidate_lemma]
 
         ranking = list(map(lambda item: ScoredTerm(*item), styling_scores.items()))
-        ranking.sort(key=lambda scored_term: -scored_term.score)
+        ranking.sort(key=lambda scored_term: scored_term.score, reverse=True)
         return PageStylingScoreList(page_candidates.page_num, ranking)
