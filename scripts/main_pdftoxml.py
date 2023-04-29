@@ -51,7 +51,7 @@ if __name__ == "__main__":
         for pdf_path in pdf_paths:
             xml_path = pdf_to_xml_path(pdf_path)
             pdf_name, xml_name = os.path.basename(pdf_path), os.path.basename(xml_path)
-            print(f"{script_name}: {pdf_name} →　{xml_name}")
+            print(f"{script_name}: {pdf_name} -> {xml_name}")
 
             pdfnxml = converter.convert_as_element(pdf_path)
 

@@ -1,5 +1,5 @@
 from io import BytesIO
-from typing import BinaryIO, Callable, Optional
+from typing import BinaryIO, Optional
 from xml.etree.ElementTree import fromstring
 
 from pdfminer.layout import LAParams
@@ -8,11 +8,15 @@ from pdfminer.pdfpage import PDFPage
 
 from .data import PDFnXMLElement, PDFnXMLPath
 from .textful import TextfulXMLConverter
+from .binopener import BaseBinaryOpener, StandardBinaryOpener
 
 
 class PDFtoXMLConverter:
-    def __init__(self, open_bin: Callable[[str, str], BinaryIO] = open):  # type: ignore
-        self.open_bin = open_bin
+    def __init__(self, bin_opener: Optional[BaseBinaryOpener] = None):  # type: ignore
+        if bin_opener is None:
+            bin_opener = StandardBinaryOpener()
+
+        self._bin_opener = bin_opener
 
     def convert_as_file(
         self,
@@ -22,10 +26,11 @@ class PDFtoXMLConverter:
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> PDFnXMLPath:
-        pdf_io, xml_io = self.open_bin(pdf_path, "rb"), self.open_bin(xml_path, "wb")
+        pdf_io = self._bin_opener.open(pdf_path, "rb")
+        xml_io = self._bin_opener.open(xml_path, "wb")
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)
-        pdf_io.close()
         xml_io.close()
+        pdf_io.close()
         return PDFnXMLPath(pdf_path, xml_path)
 
     def convert_as_element(
@@ -35,11 +40,12 @@ class PDFtoXMLConverter:
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> PDFnXMLElement:
-        pdf_io, xml_io = self.open_bin(pdf_path, "rb"), BytesIO()
+        pdf_io = self._bin_opener.open(pdf_path, "rb")
+        xml_io = BytesIO()
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)
         xml_element = fromstring(xml_io.getvalue().decode("utf-8"))
-        pdf_io.close()
         xml_io.close()
+        pdf_io.close()
         return PDFnXMLElement(pdf_path, xml_element)
 
     def _run(

@@ -1,4 +1,4 @@
-from .openbin import BinaryOpenerMapper
+from .binopener import BinaryOpenerMapper
 
 # isort: unique-list
 __all__ = ["BinaryOpenerMapper"]

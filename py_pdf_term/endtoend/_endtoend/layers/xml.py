@@ -22,10 +22,11 @@ class XMLLayer:
         if cache_mapper is None:
             cache_mapper = XMLLayerCacheMapper.default_mapper()
 
-        open_bin = bin_opener_mapper.find(config.open_bin)
+        bin_opener_cls = bin_opener_mapper.find(config.bin_opener)
         cache_cls = cache_mapper.find(config.cache)
 
-        self._converter = PDFtoXMLConverter(open_bin=open_bin)
+        bin_opener = bin_opener_cls()
+        self._converter = PDFtoXMLConverter(bin_opener=bin_opener)
         self._cache = cache_cls(cache_dir=cache_dir)
         self._config = config
 
