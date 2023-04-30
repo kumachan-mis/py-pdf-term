@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from dataclasses import astuple
 
-from py_pdf_term.tokenizer import Tokenizer
+from py_pdf_term.tokenizers import Tokenizer
 
 if __name__ == "__main__":
     parser = ArgumentParser()

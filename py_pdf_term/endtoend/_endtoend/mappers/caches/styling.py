@@ -1,8 +1,9 @@
 from typing import Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
+
 from ...caches import BaseStylingLayerCache, StylingLayerFileCache, StylingLayerNoCache
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class StylingLayerCacheMapper(BaseMapper[Type[BaseStylingLayerCache]]):

@@ -1,9 +1,9 @@
 from typing import Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.stylings.scores import BaseStylingScore, ColorScore, FontsizeScore
 
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class StylingScoreMapper(BaseMapper[Type[BaseStylingScore]]):

@@ -1,9 +1,9 @@
 from typing import Any, Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.methods import BaseMultiDomainRankingMethod, MDPMethod, TFIDFMethod
 
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class MultiDomainRankingMethodMapper(

@@ -1,5 +1,7 @@
 from typing import Any, Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
+
 from ...caches import (
     BaseMethodLayerDataCache,
     BaseMethodLayerRankingCache,
@@ -9,7 +11,6 @@ from ...caches import (
     MethodLayerRankingNoCache,
 )
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]]):
