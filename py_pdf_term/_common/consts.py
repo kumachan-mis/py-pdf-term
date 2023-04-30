@@ -1,3 +1,5 @@
+PACKAGE_NAME = "py_pdf_term"
+
 # http://www.unicode.org/charts/
 
 # Alphabet

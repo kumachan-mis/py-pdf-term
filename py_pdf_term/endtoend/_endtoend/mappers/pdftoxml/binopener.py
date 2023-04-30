@@ -1,9 +1,9 @@
 from typing import Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.pdftoxml.binopener import BaseBinaryOpener, StandardBinaryOpener
 
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class BinaryOpenerMapper(BaseMapper[Type[BaseBinaryOpener]]):

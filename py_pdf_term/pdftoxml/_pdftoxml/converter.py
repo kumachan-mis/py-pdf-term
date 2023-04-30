@@ -6,9 +6,9 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
 from pdfminer.pdfpage import PDFPage
 
+from .binopener import BaseBinaryOpener, StandardBinaryOpener
 from .data import PDFnXMLElement, PDFnXMLPath
 from .textful import TextfulXMLConverter
-from .binopener import BaseBinaryOpener, StandardBinaryOpener
 
 
 class PDFtoXMLConverter:

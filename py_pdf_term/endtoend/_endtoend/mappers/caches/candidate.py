@@ -1,12 +1,13 @@
 from typing import Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
+
 from ...caches import (
     BaseCandidateLayerCache,
     CandidateLayerFileCache,
     CandidateLayerNoCache,
 )
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class CandidateLayerCacheMapper(BaseMapper[Type[BaseCandidateLayerCache]]):

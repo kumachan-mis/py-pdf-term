@@ -1,5 +1,6 @@
 from typing import Any, Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.methods import (
     BaseSingleDomainRankingMethod,
     FLRHMethod,
@@ -9,7 +10,6 @@ from py_pdf_term.methods import (
 )
 
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class SingleDomainRankingMethodMapper(

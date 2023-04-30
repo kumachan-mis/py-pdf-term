@@ -1,5 +1,6 @@
 from typing import Type
 
+from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.tokenizer import (
     BaseLanguageTokenizer,
     EnglishTokenizer,
@@ -7,7 +8,6 @@ from py_pdf_term.tokenizer import (
 )
 
 from ..base import BaseMapper
-from ..consts import PACKAGE_NAME
 
 
 class LanguageTokenizerMapper(BaseMapper[Type[BaseLanguageTokenizer]]):
