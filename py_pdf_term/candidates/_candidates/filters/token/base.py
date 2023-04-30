@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from py_pdf_term.tokenizer import Token
+from py_pdf_term.tokenizers import Token
 
 
 class BaseCandidateTokenFilter(metaclass=ABCMeta):

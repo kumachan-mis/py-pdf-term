@@ -1,7 +1,7 @@
 from typing import Type
 
 from py_pdf_term._common.consts import PACKAGE_NAME
-from py_pdf_term.tokenizer import (
+from py_pdf_term.tokenizers import (
     BaseLanguageTokenizer,
     EnglishTokenizer,
     JapaneseTokenizer,

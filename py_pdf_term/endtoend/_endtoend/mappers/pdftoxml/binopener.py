@@ -1,7 +1,7 @@
 from typing import Type
 
 from py_pdf_term._common.consts import PACKAGE_NAME
-from py_pdf_term.pdftoxml.binopener import BaseBinaryOpener, StandardBinaryOpener
+from py_pdf_term.pdftoxml.binopeners import BaseBinaryOpener, StandardBinaryOpener
 
 from ..base import BaseMapper
 

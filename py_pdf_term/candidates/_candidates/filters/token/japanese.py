@@ -2,7 +2,7 @@ import re
 from typing import List
 
 from py_pdf_term._common.consts import ENGLISH_REGEX, JAPANESE_REGEX, NUMBER_REGEX
-from py_pdf_term.tokenizer import Token
+from py_pdf_term.tokenizers import Token
 
 from .base import BaseCandidateTokenFilter
 
