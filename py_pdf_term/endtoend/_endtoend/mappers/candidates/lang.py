@@ -11,6 +11,8 @@ from ..base import BaseMapper
 
 
 class LanguageTokenizerMapper(BaseMapper[Type[BaseLanguageTokenizer]]):
+    """A mapper to find language tokenizer classes."""
+
     @classmethod
     def default_mapper(cls) -> "LanguageTokenizerMapper":
         default_mapper = cls()

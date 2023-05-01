@@ -12,6 +12,14 @@ from .base import BaseXMLLayerCache
 
 
 class XMLLayerFileCache(BaseXMLLayerCache):
+    """A XML layer cache that stores and loads XML elements to/from a file.
+
+    Args
+    ----
+        cache_dir:
+            The directory path to store cache files.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         self._cache_dir = cache_dir
 

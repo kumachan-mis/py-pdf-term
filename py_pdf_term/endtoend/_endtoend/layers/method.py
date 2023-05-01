@@ -21,6 +21,26 @@ from .candidate import CandidateLayer
 
 
 class BaseMethodLayer(metaclass=ABCMeta):
+    """Base class for method layers to calculate term ranking from candidate terms
+    using candidate layer.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+        ranking_cache_mapper:
+            a mapper to find ranking cache classes from configuration. If None, the
+            default mapper is used.
+        data_cache_mapper:
+            a mapper to find data cache classes from configuration. If None, the default
+            mapper is used.
+        cache_dir:
+            a directory path to store cache files. If None, the default directory is
+            used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -44,11 +64,42 @@ class BaseMethodLayer(metaclass=ABCMeta):
         self._candidate_layer = candidate_layer
 
     def remove_cache(self, pdf_paths: List[str]) -> None:
+        """Remove cache file for given PDF paths in a domain.
+
+        Args
+        ----
+            pdf_paths:
+                a list of PDF paths in a domain to remove a cache file.
+        """
+
         self._ranking_cache.remove(pdf_paths, self._config)
         self._data_cache.remove(pdf_paths, self._config)
 
 
 class SingleDomainMethodLayer(BaseMethodLayer):
+    """A method layer to calculate term ranking with an algorithm which does not require
+    cross-domain information using candidate terms.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+        method_mapper:
+            a mapper to find ranking method classes from configuration. If None, the
+            default mapper is used.
+        ranking_cache_mapper:
+            a mapper to find ranking cache classes from configuration. If None, the
+            default mapper is used.
+        data_cache_mapper:
+            a mapper to find data cache classes from configuration. If None, the default
+            mapper is used.
+        cache_dir:
+            a directory path to store cache files. If None, the default directory is
+            used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -71,6 +122,19 @@ class SingleDomainMethodLayer(BaseMethodLayer):
         self._method = method_cls(**config.hyper_params)
 
     def create_term_ranking(self, domain_pdfs: DomainPDFList) -> MethodTermRanking:
+        """Create term ranking from candidate terms in a domain.
+
+        Args
+        ----
+            domain_pdfs:
+                a list of PDFs in a domain to extract term ranking.
+
+        Returns
+        -------
+            MethodTermRanking:
+                a term ranking costructed from candidate terms.
+        """
+
         term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
 
         if term_ranking is None:
@@ -100,6 +164,29 @@ class SingleDomainMethodLayer(BaseMethodLayer):
 
 
 class MultiDomainMethodLayer(BaseMethodLayer):
+    """A method layer to calculate term ranking with an algorithm which requires
+    cross-domain information using candidate terms.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+        method_mapper:
+            a mapper to find ranking method classes from configuration. If None, the
+            default mapper is used.
+        ranking_cache_mapper:
+            a mapper to find ranking cache classes from configuration. If None, the
+            default mapper is used.
+        data_cache_mapper:
+            a mapper to find data cache classes from configuration. If None, the default
+            mapper is used.
+        cache_dir:
+            a directory path to store cache files. If None, the default directory is
+            used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -126,6 +213,21 @@ class MultiDomainMethodLayer(BaseMethodLayer):
         domain: str,
         multi_domain_pdfs: List[DomainPDFList],
     ) -> MethodTermRanking:
+        """Create term ranking from candidate terms in a domain.
+
+        Args
+        ----
+            domain:
+                a domain to construct term ranking.
+            multi_domain_pdfs:
+                a list of PDFs in each domain.
+
+        Returns
+        -------
+            MethodTermRanking:
+                a term ranking costructed from candidate terms in the given domain.
+        """
+
         target_domain_pdfs = next(
             filter(lambda item: item.domain == domain, multi_domain_pdfs), None
         )

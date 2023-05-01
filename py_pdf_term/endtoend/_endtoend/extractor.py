@@ -41,7 +41,8 @@ from .mappers import (
 
 
 class PyPDFTermSingleDomainExtractor:
-    """Top level class of py-pdf-term. The class to extract terminologies from PDF file.
+    """Top level class of py-pdf-term. This class extracts technical terms from a PDF
+    file withoout cross-domain information.
 
     Args
     ----
@@ -202,10 +203,10 @@ class PyPDFTermSingleDomainExtractor:
     def extract(
         self, pdf_path: str, domain_pdfs: DomainPDFList
     ) -> PDFTechnicalTermList:
-        """Function to extract terminologies from PDF file without cross-domain
-        information.
+        """Extract technical terms from a PDF file.
 
-        Args:
+        Args
+        ----
             pdf_path:
                 Path like string to the input PDF file which terminologies to be
                 extracted. The file MUST belong to `domain`.
@@ -223,7 +224,8 @@ class PyPDFTermSingleDomainExtractor:
 
 
 class PyPDFTermMultiDomainExtractor:
-    """Top level class of py-pdf-term. The class to extract terminologies from PDF file.
+    """Top level class of py-pdf-term. This class extracts technical terms from a PDF
+    file with cross-domain information.
 
     Args
     ----
@@ -384,10 +386,10 @@ class PyPDFTermMultiDomainExtractor:
     def extract(
         self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
     ) -> PDFTechnicalTermList:
-        """Function to extract terminologies from PDF file with cross-domain
-        information.
+        """Extract technical terms from a PDF file.
 
-        Args:
+        Args
+        ----
             domain:
                 Domain name which the input PDF file belongs to. This may be the name of
                 a course, the name of a technical field or something.

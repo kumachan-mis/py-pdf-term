@@ -11,6 +11,8 @@ from ..base import BaseMapper
 
 
 class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
+    """A mapper to find augmenter classes."""
+
     @classmethod
     def default_mapper(cls) -> "AugmenterMapper":
         default_mapper = cls()

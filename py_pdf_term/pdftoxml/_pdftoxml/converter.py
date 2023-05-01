@@ -12,6 +12,15 @@ from .textful import TextfulXMLConverter
 
 
 class PDFtoXMLConverter:
+    """A converter from PDF to textful XML format.
+
+    Args
+    ----
+        bin_opener:
+            A binary opener to open PDF and XML files. If None, StandardBinaryOpener is
+            used, which opens files with the standard open function in Python.
+    """
+
     def __init__(self, bin_opener: Optional[BaseBinaryOpener] = None):  # type: ignore
         if bin_opener is None:
             bin_opener = StandardBinaryOpener()
@@ -26,6 +35,27 @@ class PDFtoXMLConverter:
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> PDFnXMLPath:
+        """Convert a PDF file to a textful XML file.
+
+        Args
+        ----
+            pdf_path:
+                A path to a PDF file.
+            xml_path:
+                A path to a XML file to output.
+            nfc_norm:
+                If True, normalize text to NFC, otherwise keep original.
+            include_pattern:
+                A regular expression pattern of text to include in the output.
+            exclude_pattern:
+                A regular expression pattern of text to exclude from the output
+                (overrides include_pattern).
+
+        Returns
+        -------
+            Pair of path to the PDF file and that to the output XML file.
+        """
+
         pdf_io = self._bin_opener.open(pdf_path, "rb")
         xml_io = self._bin_opener.open(xml_path, "wb")
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)
@@ -40,6 +70,25 @@ class PDFtoXMLConverter:
         include_pattern: Optional[str] = None,
         exclude_pattern: Optional[str] = None,
     ) -> PDFnXMLElement:
+        """Convert a PDF file to a textful XML element.
+
+        Args
+        ----
+            pdf_path:
+                A path to a PDF file.
+            nfc_norm:
+                If True, normalize text to NFC, otherwise keep original.
+            include_pattern:
+                A regular expression pattern of text to include in the output.
+            exclude_pattern:
+                A regular expression pattern of text to exclude from the output
+                (overrides include_pattern).
+
+        Returns
+        -------
+            Pair of path to the PDF file and XML element tree of the output.
+        """
+
         pdf_io = self._bin_opener.open(pdf_path, "rb")
         xml_io = BytesIO()
         self._run(pdf_io, xml_io, nfc_norm, include_pattern, exclude_pattern)

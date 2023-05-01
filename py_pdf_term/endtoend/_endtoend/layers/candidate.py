@@ -22,6 +22,40 @@ from .xml import XMLLayer
 
 
 class CandidateLayer:
+    """A layer to extract candidate terms using XMLLayer.
+
+    Args
+    ----
+        xml_layer:
+            a layer to create textful XML elements from a PDF file.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+        lang_tokenizer_mapper:
+            a mapper to find language tokenizer classes from configuration. If None, the
+            default mapper is used.
+        token_classifier_mapper:
+            a mapper to find token classifier classes from configuration. If None, the
+            default mapper is used.
+        token_filter_mapper:
+            a mapper to find token filter classes from configuration. If None, the
+            default mapper is used.
+        term_filter_mapper:
+            a mapper to find term filter classes from configuration. If None, the
+            default mapper is used.
+        splitter_mapper:
+            a mapper to find splitter classes from configuration. If None, the default
+            mapper is used.
+        augmenter_mapper:
+            a mapper to find augmenter classes from configuration. If None, the default
+            mapper is used.
+        cache_mapper:
+            a mapper to find cache class from configuration. If None, the default mapper
+            is used.
+        cache_dir:
+            a directory path to store cache files. If None, the default directory is
+            used.
+    """
+
     def __init__(
         self,
         xml_layer: XMLLayer,
@@ -76,6 +110,19 @@ class CandidateLayer:
     def create_domain_candiates(
         self, domain_pdfs: DomainPDFList
     ) -> DomainCandidateTermList:
+        """Create candidate term list from a list of PDF files in a domain.
+
+        Args
+        ----
+            domain_pdfs:
+                a list of PDF files in a domain.
+
+        Returns
+        -------
+            DomainCandidateTermList:
+                a list of candidate terms in a domain.
+        """
+
         pdf_candidates_list: List[PDFCandidateTermList] = []
         for pdf_path in domain_pdfs.pdf_paths:
             pdf_candidates = self.create_pdf_candidates(pdf_path)
@@ -84,6 +131,19 @@ class CandidateLayer:
         return DomainCandidateTermList(domain_pdfs.domain, pdf_candidates_list)
 
     def create_pdf_candidates(self, pdf_path: str) -> PDFCandidateTermList:
+        """Create candidate term list from a PDF file.
+
+        Args
+        ----
+            pdf_path:
+                a path to a PDF file.
+
+        Returns
+        -------
+            PDFCandidateTermList:
+                a list of candidate terms in a PDF file.
+        """
+
         pdf_candidates = self._cache.load(pdf_path, self._config)
 
         if pdf_candidates is None:
@@ -95,4 +155,12 @@ class CandidateLayer:
         return pdf_candidates
 
     def remove_cache(self, pdf_path: str) -> None:
+        """Remove a cache file for a PDF file.
+
+        Args
+        ----
+            pdf_path:
+                a path to a PDF file to remove a cache file.
+        """
+
         self._cache.remove(pdf_path, self._config)

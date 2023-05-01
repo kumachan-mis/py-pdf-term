@@ -7,6 +7,14 @@ from .base import BaseCandidateLayerCache
 
 
 class CandidateLayerNoCache(BaseCandidateLayerCache):
+    """A candidate layer cache that does not store and load candidate terms.
+
+    Args
+    ----
+        cache_dir:
+            This argument is ignored.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         pass
 

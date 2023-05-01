@@ -9,6 +9,8 @@ from ..base import BaseMapper
 class MultiDomainRankingMethodMapper(
     BaseMapper[Type[BaseMultiDomainRankingMethod[Any]]]
 ):
+    """A mapper to find multi-domain ranking method classes."""
+
     @classmethod
     def default_mapper(cls) -> "MultiDomainRankingMethodMapper":
         default_mapper = cls()

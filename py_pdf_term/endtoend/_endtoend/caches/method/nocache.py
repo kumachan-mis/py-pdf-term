@@ -8,6 +8,14 @@ from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
 
 class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
+    """A method layer ranking cache that does not store and load term rankings.
+
+    Args
+    ----
+        cache_dir:
+            This argument is ignored.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         pass
 
@@ -31,6 +39,15 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
 
 
 class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
+    """A method layer data cache that does not store and load metadata to generate term
+    rankings.
+
+    Args
+    ----
+        cache_dir:
+            This argument is ignored.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         pass
 

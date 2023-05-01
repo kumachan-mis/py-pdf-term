@@ -9,17 +9,34 @@ from ..runner import AnalysisRunner
 
 @dataclass(frozen=True)
 class DomainLeftRightFrequency:
+    """Domain name and left/right frequency of the domain.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        left_freq:
+            Number of occurrences of lemmatized (left, token) in the domain.
+            If token or left is meaningless, this is fixed at zero.
+        right_freq:
+            Number of occurrences of lemmatized (token, right) in the domain.
+            If token or right is meaningless, this is fixed at zero.
+    """
+
     domain: str
-    # unique domain name
     left_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of lemmatized (left, token) in the domain
-    # if token or left is meaningless, this is fixed at zero
     right_freq: Dict[str, Dict[str, int]]
-    # number of occurrences of lemmatized (token, right) in the domain
-    # if token or right is meaningless, this is fixed at zero
 
 
 class TermLeftRightFrequencyAnalyzer:
+    """Analyze left/right frequency of terms in a domain.
+
+    Args
+    ----
+        ignore_augmented:
+            If True, ignore augmented terms. The default is True.
+    """
+
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
@@ -27,6 +44,19 @@ class TermLeftRightFrequencyAnalyzer:
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainLeftRightFrequency:
+        """Analyze left/right frequency of terms in a domain.
+
+        Args
+        ----
+            domain_candidates:
+                List of candidate terms in a domain. The target of analysis.
+
+        Returns
+        -------
+            DomainLeftRightFrequency:
+                Domain name and left/right frequency of candidate terms in the domain.
+        """
+
         def update(
             lrfreq: DomainLeftRightFrequency,
             pdf_id: int,

@@ -9,21 +9,50 @@ from ..runner import AnalysisRunner
 
 @dataclass(frozen=True)
 class DomainContainerTerms:
+    """Domain name and container terms of the domain.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        container_terms:
+            Set of lemmatized containers of the lemmatized term in the domain.
+            (term, container) is valid if and only if the container contains the term as
+            a proper subsequence.
+    """
+
     domain: str
-    # unique domain name
     container_terms: Dict[str, Set[str]]
-    # set of lemmatized containers of the lemmatized term in the domain
-    # (term, container) is valid iff the container contains the term
-    # as a proper subsequence
 
 
 class ContainerTermsAnalyzer:
+    """Analyze container terms of the domain.
+
+    Args
+    ----
+        ignore_augmented:
+            If True, ignore augmented terms. The default is True.
+    """
+
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainContainerTerms:
+        """Analyze container terms of the domain.
+
+        Args
+        ----
+            domain_candidates:
+                List of candidate terms in a domain. The target of analysis.
+
+        Returns
+        -------
+            DomainContainerTerms:
+                Domain name and container terms of candidate terms in the domain.
+        """
+
         domain_candidates_set = domain_candidates.to_candidates_str_set(
             lambda candidate: candidate.lemma()
         )

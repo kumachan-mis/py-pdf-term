@@ -3,7 +3,6 @@ import os
 from argparse import ArgumentParser
 
 from py_pdf_term.methods import (
-    BaseMultiDomainRankingMethod,
     BaseSingleDomainRankingMethod,
     FLRHMethod,
     FLRMethod,
@@ -67,9 +66,7 @@ if __name__ == "__main__":
                 dict_obj = term_ranking.to_dict()
                 json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
 
-    elif isinstance(
-        method, BaseMultiDomainRankingMethod
-    ):  # pyright:ignore [reportUnnecessaryIsInstance]
+    else:
         print(f"{script_name}: preprocessing ...")
 
         domain_candidates_list = list(domain_candidates_list)

@@ -7,6 +7,8 @@ from .rankingdata import MCValueRankingData
 
 
 class MCValueMethod(BaseSingleDomainRankingMethod[MCValueRankingData]):
+    """A ranking method by MC-Value algorithm."""
+
     def __init__(self) -> None:
         collector = MCValueRankingDataCollector()
         ranker = MCValueRanker()

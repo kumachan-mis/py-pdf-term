@@ -7,6 +7,15 @@ from .rankingdata import MDPRankingData
 
 
 class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):
+    """A ranking method by MDP algorithm.
+
+    Args
+    ----
+        compile_scores:
+            A function to compile scores of candidate terms in each domain.
+            The default is `min`, which means that the minimum score is used.
+    """
+
     def __init__(
         self, compile_scores: Callable[[Iterable[float]], float] = min
     ) -> None:

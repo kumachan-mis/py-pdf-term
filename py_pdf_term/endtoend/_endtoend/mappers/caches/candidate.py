@@ -11,6 +11,8 @@ from ..base import BaseMapper
 
 
 class CandidateLayerCacheMapper(BaseMapper[Type[BaseCandidateLayerCache]]):
+    """A mapper to find candidate layer cache classes."""
+
     @classmethod
     def default_mapper(cls) -> "CandidateLayerCacheMapper":
         default_mapper = cls()

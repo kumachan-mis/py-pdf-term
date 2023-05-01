@@ -14,6 +14,8 @@ DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
+    """A tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
+
     def __init__(self) -> None:
         enable_pipes = []
         self._model = ja_core_news_sm.load()  # pyright: ignore[reportUnknownMemberType]
@@ -25,17 +27,17 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return self._ja_regex.search(text) is not None
 
-    def tokenize(self, text: str) -> List[Token]:
-        text = SPACES.sub(" ", text).strip()
+    def tokenize(self, scoped_text: str) -> List[Token]:
+        scoped_text = SPACES.sub(" ", scoped_text).strip()
         orginal_space_pos = {
             match.start() - offset
-            for offset, match in enumerate(re.finditer(r" ", text))
-            if DELIM_SPACE.match(text, match.start()) is not None
+            for offset, match in enumerate(re.finditer(r" ", scoped_text))
+            if DELIM_SPACE.match(scoped_text, match.start()) is not None
         }
 
-        text = DELIM_SPACE.sub("", text)
-        text = self._symbol_regex.sub(r" \1 ", text)
-        tokens = list(map(self._create_token, self._model(text)))
+        scoped_text = DELIM_SPACE.sub("", scoped_text)
+        scoped_text = self._symbol_regex.sub(r" \1 ", scoped_text)
+        tokens = list(map(self._create_token, self._model(scoped_text)))
 
         if not orginal_space_pos:
             return tokens

@@ -7,6 +7,8 @@ from ..base import BaseMapper
 
 
 class BinaryOpenerMapper(BaseMapper[Type[BaseBinaryOpener]]):
+    """A mapper to find binary opener classes."""
+
     @classmethod
     def default_mapper(cls) -> "BinaryOpenerMapper":
         default_mapper = cls()

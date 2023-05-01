@@ -11,6 +11,8 @@ from ..base import BaseMapper
 
 
 class TokenClassifilerMapper(BaseMapper[Type[BaseTokenClassifier]]):
+    """A mapper to find token classifier classes."""
+
     @classmethod
     def default_mapper(cls) -> "TokenClassifilerMapper":
         default_mapper = cls()

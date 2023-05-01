@@ -6,6 +6,16 @@ from py_pdf_term._common.data import Term
 
 @dataclass(frozen=True)
 class PageCandidateTermList:
+    """Page number and candidate terms of the page.
+
+    Args
+    ----
+        page_num:
+            Page number of a PDF file.
+        candidates:
+            Candidate terms of the page.
+    """
+
     page_num: int
     candidates: List[Term]
 
@@ -40,6 +50,16 @@ class PageCandidateTermList:
 
 @dataclass(frozen=True)
 class PDFCandidateTermList:
+    """Path of a PDF file and candidate terms of the PDF file.
+
+    Args
+    ----
+        pdf_path:
+            Path of a PDF file.
+        pages:
+            Candidate terms of each page of the PDF file.
+    """
+
     pdf_path: str
     pages: List[PageCandidateTermList]
 
@@ -78,6 +98,16 @@ class PDFCandidateTermList:
 
 @dataclass(frozen=True)
 class DomainCandidateTermList:
+    """Domain name of PDF files and candidate terms of the domain.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        pdfs:
+            Candidate terms of each PDF file of the domain.
+    """
+
     domain: str
     pdfs: List[PDFCandidateTermList]
 

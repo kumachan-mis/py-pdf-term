@@ -6,15 +6,24 @@ from .base import BaseRankingData
 
 @dataclass(frozen=True)
 class MCValueRankingData(BaseRankingData):
+    """Data of technical terms of a domain for MC-Value algorithm.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        term_freq:
+            Brute force counting of lemmatized term occurrences in the domain.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+        container_terms:
+            Set of containers of the lemmatized term in the domain.
+            (term, container) is valid iff the container contains the term as a proper
+            subsequence.
+    """
+
     domain: str
-    # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of lemmatized term occurrences in the domain
-    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     container_terms: Dict[str, Set[str]]
-    # set of containers of the lemmatized term in the domain
-    # (term, container) is valid iff the container contains the term
-    # as a proper subsequence
 
     def to_dict(self) -> Dict[str, Any]:
         container_terms = {

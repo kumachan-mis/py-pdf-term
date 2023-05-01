@@ -6,6 +6,16 @@ from py_pdf_term._common.data import ScoredTerm
 
 @dataclass(frozen=True)
 class PageTechnicalTermList:
+    """Page number and technical terms of the page.
+
+    Args
+    ----
+        page_num:
+            Page number of a PDF file.
+        terms:
+            Technical terms of the page.
+    """
+
     page_num: int
     terms: List[ScoredTerm]
 
@@ -23,6 +33,16 @@ class PageTechnicalTermList:
 
 @dataclass(frozen=True)
 class PDFTechnicalTermList:
+    """Path of a PDF file and technical terms of the PDF file.
+
+    Args
+    ----
+        pdf_path:
+            Path of a PDF file.
+        pages:
+            Technical terms of each page of the PDF file.
+    """
+
     pdf_path: str
     pages: List[PageTechnicalTermList]
 
@@ -43,6 +63,16 @@ class PDFTechnicalTermList:
 
 @dataclass(frozen=True)
 class DomainTechnicalTermList:
+    """Domain name of PDF files and technical terms of the domain.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        pdfs:
+            Technical terms of each PDF file of the domain.
+    """
+
     domain: str
     pdfs: List[PDFTechnicalTermList]
 

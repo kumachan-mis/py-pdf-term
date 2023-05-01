@@ -4,6 +4,8 @@ from .base import BaseTokenClassifier
 
 
 class EnglishTokenClassifier(BaseTokenClassifier):
+    """A token classifier for English tokens."""
+
     def inscope(self, token: Token) -> bool:
         return token.lang == "en"
 

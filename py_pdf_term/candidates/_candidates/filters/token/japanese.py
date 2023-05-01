@@ -8,6 +8,10 @@ from .base import BaseCandidateTokenFilter
 
 
 class JapaneseTokenFilter(BaseCandidateTokenFilter):
+    """A candidate token filter to filter out Japanese tokens which cannot be part of
+    candidate terms.
+    """
+
     def __init__(self) -> None:
         self._regex = re.compile(rf"({JAPANESE_REGEX}|{ENGLISH_REGEX}|{NUMBER_REGEX})+")
 
