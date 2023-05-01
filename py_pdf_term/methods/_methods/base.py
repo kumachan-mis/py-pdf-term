@@ -63,12 +63,14 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         used to collect metadata before ranking candidate terms in PDF documents. The
         following two code snippets are equivalent:
 
-        ```python
+        ```
         ranking_data = method.collect_data(domain_candidates)
         term_ranking = method.rank_terms(domain_candidates, ranking_data)
         ```
+
         and
-        ```python
+
+        ```
         term_ranking = method.rank_terms(domain_candidates)
         ```
 
@@ -206,12 +208,14 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         used to collect metadata before ranking candidate terms in PDF documents. The
         following two code snippets are equivalent:
 
-        ```python
+        ```
         ranking_data_list = list(map(method.collect_data, domain_candidates_list))
         term_ranking = method.rank_terms(domain_candidates, ranking_data_list)
         ```
+
         and
-        ```python
+
+        ```
         term_ranking = method.rank_terms(domain_candidates)
         ```
 
