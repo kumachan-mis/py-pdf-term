@@ -6,7 +6,7 @@ CACHE_CONFIGS = ["cache", "data_cache", "ranking_cache"]
 
 @dataclass(frozen=True)
 class BaseLayerConfig:
-    pass
+    """Base class for layer configuration."""
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

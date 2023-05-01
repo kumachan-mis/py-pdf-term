@@ -7,6 +7,14 @@ from .base import BaseXMLLayerCache
 
 
 class XMLLayerNoCache(BaseXMLLayerCache):
+    """An XML layer cache that does not store and load XML elements.
+
+    Args
+    ----
+        cache_dir:
+            This argument is ignored.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         pass
 

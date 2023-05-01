@@ -6,6 +6,8 @@ from ..base import BaseJapaneseCandidateTermFilter
 
 
 class JapaneseNumericFilter(BaseJapaneseCandidateTermFilter):
+    """A term filter to remove Japanese numeric phrases from candidate terms."""
+
     def __init__(self) -> None:
         self._classifier = JapaneseTokenClassifier()
 

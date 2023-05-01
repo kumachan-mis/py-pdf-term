@@ -9,35 +9,74 @@ from ..runner import AnalysisRunner
 
 @dataclass(frozen=True)
 class DomainTermOccurrence:
+    """Domain name and term occurrence of the domain
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        term_freq:
+            Brute force counting of lemmatized term occurrences in the domain.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+        doc_term_freq:
+            Number of documents in the domain that contain the lemmatized term.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+    """
+
     domain: str
-    # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of lemmatized term occurrences in the domain
-    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     doc_term_freq: Dict[str, int]
-    # number of documents in the domain that contain the lemmatized term
-    # count even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 @dataclass(frozen=True)
 class _DomainTermOccurrence:
+    """Domain name and term occurrence of the domain
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        term_freq:
+            Brute force counting of lemmatized term occurrences in the domain.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+        doc_term_set:
+            Set of document IDs in the domain that contain the lemmatized term.
+            Add even if the lemmatized term occurs as a part of a lemmatized phrase.
+    """
+
     domain: str
-    # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of lemmatized term occurrences in the domain
-    # count even if the term occurs as a part of a lemmatized phrase
     doc_term_set: Dict[str, Set[int]]
-    # set of document IDs in the domain that contain the lemmatized term
-    # add even if the lemmatized term occurs as a part of a lemmatized phrase
 
 
 class TermOccurrenceAnalyzer:
+    """Analyze term occurrences in a domain.
+
+    Args
+    ----
+        ignore_augmented:
+            If True, ignore augmented terms. The default is True.
+    """
+
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
 
     def analyze(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainTermOccurrence:
+        """Analyze term occurrences in a domain.
+
+        Args
+        ----
+            domain_candidates:
+                List of candidate terms in a domain. The target of analysis.
+
+        Returns
+        -------
+            DomainTermOccurrence:
+                Domain name and term occurrence of candidate terms in the domain.
+        """
+
         domain_candidates_set = domain_candidates.to_candidates_str_set(
             lambda candidate: candidate.lemma()
         )

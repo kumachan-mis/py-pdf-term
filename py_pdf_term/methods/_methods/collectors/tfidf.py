@@ -6,6 +6,10 @@ from .base import BaseRankingDataCollector
 
 
 class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
+    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    by TF-IDF algorithm.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

@@ -7,6 +7,18 @@ from .rankingdata import FLRHRankingData
 
 
 class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
+    """A ranking method by FLRH algorithm. This algorithm is a combination of FLR and
+    HITS.
+
+    Args
+    ----
+        threshold:
+            A threshold of the FLRH algorithm. The default is 1e-8.
+
+        max_loop:
+            A maximum number of loops of the FLRH algorithm. The default is 1000.
+    """
+
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         collector = FLRHRankingDataCollector()
         ranker = FLRHRanker(threshold=threshold, max_loop=max_loop)

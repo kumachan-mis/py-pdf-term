@@ -7,6 +7,17 @@ from .base import BaseSplitter
 
 
 class RepeatSplitter(BaseSplitter):
+    """A splitter to split a term by repeated tokens. For example, "quick sort merge
+    sort heap sort" is split into "quick sort", "merge sort", and "heap sort".
+
+    Args
+    ----
+        classifiers:
+            A list of token classifiers to classify tokens into specific categories.
+            If None, the default classifiers are used. The default classifiers are
+            JapaneseTokenClassifier and EnglishTokenClassifier.
+    """
+
     def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
         super().__init__(classifiers=classifiers)
 

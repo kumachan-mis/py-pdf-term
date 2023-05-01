@@ -36,6 +36,29 @@ class TextboxState:
 
 
 class TextfulXMLConverter(PDFConverter[BinaryIO]):
+    """A PDFConverter subclass that outputs textful XML format.
+
+    Args
+    ----
+        rsrcmgr:
+            A PDFResourceManager object from pdfminer.
+        outfp:
+            A file-like object to output XML.
+        codec:
+            A codec name to encode XML.
+        pageno:
+            A page number to start.
+        laparams:
+            A LAParams object from pdfminer.
+        nfc_norm:
+            If True, normalize text to NFC, otherwise keep original.
+        include_pattern:
+            A regular expression pattern of text to include in the output.
+        exclude_pattern:
+            A regular expression pattern of text to exclude from the output (overrides
+            include_pattern).
+    """
+
     def __init__(
         self,
         rsrcmgr: PDFResourceManager,

@@ -20,6 +20,8 @@ from ..base import BaseMapper
 
 
 class CandidateTokenFilterMapper(BaseMapper[Type[BaseCandidateTokenFilter]]):
+    """A mapper to find candidate token filter classes."""
+
     @classmethod
     def default_mapper(cls) -> "CandidateTokenFilterMapper":
         default_mapper = cls()
@@ -32,6 +34,8 @@ class CandidateTokenFilterMapper(BaseMapper[Type[BaseCandidateTokenFilter]]):
 
 
 class CandidateTermFilterMapper(BaseMapper[Type[BaseCandidateTermFilter]]):
+    """A mapper to find candidate term filter classes."""
+
     @classmethod
     def default_mapper(cls) -> "CandidateTermFilterMapper":
         default_mapper = cls()

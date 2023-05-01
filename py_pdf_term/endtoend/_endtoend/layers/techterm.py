@@ -11,6 +11,19 @@ from .styling import StylingLayer
 
 
 class BaseTechnicalTermLayer(metaclass=ABCMeta):
+    """Base class for technical term layers to extract technical terms from candidate
+    terms using candidate layer and styling layer.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        styling_layer:
+            a layer to calculate styling scores.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -31,6 +44,22 @@ class BaseTechnicalTermLayer(metaclass=ABCMeta):
 
 
 class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
+    """A technical term layer to extract technical terms from candidate terms using
+    candidate layer, single domain method layer and styling layer.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        method_layer:
+            a layer to calculate term ranking which does not require cross-domain
+            information.
+        styling_layer:
+            a layer to calculate styling scores.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -45,6 +74,22 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
     def create_pdf_techterms(
         self, pdf_path: str, domain_pdfs: DomainPDFList
     ) -> PDFTechnicalTermList:
+        """Extract technical terms from a PDF file in a domain.
+
+        Args
+        ----
+            pdf_path:
+                a PDF path to extract technical terms.
+            domain_pdfs:
+                a list of PDF paths in a domain. This is used to calculate term ranking.
+                This must contain the PDF path to extract technical terms.
+
+        Returns
+        -------
+            PDFTechnicalTermList:
+                a list of technical terms extracted from the PDF file.
+        """
+
         pdf_candidates = self._candidate_layer.create_pdf_candidates(pdf_path)
         term_ranking = self._method_layer.create_term_ranking(domain_pdfs)
         pdf_styling_scores = self._styling_layer.create_pdf_styling_scores(pdf_path)
@@ -56,6 +101,21 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
 
 
 class MultiDomainTechnicalTermLayer(BaseTechnicalTermLayer):
+    """A technical term layer to extract technical terms from candidate terms using
+    candidate layer, multi domain method layer and styling layer.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        method_layer:
+            a layer to calculate term ranking which requires cross-domain information.
+        styling_layer:
+            a layer to calculate styling scores.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -70,6 +130,24 @@ class MultiDomainTechnicalTermLayer(BaseTechnicalTermLayer):
     def create_pdf_techterms(
         self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
     ) -> PDFTechnicalTermList:
+        """Extract technical terms from a PDF file in a domain.
+
+        Args
+        ----
+            domain:
+                a domain to extract technical terms.
+            pdf_path:
+                a PDF path to extract technical terms. This PDF file is in the domain.
+            multi_domain_pdfs:
+                a list of PDF paths in each domain. The PDF file in the domain must be
+                included in this list.
+
+        Returns
+        -------
+            PDFTechnicalTermList:
+                a list of technical terms extracted from the PDF file.
+        """
+
         pdf_candidates = self._candidate_layer.create_pdf_candidates(pdf_path)
         term_ranking = self._method_layer.create_term_ranking(domain, multi_domain_pdfs)
         pdf_styling_scores = self._styling_layer.create_pdf_styling_scores(pdf_path)

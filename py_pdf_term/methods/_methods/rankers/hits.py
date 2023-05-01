@@ -13,17 +13,37 @@ from .base import BaseSingleDomainRanker
 
 @dataclass(frozen=True)
 class HITSAuthHubData:
+    """Auth and hub values of tokens for HITS algorithm.
+
+    Args
+    ----
+        token_auth:
+            Auth value of the token. The more tokens links to, the larger the auth value
+            becomes. The initial auth value is 1.0.
+        token_hub:
+            Hub value of the term. The more tokens is linked from, the larger the hub
+            value becomes. The initial hub value is 1.0.
+    """
+
     token_auth: Dict[str, float]
-    # auth value of the token
-    # the more tokens links to, the larger the auth value becomes
-    # initial auth value is 1.0
     token_hub: Dict[str, float]
-    # hub value of the term
-    # the more tokens is linked from, the larger the hub value becomes
-    # initial hub value is 1.0
 
 
 class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
+    """A term ranker by HITS algorithm.
+
+    Args
+    ----
+        threshold:
+            The threshold to determine convergence. If the difference between
+            original auth/hub values and new auth/hub values is less than this
+            threshold, the algorithm is considered to be converged. The default is 1e-8.
+        max_loop:
+            The maximum number of loops to run the algorithm. If the algorithm
+            does not converge within this number of loops, it is forced to stop. The
+            default is 1000.
+    """
+
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         self._threshold = threshold
         self._max_loop = max_loop

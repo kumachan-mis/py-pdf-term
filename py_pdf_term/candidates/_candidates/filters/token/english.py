@@ -8,6 +8,10 @@ from .base import BaseCandidateTokenFilter
 
 
 class EnglishTokenFilter(BaseCandidateTokenFilter):
+    """A candidate token filter to filter out English tokens which cannot be part of
+    candidate terms.
+    """
+
     def __init__(self) -> None:
         self._regex = re.compile(rf"({ENGLISH_REGEX}|{NUMBER_REGEX})+")
 

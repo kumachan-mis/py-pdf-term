@@ -11,6 +11,8 @@ from ..base import BaseMapper
 
 
 class SplitterMapper(BaseMapper[Type[BaseSplitter]]):
+    """A mapper to find splitter classes."""
+
     @classmethod
     def default_mapper(cls) -> "SplitterMapper":
         default_mapper = cls()

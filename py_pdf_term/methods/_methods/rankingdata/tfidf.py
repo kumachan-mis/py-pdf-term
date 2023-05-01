@@ -6,13 +6,23 @@ from .base import BaseRankingData
 
 @dataclass(frozen=True)
 class TFIDFRankingData(BaseRankingData):
+    """Data of technical terms of a domain for TF-IDF algorithm.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        term_freq:
+            Brute force counting of lemmatized term occurrences in the domain.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+        doc_freq:
+            Number of documents in the domain that contain the lemmatized term.
+            Count even if the lemmatized term occurs as a part of a lemmatized phrase.
+        num_docs:
+            Number of documents in the domain.
+    """
+
     domain: str
-    # unique domain name
     term_freq: Dict[str, int]
-    # brute force counting of lemmatized term occurrences in the domain
-    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     doc_freq: Dict[str, int]
-    # number of documents in the domain that contain the lemmatized term
-    # count even if the lemmatized term occurs as a part of a lemmatized phrase
     num_docs: int
-    # number of documents in the domain

@@ -8,6 +8,8 @@ from .base import BaseSingleDomainRanker
 
 
 class MCValueRanker(BaseSingleDomainRanker[MCValueRankingData]):
+    """A term ranker by MC-Value algorithm."""
+
     def __init__(self) -> None:
         pass
 

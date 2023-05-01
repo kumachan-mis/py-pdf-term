@@ -10,6 +10,8 @@ from .data import Token
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):
+    """A tokenizer for English. This tokenizer uses SpaCy's en_core_web_sm model."""
+
     def __init__(self) -> None:
         enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
         self._model = en_core_web_sm.load()  # pyright: ignore[reportUnknownMemberType]
@@ -21,9 +23,9 @@ class EnglishTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return self._en_regex.search(text) is not None
 
-    def tokenize(self, text: str) -> List[Token]:
-        text = self._symbol_regex.sub(r" \1 ", text)
-        return list(map(self._create_token, self._model(text)))
+    def tokenize(self, scoped_text: str) -> List[Token]:
+        scoped_text = self._symbol_regex.sub(r" \1 ", scoped_text)
+        return list(map(self._create_token, self._model(scoped_text)))
 
     def _create_token(self, token: Any) -> Token:
         if self._symbol_regex.fullmatch(token.text):

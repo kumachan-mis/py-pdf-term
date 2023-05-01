@@ -6,6 +6,10 @@ from .base import BaseRankingDataCollector
 
 
 class MDPRankingDataCollector(BaseRankingDataCollector[MDPRankingData]):
+    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    by MDP algorithm.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

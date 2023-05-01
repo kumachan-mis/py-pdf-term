@@ -12,6 +12,14 @@ from .base import BaseCandidateLayerCache
 
 
 class CandidateLayerFileCache(BaseCandidateLayerCache):
+    """A candidate layer cache that stores and loads candidate terms to/from a file.
+
+    Args
+    ----
+        cache_dir:
+            The directory path to store cache files.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         super().__init__(cache_dir)
         self._cache_dir = cache_dir

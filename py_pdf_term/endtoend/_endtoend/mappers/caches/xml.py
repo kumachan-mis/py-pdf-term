@@ -7,6 +7,8 @@ from ..base import BaseMapper
 
 
 class XMLLayerCacheMapper(BaseMapper[Type[BaseXMLLayerCache]]):
+    """A mapper to find XML layer cache classes."""
+
     @classmethod
     def default_mapper(cls) -> "XMLLayerCacheMapper":
         default_mapper = cls()

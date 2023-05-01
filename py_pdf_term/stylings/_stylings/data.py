@@ -6,10 +6,19 @@ from py_pdf_term._common.data import ScoredTerm
 
 @dataclass(frozen=True)
 class PageStylingScoreList:
+    """Page number and styling scores of technical terms of the page.
+
+    Args
+    ----
+        page_num:
+            Page number of a PDF file.
+        ranking:
+            List of pairs of lemmatized term and styling score.
+            The list is sorted by the score in descending order.
+    """
+
     page_num: int
     ranking: List[ScoredTerm]
-    # list of pairs of lemmatized term and styling score
-    # the list is sorted by the score in descending order
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -25,6 +34,16 @@ class PageStylingScoreList:
 
 @dataclass(frozen=True)
 class PDFStylingScoreList:
+    """Path of a PDF file and styling scores of technical terms of the PDF file.
+
+    Args
+    ----
+        pdf_path:
+            Path of a PDF file.
+        pages:
+            Styling scores of each page of the PDF file.
+    """
+
     pdf_path: str
     pages: List[PageStylingScoreList]
 
@@ -45,6 +64,16 @@ class PDFStylingScoreList:
 
 @dataclass(frozen=True)
 class DomainStylingScoreList:
+    """Domain name of PDF files and styling scores of technical terms of the domain.
+
+    Args
+    ----
+        domain:
+            Domain name. (e.g., "natural language processing")
+        pdfs:
+            Styling scores of each PDF file of the domain.
+    """
+
     domain: str
     pdfs: List[PDFStylingScoreList]
 

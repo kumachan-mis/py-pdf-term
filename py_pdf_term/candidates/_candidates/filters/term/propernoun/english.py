@@ -4,6 +4,8 @@ from ..base import BaseEnglishCandidateTermFilter
 
 
 class EnglishProperNounFilter(BaseEnglishCandidateTermFilter):
+    """A term filter to remove English proper nouns from candidate terms."""
+
     def __init__(self) -> None:
         pass
 

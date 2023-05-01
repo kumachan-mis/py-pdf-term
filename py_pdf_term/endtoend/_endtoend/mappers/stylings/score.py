@@ -7,6 +7,8 @@ from ..base import BaseMapper
 
 
 class StylingScoreMapper(BaseMapper[Type[BaseStylingScore]]):
+    """A mapper to find styling score classes."""
+
     @classmethod
     def default_mapper(cls) -> "StylingScoreMapper":
         default_mapper = cls()

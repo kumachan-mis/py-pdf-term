@@ -8,6 +8,15 @@ from .base import BaseStylingScore
 
 
 class FontsizeScore(BaseStylingScore):
+    """A styling score for font size. The larger the font size is, the higher the score
+    is. The score is normalized by the mean and the standard deviation of font sizes in
+    the page.
+
+    Args:
+        page_candidates:
+            List of candidate terms in a page of a PDF file. The target of analysis.
+    """
+
     def __init__(self, page_candidates: PageCandidateTermList) -> None:
         super().__init__(page_candidates)
 

@@ -10,6 +10,8 @@ PHONETIC_REGEX = rf"{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX}"
 
 
 class JapaneseConcatenationFilter(BaseJapaneseCandidateTermFilter):
+    """A candidate term filter to filter out invalidly concatenated Japanese terms."""
+
     def __init__(self) -> None:
         self._classifier = JapaneseTokenClassifier()
 

@@ -9,6 +9,23 @@ from .candidate import CandidateLayer
 
 
 class StylingLayer:
+    """A layer to calclate styling scores from a PDF file using candidate layer.
+
+    Args
+    ----
+        candidate_layer:
+            a layer to extract candidate terms.
+        config:
+            a configuration for this layer. If None, the default configuration is used.
+        styling_score_mapper:
+            a mapper to find styling score classes from configuration. If None, the
+            default mapper is used.
+        cache_mapper:
+            a mapper to find cache class from configuration. If None, the default mapper
+            is used.
+
+    """
+
     def __init__(
         self,
         candidate_layer: CandidateLayer,
@@ -34,6 +51,19 @@ class StylingLayer:
         self._candidate_layer = candidate_layer
 
     def create_pdf_styling_scores(self, pdf_path: str) -> PDFStylingScoreList:
+        """Create style score list from a PDF file.
+
+        Args
+        ----
+            pdf_path:
+                a PDF file path to calculate styling scores.
+
+        Returns
+        -------
+            PDFStylingScoreList:
+                a list of styling scores for each page in the PDF file.
+        """
+
         styling_scores = self._cache.load(pdf_path, self._config)
 
         if styling_scores is None:
@@ -45,4 +75,12 @@ class StylingLayer:
         return styling_scores
 
     def remove_cache(self, pdf_path: str) -> None:
+        """Remove a cache file for a PDF file.
+
+        Args
+        ----
+            pdf_path:
+                a PDF file path to remove a cache file.
+        """
+
         self._cache.remove(pdf_path, self._config)

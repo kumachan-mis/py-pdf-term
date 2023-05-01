@@ -8,6 +8,15 @@ from .base import BaseStylingScore
 
 
 class ColorScore(BaseStylingScore):
+    """A styling score for font color. The more rarely the color appears in the page,
+    the higher the score is.
+
+    Args
+    ----
+        page_candidates:
+            List of candidate terms in a page of a PDF file. The target of analysis.
+    """
+
     def __init__(self, page_candidates: PageCandidateTermList) -> None:
         super().__init__(page_candidates)
 

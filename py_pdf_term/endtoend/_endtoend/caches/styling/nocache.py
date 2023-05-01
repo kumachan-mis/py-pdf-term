@@ -7,6 +7,14 @@ from .base import BaseStylingLayerCache
 
 
 class StylingLayerNoCache(BaseStylingLayerCache):
+    """A styling layer cache that does not store and load styling scores.
+
+    Args
+    ----
+        cache_dir:
+            This argument is ignored.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         pass
 

@@ -12,6 +12,16 @@ from .scores import BaseStylingScore, ColorScore, FontsizeScore
 
 
 class StylingScorer:
+    """A scorer for styling scores. The styling scores are combined by multiplication of
+    each score.
+
+    Args
+    ----
+        styling_score_clses:
+            styling scorers to be combined. If None, the default scorers are used.
+            The default scorers are FontsizeScore and ColorScore.
+    """
+
     def __init__(
         self, styling_score_clses: Optional[List[Type[BaseStylingScore]]] = None
     ) -> None:
@@ -23,6 +33,20 @@ class StylingScorer:
     def score_domain_candidates(
         self, domain_candidates: DomainCandidateTermList
     ) -> DomainStylingScoreList:
+        """Calculate styling scores for each candidate term in a domain.
+
+        Args
+        ----
+            domain_candidates:
+                List of candidate terms in a domain. The target of analysis.
+
+        Returns
+        -------
+            DomainStylingScoreList:
+                A list of styling scores for each candidate term in a domain. The
+                scores are sorted in descending order.
+        """
+
         return DomainStylingScoreList(
             domain_candidates.domain,
             list(map(self.score_pdf_candidates, domain_candidates.pdfs)),
@@ -31,6 +55,20 @@ class StylingScorer:
     def score_pdf_candidates(
         self, pdf_candidates: PDFCandidateTermList
     ) -> PDFStylingScoreList:
+        """Calculate styling scores for each candidate term in a PDF file.
+
+        Args
+        ----
+            pdf_candidates:
+                List of candidate terms in a PDF file. The target of analysis.
+
+        Returns
+        -------
+            PDFStylingScoreList:
+                A list of styling scores for each candidate term in a PDF file. The
+                scores are sorted in descending order.
+        """
+
         return PDFStylingScoreList(
             pdf_candidates.pdf_path,
             list(map(self._score_page_candidates, pdf_candidates.pages)),

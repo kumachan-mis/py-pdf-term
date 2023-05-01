@@ -12,6 +12,14 @@ from .base import BaseStylingLayerCache
 
 
 class StylingLayerFileCache(BaseStylingLayerCache):
+    """A styling layer cache that stores and loads styling scores to/from a file.
+
+    Args
+    ----
+        cache_dir:
+            The directory path to store cache files.
+    """
+
     def __init__(self, cache_dir: str) -> None:
         super().__init__(cache_dir)
         self._cache_dir = cache_dir

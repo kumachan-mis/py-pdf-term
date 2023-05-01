@@ -5,6 +5,16 @@ from xml.etree.ElementTree import Element, fromstring, tostring
 
 @dataclass(frozen=True)
 class PDFnXMLPath:
+    """Pair of path to a PDF file and that to a XML file.
+
+    Args
+    ----
+        pdf_path:
+            Path to a PDF file.
+        xml_path:
+            Path to a XML file.
+    """
+
     pdf_path: str
     xml_path: str
 
@@ -18,6 +28,16 @@ class PDFnXMLPath:
 
 @dataclass(frozen=True)
 class PDFnXMLElement:
+    """Pair of path to a PDF file and XML element tree.
+
+    Args
+    ----
+        pdf_path:
+            Path to a PDF file.
+        xml_root:
+            Root element of a XML element tree.
+    """
+
     pdf_path: str
     xml_root: Element
 

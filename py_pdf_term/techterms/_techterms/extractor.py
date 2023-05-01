@@ -18,6 +18,19 @@ from .utils import ranking_to_dict
 
 
 class TechnicalTermExtractor:
+    """A technical term extrator based on ranking method scores and styling scores.
+
+    Args
+    ----
+        max_num_terms:
+            Maximum number of terms in a page of a PDF file to be extracted. The N-best
+            candidates are extracted as technical terms. The default value is 10.
+        acceptance_rate:
+            The acceptance rate of the ranking method scores. The candidates whose
+            ranking method scores are lower than the acceptance rate are filtered out
+            even if they are in the N-best candidates. The default value is 0.75.
+    """
+
     def __init__(self, max_num_terms: int = 10, acceptance_rate: float = 0.75) -> None:
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
@@ -29,6 +42,25 @@ class TechnicalTermExtractor:
         term_ranking: MethodTermRanking,
         domain_styling_scores: DomainStylingScoreList,
     ) -> DomainTechnicalTermList:
+        """Extract tecnical terms in PDF files in a domain. The terms are sorted in
+        appearance order, not in score order.
+
+        Args
+        ----
+            domain_candidates:
+                List of candidate terms in a domain. The target of extraction.
+            term_ranking:
+                Ranking method scores for each candidate term in a domain.
+            domain_styling_scores:
+                Styling scores for each candidate term in a domain.
+
+        Returns
+        -------
+            DomainTechnicalTermList:
+                A list of technical terms in PDF files in a domain. The terms are sorted
+                in appearance order, not in score order.
+        """
+
         cache_should_flush = self._cache is None
         if self._cache is None:
             self._cache = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)
@@ -51,6 +83,25 @@ class TechnicalTermExtractor:
         term_ranking: MethodTermRanking,
         pdf_styling_scores: PDFStylingScoreList,
     ) -> PDFTechnicalTermList:
+        """Extract tecnical terms in a PDF file. The terms are sorted in appearance
+        order, not in score order.
+
+        Args
+        ----
+            pdf_candidates:
+                List of candidate terms in a PDF file. The target of extraction.
+            term_ranking:
+                Ranking method scores for each candidate term in a domain.
+            pdf_styling_scores:
+                Styling scores for each candidate term in a PDF file.
+
+        Returns
+        -------
+            PDFTechnicalTermList:
+                A list of technical terms in a PDF file. The terms are sorted in
+                appearance order, not in score order.
+        """
+
         cache_should_flush = self._cache is None
         if self._cache is None:
             self._cache = ranking_to_dict(term_ranking.ranking, self._acceptance_rate)

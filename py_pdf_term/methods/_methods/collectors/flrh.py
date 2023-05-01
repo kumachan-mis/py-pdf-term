@@ -6,6 +6,10 @@ from .base import BaseRankingDataCollector
 
 
 class FLRHRankingDataCollector(BaseRankingDataCollector[FLRHRankingData]):
+    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    by FLRH algorithm.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

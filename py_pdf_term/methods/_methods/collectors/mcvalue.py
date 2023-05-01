@@ -6,6 +6,10 @@ from .base import BaseRankingDataCollector
 
 
 class MCValueRankingDataCollector(BaseRankingDataCollector[MCValueRankingData]):
+    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    by MC-Value algorithm.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self._termocc_analyzer = TermOccurrenceAnalyzer()

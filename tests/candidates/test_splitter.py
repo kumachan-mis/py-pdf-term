@@ -134,7 +134,7 @@ def test_japanese_symname_splitter() -> None:
 
 def test_english_symname_splitter() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("Programming Language C")
+    candidates = extractor.extract_from_text("Programming Language 2")
 
     assert len(candidates) == 1
 

@@ -9,6 +9,16 @@ from .hits import HITSAuthHubData, HITSRanker
 
 
 class FLRHRanker(BaseSingleDomainRanker[FLRHRankingData]):
+    """A term ranker by FLRH algorithm. This algorithm is a combination of FLR and HITS.
+
+    Args
+    ----
+        threshold:
+            A threshold value for HITS algorithm. The default is 1e-8.
+        max_loop:
+            A maximum number of loops for HITS algorithm. The default is 1000.
+    """
+
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
         self._flr_ranker = FLRRanker()
         self._hits_ranker = HITSRanker(threshold=threshold, max_loop=max_loop)
