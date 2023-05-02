@@ -2,7 +2,7 @@ import re
 from typing import List, Optional
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
-from py_pdf_term._common.data import Term
+from py_pdf_term.tokenizers._tokenizers.data import Term
 
 from ..classifiers import BaseTokenClassifier
 from .base import BaseSplitter

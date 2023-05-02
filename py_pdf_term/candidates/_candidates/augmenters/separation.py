@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from typing import Callable, List
 
-from py_pdf_term._common.data import Term
 from py_pdf_term.tokenizers import Token
+from py_pdf_term.tokenizers._tokenizers.data import Term
 
 from ..classifiers import EnglishTokenClassifier, JapaneseTokenClassifier
 from .base import BaseAugmenter

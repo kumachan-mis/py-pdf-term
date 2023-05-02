@@ -1,9 +1,9 @@
 from typing import List, Optional, Type, cast
 from xml.etree.ElementTree import Element, parse
 
-from py_pdf_term._common.data import Term
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
 from py_pdf_term.tokenizers import BaseLanguageTokenizer, Token, Tokenizer
+from py_pdf_term.tokenizers._tokenizers.data import Term
 
 from .augmenters import AugmenterCombiner, BaseAugmenter
 from .classifiers import BaseTokenClassifier, MeaninglessMarker

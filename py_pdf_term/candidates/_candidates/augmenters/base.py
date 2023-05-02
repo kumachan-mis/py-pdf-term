@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from py_pdf_term._common.data import Term
+from py_pdf_term.tokenizers._tokenizers.data import Term
 
 
 class BaseAugmenter(metaclass=ABCMeta):
