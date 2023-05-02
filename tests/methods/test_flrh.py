@@ -7,7 +7,7 @@ from py_pdf_term.candidates import (
 from py_pdf_term.methods import FLRHMethod
 
 
-def test_flrh_method() -> None:
+def test_flrh_method_japanese() -> None:
     extractor = CandidateTermExtractor()
     method = FLRHMethod()
 
@@ -30,10 +30,10 @@ def test_flrh_method() -> None:
 
     method_ranking = method.rank_terms(
         DomainCandidateTermList(
-            "test",
+            "ソフトウェア工学",
             [
                 PDFCandidateTermList(
-                    "test/test.pdf",
+                    "software_engineering.pdf",
                     [
                         PageCandidateTermList(1, candidates),
                     ],
@@ -43,10 +43,56 @@ def test_flrh_method() -> None:
     )
     ranking = method_ranking.ranking
     score_dict = dict(map(lambda e: (e.term, e.score), ranking))
-    assert method_ranking.domain == "test"
+    assert method_ranking.domain == "ソフトウェア工学"
     assert len(ranking) == len(score_dict)
     assert set(score_dict.keys()) == set(expected_candidates_lemma)
     assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
 
     assert score_dict["モデル"] >= score_dict["実装"]
     # more compound terms are consist of "モデル" than "実装"
+
+
+def test_flrh_method_in_english() -> None:
+    extractor = CandidateTermExtractor()
+    method = FLRHMethod()
+
+    candidates = extractor.extract_from_text(
+        "model, concept model, requirements model, design model, model transformation,"
+        "implementation, implementation, implementation, implementation, implementation"
+    )
+    expected_candidates_lemma = [
+        "model",
+        "concept model",
+        "requirement model",
+        "design model",
+        "model transformation",
+        "implementation",
+        "implementation",
+        "implementation",
+        "implementation",
+        "implementation",
+    ]
+    assert list(map(lambda c: c.lemma(), candidates)) == expected_candidates_lemma
+
+    method_ranking = method.rank_terms(
+        DomainCandidateTermList(
+            "Software Engineering",
+            [
+                PDFCandidateTermList(
+                    "software_engineering.pdf",
+                    [
+                        PageCandidateTermList(1, candidates),
+                    ],
+                )
+            ],
+        )
+    )
+    ranking = method_ranking.ranking
+    score_dict = dict(map(lambda e: (e.term, e.score), ranking))
+    assert method_ranking.domain == "Software Engineering"
+    assert len(ranking) == len(score_dict)
+    assert set(score_dict.keys()) == set(expected_candidates_lemma)
+    assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
+
+    assert score_dict["model"] >= score_dict["implementation"]
+    # more compound terms are consist of "model" than "implementation"
