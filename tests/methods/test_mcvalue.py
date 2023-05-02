@@ -30,7 +30,7 @@ def test_mcvalue_method_japanese() -> None:
 
     method_ranking = method.rank_terms(
         DomainCandidateTermList(
-            "Software Engineering",
+            "ソフトウェア工学",
             [
                 PDFCandidateTermList(
                     "software_engineering.pdf",
@@ -43,7 +43,7 @@ def test_mcvalue_method_japanese() -> None:
     )
     ranking = method_ranking.ranking
     score_dict = dict(map(lambda e: (e.term, e.score), ranking))
-    assert method_ranking.domain == "test"
+    assert method_ranking.domain == "ソフトウェア工学"
     assert len(ranking) == len(score_dict)
     assert set(score_dict.keys()) == set(expected_candidates_lemma)
     assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
@@ -94,7 +94,7 @@ def test_mcvalue_method_english() -> None:
     )
     ranking = method_ranking.ranking
     score_dict = dict(map(lambda e: (e.term, e.score), ranking))
-    assert method_ranking.domain == "test"
+    assert method_ranking.domain == "Software Engineering"
     assert len(ranking) == len(score_dict)
     assert set(score_dict.keys()) == set(expected_candidates_lemma)
     assert ranking == sorted(ranking, key=lambda e: e.score, reverse=True)
