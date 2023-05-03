@@ -104,7 +104,10 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
             return None
 
         with open(cache_file_path, "r") as json_file:
-            obj = json.load(json_file)
+            try:
+                obj = json.load(json_file)
+            except json.JSONDecodeError:
+                return None
 
         return from_dict(obj)
 
