@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from py_pdf_term.candidates import PDFCandidateTermList
+from py_pdf_term.candidates import PDFCandidateTermList, PageCandidateTermList
 from py_pdf_term.configs import CandidateLayerConfig
 from py_pdf_term.endtoend.caches import CandidateLayerFileCache, CandidateLayerNoCache
 
@@ -9,19 +9,26 @@ def test_file_cache(tmp_path: Path):
     cache = CandidateLayerFileCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    candidates = PDFCandidateTermList(pdf_path, [])
+    first_candidates = PDFCandidateTermList(pdf_path, [])
+    second_candidates = PDFCandidateTermList(pdf_path, [PageCandidateTermList(1, [])])
     config = CandidateLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(candidates, config)
-    assert cache.load(pdf_path, config) == candidates
+    cache.store(first_candidates, config)
+    assert cache.load(pdf_path, config) == first_candidates
+
+    cache.store(second_candidates, config)
+    assert cache.load(pdf_path, config) == second_candidates
+
+    cache.remove(pdf_path, config)
+    assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
 
-def test_file_cache_doubled_operation(tmp_path: Path):
+def test_file_cache_multiple(tmp_path: Path):
     cache = CandidateLayerFileCache(tmp_path.as_posix())
 
     pdf_path1 = "test1.pdf"
@@ -54,12 +61,19 @@ def test_no_cache(tmp_path: Path):
     cache = CandidateLayerNoCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    candidates = PDFCandidateTermList(pdf_path, [])
+    first_candidates = PDFCandidateTermList(pdf_path, [])
+    second_candidates = PDFCandidateTermList(pdf_path, [PageCandidateTermList(1, [])])
     config = CandidateLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(candidates, config)
+    cache.store(first_candidates, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.store(second_candidates, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)

@@ -34,19 +34,30 @@ def test_data_file_cache(tmp_path: Path):
     cache = MethodLayerDataFileCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
-    ranking_data = TestRankingData("test", {"term": 1})
+    first_ranking_data = TestRankingData("test", {"term": 1})
+    second_ranking_data = TestRankingData("test", {"term": 2})
     config = SingleDomainMethodLayerConfig(method="test.TestMethod")
 
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
-    cache.store(pdf_paths, ranking_data, config)
-    assert cache.load(pdf_paths, config, TestRankingData.from_dict) == ranking_data
+    cache.store(pdf_paths, first_ranking_data, config)
+    assert (
+        cache.load(pdf_paths, config, TestRankingData.from_dict) == first_ranking_data
+    )
+
+    cache.store(pdf_paths, second_ranking_data, config)
+    assert (
+        cache.load(pdf_paths, config, TestRankingData.from_dict) == second_ranking_data
+    )
+
+    cache.remove(pdf_paths, config)
+    assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
     cache.remove(pdf_paths, config)
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
 
-def test_data_file_cache_doubled_operation(tmp_path: Path):
+def test_data_file_cache_multiple(tmp_path: Path):
     cache = MethodLayerDataFileCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths1 = ["test1-1.pdf", "test1-2.pdf"]
@@ -79,12 +90,19 @@ def test_data_no_cache(tmp_path: Path):
     cache = MethodLayerDataNoCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
-    ranking_data = TestRankingData("test", {"term": 1})
+    first_ranking_data = TestRankingData("test", {"term": 1})
+    second_ranking_data = TestRankingData("test", {"term": 2})
     config = SingleDomainMethodLayerConfig(method="test.TestMethod")
 
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
-    cache.store(pdf_paths, ranking_data, config)
+    cache.store(pdf_paths, first_ranking_data, config)
+    assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
+
+    cache.store(pdf_paths, second_ranking_data, config)
+    assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
+
+    cache.remove(pdf_paths, config)
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
     cache.remove(pdf_paths, config)
@@ -95,7 +113,7 @@ def test_ranking_file_cache(tmp_path: Path):
     cache = MethodLayerRankingFileCache(tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
-    ranking = MethodTermRanking(
+    first_ranking = MethodTermRanking(
         "test",
         [
             ScoredTerm("rare term", 2.0),
@@ -103,18 +121,32 @@ def test_ranking_file_cache(tmp_path: Path):
             ScoredTerm("common word", 0.5),
         ],
     )
+    second_ranking = MethodTermRanking(
+        "test2",
+        [
+            ScoredTerm("rare term", 5.0),
+            ScoredTerm("technical term", 2.5),
+            ScoredTerm("common word", 0.0),
+        ],
+    )
     config = MultiDomainMethodLayerConfig(method="test.TestMethod")
 
     assert cache.load(pdf_paths, config) is None
 
-    cache.store(pdf_paths, ranking, config)
-    assert cache.load(pdf_paths, config) == ranking
+    cache.store(pdf_paths, first_ranking, config)
+    assert cache.load(pdf_paths, config) == first_ranking
+
+    cache.store(pdf_paths, second_ranking, config)
+    assert cache.load(pdf_paths, config) == second_ranking
+
+    cache.remove(pdf_paths, config)
+    assert cache.load(pdf_paths, config) is None
 
     cache.remove(pdf_paths, config)
     assert cache.load(pdf_paths, config) is None
 
 
-def test_ranking_file_cache_doubled_operation(tmp_path: Path):
+def test_ranking_file_cache_multiple(tmp_path: Path):
     cache = MethodLayerRankingFileCache(tmp_path.as_posix())
 
     pdf_paths1 = ["test1-1.pdf", "test1-2.pdf"]
@@ -161,7 +193,7 @@ def test_ranking_no_cache(tmp_path: Path):
     cache = MethodLayerRankingNoCache(tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
-    ranking = MethodTermRanking(
+    first_ranking = MethodTermRanking(
         "test",
         [
             ScoredTerm("rare term", 2.0),
@@ -169,11 +201,25 @@ def test_ranking_no_cache(tmp_path: Path):
             ScoredTerm("common word", 0.5),
         ],
     )
+    second_ranking = MethodTermRanking(
+        "test2",
+        [
+            ScoredTerm("rare term", 5.0),
+            ScoredTerm("technical term", 2.5),
+            ScoredTerm("common word", 0.0),
+        ],
+    )
     config = MultiDomainMethodLayerConfig(method="test.TestMethod")
 
     assert cache.load(pdf_paths, config) is None
 
-    cache.store(pdf_paths, ranking, config)
+    cache.store(pdf_paths, first_ranking, config)
+    assert cache.load(pdf_paths, config) is None
+
+    cache.store(pdf_paths, second_ranking, config)
+    assert cache.load(pdf_paths, config) is None
+
+    cache.remove(pdf_paths, config)
     assert cache.load(pdf_paths, config) is None
 
     cache.remove(pdf_paths, config)

@@ -11,19 +11,26 @@ def test_file_cache(tmp_path: Path):
     cache = XMLLayerFileCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("test"))
+    first_pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("first"))
+    second_pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("second"))
     config = XMLLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(pdfnxml, config)
-    assert cache.load(pdf_path, config) == pdfnxml
+    cache.store(first_pdfnxml, config)
+    assert cache.load(pdf_path, config) == first_pdfnxml
+
+    cache.store(second_pdfnxml, config)
+    assert cache.load(pdf_path, config) == second_pdfnxml
+
+    cache.remove(pdf_path, config)
+    assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
 
-def test_file_cache_doubled_operation(tmp_path: Path):
+def test_file_cache_multiple(tmp_path: Path):
     cache = XMLLayerFileCache(tmp_path.as_posix())
 
     pdf_path1 = "test1.pdf"
@@ -56,12 +63,19 @@ def test_no_cache(tmp_path: Path):
     cache = XMLLayerNoCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("test"))
+    first_pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("first"))
+    second_pdfnxml = PDFnXMLElement(pdf_path, ElementTree.Element("second"))
     config = XMLLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(pdfnxml, config)
+    cache.store(first_pdfnxml, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.store(second_pdfnxml, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)

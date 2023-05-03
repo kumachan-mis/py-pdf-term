@@ -9,7 +9,7 @@ def test_file_cache(tmp_path: Path):
     cache = StylingLayerFileCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    styling_scores = PDFStylingScoreList(
+    first_styling_scores = PDFStylingScoreList(
         pdf_path,
         [
             PageStylingScoreList(
@@ -22,18 +22,37 @@ def test_file_cache(tmp_path: Path):
             )
         ],
     )
+    second_styling_scores = PDFStylingScoreList(
+        pdf_path,
+        [
+            PageStylingScoreList(
+                1,
+                [
+                    ScoredTerm("rare term", 5.0),
+                    ScoredTerm("technical term", 2.5),
+                    ScoredTerm("common word", 0.0),
+                ],
+            )
+        ],
+    )
     config = StylingLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(styling_scores, config)
-    assert cache.load(pdf_path, config) == styling_scores
+    cache.store(first_styling_scores, config)
+    assert cache.load(pdf_path, config) == first_styling_scores
+
+    cache.store(second_styling_scores, config)
+    assert cache.load(pdf_path, config) == second_styling_scores
+
+    cache.remove(pdf_path, config)
+    assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
 
-def test_file_cache_doubled_opearation(tmp_path: Path):
+def test_file_cache_multiple(tmp_path: Path):
     cache = StylingLayerFileCache(tmp_path.as_posix())
 
     pdf_path1 = "test1.pdf"
@@ -90,7 +109,7 @@ def test_no_cache(tmp_path: Path):
     cache = StylingLayerNoCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
-    styling_scores = PDFStylingScoreList(
+    first_styling_scores = PDFStylingScoreList(
         pdf_path,
         [
             PageStylingScoreList(
@@ -103,11 +122,30 @@ def test_no_cache(tmp_path: Path):
             )
         ],
     )
+    second_styling_scores = PDFStylingScoreList(
+        pdf_path,
+        [
+            PageStylingScoreList(
+                1,
+                [
+                    ScoredTerm("rare term", 5.0),
+                    ScoredTerm("technical term", 2.5),
+                    ScoredTerm("common word", 0.0),
+                ],
+            )
+        ],
+    )
     config = StylingLayerConfig()
 
     assert cache.load(pdf_path, config) is None
 
-    cache.store(styling_scores, config)
+    cache.store(first_styling_scores, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.store(second_styling_scores, config)
+    assert cache.load(pdf_path, config) is None
+
+    cache.remove(pdf_path, config)
     assert cache.load(pdf_path, config) is None
 
     cache.remove(pdf_path, config)
