@@ -44,3 +44,12 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.tokenize()")
+
+    @classmethod
+    @abstractmethod
+    def class_init(cls) -> None:
+        """Initialize the language tokenizer class. This method is expected to be
+        called before using the language tokenizer.
+        """
+
+        raise NotImplementedError(f"{cls.__name__}.class_init()")

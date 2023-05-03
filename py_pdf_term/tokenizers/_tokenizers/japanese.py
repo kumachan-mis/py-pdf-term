@@ -16,16 +16,8 @@ DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 class JapaneseTokenizer(BaseLanguageTokenizer):
     """A tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
 
-    def __init__(self) -> None:
-        enable_pipes = []
-        self._model = ja_core_news_sm.load()  # pyright: ignore[reportUnknownMemberType]
-        self._model.select_pipes(enable=enable_pipes)
-
-        self._ja_regex = re.compile(JAPANESE_REGEX)
-        self._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
-
     def inscope(self, text: str) -> bool:
-        return self._ja_regex.search(text) is not None
+        return JapaneseTokenizer._regex.search(text) is not None
 
     def tokenize(self, scoped_text: str) -> List[Token]:
         scoped_text = SPACES.sub(" ", scoped_text).strip()
@@ -36,8 +28,8 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         }
 
         scoped_text = DELIM_SPACE.sub("", scoped_text)
-        scoped_text = self._symbol_regex.sub(r" \1 ", scoped_text)
-        tokens = list(map(self._create_token, self._model(scoped_text)))
+        scoped_text = JapaneseTokenizer._symbol_regex.sub(r" \1 ", scoped_text)
+        tokens = list(map(self._create_token, JapaneseTokenizer._model(scoped_text)))
 
         if not orginal_space_pos:
             return tokens
@@ -63,7 +55,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         return tokens
 
     def _create_token(self, token: Any) -> Token:
-        if self._symbol_regex.fullmatch(token.text):
+        if JapaneseTokenizer._symbol_regex.fullmatch(token.text):
             return Token("ja", token.text, "補助記号", "一般", "*", token.text)
 
         pos_with_categories = token.tag_.split("-")
@@ -74,3 +66,16 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
         subcategory = pos_with_categories[2] if num_categories >= 2 else "*"
 
         return Token("ja", token.text, pos, category, subcategory, token.lemma_.lower())
+
+    @classmethod
+    def class_init(cls) -> None:
+        model = ja_core_news_sm.load()  # pyright: ignore[reportUnknownMemberType]
+        enable_pipes = []
+        model.select_pipes(enable=enable_pipes)
+        JapaneseTokenizer._model = model
+
+        JapaneseTokenizer._regex = re.compile(JAPANESE_REGEX)
+        JapaneseTokenizer._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
+
+
+JapaneseTokenizer.class_init()
