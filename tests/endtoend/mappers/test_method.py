@@ -1,14 +1,14 @@
 from py_pdf_term.mappers import (
-    SingleDomainRankingMethodMapper,
     MultiDomainRankingMethodMapper,
+    SingleDomainRankingMethodMapper,
 )
 from py_pdf_term.methods import (
-    MCValueMethod,
+    FLRHMethod,
     FLRMethod,
     HITSMethod,
-    FLRHMethod,
-    TFIDFMethod,
+    MCValueMethod,
     MDPMethod,
+    TFIDFMethod,
 )
 
 

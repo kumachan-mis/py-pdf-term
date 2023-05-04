@@ -1,125 +1,161 @@
-from py_pdf_term.candidates import CandidateTermExtractor
+from os import path
+from typing import List, Union
+from xml.etree.ElementTree import parse
+
+from py_pdf_term.candidates import CandidateTermExtractor, PDFCandidateTermList
+from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
+from py_pdf_term.tokenizers import Term
+
+FIXTURES_DIR = path.join(path.dirname(__file__), "..", "..", "test-fixtures")
 
 
-def test_japanese_compound_noun() -> None:
+def test_extract_from_domain_files() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("ソフトウェア開発とは何か？")
-    assert len(candidates) == 1
 
-    candidate = candidates[0]
-    assert candidate.lang == "ja"
-    assert str(candidate) == "ソフトウェア開発"
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    xml_path = path.join(FIXTURES_DIR, "py-pdf-term.xml")
+
+    domain_candidates = extractor.extract_from_domain_files(
+        "test", [PDFnXMLPath(pdf_path, xml_path)]
+    )
+
+    assert domain_candidates.domain == "test"
+    assert len(domain_candidates.pdfs) == 1
+
+    assert_pdf_candidtes(domain_candidates.pdfs[0])
 
 
-def test_english_compound_noun() -> None:
+def test_extract_from_xml_file() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("What is Software Delelopment?")
-    assert len(candidates) == 1
 
-    candidate = candidates[0]
-    assert candidate.lang == "en"
-    assert str(candidate) == "Software Delelopment"
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    xml_path = path.join(FIXTURES_DIR, "py-pdf-term.xml")
+
+    pdf_candidates = extractor.extract_from_xml_file(PDFnXMLPath(pdf_path, xml_path))
+
+    assert_pdf_candidtes(pdf_candidates)
 
 
-def test_mixed_compound_noun() -> None:
+def test_extract_from_domain_elements() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("Hoare Logic(Hoare理論)")
-    assert len(candidates) == 2
 
-    candidate = candidates[0]
-    assert candidate.lang == "ja"
-    assert str(candidate) == "Hoare Logic"
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    xml_path = path.join(FIXTURES_DIR, "py-pdf-term.xml")
+    xml_root = parse(xml_path).getroot()
 
-    candidate = candidates[1]
-    assert candidate.lang == "ja"
-    assert str(candidate) == "Hoare理論"
+    domain_candidates = extractor.extract_from_domain_elements(
+        "test", [PDFnXMLElement(pdf_path, xml_root)]
+    )
+
+    assert domain_candidates.domain == "test"
+    assert len(domain_candidates.pdfs) == 1
+
+    assert_pdf_candidtes(domain_candidates.pdfs[0])
 
 
-def test_japanese_advective_or_verb() -> None:
+def test_extract_from_xml_element() -> None:
     extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("通る経路の長さ")
-    assert len(candidates) == 3
 
-    candidate = candidates[0]
-    assert candidate.lang == "ja"
-    assert str(candidate) == "経路"
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    xml_path = path.join(FIXTURES_DIR, "py-pdf-term.xml")
+    xml_root = parse(xml_path).getroot()
 
-    candidate = candidates[1]
-    token = candidate.tokens[0]
-    assert candidate.lang == "ja"
-    assert token.pos == "形容詞", "test is broken!"
-    assert str(candidate) == "長さ"
+    pdf_candidates = extractor.extract_from_xml_element(
+        PDFnXMLElement(pdf_path, xml_root)
+    )
 
-    candidate = candidates[2]
-    token = candidate.tokens[2]
-    assert candidate.lang == "ja"
-    assert token.pos == "形容詞", "test is broken!"
-    assert str(candidate) == "経路の長さ"
+    assert_pdf_candidtes(pdf_candidates)
 
 
-def test_english_advective_or_verb() -> None:
-    extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("fast feature embedding")
-    assert len(candidates) == 1
+def assert_pdf_candidtes(pdf_candidates: PDFCandidateTermList) -> None:
+    def find_candidate_by_text(text: str, candidates: List[Term]) -> Union[Term, None]:
+        return next(filter(lambda t: str(t) == text, candidates), None)
 
-    candidate = candidates[0]
-    assert candidate.lang == "en"
-    token = candidate.tokens[0]
-    assert token.pos == "ADJ", "test is broken!"
-    token = candidate.tokens[2]
-    assert token.pos == "VERB" and token.category == "VBG", "test is broken!"
-    assert str(candidate) == "fast feature embedding"
+    assert pdf_candidates.pdf_path == path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    assert len(pdf_candidates.pages) == 7
 
+    candidates = pdf_candidates.pages[0]
+    assert candidates.page_num == 1
 
-def test_japanese_nounal_postfix() -> None:
-    extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("パイプライン化する")
-    assert len(candidates) == 1
+    term = find_candidate_by_text("py-pdf-term", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 52.000) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
 
-    candidate = candidates[0]
-    token = candidate.tokens[-1]
-    assert candidate.lang == "ja"
-    assert token.pos == "接尾辞" and token.category == "名詞的", "test is broken!"
-    assert str(candidate) == "パイプライン化"
+    term = find_candidate_by_text("Python", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 21.700) < 0.001
+    assert term.ncolor == "(0.34901962, 0.34901962, 0.34901962)"
 
+    candidates = pdf_candidates.pages[1]
+    assert candidates.page_num == 2
 
-def test_japanese_adjectival_postfix() -> None:
-    extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("データ的側面と機能的側面と振舞的側面")
-    assert len(candidates) == 3
+    term = find_candidate_by_text("Motivation", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 25.200) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
 
-    candidate = candidates[0]
-    token = candidate.tokens[1]
-    assert candidate.lang == "ja"
-    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
-    assert str(candidate) == "データ的側面"
+    term = find_candidate_by_text("practical use", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 20.000) < 0.001
+    assert term.ncolor == "(1.0, 0.0, 0.0)"
 
-    candidate = candidates[1]
-    token = candidate.tokens[1]
-    assert candidate.lang == "ja"
-    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
-    assert str(candidate) == "機能的側面"
+    candidates = pdf_candidates.pages[2]
+    assert candidates.page_num == 3
 
-    candidate = candidates[2]
-    token = candidate.tokens[1]
-    assert candidate.lang == "ja"
-    assert token.pos == "接尾辞" and token.category == "形状詞的", "test is broken!"
-    assert str(candidate) == "振舞的側面"
+    term = find_candidate_by_text("laboratory use", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 25.200) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
 
+    term = find_candidate_by_text("ranking algorithms", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 20.000) < 0.001
+    assert term.ncolor == "(0.34901962, 0.34901962, 0.34901962)"
 
-def test_japanese_symbol() -> None:
-    extractor = CandidateTermExtractor()
-    candidates = extractor.extract_from_text("ラムダ計算とラムダ式")
-    assert len(candidates) == 2
+    candidates = pdf_candidates.pages[3]
+    assert candidates.page_num == 4
 
-    candidate = candidates[0]
-    token = candidate.tokens[0]
-    assert candidate.lang == "ja"
-    assert token.pos == "記号", "test is broken!"
-    assert str(candidate) == "ラムダ計算"
+    term = find_candidate_by_text("practical use", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 25.200) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
 
-    candidate = candidates[1]
-    token = candidate.tokens[0]
-    assert candidate.lang == "ja"
-    assert token.pos == "記号", "test is broken!"
-    assert str(candidate) == "ラムダ式"
+    term = find_candidate_by_text("cache mechanism", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 20.000) < 0.001
+    assert term.ncolor == "(0.34901962, 0.34901962, 0.34901962)"
+
+    candidates = pdf_candidates.pages[4]
+    assert candidates.page_num == 5
+
+    term = find_candidate_by_text("XML Layer", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 0.0) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
+
+    term = find_candidate_by_text("Candidate Term Layer", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 0.0) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
+
+    candidates = pdf_candidates.pages[5]
+    assert candidates.page_num == 6
+
+    term = find_candidate_by_text("Method Layer", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 0.0) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
+
+    term = find_candidate_by_text("Styling Layer", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 0.0) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"
+
+    candidates = pdf_candidates.pages[6]
+    assert candidates.page_num == 7
+
+    term = find_candidate_by_text("Technical Term Layer", candidates.candidates)
+    assert term is not None
+    assert abs(term.fontsize - 0.0) < 0.001
+    assert term.ncolor == "(0.0, 0.0, 0.0)"

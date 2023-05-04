@@ -2,7 +2,7 @@ from math import exp
 from statistics import mean, stdev
 
 from py_pdf_term.candidates import PageCandidateTermList
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 from .base import BaseStylingScore
 

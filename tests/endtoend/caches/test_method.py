@@ -1,15 +1,14 @@
 # write test for MethodLayerDataFileCache, MethodLayerDataNoCache,
 # MethodLayerRankingFileCache, MethodLayerRankingNoCache
 
-from pathlib import Path
 from dataclasses import dataclass
-from typing import Dict, Any
-from py_pdf_term.methods.rankingdata import BaseRankingData
-from py_pdf_term.methods import MethodTermRanking
+from pathlib import Path
+from typing import Any, Dict
+
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.configs import (
-    SingleDomainMethodLayerConfig,
     MultiDomainMethodLayerConfig,
+    SingleDomainMethodLayerConfig,
 )
 from py_pdf_term.endtoend.caches import (
     MethodLayerDataFileCache,
@@ -17,6 +16,8 @@ from py_pdf_term.endtoend.caches import (
     MethodLayerRankingFileCache,
     MethodLayerRankingNoCache,
 )
+from py_pdf_term.methods import MethodTermRanking
+from py_pdf_term.methods.rankingdata import BaseRankingData
 
 
 @dataclass(frozen=True)

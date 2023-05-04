@@ -1,36 +1,33 @@
+from py_pdf_term.candidates.augmenters import (
+    EnglishConnectorTermAugmenter,
+    JapaneseConnectorTermAugmenter,
+)
+from py_pdf_term.candidates.classifiers import (
+    EnglishTokenClassifier,
+    JapaneseTokenClassifier,
+)
+from py_pdf_term.candidates.filters import (
+    EnglishConcatenationFilter,
+    EnglishNumericFilter,
+    EnglishProperNounFilter,
+    EnglishSymbolLikeFilter,
+    EnglishTokenFilter,
+    JapaneseConcatenationFilter,
+    JapaneseNumericFilter,
+    JapaneseProperNounFilter,
+    JapaneseSymbolLikeFilter,
+    JapaneseTokenFilter,
+)
+from py_pdf_term.candidates.splitters import RepeatSplitter, SymbolNameSplitter
 from py_pdf_term.mappers import (
     AugmenterMapper,
-    CandidateTokenFilterMapper,
     CandidateTermFilterMapper,
+    CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
     TokenClassifierMapper,
 )
-from py_pdf_term.candidates.augmenters import (
-    JapaneseConnectorTermAugmenter,
-    EnglishConnectorTermAugmenter,
-)
-from py_pdf_term.candidates.filters import (
-    JapaneseTokenFilter,
-    EnglishTokenFilter,
-    JapaneseConcatenationFilter,
-    EnglishConcatenationFilter,
-    JapaneseSymbolLikeFilter,
-    EnglishSymbolLikeFilter,
-    JapaneseProperNounFilter,
-    EnglishProperNounFilter,
-    JapaneseNumericFilter,
-    EnglishNumericFilter,
-)
-from py_pdf_term.candidates.splitters import (
-    SymbolNameSplitter,
-    RepeatSplitter,
-)
-from py_pdf_term.tokenizers import JapaneseTokenizer, EnglishTokenizer
-from py_pdf_term.candidates.classifiers import (
-    JapaneseTokenClassifier,
-    EnglishTokenClassifier,
-)
+from py_pdf_term.tokenizers import EnglishTokenizer, JapaneseTokenizer
 
 
 def test_language_tokenizer_default_mapper() -> None:

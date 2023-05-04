@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 from .base import BaseAugmenter
 from .separation import EnglishConnectorTermAugmenter, JapaneseConnectorTermAugmenter

@@ -1,6 +1,6 @@
 from os import path
 from pathlib import Path
-from xml.etree.ElementTree import parse, Element
+from xml.etree.ElementTree import Element, parse
 
 from py_pdf_term.pdftoxml import PDFtoXMLConverter
 

@@ -2,7 +2,7 @@ from typing import Dict
 
 from py_pdf_term._common.utils import extended_log10
 from py_pdf_term.candidates import PageCandidateTermList
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 from .base import BaseStylingScore
 

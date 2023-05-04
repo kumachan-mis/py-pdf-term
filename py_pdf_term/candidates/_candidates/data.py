@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Set
 
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 
 @dataclass(frozen=True)

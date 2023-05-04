@@ -1,8 +1,9 @@
 from pathlib import Path
+
+from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.configs import StylingLayerConfig
 from py_pdf_term.endtoend.caches import StylingLayerFileCache, StylingLayerNoCache
-from py_pdf_term.stylings import PDFStylingScoreList, PageStylingScoreList
-from py_pdf_term._common.data import ScoredTerm
+from py_pdf_term.stylings import PageStylingScoreList, PDFStylingScoreList
 
 
 def test_file_cache(tmp_path: Path):

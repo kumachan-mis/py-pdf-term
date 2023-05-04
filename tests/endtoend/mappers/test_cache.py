@@ -1,23 +1,23 @@
 from typing import Any
 
+from py_pdf_term.endtoend.caches import (
+    CandidateLayerFileCache,
+    CandidateLayerNoCache,
+    MethodLayerDataFileCache,
+    MethodLayerDataNoCache,
+    MethodLayerRankingFileCache,
+    MethodLayerRankingNoCache,
+    StylingLayerFileCache,
+    StylingLayerNoCache,
+    XMLLayerFileCache,
+    XMLLayerNoCache,
+)
 from py_pdf_term.mappers import (
     CandidateLayerCacheMapper,
-    XMLLayerCacheMapper,
     MethodLayerDataCacheMapper,
     MethodLayerRankingCacheMapper,
     StylingLayerCacheMapper,
-)
-from py_pdf_term.endtoend.caches import (
-    CandidateLayerNoCache,
-    CandidateLayerFileCache,
-    XMLLayerNoCache,
-    XMLLayerFileCache,
-    MethodLayerDataNoCache,
-    MethodLayerDataFileCache,
-    MethodLayerRankingNoCache,
-    MethodLayerRankingFileCache,
-    StylingLayerNoCache,
-    StylingLayerFileCache,
+    XMLLayerCacheMapper,
 )
 
 

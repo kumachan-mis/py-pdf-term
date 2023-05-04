@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from py_pdf_term.candidates import PDFCandidateTermList, PageCandidateTermList
+from py_pdf_term.candidates import PageCandidateTermList, PDFCandidateTermList
 from py_pdf_term.configs import CandidateLayerConfig
 from py_pdf_term.endtoend.caches import CandidateLayerFileCache, CandidateLayerNoCache
 

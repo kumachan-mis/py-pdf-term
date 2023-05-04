@@ -1,5 +1,4 @@
-from py_pdf_term.tokenizers import Token
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term, Token
 
 from ....classifiers import JapaneseTokenClassifier
 from ..base import BaseJapaneseCandidateTermFilter

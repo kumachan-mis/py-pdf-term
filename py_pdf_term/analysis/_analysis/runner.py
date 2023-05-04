@@ -1,7 +1,7 @@
 from typing import Callable, TypeVar
 
 from py_pdf_term.candidates import DomainCandidateTermList
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 AnalysisResult = TypeVar("AnalysisResult")
 

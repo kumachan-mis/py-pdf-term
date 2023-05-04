@@ -2,9 +2,10 @@
 
 from pathlib import Path
 from xml.etree import ElementTree
+
 from py_pdf_term.configs import XMLLayerConfig
-from py_pdf_term.pdftoxml import PDFnXMLElement
 from py_pdf_term.endtoend.caches import XMLLayerFileCache, XMLLayerNoCache
+from py_pdf_term.pdftoxml import PDFnXMLElement
 
 
 def test_file_cache(tmp_path: Path):

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages>
+<page id="1">
+<text size="52.000" ncolor="(0, 0, 0)" bbox="227.091,193.060,256.003,245.060">py-pdf-term</text>
+<text size="21.700" ncolor="(0.34901962)" bbox="44.114,149.702,50.124,171.402">fully-configurable terminology extraction module written in Python.</text>
+<text size="21.700" ncolor="(0, 0.5921569, 0.654902)" bbox="142.403,123.662,154.468,145.362">https://github.com/kumachan-mis/py-pdf-term</text>
+</page>
+<page id="2">
+<text size="25.200" ncolor="[0, 0, 0]" bbox="31.293,333.725,52.285,358.925">Motivation</text>
+<text size="18.000" ncolor="[0.34901962]" bbox="38.421,286.444,49.293,304.444">● There are countless number of implementations of terminology extraction ● Many of them support personal trials to demonstrate efficacy of the algorithm ● However, difficult to use in practical softwares</text>
+<text size="20.000" ncolor="[0.34901962]" bbox="31.293,157.984,43.493,177.984">The goal is to support both of</text>
+<text size="20.000" ncolor="[1.0, 0, 0]" bbox="295.799,157.984,301.339,177.984">laboratory use</text>
+<text size="20.000" ncolor="[0.34901962]" bbox="433.568,157.984,439.108,177.984">and</text>
+<text size="20.000" ncolor="[1.0, 0, 0]" bbox="478.033,157.984,490.233,177.984">practical use</text>
+</page>
+<page id="3">
+<text size="25.200" ncolor="(0, 0, 0)" bbox="31.293,333.725,46.665,358.925">Features - for laboratory use</text>
+<text size="20.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="19.022,284.104,29.022,304.104">switch of ranking algorithms</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="26.150,246.844,37.022,264.844">● The more algorithms are proposed, the more essential selecting a suitable one is ● This module enables you to select a ranking algorithm with a configuration</text>
+<text size="20.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="19.022,182.824,30.142,202.824">plug-in for trial-and-error</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="26.150,145.564,37.022,163.564">● Trial-and-error is also essential to have ideal outputs ● This module enables you to plug your ideas into the process as classes</text>
+</page>
+<page id="4">
+<text size="25.200" ncolor="(0, 0, 0)" bbox="31.293,333.725,46.665,358.925">Features - for practical use</text>
+<text size="20.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,284.104,35.733,304.104">i/o customizing</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="38.421,246.844,49.293,264.844">● In practical softwares, files are often not in a local storage. ● I/O functions for a remote storage are more complicated than built-in ones ● This module enables you to replace I/O functions with yours</text>
+<text size="20.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,157.984,41.293,177.984">cache mechanism</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="38.421,120.724,49.293,138.724">● In practical softwares, performance is one of the biggest problems ● This module has cache mechanism to save intermediate output</text>
+</page>
+<page id="5">
+<text>5-layers architecture</text>
+<text>XML Layer</text>
+<text>● Converts a PDF file to a XML file ● Depends on pdfminer.six</text>
+<text>Candidate Term Layer</text>
+<text>● Extracts candidates of terminologies ● Depends on spaCy</text>
+</page>
+<page id="6">
+<text>5-layers architecture</text>
+<text>Method Layer</text>
+<text>● Calculates method scores of candidates ● Frequency, colocation likelihood</text>
+<text>Styling Layer</text>
+<text>● Calculates styling scores of candidates ● Font size, font color</text>
+</page>
+<page id="7">
+<text>5-layers architecture</text>
+<text>Technical Term Layer</text>
+<text>● Selects terminologies from candidates ● The order of the terminologies is appearance order in a PDF file.</text>
+</page>
+</pages>

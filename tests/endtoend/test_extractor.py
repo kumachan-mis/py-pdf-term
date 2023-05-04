@@ -2,9 +2,9 @@ from os import path
 from pathlib import Path
 
 from py_pdf_term import (
-    PyPDFTermSingleDomainExtractor,
-    PyPDFTermMultiDomainExtractor,
     DomainPDFList,
+    PyPDFTermMultiDomainExtractor,
+    PyPDFTermSingleDomainExtractor,
 )
 from py_pdf_term.configs import TechnicalTermLayerConfig
 

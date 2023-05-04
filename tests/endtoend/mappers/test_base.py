@@ -1,5 +1,6 @@
 from abc import ABCMeta
 from typing import Type
+
 from pytest import raises
 
 from py_pdf_term.endtoend._endtoend.mappers import BaseMapper

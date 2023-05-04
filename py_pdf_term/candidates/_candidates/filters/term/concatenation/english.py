@@ -1,7 +1,7 @@
 import re
 
 from py_pdf_term._common.consts import ALPHABET_REGEX
-from py_pdf_term.tokenizers._tokenizers.data import Term
+from py_pdf_term.tokenizers import Term
 
 from ....classifiers import EnglishTokenClassifier
 from ..base import BaseEnglishCandidateTermFilter

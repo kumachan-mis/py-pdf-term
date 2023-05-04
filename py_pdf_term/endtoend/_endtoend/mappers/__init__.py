@@ -20,8 +20,8 @@ from .stylings import StylingScoreMapper
 
 # isort: unique-list
 __all__ = [
-    "BaseMapper",
     "AugmenterMapper",
+    "BaseMapper",
     "BinaryOpenerMapper",
     "CandidateLayerCacheMapper",
     "CandidateTermFilterMapper",
