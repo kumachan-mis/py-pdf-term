@@ -1,7 +1,8 @@
 {
   "[python]": {
     "editor.rulers": [88],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "python.terminal.activateEnvironment": false,
   "python.autoComplete.extraPaths": [
@@ -14,7 +15,6 @@
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": ".venv/bin/flake8",
-  "python.formatting.provider": "black",
   "python.formatting.blackPath": ".venv/bin/black",
   "python.languageServer": "Pylance",
   "python.testing.pytestArgs": [
