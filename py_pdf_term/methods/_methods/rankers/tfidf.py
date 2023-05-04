@@ -2,7 +2,7 @@ from math import log10
 from typing import List, Literal
 
 from py_pdf_term._common.data import ScoredTerm
-from py_pdf_term._common.extended_math import extended_log10
+from py_pdf_term._common.utils import extended_log10
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizers._tokenizers.data import Term
 

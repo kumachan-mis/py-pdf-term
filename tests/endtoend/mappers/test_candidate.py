@@ -33,7 +33,7 @@ from py_pdf_term.candidates.classifiers import (
 )
 
 
-def test_language_tokenizer_default_mapper():
+def test_language_tokenizer_default_mapper() -> None:
     mapper = LanguageTokenizerMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -46,7 +46,7 @@ def test_language_tokenizer_default_mapper():
     assert clses == [JapaneseTokenizer, EnglishTokenizer, None]
 
 
-def test_token_classifier_default_mapper():
+def test_token_classifier_default_mapper() -> None:
     mapper = TokenClassifierMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -59,7 +59,7 @@ def test_token_classifier_default_mapper():
     assert clses == [JapaneseTokenClassifier, EnglishTokenClassifier, None]
 
 
-def test_candidate_token_filter_default_mapper():
+def test_candidate_token_filter_default_mapper() -> None:
     mapper = CandidateTokenFilterMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -72,7 +72,7 @@ def test_candidate_token_filter_default_mapper():
     assert clses == [JapaneseTokenFilter, EnglishTokenFilter, None]
 
 
-def test_candidate_term_filter_default_mapper():
+def test_candidate_term_filter_default_mapper() -> None:
     mapper = CandidateTermFilterMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -101,7 +101,7 @@ def test_candidate_term_filter_default_mapper():
     ]
 
 
-def test_splitter_default_mapper():
+def test_splitter_default_mapper() -> None:
     mapper = SplitterMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -114,7 +114,7 @@ def test_splitter_default_mapper():
     assert clses == [SymbolNameSplitter, RepeatSplitter, None]
 
 
-def test_augmenter_default_mapper():
+def test_augmenter_default_mapper() -> None:
     mapper = AugmenterMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(

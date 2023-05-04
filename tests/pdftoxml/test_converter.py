@@ -19,7 +19,7 @@ def test_convert_as_file(tmp_path: Path):
     assert_xml_content(parse(xml_path).getroot())
 
 
-def test_convert_as_element():
+def test_convert_as_element() -> None:
     converter = PDFtoXMLConverter()
     pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
 

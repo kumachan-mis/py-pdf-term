@@ -12,7 +12,7 @@ from py_pdf_term.methods import (
 )
 
 
-def test_single_domain_ranking_method_default_mapper():
+def test_single_domain_ranking_method_default_mapper() -> None:
     mapper = SingleDomainRankingMethodMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -27,7 +27,7 @@ def test_single_domain_ranking_method_default_mapper():
     assert clses == [MCValueMethod, FLRMethod, HITSMethod, FLRHMethod, None]
 
 
-def test_multi_domain_ranking_method_default_mapper():
+def test_multi_domain_ranking_method_default_mapper() -> None:
     mapper = MultiDomainRankingMethodMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(

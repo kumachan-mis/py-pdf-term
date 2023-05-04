@@ -36,7 +36,7 @@ class TestMapper(BaseMapper[Type[BaseTestMappedValue]]):
         return mapper
 
 
-def test_find():
+def test_find() -> None:
     mapper = TestMapper.default_mapper()
 
     cls = mapper.find("py_pdf_term.TestDefaultMappedValue")
@@ -45,7 +45,7 @@ def test_find():
     raises(KeyError, lambda: mapper.find("py_pdf_term.TestUnknownMappedValue"))
 
 
-def test_find_or_none():
+def test_find_or_none() -> None:
     mapper = TestMapper.default_mapper()
 
     cls = mapper.find_or_none("py_pdf_term.TestDefaultMappedValue")
@@ -55,7 +55,7 @@ def test_find_or_none():
     assert cls is None
 
 
-def test_bulk_find():
+def test_bulk_find() -> None:
     mapper = TestMapper.default_mapper()
 
     clses = mapper.bulk_find(["py_pdf_term.TestDefaultMappedValue"])
@@ -64,7 +64,7 @@ def test_bulk_find():
     raises(KeyError, lambda: mapper.bulk_find(["py_pdf_term.TestUnknownMappedValue"]))
 
 
-def test_bulk_find_or_none():
+def test_bulk_find_or_none() -> None:
     mapper = TestMapper.default_mapper()
 
     clses = mapper.bulk_find_or_none(
@@ -77,7 +77,7 @@ def test_bulk_find_or_none():
     assert clses == [TestDefaultMappedValue, None, None]
 
 
-def test_add_then_remove():
+def test_add_then_remove() -> None:
     mapper = TestMapper.default_mapper()
 
     cls = mapper.find("py_pdf_term.TestDefaultMappedValue")
