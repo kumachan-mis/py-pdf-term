@@ -1,3 +1,4 @@
+from .base import BaseMapper
 from .caches import (
     CandidateLayerCacheMapper,
     MethodLayerDataCacheMapper,
@@ -19,6 +20,7 @@ from .stylings import StylingScoreMapper
 
 # isort: unique-list
 __all__ = [
+    "BaseMapper",
     "AugmenterMapper",
     "BinaryOpenerMapper",
     "CandidateLayerCacheMapper",
