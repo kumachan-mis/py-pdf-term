@@ -67,8 +67,8 @@ def test_extractor() -> None:
                 {"term": "分割", "score": 12.0},
                 {"term": "モデル", "score": 11.0},
                 {"term": "国際標準化機構", "score": 10.0},
-                # ============== (acceptance_rate border) ============== #
                 {"term": "iso", "score": 9.0},
+                # ============== (acceptance_rate border) ============== #
                 {"term": "制定", "score": 8.0},
                 {"term": "ネットワーク構造", "score": 7.0},
                 {"term": "設計方針", "score": 6.0},
@@ -116,6 +116,6 @@ def test_extractor() -> None:
 
     page = techterms.pages[1]
     assert page.page_num == 2
-    p2_expected_techterms = ["国際標準化機構"]
+    p2_expected_techterms = ["ISO", "国際標準化機構"]
     assert list(map(lambda t: t.term, page.terms)) == p2_expected_techterms
     # acceptance_rate should work
