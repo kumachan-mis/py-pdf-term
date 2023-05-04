@@ -12,7 +12,7 @@ from .candidates import (
     CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
-    TokenClassifilerMapper,
+    TokenClassifierMapper,
 )
 from .methods import MultiDomainRankingMethodMapper, SingleDomainRankingMethodMapper
 from .pdftoxml import BinaryOpenerMapper
@@ -34,6 +34,6 @@ __all__ = [
     "SplitterMapper",
     "StylingLayerCacheMapper",
     "StylingScoreMapper",
-    "TokenClassifilerMapper",
+    "TokenClassifierMapper",
     "XMLLayerCacheMapper",
 ]

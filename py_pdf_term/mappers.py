@@ -12,7 +12,7 @@ from .endtoend._endtoend.mappers import (
     SplitterMapper,
     StylingLayerCacheMapper,
     StylingScoreMapper,
-    TokenClassifilerMapper,
+    TokenClassifierMapper,
     XMLLayerCacheMapper,
 )
 
@@ -31,6 +31,6 @@ __all__ = [
     "SplitterMapper",
     "StylingLayerCacheMapper",
     "StylingScoreMapper",
-    "TokenClassifilerMapper",
+    "TokenClassifierMapper",
     "XMLLayerCacheMapper",
 ]

@@ -10,11 +10,11 @@ from py_pdf_term.candidates.classifiers import (
 from ..base import BaseMapper
 
 
-class TokenClassifilerMapper(BaseMapper[Type[BaseTokenClassifier]]):
+class TokenClassifierMapper(BaseMapper[Type[BaseTokenClassifier]]):
     """A mapper to find token classifier classes."""
 
     @classmethod
-    def default_mapper(cls) -> "TokenClassifilerMapper":
+    def default_mapper(cls) -> "TokenClassifierMapper":
         default_mapper = cls()
 
         classifier_clses = [
