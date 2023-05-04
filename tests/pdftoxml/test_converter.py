@@ -1,27 +1,27 @@
-import os
+from os import path
 from pathlib import Path
 from xml.etree.ElementTree import parse, Element
 
 from py_pdf_term.pdftoxml import PDFtoXMLConverter
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "test-fixtures")
+FIXTURES_DIR = path.join(path.dirname(__file__), "..", "..", "test-fixtures")
 
 
 def test_convert_as_file(tmp_path: Path):
     converter = PDFtoXMLConverter()
-    pdf_path = os.path.join(FIXTURES_DIR, "py-pdf-term.pdf")
-    xml_path = os.path.join(tmp_path.as_posix(), "py-pdf-term.xml")
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    xml_path = path.join(tmp_path.as_posix(), "py-pdf-term.xml")
 
     converter.convert_as_file(pdf_path, xml_path)
 
-    assert os.path.exists(xml_path)
+    assert path.exists(xml_path)
 
     assert_xml_content(parse(xml_path).getroot())
 
 
 def test_convert_as_element():
     converter = PDFtoXMLConverter()
-    pdf_path = os.path.join(FIXTURES_DIR, "py-pdf-term.pdf")
+    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
 
     tree = converter.convert_as_element(pdf_path)
 
