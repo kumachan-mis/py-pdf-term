@@ -116,6 +116,6 @@ def test_extractor() -> None:
 
     page = techterms.pages[1]
     assert page.page_num == 2
-    p2_expected_techterms = ["ISO", "国際標準化機構"]
+    p2_expected_techterms = ["国際標準化機構", "ISO"]
     assert list(map(lambda t: t.term, page.terms)) == p2_expected_techterms
     # acceptance_rate should work
