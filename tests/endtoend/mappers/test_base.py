@@ -13,20 +13,22 @@ class BaseTestMappedValue(metaclass=ABCMeta):
 
 
 class TestDefaultMappedValue(BaseTestMappedValue):
-    __test__ = True
+    __test__ = False
 
     def __init__(self) -> None:
         super().__init__("Default")
 
 
 class TestUserDefinedMappedValue(BaseTestMappedValue):
-    __test__ = True
+    __test__ = False
 
     def __init__(self) -> None:
         super().__init__("UserDefined")
 
 
 class TestMapper(BaseMapper[Type[BaseTestMappedValue]]):
+    __test__ = False
+
     @classmethod
     def default_mapper(cls) -> BaseMapper[Type[BaseTestMappedValue]]:
         mapper = cls()
