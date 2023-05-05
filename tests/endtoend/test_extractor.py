@@ -8,7 +8,7 @@ from py_pdf_term import (
 )
 from py_pdf_term.configs import TechnicalTermLayerConfig
 
-FIXTURES_DIR = path.join(path.dirname(__file__), "..", "..", "test-fixtures")
+from ..consts import FIXTURES_DIR
 
 
 def test_py_pdf_term_single_domain_extractor(tmp_path: Path):

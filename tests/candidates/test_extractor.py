@@ -6,7 +6,7 @@ from py_pdf_term.candidates import CandidateTermExtractor, PDFCandidateTermList
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFnXMLPath
 from py_pdf_term.tokenizers import Term
 
-FIXTURES_DIR = path.join(path.dirname(__file__), "..", "..", "test-fixtures")
+from ..consts import FIXTURES_DIR
 
 
 def test_extract_from_domain_files() -> None:

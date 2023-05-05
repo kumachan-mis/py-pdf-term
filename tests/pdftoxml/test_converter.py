@@ -4,7 +4,7 @@ from xml.etree.ElementTree import Element, parse
 
 from py_pdf_term.pdftoxml import PDFtoXMLConverter
 
-FIXTURES_DIR = path.join(path.dirname(__file__), "..", "..", "test-fixtures")
+from ..consts import FIXTURES_DIR
 
 
 def test_convert_as_file(tmp_path: Path):
