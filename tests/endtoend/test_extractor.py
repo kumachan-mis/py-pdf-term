@@ -1,4 +1,3 @@
-from os import path
 from pathlib import Path
 
 from py_pdf_term import (
@@ -8,7 +7,7 @@ from py_pdf_term import (
 )
 from py_pdf_term.configs import TechnicalTermLayerConfig
 
-from ..consts import FIXTURES_DIR
+from ..fixtures import PyPDFTermFixture
 
 
 def test_py_pdf_term_single_domain_extractor(tmp_path: Path):
@@ -16,34 +15,12 @@ def test_py_pdf_term_single_domain_extractor(tmp_path: Path):
         techterm_config=TechnicalTermLayerConfig(acceptance_rate=1.0),
         cache_dir=tmp_path.as_posix(),
     )
-    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
 
-    terminologies = extractor.extract(pdf_path, DomainPDFList("test", [pdf_path]))
+    pdf_techterms = extractor.extract(
+        PyPDFTermFixture.PDF_PATH, DomainPDFList("test", [PyPDFTermFixture.PDF_PATH])
+    )
 
-    assert terminologies.pdf_path == pdf_path
-
-    assert len(terminologies.pages) == 7
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[0].terms))
-    assert "py-pdf-term" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[1].terms))
-    assert "Motivation" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[2].terms))
-    assert "Features" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[3].terms))
-    assert "Features" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[4].terms))
-    assert "5-layers architecture" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[5].terms))
-    assert "5-layers architecture" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[6].terms))
-    assert "5-layers architecture" in actual_terms
+    PyPDFTermFixture.assert_pdf_techterms(pdf_techterms)
 
 
 def test_py_pdf_term_multi_domain_extractor(tmp_path: Path):
@@ -51,35 +28,14 @@ def test_py_pdf_term_multi_domain_extractor(tmp_path: Path):
         techterm_config=TechnicalTermLayerConfig(acceptance_rate=1.0, max_num_terms=20),
         cache_dir=tmp_path.as_posix(),
     )
-    pdf_path = path.join(FIXTURES_DIR, "py-pdf-term.pdf")
 
-    terminologies = extractor.extract(
+    pdf_techterms = extractor.extract(
         "test",
-        pdf_path,
-        [DomainPDFList("test", [pdf_path]), DomainPDFList("other", [pdf_path])],
+        PyPDFTermFixture.PDF_PATH,
+        [
+            DomainPDFList("test", [PyPDFTermFixture.PDF_PATH]),
+            DomainPDFList("other", [PyPDFTermFixture.PDF_PATH]),
+        ],
     )
 
-    assert terminologies.pdf_path == pdf_path
-
-    assert len(terminologies.pages) == 7
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[0].terms))
-    assert "py-pdf-term" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[1].terms))
-    assert "Motivation" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[2].terms))
-    assert "Features" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[3].terms))
-    assert "Features" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[4].terms))
-    assert "5-layers architecture" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[5].terms))
-    assert "5-layers architecture" in actual_terms
-
-    actual_terms = set(map(lambda t: t.term, terminologies.pages[6].terms))
-    assert "5-layers architecture" in actual_terms
+    PyPDFTermFixture.assert_pdf_techterms(pdf_techterms)

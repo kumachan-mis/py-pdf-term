@@ -138,7 +138,7 @@ class SingleDomainMethodLayer(BaseMethodLayer):
         term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
 
         if term_ranking is None:
-            candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
+            candidates = self._candidate_layer.create_domain_candidates(domain_pdfs)
             ranking_data = self._create_ranking_data(domain_pdfs, candidates)
             term_ranking = self._method.rank_terms(candidates, ranking_data)
 
@@ -242,7 +242,7 @@ class MultiDomainMethodLayer(BaseMethodLayer):
             domain_candidates_list: List[DomainCandidateTermList] = []
             ranking_data_list: List[Any] = []
             for domain_pdfs in multi_domain_pdfs:
-                candidates = self._candidate_layer.create_domain_candiates(domain_pdfs)
+                candidates = self._candidate_layer.create_domain_candidates(domain_pdfs)
                 ranking_data = self._create_ranking_data(domain_pdfs, candidates)
                 domain_candidates_list.append(candidates)
                 ranking_data_list.append(ranking_data)

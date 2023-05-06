@@ -107,7 +107,7 @@ class CandidateLayer:
 
         self._xml_layer = xml_layer
 
-    def create_domain_candiates(
+    def create_domain_candidates(
         self, domain_pdfs: DomainPDFList
     ) -> DomainCandidateTermList:
         """Create candidate term list from a list of PDF files in a domain.
