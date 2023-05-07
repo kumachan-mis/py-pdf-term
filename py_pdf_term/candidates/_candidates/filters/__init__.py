@@ -1,6 +1,8 @@
 from .combiner import FilterCombiner
 from .term import (
     BaseCandidateTermFilter,
+    BaseEnglishCandidateTermFilter,
+    BaseJapaneseCandidateTermFilter,
     EnglishConcatenationFilter,
     EnglishNumericFilter,
     EnglishProperNounFilter,
@@ -15,6 +17,8 @@ from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFi
 # isort: unique-list
 __all__ = [
     "BaseCandidateTermFilter",
+    "BaseEnglishCandidateTermFilter",
+    "BaseJapaneseCandidateTermFilter",
     "BaseCandidateTokenFilter",
     "EnglishConcatenationFilter",
     "EnglishNumericFilter",
