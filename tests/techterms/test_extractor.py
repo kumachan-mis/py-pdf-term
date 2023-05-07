@@ -1,11 +1,11 @@
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
+    DomainCandidateTermList,
     PageCandidateTermList,
     PDFCandidateTermList,
-    DomainCandidateTermList,
 )
 from py_pdf_term.methods import MethodTermRanking
-from py_pdf_term.stylings import PDFStylingScoreList, DomainStylingScoreList
+from py_pdf_term.stylings import DomainStylingScoreList, PDFStylingScoreList
 from py_pdf_term.techterms import TechnicalTermExtractor
 
 

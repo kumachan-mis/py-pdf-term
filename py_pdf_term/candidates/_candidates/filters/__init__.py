@@ -17,9 +17,9 @@ from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFi
 # isort: unique-list
 __all__ = [
     "BaseCandidateTermFilter",
+    "BaseCandidateTokenFilter",
     "BaseEnglishCandidateTermFilter",
     "BaseJapaneseCandidateTermFilter",
-    "BaseCandidateTokenFilter",
     "EnglishConcatenationFilter",
     "EnglishNumericFilter",
     "EnglishProperNounFilter",
