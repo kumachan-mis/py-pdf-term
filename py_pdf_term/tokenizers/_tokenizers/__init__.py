@@ -1,5 +1,5 @@
 from .base import BaseLanguageTokenizer
-from .data import Token
+from .data import Term, Token
 from .english import EnglishTokenizer
 from .japanese import JapaneseTokenizer
 from .tokenizer import Tokenizer
@@ -9,6 +9,7 @@ __all__ = [
     "BaseLanguageTokenizer",
     "EnglishTokenizer",
     "JapaneseTokenizer",
+    "Term",
     "Token",
     "Tokenizer",
 ]

@@ -1,4 +1,4 @@
-from py_pdf_term._common.data import Term
+from py_pdf_term.tokenizers import Term
 
 from ..base import BaseEnglishCandidateTermFilter
 

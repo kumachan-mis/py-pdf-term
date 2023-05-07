@@ -12,25 +12,30 @@ from .data import Token
 class EnglishTokenizer(BaseLanguageTokenizer):
     """A tokenizer for English. This tokenizer uses SpaCy's en_core_web_sm model."""
 
-    def __init__(self) -> None:
-        enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
-        self._model = en_core_web_sm.load()  # pyright: ignore[reportUnknownMemberType]
-        self._model.select_pipes(enable=enable_pipes)
-
-        self._en_regex = re.compile(ALPHABET_REGEX)
-        self._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
-
     def inscope(self, text: str) -> bool:
-        return self._en_regex.search(text) is not None
+        return EnglishTokenizer._regex.search(text) is not None
 
     def tokenize(self, scoped_text: str) -> List[Token]:
-        scoped_text = self._symbol_regex.sub(r" \1 ", scoped_text)
-        return list(map(self._create_token, self._model(scoped_text)))
+        scoped_text = EnglishTokenizer._symbol_regex.sub(r" \1 ", scoped_text)
+        return list(map(self._create_token, EnglishTokenizer._model(scoped_text)))
 
     def _create_token(self, token: Any) -> Token:
-        if self._symbol_regex.fullmatch(token.text):
+        if EnglishTokenizer._symbol_regex.fullmatch(token.text):
             return Token("en", token.text, "SYM", "*", "*", token.text)
 
         return Token(
             "en", token.text, token.pos_, token.tag_, "*", token.lemma_.lower()
         )
+
+    @classmethod
+    def class_init(cls) -> None:
+        model = en_core_web_sm.load()  # pyright: ignore[reportUnknownMemberType]
+        enable_pipes = ["tok2vec", "tagger", "attribute_ruler", "lemmatizer"]
+        model.select_pipes(enable=enable_pipes)
+        EnglishTokenizer._model = model
+
+        EnglishTokenizer._regex = re.compile(ALPHABET_REGEX)
+        EnglishTokenizer._symbol_regex = re.compile(rf"({SYMBOL_REGEX})")
+
+
+EnglishTokenizer.class_init()

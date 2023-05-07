@@ -41,10 +41,17 @@ class PDFnXMLElement:
     pdf_path: str
     xml_root: Element
 
+    def __eq__(self, other: Any) -> bool:
+        return (
+            isinstance(other, PDFnXMLElement)
+            and self.pdf_path == other.pdf_path
+            and tostring(self.xml_root) == tostring(other.xml_root)
+        )
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "pdf_path": self.pdf_path,
-            "xml_root": tostring(self.xml_root, encoding="utf-8").decode("utf-8"),
+            "xml_root": tostring(self.xml_root, encoding="utf-8"),
         }
 
     @classmethod

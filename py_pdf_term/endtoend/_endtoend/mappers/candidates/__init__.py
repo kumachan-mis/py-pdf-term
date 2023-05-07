@@ -1,5 +1,5 @@
 from .augmenter import AugmenterMapper
-from .classifier import TokenClassifilerMapper
+from .classifier import TokenClassifierMapper
 from .filter import CandidateTermFilterMapper, CandidateTokenFilterMapper
 from .lang import LanguageTokenizerMapper
 from .splitter import SplitterMapper
@@ -11,5 +11,5 @@ __all__ = [
     "CandidateTokenFilterMapper",
     "LanguageTokenizerMapper",
     "SplitterMapper",
-    "TokenClassifilerMapper",
+    "TokenClassifierMapper",
 ]

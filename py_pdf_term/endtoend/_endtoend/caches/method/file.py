@@ -58,7 +58,7 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(term_ranking.to_dict(), json_file, ensure_ascii=False, indent=2)
+            json.dump(term_ranking.to_dict(), json_file, ensure_ascii=False)
 
     def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="rank")
@@ -104,7 +104,10 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
             return None
 
         with open(cache_file_path, "r") as json_file:
-            obj = json.load(json_file)
+            try:
+                obj = json.load(json_file)
+            except json.JSONDecodeError:
+                return None
 
         return from_dict(obj)
 
@@ -121,7 +124,7 @@ class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(ranking_data.to_dict(), json_file, ensure_ascii=False, indent=2)
+            json.dump(ranking_data.to_dict(), json_file, ensure_ascii=False)
 
     def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config, prefix="data")

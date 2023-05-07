@@ -16,7 +16,7 @@ from ..mappers import (
     CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
-    TokenClassifilerMapper,
+    TokenClassifierMapper,
 )
 from .xml import XMLLayer
 
@@ -61,7 +61,7 @@ class CandidateLayer:
         xml_layer: XMLLayer,
         config: Optional[CandidateLayerConfig] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
         token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -74,7 +74,7 @@ class CandidateLayer:
         if lang_tokenizer_mapper is None:
             lang_tokenizer_mapper = LanguageTokenizerMapper.default_mapper()
         if token_classifier_mapper is None:
-            token_classifier_mapper = TokenClassifilerMapper.default_mapper()
+            token_classifier_mapper = TokenClassifierMapper.default_mapper()
         if token_filter_mapper is None:
             token_filter_mapper = CandidateTokenFilterMapper.default_mapper()
         if term_filter_mapper is None:
@@ -107,7 +107,7 @@ class CandidateLayer:
 
         self._xml_layer = xml_layer
 
-    def create_domain_candiates(
+    def create_domain_candidates(
         self, domain_pdfs: DomainPDFList
     ) -> DomainCandidateTermList:
         """Create candidate term list from a list of PDF files in a domain.

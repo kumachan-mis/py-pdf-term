@@ -1,6 +1,8 @@
 from .combiner import FilterCombiner
 from .term import (
     BaseCandidateTermFilter,
+    BaseEnglishCandidateTermFilter,
+    BaseJapaneseCandidateTermFilter,
     EnglishConcatenationFilter,
     EnglishNumericFilter,
     EnglishProperNounFilter,
@@ -16,6 +18,8 @@ from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFi
 __all__ = [
     "BaseCandidateTermFilter",
     "BaseCandidateTokenFilter",
+    "BaseEnglishCandidateTermFilter",
+    "BaseJapaneseCandidateTermFilter",
     "EnglishConcatenationFilter",
     "EnglishNumericFilter",
     "EnglishProperNounFilter",

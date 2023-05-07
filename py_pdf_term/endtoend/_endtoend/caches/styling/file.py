@@ -52,7 +52,7 @@ class StylingLayerFileCache(BaseStylingLayerCache):
         os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
 
         with open(cache_file_path, "w") as json_file:
-            json.dump(styling_scores.to_dict(), json_file, ensure_ascii=False, indent=2)
+            json.dump(styling_scores.to_dict(), json_file, ensure_ascii=False)
 
     def remove(self, pdf_path: str, config: StylingLayerConfig) -> None:
         dir_name = create_dir_name_from_config(config)

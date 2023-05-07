@@ -1,3 +1,4 @@
+from .base import BaseMapper
 from .caches import (
     CandidateLayerCacheMapper,
     MethodLayerDataCacheMapper,
@@ -11,7 +12,7 @@ from .candidates import (
     CandidateTokenFilterMapper,
     LanguageTokenizerMapper,
     SplitterMapper,
-    TokenClassifilerMapper,
+    TokenClassifierMapper,
 )
 from .methods import MultiDomainRankingMethodMapper, SingleDomainRankingMethodMapper
 from .pdftoxml import BinaryOpenerMapper
@@ -20,6 +21,7 @@ from .stylings import StylingScoreMapper
 # isort: unique-list
 __all__ = [
     "AugmenterMapper",
+    "BaseMapper",
     "BinaryOpenerMapper",
     "CandidateLayerCacheMapper",
     "CandidateTermFilterMapper",
@@ -32,6 +34,6 @@ __all__ = [
     "SplitterMapper",
     "StylingLayerCacheMapper",
     "StylingScoreMapper",
-    "TokenClassifilerMapper",
+    "TokenClassifierMapper",
     "XMLLayerCacheMapper",
 ]

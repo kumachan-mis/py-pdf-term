@@ -44,15 +44,15 @@ For laboratory use
 switch of ranking algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There are countless number of algorithms rank terminology.
-The more algorithms are proposed, the more essential selecting a suitable one comes to be.
+The more algorithms are proposed, the more essential selecting a suitable one is.
 Sometimes you need to implement original one for a specific case you face to.
 This module enables you to select a ranking algorithm with a configuration.
 
-plug-in of little ingenuities
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Trying little ingenuities again and again is also essential to have an ideal output.
+plug-in for trial-and-error
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Trial-and-error is also essential to have ideal outputs.
 For example: removing garbage words, considering one more attribute of words.
-This module enables you to plug your ingenuities into the process as classes.
+This module enables you to plug your ideas into the process as classes.
 
 For practical use
 -----------------
@@ -87,7 +87,7 @@ caluculations are go from the top to the bottom (red bold arrows).
     .. container:: column
 
         XML Layer
-            This layer coverts a PDF file to a XML file containing sentensized texts with styling attributes
+            This layer converts a PDF file to a XML file containing sentensized texts with styling attributes
             such as font size, font color and coordinate in the PDF page.
             This layer depends on `pdfminer.six <https://github.com/pdfminer/pdfminer.six>`_.
 
@@ -103,14 +103,14 @@ caluculations are go from the top to the bottom (red bold arrows).
 
         Styling Layer
             This layer calculates styling scores of candidates based on
-            font size, font color and coordinate in the PDF page and so on.
+            font size, font color and coordinate in a PDF page and so on.
             Styling scores reflects our intuitions such as:
-            The larger the font size is, the more important the text must be.
-            If an emphasized color is used, the text must be important.
+            The larger font size is, the more important a text must be.
+            If an emphasized color is used, a text must be important.
 
         Technical Term Layer
             This layer selects terminologies from candidates based on method scores and styling scores.
-            The order of the terminologies is the same as the appearance order in the PDF file.
+            The order of the terminologies is appearance order in a PDF file.
 
     .. container:: column
 

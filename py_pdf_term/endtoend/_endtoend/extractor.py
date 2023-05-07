@@ -35,7 +35,7 @@ from .mappers import (
     SplitterMapper,
     StylingLayerCacheMapper,
     StylingScoreMapper,
-    TokenClassifilerMapper,
+    TokenClassifierMapper,
     XMLLayerCacheMapper,
 )
 
@@ -144,7 +144,7 @@ class PyPDFTermSingleDomainExtractor:
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
         token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
@@ -327,7 +327,7 @@ class PyPDFTermMultiDomainExtractor:
         techterm_config: Optional[TechnicalTermLayerConfig] = None,
         bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
         lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifilerMapper] = None,
+        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
         token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
         term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
         splitter_mapper: Optional[SplitterMapper] = None,
