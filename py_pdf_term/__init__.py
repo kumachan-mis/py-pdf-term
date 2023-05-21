@@ -5,7 +5,7 @@ from .endtoend import (
     PyPDFTermSingleDomainExtractor,
 )
 
-__version__ = "0.18.1"
+__version__ = "1.0.0"
 
 # isort: unique-list
 __all__ = [
