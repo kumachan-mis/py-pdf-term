@@ -1,5 +1,5 @@
 from math import log10
-from typing import List, Literal
+from typing import List
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term._common.utils import extended_log10
@@ -12,30 +12,10 @@ from .base import BaseMultiDomainRanker
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
-    """A term ranker by TF-IDF algorithm.
+    """A term ranker by TF-IDF algorithm."""
 
-    Args
-    ----
-        tfmode:
-            A mode to calculate TF score. The default is `log`, which means that the
-            logarithm of the term frequency is used.
-        idfmode:
-            A mode to calculate IDF score. The default is `natural`, which means that
-            the natural logarithm of the inverse document frequency is used.
-    """
-
-    def __init__(
-        self,
-        tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
-        idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
-    ) -> None:
-        if tfmode not in ["natural", "log", "augmented", "logave", "binary"]:
-            raise TypeError(f"unknown tfmode {tfmode}")
-        if idfmode not in ["natural", "smooth", "prob", "unary"]:
-            raise TypeError(f"unknown idfmode {idfmode}")
-
-        self._tfmode = tfmode
-        self._idfmode = idfmode
+    def __init__(self) -> None:
+        pass
 
     def rank_terms(
         self,
@@ -68,65 +48,14 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     ) -> ScoredTerm:
         candidate_lemma = candidate.lemma()
 
-        tf = self._calculate_tf(candidate_lemma, ranking_data, ranking_data_list)
-        idf = self._calculate_idf(candidate_lemma, ranking_data, ranking_data_list)
-        score = extended_log10(tf * idf)
-        return ScoredTerm(candidate_lemma, score)
+        tf = ranking_data.term_freq.get(candidate_lemma, 0)
+        log_tf = log10(tf) if tf > 0 else 0.0
 
-    def _calculate_tf(
-        self,
-        candidate: str,
-        ranking_data: TFIDFRankingData,
-        ranking_data_list: List[TFIDFRankingData],
-    ) -> float:
-        tf = ranking_data.term_freq.get(candidate, 0)
-
-        if self._idfmode == "natural":
-            return tf
-
-        elif self._tfmode == "log":
-            return 1.0 * log10(tf) if tf > 0 else 0.0
-
-        elif self._tfmode == "augmented":
-            max_tf = max(
-                map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
-            )
-            return 0.5 + 0.5 * tf / max_tf if max_tf > 0 else 0.0
-
-        elif self._tfmode == "logave":
-            ave_tf = sum(
-                map(lambda data: data.term_freq.get(candidate, 0), ranking_data_list)
-            ) / len(ranking_data_list)
-            return (
-                (1.0 + log10(tf)) / (1.0 + log10(ave_tf))
-                if tf > 0 and ave_tf > 0.0
-                else 0.0
-            )
-
-        elif self._tfmode == "binary":
-            return 1.0 if tf > 0 else 0.0
-
-        raise TypeError(f"unknown tfmode {self._tfmode}")
-
-    def _calculate_idf(
-        self,
-        candidate: str,
-        ranking_data: TFIDFRankingData,
-        ranking_data_list: List[TFIDFRankingData],
-    ) -> float:
         num_docs = sum(map(lambda data: data.num_docs, ranking_data_list))
-        df = sum(map(lambda data: data.doc_freq.get(candidate, 0), ranking_data_list))
+        df = sum(
+            map(lambda data: data.doc_freq.get(candidate_lemma, 0), ranking_data_list)
+        )
+        log_idf = log10(num_docs / df) if df > 0 else 0.0
 
-        if self._idfmode == "natural":
-            return log10(num_docs / df) if df > 0 else 0.0
-
-        if self._idfmode == "smooth":
-            return log10(num_docs / (df + 1)) + 1.0
-
-        elif self._idfmode == "prob":
-            return max(log10((num_docs - df) / df), 0.0) if df > 0 else 0.0
-
-        elif self._idfmode == "unary":
-            return 1.0
-
-        raise TypeError(f"unknown idfmode {self._idfmode}")
+        score = extended_log10(log_tf * log_idf)
+        return ScoredTerm(candidate_lemma, score)

@@ -25,7 +25,7 @@ def test_single_domain_extractor(tmp_path: Path) -> None:
 
 def test_multi_domain_extractor(tmp_path: Path) -> None:
     extractor = PyPDFTermMultiDomainExtractor(
-        techterm_config=TechnicalTermLayerConfig(acceptance_rate=1.0, max_num_terms=20),
+        techterm_config=TechnicalTermLayerConfig(max_num_terms=20),
         cache_dir=tmp_path.as_posix(),
     )
 
@@ -153,7 +153,5 @@ def test_invalid_argument_single_domain_extractor(
 def test_invalid_argument_multi_domain_extractor(
     tmp_path: Path, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
 ) -> None:
-    extractor = PyPDFTermMultiDomainExtractor(
-        cache_dir=tmp_path.as_posix(),
-    )
+    extractor = PyPDFTermMultiDomainExtractor(cache_dir=tmp_path.as_posix())
     raises(ValueError, lambda: extractor.extract(domain, pdf_path, multi_domain_pdfs))

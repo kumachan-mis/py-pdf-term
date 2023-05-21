@@ -118,7 +118,7 @@ def test_multi_minimal_config(tmp_path: Path) -> None:
         ],
     )
 
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
 
 def test_single_full_config(tmp_path: Path) -> None:
@@ -186,7 +186,7 @@ def test_multi_full_config(tmp_path: Path) -> None:
         ],
     )
 
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
 
 @mark.parametrize(
@@ -277,7 +277,7 @@ def test_multi_data_file_cache(
 
     assert spied_collect_data.call_count == 2
     assert spied_rank_domain_terms.call_count == 1
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     ranking = method_layer.create_term_ranking(
         "test",
@@ -289,7 +289,7 @@ def test_multi_data_file_cache(
 
     assert spied_collect_data.call_count == 2
     assert spied_rank_domain_terms.call_count == 2
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     method_layer.remove_cache([PyPDFTermFixture.PDF_PATH])
     method_layer.remove_cache([WikipediaPDFFixture.PDF_PATH])
@@ -303,7 +303,7 @@ def test_multi_data_file_cache(
 
     assert spied_collect_data.call_count == 4
     assert spied_rank_domain_terms.call_count == 3
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
 
 @mark.parametrize(
@@ -394,7 +394,7 @@ def test_multi_ranking_file_cache(
 
     assert spied_collect_data.call_count == 2
     assert spied_rank_domain_terms.call_count == 1
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     ranking = method_layer.create_term_ranking(
         "test",
@@ -406,7 +406,7 @@ def test_multi_ranking_file_cache(
 
     assert spied_collect_data.call_count == 2
     assert spied_rank_domain_terms.call_count == 1
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     method_layer.remove_cache([PyPDFTermFixture.PDF_PATH])
     method_layer.remove_cache([WikipediaPDFFixture.PDF_PATH])
@@ -420,7 +420,7 @@ def test_multi_ranking_file_cache(
 
     assert spied_collect_data.call_count == 4
     assert spied_rank_domain_terms.call_count == 2
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
 
 @mark.parametrize(
@@ -513,7 +513,7 @@ def test_multi_no_cache(
 
     assert spied_collect_data.call_count == 2
     assert spied_rank_domain_terms.call_count == 1
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     ranking = method_layer.create_term_ranking(
         "test",
@@ -525,7 +525,7 @@ def test_multi_no_cache(
 
     assert spied_collect_data.call_count == 4
     assert spied_rank_domain_terms.call_count == 2
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
     method_layer.remove_cache([PyPDFTermFixture.PDF_PATH])
     method_layer.remove_cache([WikipediaPDFFixture.PDF_PATH])
@@ -539,7 +539,7 @@ def test_multi_no_cache(
 
     assert spied_collect_data.call_count == 6
     assert spied_rank_domain_terms.call_count == 3
-    PyPDFTermFixture.assert_method_term_ranking(ranking, acceptance_rate=0.85)
+    PyPDFTermFixture.assert_method_term_ranking(ranking)
 
 
 @mark.parametrize(
@@ -660,34 +660,6 @@ def test_single_invalid_config(
                 data_cache="py_pdf_term.UnknownMethodDataCache"
             ),
             KeyError,
-        ),
-        (
-            MultiDomainMethodLayerConfig(
-                method="py_pdf_term.TFIDFMethod",
-                hyper_params={"tfmode": 0},
-            ),
-            TypeError,
-        ),
-        (
-            MultiDomainMethodLayerConfig(
-                method="py_pdf_term.TFIDFMethod",
-                hyper_params={"idfmode": 0},
-            ),
-            TypeError,
-        ),
-        (
-            MultiDomainMethodLayerConfig(
-                method="py_pdf_term.TFIDFMethod",
-                hyper_params={"tfmode": "invalid"},
-            ),
-            TypeError,
-        ),
-        (
-            MultiDomainMethodLayerConfig(
-                method="py_pdf_term.TFIDFMethod",
-                hyper_params={"idfmode": "invalid"},
-            ),
-            TypeError,
         ),
     ],
 )

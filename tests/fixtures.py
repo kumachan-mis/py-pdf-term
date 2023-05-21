@@ -156,9 +156,7 @@ class PyPDFTermFixture:
         assert term.ncolor == "(0.0, 0.0, 0.0)"
 
     @classmethod
-    def assert_method_term_ranking(
-        cls, ranking: MethodTermRanking, acceptance_rate: float = 0.7
-    ) -> None:
+    def assert_method_term_ranking(cls, ranking: MethodTermRanking) -> None:
         assert len(ranking.ranking) > 0
         assert all(
             map(
@@ -166,12 +164,15 @@ class PyPDFTermFixture:
                 range(0, len(ranking.ranking) - 1),
             )
         )
+
+        threshold = ranking.ranking[int(0.7 * len(ranking.ranking))].score
         high_scored_terms = set(
             map(
                 lambda t: t.term,
-                ranking.ranking[: int(len(ranking.ranking) * acceptance_rate)],
+                filter(lambda t: t.score >= threshold, ranking.ranking),
             )
         )
+
         assert "5-layer architecture" in high_scored_terms
         assert "xml layer" in high_scored_terms
         assert "candidate term layer" in high_scored_terms
@@ -180,9 +181,7 @@ class PyPDFTermFixture:
         assert "technical term layer" in high_scored_terms
 
     @classmethod
-    def assert_pdf_stylings(
-        cls, pdf_stylings: PDFStylingScoreList, acceptance_rate: float = 0.7
-    ) -> None:
+    def assert_pdf_stylings(cls, pdf_stylings: PDFStylingScoreList) -> None:
         def ranking_is_ordered(ranking: List[ScoredTerm]) -> bool:
             return all(
                 map(
@@ -192,11 +191,9 @@ class PyPDFTermFixture:
             )
 
         def get_high_scored_terms(ranking: List[ScoredTerm]) -> set[str]:
+            threshold = ranking[int(0.7 * len(ranking))].score
             return set(
-                map(
-                    lambda t: t.term,
-                    ranking[: int(len(ranking) * acceptance_rate)],
-                )
+                map(lambda t: t.term, filter(lambda t: t.score >= threshold, ranking))
             )
 
         assert pdf_stylings.pdf_path == cls.PDF_PATH
