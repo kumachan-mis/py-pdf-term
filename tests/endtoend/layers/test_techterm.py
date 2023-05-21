@@ -215,7 +215,7 @@ def test_multi_full_config_more(config: TechnicalTermLayerConfig) -> None:
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             TechnicalTermLayerConfig(max_num_terms=0),
@@ -246,7 +246,7 @@ def test_single_invalid_config(
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             TechnicalTermLayerConfig(max_num_terms=0),

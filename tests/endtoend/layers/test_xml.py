@@ -118,7 +118,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             XMLLayerConfig(bin_opener="py_pdf_term.UnknownBinaryOpener"),

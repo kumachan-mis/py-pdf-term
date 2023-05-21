@@ -190,7 +190,7 @@ def test_multi_full_config(tmp_path: Path) -> None:
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.MCValueMethod", MCValueMethod),
         ("py_pdf_term.FLRMethod", FLRMethod),
@@ -243,7 +243,7 @@ def test_single_data_file_cache(
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.TFIDFMethod", TFIDFMethod),
         ("py_pdf_term.MDPMethod", MDPMethod),
@@ -307,7 +307,7 @@ def test_multi_data_file_cache(
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.MCValueMethod", MCValueMethod),
         ("py_pdf_term.FLRMethod", FLRMethod),
@@ -360,7 +360,7 @@ def test_single_ranking_file_cache(
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.TFIDFMethod", TFIDFMethod),
         ("py_pdf_term.MDPMethod", MDPMethod),
@@ -424,7 +424,7 @@ def test_multi_ranking_file_cache(
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.MCValueMethod", MCValueMethod),
         ("py_pdf_term.FLRMethod", FLRMethod),
@@ -478,7 +478,7 @@ def test_single_no_cache(
 
 
 @mark.parametrize(
-    "method,method_class",
+    "method, method_class",
     [
         ("py_pdf_term.TFIDFMethod", TFIDFMethod),
         ("py_pdf_term.MDPMethod", MDPMethod),
@@ -543,7 +543,7 @@ def test_multi_no_cache(
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             SingleDomainMethodLayerConfig(method="py_pdf_term.UnknownMethod"),
@@ -639,7 +639,7 @@ def test_single_invalid_config(
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             MultiDomainMethodLayerConfig(method="py_pdf_term.UnknownMethod"),

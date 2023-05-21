@@ -130,7 +130,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             StylingLayerConfig(styling_scores=["py_pdf_term.UnknownScore"]),

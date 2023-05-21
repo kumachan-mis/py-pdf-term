@@ -414,7 +414,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 
 
 @mark.parametrize(
-    "invalid_config,expected_exception",
+    "invalid_config, expected_exception",
     [
         (
             CandidateLayerConfig(lang_tokenizers=["py_pdf_term.UnknownTokenizer"]),
