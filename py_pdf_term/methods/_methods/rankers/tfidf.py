@@ -29,6 +29,11 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         tfmode: Literal["natural", "log", "augmented", "logave", "binary"] = "log",
         idfmode: Literal["natural", "smooth", "prob", "unary"] = "natural",
     ) -> None:
+        if tfmode not in ["natural", "log", "augmented", "logave", "binary"]:
+            raise TypeError(f"unknown tfmode {tfmode}")
+        if idfmode not in ["natural", "smooth", "prob", "unary"]:
+            raise TypeError(f"unknown idfmode {idfmode}")
+
         self._tfmode = tfmode
         self._idfmode = idfmode
 
@@ -101,7 +106,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         elif self._tfmode == "binary":
             return 1.0 if tf > 0 else 0.0
 
-        raise ValueError(f"unknown tfmode {self._tfmode}")
+        raise TypeError(f"unknown tfmode {self._tfmode}")
 
     def _calculate_idf(
         self,
@@ -124,4 +129,4 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         elif self._idfmode == "unary":
             return 1.0
 
-        raise ValueError(f"unknown idfmode {self._idfmode}")
+        raise TypeError(f"unknown idfmode {self._idfmode}")

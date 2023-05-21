@@ -7,7 +7,7 @@ from py_pdf_term import (
 )
 from py_pdf_term.configs import TechnicalTermLayerConfig
 
-from ..fixtures import PyPDFTermFixture
+from ..fixtures import PyPDFTermFixture, WikipediaPDFFixture
 
 
 def test_py_pdf_term_single_domain_extractor(tmp_path: Path):
@@ -34,7 +34,7 @@ def test_py_pdf_term_multi_domain_extractor(tmp_path: Path):
         PyPDFTermFixture.PDF_PATH,
         [
             DomainPDFList("test", [PyPDFTermFixture.PDF_PATH]),
-            DomainPDFList("other", [PyPDFTermFixture.PDF_PATH]),
+            DomainPDFList("other", [WikipediaPDFFixture.PDF_PATH]),
         ],
     )
 

@@ -35,6 +35,9 @@ from ...fixtures import PyPDFTermFixture
 class TestXMLLayer(XMLLayer):
     __test__ = False
 
+    def __init__(self) -> None:
+        pass
+
     def create_pdfnxml(self, pdf_path: str) -> PDFnXMLElement:
         xml_root = parse(PyPDFTermFixture.XML_PATH).getroot()
         return PDFnXMLElement(pdf_path, xml_root)
@@ -94,8 +97,10 @@ class TestCandidateLayerCache(CandidateLayerNoCache):
 
 
 def test_minimal_config(tmp_path: Path) -> None:
-    xml_layer = TestXMLLayer(cache_dir=tmp_path.as_posix())
-    candidate_layer = CandidateLayer(xml_layer=xml_layer, cache_dir=tmp_path.as_posix())
+    candidate_layer = CandidateLayer(
+        xml_layer=TestXMLLayer(),
+        cache_dir=tmp_path.as_posix(),
+    )
     domain_pdfs = DomainPDFList("test", [PyPDFTermFixture.PDF_PATH])
 
     domain_candidates = candidate_layer.create_domain_candidates(domain_pdfs)
@@ -106,8 +111,6 @@ def test_minimal_config(tmp_path: Path) -> None:
 
 
 def test_full_config(tmp_path: Path) -> None:
-    xml_layer = TestXMLLayer(cache_dir=tmp_path.as_posix())
-
     config = CandidateLayerConfig(
         lang_tokenizers=["test.TestTokenizer"],
         token_classifiers=["test.TestTokenClassifier"],
@@ -149,7 +152,7 @@ def test_full_config(tmp_path: Path) -> None:
     cache_mapper.add("test.TestCandidateLayerCache", TestCandidateLayerCache)
 
     candidate_layer = CandidateLayer(
-        xml_layer=xml_layer,
+        xml_layer=TestXMLLayer(),
         config=config,
         lang_tokenizer_mapper=lang_tokenizer_mapper,
         token_classifier_mapper=token_classifier_mapper,
@@ -346,8 +349,10 @@ def test_file_cache(tmp_path: Path, mocker: MockerFixture) -> None:
         CandidateTermExtractor, "extract_from_xml_element"
     )
 
-    xml_layer = TestXMLLayer(cache_dir=tmp_path.as_posix())
-    candidate_layer = CandidateLayer(xml_layer=xml_layer, cache_dir=tmp_path.as_posix())
+    candidate_layer = CandidateLayer(
+        xml_layer=TestXMLLayer(),
+        cache_dir=tmp_path.as_posix(),
+    )
     domain_pdfs = DomainPDFList("test", [PyPDFTermFixture.PDF_PATH])
 
     domain_candidates = candidate_layer.create_domain_candidates(domain_pdfs)
@@ -378,9 +383,8 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
         CandidateTermExtractor, "extract_from_xml_element"
     )
 
-    xml_layer = TestXMLLayer(cache_dir=tmp_path.as_posix())
     candidate_layer = CandidateLayer(
-        xml_layer=xml_layer,
+        xml_layer=TestXMLLayer(),
         config=CandidateLayerConfig(cache="py_pdf_term.CandidateLayerNoCache"),
         cache_dir=tmp_path.as_posix(),
     )
@@ -447,10 +451,11 @@ def test_invalid_config(
     invalid_config: CandidateLayerConfig,
     expected_exception: Type[Exception],
 ) -> None:
-    xml_layer = TestXMLLayer(cache_dir=tmp_path.as_posix())
     raises(
         expected_exception,
         lambda: CandidateLayer(
-            xml_layer=xml_layer, config=invalid_config, cache_dir=tmp_path.as_posix()
+            xml_layer=TestXMLLayer(),
+            config=invalid_config,
+            cache_dir=tmp_path.as_posix(),
         ),
     )

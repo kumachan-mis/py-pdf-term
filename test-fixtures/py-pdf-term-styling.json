@@ -1,0 +1,380 @@
+{
+  "pdf_path": "py-pdf-term/test-fixtures/py-pdf-term.pdf",
+  "pages": [
+    {
+      "page_num": 1,
+      "ranking": [
+        {
+          "term": "py-pdf-term",
+          "score": 1.7072460105105698
+        },
+        {
+          "term": "python",
+          "score": 0.766074738704372
+        },
+        {
+          "term": "https",
+          "score": 0.6228710104173385
+        },
+        {
+          "term": "github",
+          "score": 0.6228710104173385
+        },
+        {
+          "term": "com",
+          "score": 0.6228710104173385
+        },
+        {
+          "term": "kumachan-mis",
+          "score": 0.6228710104173385
+        }
+      ]
+    },
+    {
+      "page_num": 2,
+      "ranking": [
+        {
+          "term": "motivation",
+          "score": 1.8601202397248113
+        },
+        {
+          "term": "laboratory use",
+          "score": 1.186693098372761
+        },
+        {
+          "term": "practical use",
+          "score": 1.186693098372761
+        },
+        {
+          "term": "goal",
+          "score": 0.9425286387783779
+        },
+        {
+          "term": "countless number",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "implementation",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "terminology extraction",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "countless number of implementation",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "implementation of terminology extraction",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "countless number of implementation of terminology extraction",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "personal trial",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "efficacy",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "algorithm",
+          "score": 0.5740442756562568
+        },
+        {
+          "term": "practical software",
+          "score": 0.5740442756562568
+        }
+      ]
+    },
+    {
+      "page_num": 3,
+      "ranking": [
+        {
+          "term": "feature",
+          "score": 1.8038201682507198
+        },
+        {
+          "term": "laboratory use",
+          "score": 1.8038201682507198
+        },
+        {
+          "term": "switch",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "ranking algorithm",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "switch of ranking algorithm",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "plug-in",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "trial",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "plug-in for trial",
+          "score": 0.8420369490069065
+        },
+        {
+          "term": "more algorithm",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "essential select",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "suitable one",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "module",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "configuration",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "ideal output",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "idea",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "process",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "class",
+          "score": 0.5175186588585174
+        },
+        {
+          "term": "process as class",
+          "score": 0.5175186588585174
+        }
+      ]
+    },
+    {
+      "page_num": 4,
+      "ranking": [
+        {
+          "term": "feature",
+          "score": 1.808566405398391
+        },
+        {
+          "term": "practical use",
+          "score": 1.808566405398391
+        },
+        {
+          "term": "o customize",
+          "score": 0.8923301911761593
+        },
+        {
+          "term": "cache mechanism",
+          "score": 0.8923301911761593
+        },
+        {
+          "term": "practical software",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "file",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "local storage",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "o function",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "remote storage",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "one",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "module",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "your",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "o function with your",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "performance",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "big problem",
+          "score": 0.5747450202458322
+        },
+        {
+          "term": "intermediate output",
+          "score": 0.5747450202458322
+        }
+      ]
+    },
+    {
+      "page_num": 5,
+      "ranking": [
+        {
+          "term": "5-layer architecture",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "xml layer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "pdf file",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "xml file",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "pdfminer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "candidate term layer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "extracts candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "terminology",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "extracts candidate of terminology",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "spacy",
+          "score": 0.6989700043360187
+        }
+      ]
+    },
+    {
+      "page_num": 6,
+      "ranking": [
+        {
+          "term": "5-layer architecture",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "method layer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "calculates method score",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "calculates method score of candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "frequency",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "colocation likelihood",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "styling layer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "calculates styling score",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "calculates styling score of candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "font size",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "font color",
+          "score": 0.6989700043360187
+        }
+      ]
+    },
+    {
+      "page_num": 7,
+      "ranking": [
+        {
+          "term": "5-layer architecture",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "technical term layer",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "selects terminology",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "selects terminology from candidate",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "order",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "terminology",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "appearance order",
+          "score": 0.6989700043360187
+        },
+        {
+          "term": "pdf file",
+          "score": 0.6989700043360187
+        }
+      ]
+    }
+  ]
+}

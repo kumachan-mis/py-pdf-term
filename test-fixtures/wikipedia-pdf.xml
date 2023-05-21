@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages>
+<page id="1">
+<text size="25.200" ncolor="(0, 0, 0)" bbox="31.293,333.725,48.077,358.925">PDF</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,42.273,304.444">This file uses material from the Wikipedia article &quot;PDF&quot; (</text>
+<text size="18.000" ncolor="(0, 0.5921569, 0.654902)" bbox="37.287,261.604,47.295,279.604">https://en.wikipedia.org/wiki/PDF</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="297.391,261.604,303.385,279.604">)</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,224.764,44.289,242.764">which is released under the Creative Commons Attribution-Share-Alike License 3.0 (</text>
+<text size="18.000" ncolor="(0, 0.5921569, 0.654902)" bbox="67.311,199.924,77.319,217.924">https://creativecommons.org/licenses/by-sa/3.0</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="442.472,199.924,448.466,217.924">).</text>
+</page>
+<page id="2">
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,43.281,304.444">Portable Document Format (PDF) is a file format developed by Adobe in 1992 to present documents,</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,224.764,35.289,242.764">including text formatting and images, in a manner independent of application software, hardware, and operating systems.</text>
+</page>
+<page id="3">
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,43.281,304.444">Based on the PostScript language, each PDF file encapsulates a complete description of a fixed-layout flat document,</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,224.764,35.289,242.764">including the text, fonts, vector graphics, raster images and other information needed to display it.</text>
+</page>
+<page id="4">
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,43.281,304.444">PDF has its roots in &quot;The Camelot Project&quot; initiated by Adobe co-founder John Warnock in 1991.</text>
+</page>
+<page id="5">
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,43.281,304.444">PDF files may contain a variety of content besides flat text and graphics</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,249.604,35.289,267.604">including logical structuring elements, interactive elements.</text>
+</page>
+<page id="6">
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,286.444,42.273,304.444">The PDF specification also provides for encryption and digital signatures, file attachments, and metadata</text>
+<text size="18.000" ncolor="(0.34901962, 0.34901962, 0.34901962)" bbox="31.293,224.764,36.279,242.764">to enable workflows requiring these features.</text>
+</page>
+</pages>

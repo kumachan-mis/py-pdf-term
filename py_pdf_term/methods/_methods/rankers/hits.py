@@ -46,6 +46,11 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
     """
 
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
+        if threshold <= 0:
+            raise ValueError("threshold must be positive")
+        if max_loop <= 0:
+            raise ValueError("max_loop must be positive")
+
         self._threshold = threshold
         self._max_loop = max_loop
 

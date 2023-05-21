@@ -1,0 +1,1449 @@
+{
+  "pdf_path": "py-pdf-term/test-fixtures/wikipedia-pdf.pdf",
+  "pages": [
+    {
+      "page_num": 1,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "material",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "material",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Wikipedia",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "wikipedia",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "article",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "article",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "https",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "https",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "wikipedia",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "wikipedia",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "org",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "org",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "wiki",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "wiki",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Creative",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "creative",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Commons",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "commons",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Attribution",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "attribution",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "Share",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "share",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "Alike",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "alike",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "License",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "license",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "https",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "https",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "creativecommons",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "creativecommon",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "org",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "org",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "licenses",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "license",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 2,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Portable",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "portable",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Document",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "document",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Format",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "format",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "format",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "format",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Adobe",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "adobe",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "present",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "present",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "documents",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "document",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Adobe",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "adobe",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "in",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "in",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "1992",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "1992",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "1992",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "1992",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "to",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "to",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "present",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "present",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "documents",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "document",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Adobe",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "adobe",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "in",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "in",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "1992",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "1992",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "to",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "to",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "present",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "present",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "documents",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "document",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "including",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "include",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "text",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "text",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "formatting",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "format",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "images",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "image",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "manner",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "manner",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "application",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "application",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "software",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "software",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "hardware",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "hardware",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "operating",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "operating",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "systems",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "system",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 3,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PostScript",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "postscript",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "language",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "language",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "complete",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "complete",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "description",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "description",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "fixed",
+              "pos": "VERB",
+              "category": "VBN",
+              "subcategory": "*",
+              "lemma": "fix",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "layout",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "layout",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "flat",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "flat",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "document",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "document",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "including",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "include",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "text",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "text",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "fonts",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "font",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "vector",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "vector",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "graphics",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "graphic",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "raster",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "raster",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "images",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "image",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "other",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "other",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "information",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "information",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 4,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "roots",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "root",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Camelot",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "camelot",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Project",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "project",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Adobe",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "adobe",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "co",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "co",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "founder",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "founder",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "John",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "john",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Warnock",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "warnock",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        }
+      ]
+    },
+    {
+      "page_num": 5,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "files",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "variety",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "variety",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "content",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "content",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "variety",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "variety",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "content",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "content",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "flat",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "flat",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "text",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "text",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "graphics",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "graphic",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "including",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "include",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "logical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "logical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "structuring",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "structuring",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "elements",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "element",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "interactive",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "interactive",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "elements",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "element",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 6,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "specification",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "specification",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "encryption",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "encryption",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "digital",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "digital",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "signatures",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "signature",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "attachments",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "attachment",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "metadata",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "metadata",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "workflows",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "workflow",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "requiring",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "require",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "features",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "feature",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    }
+  ]
+}
