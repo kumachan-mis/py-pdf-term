@@ -156,16 +156,17 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
 
     from django.db import models
     from py_pdf_term import PyPDFTermSingleDomainExtractor, DomainPDFList
+    from py_pdf_term.pdftoxml.binopeners import BaseBinaryOpener
 
 
     class PDFFile(models.Model):
         id = models.AutoField(primary_key=True)
         file = models.FileField(upload_to=pdf_upload_to, max_length=200)
+    
 
-
-    def extract_terminologies_from_example_pdf():
-        # define a function to open a PDF file on Django FileField
-        def open_storage_binary_file(path: str, mode: str):
+    # define a class to open a PDF file on Django FileField
+    class StorageFileBinaryOpener(BaseBinaryOpener):
+        def open(self, path: str, mode: str):
             try:
                 pdf_file = PDFFile.objects.get(file=path)
             except PDFFile.DoesNotExist:
@@ -176,21 +177,23 @@ Here is an example with `Django <https://www.djangoproject.com>`_.'s FileField
             pdf_file.file.close()
             return bytesio
 
-        # define a name to find the function
-        open_bin = "example.open_storage_binary_file"
 
-        # registrate the function to the mapper
+    def extract_terminologies_from_example_pdf():
+        # define a name to find the class
+        bin_opener = "example.StorageFileBinaryOpener"
+
+        # registrate the class to the mapper
         bin_opener_mapper = BinaryOpenerMapper()
-        bin_opener_mapper.add(open_bin, open_storage_binary_file)
+        bin_opener_mapper.add(bin_opener, StorageFileBinaryOpener)
 
         # create an extractor instance with following configs:
         #    - deactive the caches in all layers
-        #    - costomize the function to open a PDF file
+        #    - costomize the class to open a PDF file
         #
         # see API reference to check all configs
         extractor = PyPDFTermSingleDomainExtractor(
             xml_config=XMLLayerConfig(
-                open_bin=open_bin,
+                bin_opener=bin_opener,
                 cache="py_pdf_term.XMLLayerNoCache",
             ),
             candidate_config=CandidateLayerConfig(
