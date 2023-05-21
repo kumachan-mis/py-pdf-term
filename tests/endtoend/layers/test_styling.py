@@ -1,18 +1,19 @@
 import json
-from typing import Type
 from pathlib import Path
+from typing import Type
 
 from pytest import mark, raises
 from pytest_mock import MockerFixture
 
-from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_pdf_term import DomainPDFList
+from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_pdf_term.configs import StylingLayerConfig
-from py_pdf_term.mappers import StylingScoreMapper, StylingLayerCacheMapper
-from py_pdf_term.stylings.scores import FontsizeScore
-from py_pdf_term.stylings import StylingScorer
-from py_pdf_term.endtoend.caches import StylingLayerNoCache
 from py_pdf_term.endtoend._endtoend.layers import CandidateLayer, StylingLayer
+from py_pdf_term.endtoend.caches import StylingLayerNoCache
+from py_pdf_term.mappers import StylingLayerCacheMapper, StylingScoreMapper
+from py_pdf_term.stylings import StylingScorer
+from py_pdf_term.stylings.scores import FontsizeScore
+
 from ...fixtures import PyPDFTermFixture
 
 

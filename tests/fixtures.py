@@ -2,12 +2,12 @@ from os import path
 from typing import List, Optional
 
 from py_pdf_term import PDFTechnicalTermList
+from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import PDFCandidateTermList
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.pdftoxml import PDFnXMLElement
 from py_pdf_term.stylings import PDFStylingScoreList
 from py_pdf_term.tokenizers import Term
-from py_pdf_term._common.data import ScoredTerm
 
 FIXTURES_DIR = path.abspath(path.join(path.dirname(__file__), "..", "test-fixtures"))
 

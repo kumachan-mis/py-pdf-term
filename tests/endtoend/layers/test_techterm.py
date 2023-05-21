@@ -1,21 +1,22 @@
 import json
-from typing import Type, List
-from py_pdf_term import DomainPDFList
-from py_pdf_term.methods import MethodTermRanking
+from typing import List, Type
 
 from pytest import mark, raises
 
+from py_pdf_term import DomainPDFList
 from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_pdf_term.configs import TechnicalTermLayerConfig
-from py_pdf_term.stylings import PDFStylingScoreList
 from py_pdf_term.endtoend._endtoend.layers import (
     CandidateLayer,
-    StylingLayer,
     MultiDomainMethodLayer,
     MultiDomainTechnicalTermLayer,
     SingleDomainMethodLayer,
     SingleDomainTechnicalTermLayer,
+    StylingLayer,
 )
+from py_pdf_term.methods import MethodTermRanking
+from py_pdf_term.stylings import PDFStylingScoreList
+
 from ...fixtures import PyPDFTermFixture, WikipediaPDFFixture
 
 

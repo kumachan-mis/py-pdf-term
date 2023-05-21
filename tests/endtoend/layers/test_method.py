@@ -1,20 +1,20 @@
 import json
-from typing import Any, Type
 from pathlib import Path
+from typing import Any, Type
 
 from pytest import mark, raises
 from pytest_mock import MockerFixture
 
+from py_pdf_term import DomainPDFList
 from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
 from py_pdf_term.configs import (
-    SingleDomainMethodLayerConfig,
     MultiDomainMethodLayerConfig,
+    SingleDomainMethodLayerConfig,
 )
-from py_pdf_term import DomainPDFList
 from py_pdf_term.endtoend._endtoend.layers import (
+    CandidateLayer,
     MultiDomainMethodLayer,
     SingleDomainMethodLayer,
-    CandidateLayer,
 )
 from py_pdf_term.endtoend.caches import (
     MethodLayerDataNoCache,
@@ -27,14 +27,14 @@ from py_pdf_term.mappers import (
     SingleDomainRankingMethodMapper,
 )
 from py_pdf_term.methods import (
-    MCValueMethod,
-    MDPMethod,
+    BaseMultiDomainRankingMethod,
+    BaseSingleDomainRankingMethod,
+    FLRHMethod,
     FLRMethod,
     HITSMethod,
-    FLRHMethod,
+    MCValueMethod,
+    MDPMethod,
     TFIDFMethod,
-    BaseSingleDomainRankingMethod,
-    BaseMultiDomainRankingMethod,
 )
 
 from ...fixtures import PyPDFTermFixture, WikipediaPDFFixture
