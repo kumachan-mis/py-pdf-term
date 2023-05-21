@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from typing import Dict
+from dataclasses import asdict, dataclass, field
+from typing import Any, Dict
 
 from .base import BaseRankingData
 
@@ -26,3 +26,13 @@ class MDPRankingData(BaseRankingData):
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "num_terms", sum(self.term_freq.values()))
+
+    def to_dict(self) -> Dict[str, Any]:
+        obj = asdict(self)
+        obj.pop("num_terms", None)
+        return obj
+
+    @classmethod
+    def from_dict(cls, obj: Dict[str, Any]) -> "MDPRankingData":
+        obj.pop("num_terms", None)
+        return cls(**obj)

@@ -1,0 +1,2480 @@
+{
+  "pdf_path": "py-pdf-term/test-fixtures/py-pdf-term.pdf",
+  "pages": [
+    {
+      "page_num": 1,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "py",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "py",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "pdf",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "term",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "term",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 52.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Python",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "python",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "https",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "https",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "github",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "github",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "com",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "com",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "kumachan",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "kumachan",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "mis",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "mis",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "py",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "py",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "pdf",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "term",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "term",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 21.7,
+          "ncolor": "(0.0, 0.5921569, 0.654902)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 2,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Motivation",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "motivation",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "countless",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "countless",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "number",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "number",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "implementations",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "implementation",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "terminology",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "extraction",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "extraction",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "countless",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "countless",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "number",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "number",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "implementations",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "implementation",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "implementations",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "implementation",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "terminology",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "extraction",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "extraction",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "countless",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "countless",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "number",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "number",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "implementations",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "implementation",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "terminology",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "extraction",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "extraction",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "personal",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "personal",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "trials",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "trial",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "efficacy",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "efficacy",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "algorithm",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "algorithm",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "practical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "practical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "softwares",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "software",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "goal",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "goal",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "laboratory",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "laboratory",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "use",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "use",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(1.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "practical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "practical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "use",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "use",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(1.0, 0.0, 0.0)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 3,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Features",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "feature",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "laboratory",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "laboratory",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "use",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "use",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "switch",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "switch",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "ranking",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "ranking",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "algorithms",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "algorithm",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "switch",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "switch",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "ranking",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "ranking",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "algorithms",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "algorithm",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "more",
+              "pos": "ADJ",
+              "category": "JJR",
+              "subcategory": "*",
+              "lemma": "more",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "algorithms",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "algorithm",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "essential",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "essential",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "selecting",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "select",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "suitable",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "suitable",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "one",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "one",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "module",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "module",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "ranking",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "ranking",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "algorithm",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "algorithm",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "configuration",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "configuration",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "plug",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "plug",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "in",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "in",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "trial",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "trial",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "plug",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "plug",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "in",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "in",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "for",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "for",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "trial",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "trial",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Trial",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "trial",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "ideal",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "ideal",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "outputs",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "output",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "module",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "module",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "ideas",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "idea",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "process",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "process",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "classes",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "class",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "process",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "process",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "as",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "as",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "classes",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "class",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 4,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Features",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "feature",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "practical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "practical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "use",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "use",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 25.2,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "o",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "o",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "customizing",
+              "pos": "VERB",
+              "category": "VBG",
+              "subcategory": "*",
+              "lemma": "customize",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "practical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "practical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "softwares",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "software",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "files",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "local",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "local",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "storage",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "storage",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "O",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "o",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "functions",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "function",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "remote",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "remote",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "storage",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "storage",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "ones",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "one",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "module",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "module",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "O",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "o",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "functions",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "function",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "yours",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "your",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "O",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "o",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "functions",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "function",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "with",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "with",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "yours",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "your",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "cache",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "cache",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "mechanism",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "mechanism",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 20.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "practical",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "practical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "softwares",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "software",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "performance",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "performance",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "biggest",
+              "pos": "ADJ",
+              "category": "JJS",
+              "subcategory": "*",
+              "lemma": "big",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "problems",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "problem",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "module",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "module",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "cache",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "cache",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "mechanism",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "mechanism",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "intermediate",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "intermediate",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "output",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "output",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 18.0,
+          "ncolor": "(0.34901962, 0.34901962, 0.34901962)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 5,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "5",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "5",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "layers",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "architecture",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "architecture",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "XML",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "xml",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Layer",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "XML",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "xml",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "pdfminer",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdfminer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Candidate",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Term",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "term",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Layer",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Extracts",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "extracts",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "terminologies",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Extracts",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "extracts",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "terminologies",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "spaCy",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "spacy",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        }
+      ]
+    },
+    {
+      "page_num": 6,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "5",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "5",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "layers",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "architecture",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "architecture",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Method",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "method",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Layer",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Calculates",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "calculates",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "method",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "method",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "scores",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "score",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Calculates",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "calculates",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "method",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "method",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "scores",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "score",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Frequency",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "frequency",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "colocation",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "colocation",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "likelihood",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "likelihood",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Styling",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "styling",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Layer",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Calculates",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "calculates",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "styling",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "styling",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "scores",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "score",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Calculates",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "calculates",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "styling",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "styling",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "scores",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "score",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "of",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "of",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Font",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "font",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "size",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "size",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "font",
+              "pos": "ADJ",
+              "category": "JJ",
+              "subcategory": "*",
+              "lemma": "font",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "color",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "color",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        }
+      ]
+    },
+    {
+      "page_num": 7,
+      "candidates": [
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "5",
+              "pos": "NUM",
+              "category": "CD",
+              "subcategory": "*",
+              "lemma": "5",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "-",
+              "pos": "SYM",
+              "category": "*",
+              "subcategory": "*",
+              "lemma": "-",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "layers",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "architecture",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "architecture",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Technical",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "technical",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Term",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "term",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "Layer",
+              "pos": "PROPN",
+              "category": "NNP",
+              "subcategory": "*",
+              "lemma": "layer",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Selects",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "selects",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "terminologies",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "Selects",
+              "pos": "PROPN",
+              "category": "NNPS",
+              "subcategory": "*",
+              "lemma": "selects",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "terminologies",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "from",
+              "pos": "ADP",
+              "category": "IN",
+              "subcategory": "*",
+              "lemma": "from",
+              "is_meaningless": true
+            },
+            {
+              "lang": "en",
+              "surface_form": "candidates",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "candidate",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "order",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "order",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "terminologies",
+              "pos": "NOUN",
+              "category": "NNS",
+              "subcategory": "*",
+              "lemma": "terminology",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "appearance",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "appearance",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "order",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "order",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": true
+        },
+        {
+          "tokens": [
+            {
+              "lang": "en",
+              "surface_form": "PDF",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "pdf",
+              "is_meaningless": false
+            },
+            {
+              "lang": "en",
+              "surface_form": "file",
+              "pos": "NOUN",
+              "category": "NN",
+              "subcategory": "*",
+              "lemma": "file",
+              "is_meaningless": false
+            }
+          ],
+          "fontsize": 0.0,
+          "ncolor": "(0.0, 0.0, 0.0)",
+          "augmented": false
+        }
+      ]
+    }
+  ]
+}

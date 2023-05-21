@@ -32,6 +32,11 @@ class TechnicalTermExtractor:
     """
 
     def __init__(self, max_num_terms: int = 10, acceptance_rate: float = 0.75) -> None:
+        if max_num_terms <= 0:
+            raise ValueError("max_num_terms must be positive")
+        if acceptance_rate <= 0.0 or acceptance_rate > 1.0:
+            raise ValueError("acceptance_rate must be in (0.0, 1.0]")
+
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
         self._cache: Optional[Dict[str, float]] = None

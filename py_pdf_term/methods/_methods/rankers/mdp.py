@@ -24,6 +24,11 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     def __init__(
         self, compile_scores: Callable[[Iterable[float]], float] = min
     ) -> None:
+        if not callable(compile_scores):
+            raise TypeError(
+                f"compile_scores must be a callable object, not {type(compile_scores)}"
+            )
+
         self._compile_scores = compile_scores
 
     def rank_terms(

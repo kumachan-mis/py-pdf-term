@@ -219,8 +219,16 @@ class PyPDFTermSingleDomainExtractor:
             PDFTechnicalTermList:
                 Terminology list per page from the input PDF file.
         """
+        self._validate(pdf_path, domain_pdfs)
+
         pdf_techterms = self._techterm_layer.create_pdf_techterms(pdf_path, domain_pdfs)
         return pdf_techterms
+
+    def _validate(self, pdf_path: str, domain_pdfs: DomainPDFList) -> None:
+        DomainPDFList.validate(domain_pdfs)
+
+        if pdf_path not in domain_pdfs.pdf_paths:
+            raise ValueError(f"{pdf_path} must be included in domain_pdfs")
 
 
 class PyPDFTermMultiDomainExtractor:
@@ -407,7 +415,34 @@ class PyPDFTermMultiDomainExtractor:
             PDFTechnicalTermList:
                 Terminology list per page from the input PDF file.
         """
+        self._validate(domain, pdf_path, multi_domain_pdfs)
+
         pdf_techterms = self._techterm_layer.create_pdf_techterms(
             domain, pdf_path, multi_domain_pdfs
         )
         return pdf_techterms
+
+    def _validate(
+        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+    ) -> None:
+        if domain == "":
+            raise ValueError("domain name must not be empty")
+
+        if len(multi_domain_pdfs) < 2:
+            raise ValueError("multi_domain_pdfs must have at least two elements")
+
+        for domain_pdfs in multi_domain_pdfs:
+            DomainPDFList.validate(domain_pdfs)
+
+        domain_set = set(map(lambda pdfs: pdfs.domain, multi_domain_pdfs))
+        if len(domain_set) != len(multi_domain_pdfs):
+            raise ValueError("multi_domain_pdfs must have unique domain names")
+
+        if domain not in domain_set:
+            raise ValueError(f"{domain} must be included in multi_domain_pdfs")
+
+        domain_pdfs = next(
+            filter(lambda pdfs: pdfs.domain == domain, multi_domain_pdfs)
+        )
+        if pdf_path not in domain_pdfs.pdf_paths:
+            raise ValueError(f"{pdf_path} must be included in {domain}")

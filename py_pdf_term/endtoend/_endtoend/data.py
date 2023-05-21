@@ -16,3 +16,10 @@ class DomainPDFList:
 
     domain: str
     pdf_paths: List[str]
+
+    @classmethod
+    def validate(cls, domain_pdfs: "DomainPDFList") -> None:
+        if not domain_pdfs.domain:
+            raise ValueError("domain must not be empty")
+        if not domain_pdfs.pdf_paths:
+            raise ValueError("pdf_paths must not be empty")
