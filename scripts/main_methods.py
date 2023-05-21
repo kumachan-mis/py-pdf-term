@@ -44,7 +44,7 @@ if __name__ == "__main__":
         method = FLRHMethod()
     elif args.mdp:
         method_name = "mdp"
-        method = MDPMethod(compile_scores=max)
+        method = MDPMethod()
     else:
         raise RuntimeError("unreachable statement")
 

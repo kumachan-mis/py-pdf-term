@@ -1,5 +1,5 @@
 from sys import float_info
-from typing import Callable, Iterable, List
+from typing import List
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term._common.utils import extended_log10
@@ -12,24 +12,10 @@ from .base import BaseMultiDomainRanker
 
 
 class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
-    """A term ranker by MDP algorithm.
+    """A term ranker by MDP algorithm."""
 
-    Args
-    ----
-        compile_scores:
-            A function to compile scores of candidate terms in each domain.
-            The default is `min`, which means that the minimum score is used.
-    """
-
-    def __init__(
-        self, compile_scores: Callable[[Iterable[float]], float] = min
-    ) -> None:
-        if not callable(compile_scores):
-            raise TypeError(
-                f"compile_scores must be a callable object, not {type(compile_scores)}"
-            )
-
-        self._compile_scores = compile_scores
+    def __init__(self) -> None:
+        pass
 
     def rank_terms(
         self,
@@ -69,7 +55,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         other_ranking_data_list: List[MDPRankingData],
     ) -> ScoredTerm:
         candidate_lemma = candidate.lemma()
-        score = self._compile_scores(
+        score = min(
             map(
                 lambda other_ranking_data: self._calculate_zvalue(
                     candidate, ranking_data, other_ranking_data
