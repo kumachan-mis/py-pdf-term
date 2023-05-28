@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional
+
 
 from py_pdf_term._common.consts import ALPHABET_REGEX, NUMBER_REGEX
 from py_pdf_term.tokenizers import Term
@@ -9,22 +9,22 @@ from .base import BaseSplitter
 
 
 class SymbolNameSplitter(BaseSplitter):
-    """A splitter to split down a symbol at the end of a term. For example, given
+    """Splitter to split down a symbol at the end of a term. For example, given
     "Programming Language 2", this splitter splits it into "Programming Language" and
     "2", and then "2" is ignored as a meaningless term.
 
     Args
     ----
         classifiers:
-            A list of token classifiers to classify tokens into specific categories.
+            List of token classifiers to classify tokens into specific categories.
             If None, the default classifiers are used. The default classifiers are
             JapaneseTokenClassifier and EnglishTokenClassifier.
     """
 
-    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+    def __init__(self, classifiers: list[BaseTokenClassifier] | None = None) -> None:
         super().__init__(classifiers=classifiers)
 
-    def split(self, term: Term) -> List[Term]:
+    def split(self, term: Term) -> list[Term]:
         num_tokens = len(term.tokens)
         if num_tokens < 2:
             return [term]

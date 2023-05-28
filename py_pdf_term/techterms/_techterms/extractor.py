@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import (
     DomainCandidateTermList,
@@ -18,7 +16,7 @@ from .utils import ranking_to_dict
 
 
 class TechnicalTermExtractor:
-    """A technical term extrator based on ranking method scores and styling scores.
+    """Technical term extrator based on ranking method scores and styling scores.
 
     Args
     ----
@@ -26,7 +24,7 @@ class TechnicalTermExtractor:
             Maximum number of terms in a page of a PDF file to be extracted. The N-best
             candidates are extracted as technical terms. The default value is 10.
         acceptance_rate:
-            The acceptance rate of the ranking method scores. The candidates whose
+            Acceptance rate of the ranking method scores. The candidates whose
             ranking method scores are lower than the acceptance rate are filtered out
             even if they are in the N-best candidates. The default value is 0.75.
     """
@@ -39,7 +37,7 @@ class TechnicalTermExtractor:
 
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
-        self._cache: Optional[Dict[str, float]] = None
+        self._cache: dict[str, float] | None = None
 
     def extract_from_domain(
         self,
@@ -62,7 +60,7 @@ class TechnicalTermExtractor:
         Returns
         -------
             DomainTechnicalTermList:
-                A list of technical terms in PDF files in a domain. The terms are sorted
+                List of technical terms in PDF files in a domain. The terms are sorted
                 in appearance order, not in score order.
         """
 
@@ -103,7 +101,7 @@ class TechnicalTermExtractor:
         Returns
         -------
             PDFTechnicalTermList:
-                A list of technical terms in a PDF file. The terms are sorted in
+                List of technical terms in a PDF file. The terms are sorted in
                 appearance order, not in score order.
         """
 

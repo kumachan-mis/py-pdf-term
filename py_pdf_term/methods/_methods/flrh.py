@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from .base import BaseSingleDomainRankingMethod
 from .collectors import FLRHRankingDataCollector
@@ -7,16 +7,16 @@ from .rankingdata import FLRHRankingData
 
 
 class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
-    """A ranking method by FLRH algorithm. This algorithm is a combination of FLR and
+    """Ranking method by FLRH algorithm. This algorithm is a combination of FLR and
     HITS.
 
     Args
     ----
         threshold:
-            A threshold of the FLRH algorithm. The default is 1e-8.
+            Threshold of the FLRH algorithm. The default is 1e-8.
 
         max_loop:
-            A maximum number of loops of the FLRH algorithm. The default is 1000.
+            Maximum number of loops of the FLRH algorithm. The default is 1000.
     """
 
     def __init__(self, threshold: float = 1e-8, max_loop: int = 1000) -> None:
@@ -25,5 +25,5 @@ class FLRHMethod(BaseSingleDomainRankingMethod[FLRHRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> FLRHRankingData:
+    def collect_data_from_dict(cls, obj: dict[str, Any]) -> FLRHRankingData:
         return FLRHRankingData(**obj)

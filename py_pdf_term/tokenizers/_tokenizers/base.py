@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import List
 
 from .data import Token
 
@@ -16,7 +15,7 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         Args
         ----
             text:
-                A text to test.
+                Text to test.
 
         Returns
         -------
@@ -28,19 +27,19 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.inscope()")
 
     @abstractmethod
-    def tokenize(self, scoped_text: str) -> List[Token]:
+    def tokenize(self, scoped_text: str) -> list[Token]:
         """Tokenize a scoped text into a list of tokens.
 
         Args
         ----
             scoped_text:
-                A text to tokenize. This text is expected to be in the scope of the
+                Text to tokenize. This text is expected to be in the scope of the
                 language tokenizer.
 
         Returns
         -------
-            List[Token]:
-                A list of tokens.
+            list[Token]:
+                List of tokens.
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.tokenize()")

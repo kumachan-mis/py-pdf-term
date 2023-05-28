@@ -5,7 +5,7 @@ from ..base import BaseEnglishCandidateTermFilter
 
 
 class EnglishNumericFilter(BaseEnglishCandidateTermFilter):
-    """A term filter to remove English numeric phrases from candidate terms."""
+    """Term filter to remove English numeric phrases from candidate terms."""
 
     def __init__(self) -> None:
         self._classifier = EnglishTokenClassifier()

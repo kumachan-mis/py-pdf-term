@@ -1,6 +1,6 @@
 import re
 from itertools import accumulate
-from typing import Any, List
+from typing import Any
 
 import ja_core_news_sm
 
@@ -14,17 +14,17 @@ DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
-    """A tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
+    """Tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
 
     def inscope(self, text: str) -> bool:
         return JapaneseTokenizer._regex.search(text) is not None
 
-    def tokenize(self, scoped_text: str) -> List[Token]:
+    def tokenize(self, scoped_text: str) -> list[Token]:
         scoped_text = SPACES.sub(" ", scoped_text).strip()
         orginal_space_pos = {
-            match.start() - offset
-            for offset, match in enumerate(re.finditer(r" ", scoped_text))
-            if DELIM_SPACE.match(scoped_text, match.start()) is not None
+            regex_match.start() - offset
+            for offset, regex_match in enumerate(re.finditer(r" ", scoped_text))
+            if DELIM_SPACE.match(scoped_text, regex_match.start()) is not None
         }
 
         scoped_text = DELIM_SPACE.sub("", scoped_text)

@@ -5,7 +5,7 @@ from py_pdf_term.configs import CandidateLayerConfig
 from py_pdf_term.endtoend.caches import CandidateLayerFileCache, CandidateLayerNoCache
 
 
-def test_file_cache(tmp_path: Path):
+def test_file_cache(tmp_path: Path) -> None:
     cache = CandidateLayerFileCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
@@ -28,7 +28,7 @@ def test_file_cache(tmp_path: Path):
     assert cache.load(pdf_path, config) is None
 
 
-def test_file_cache_multiple(tmp_path: Path):
+def test_file_cache_multiple(tmp_path: Path) -> None:
     cache = CandidateLayerFileCache(tmp_path.as_posix())
 
     pdf_path1 = "test1.pdf"
@@ -57,7 +57,7 @@ def test_file_cache_multiple(tmp_path: Path):
     assert cache.load(pdf_path2, config) is None
 
 
-def test_no_cache(tmp_path: Path):
+def test_no_cache(tmp_path: Path) -> None:
     cache = CandidateLayerNoCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"

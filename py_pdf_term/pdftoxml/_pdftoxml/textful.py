@@ -1,36 +1,31 @@
 from dataclasses import dataclass
-from typing import Any, BinaryIO, Optional, Sequence, Tuple, Union
+from typing import BinaryIO, Sequence
 
-from pdfminer.converter import (
-    Matrix,
-    PathSegment,
-    PDFConverter,
-    PDFGraphicState,
-    PDFStream,
-    Rect,
-)
+from pdfminer.converter import PDFConverter
+from pdfminer.utils import Matrix, PathSegment, Rect, bbox2str, enc
+from pdfminer.pdfinterp import PDFGraphicState, PDFResourceManager
+from pdfminer.pdftypes import PDFStream
+
 from pdfminer.layout import (
     LAParams,
     LTAnno,
     LTChar,
     LTPage,
-    LTText,
     LTTextBox,
     LTTextLine,
+    LTComponent,
 )
-from pdfminer.pdfinterp import PDFResourceManager
-from pdfminer.utils import bbox2str, enc
 
 from .utils import clean_content_text
 
-NColor = Union[float, Tuple[float, float, float], Tuple[float, float, float, float]]
+NColor = float | tuple[float, float, float] | tuple[float, float, float, float]
 
 
 @dataclass
 class TextboxState:
     within_section: bool
     size: float
-    ncolor: Optional[NColor]
+    ncolor: NColor | None
     bbox: str
     text: str
 
@@ -41,21 +36,21 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
     Args
     ----
         rsrcmgr:
-            A PDFResourceManager object from pdfminer.
+            PDFResourceManager object from pdfminer.
         outfp:
-            A file-like object to output XML.
+            File-like object to output XML.
         codec:
-            A codec name to encode XML.
+            Codec name to encode XML.
         pageno:
-            A page number to start.
+            Page number to start.
         laparams:
-            A LAParams object from pdfminer.
+            LAParams object from pdfminer.
         nfc_norm:
             If True, normalize text to NFC, otherwise keep original.
         include_pattern:
-            A regular expression pattern of text to include in the output.
+            Regular expression pattern of text to include in the output.
         exclude_pattern:
-            A regular expression pattern of text to exclude from the output (overrides
+            Regular expression pattern of text to exclude from the output (overrides
             include_pattern).
     """
 
@@ -65,10 +60,10 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
         outfp: BinaryIO,
         codec: str = "utf-8",
         pageno: int = 1,
-        laparams: Optional[LAParams] = None,
+        laparams: LAParams | None = None,
         nfc_norm: bool = True,
-        include_pattern: Optional[str] = None,
-        exclude_pattern: Optional[str] = None,
+        include_pattern: str | None = None,
+        exclude_pattern: str | None = None,
     ) -> None:
         super().__init__(rsrcmgr, outfp, codec, pageno, laparams)
 
@@ -110,13 +105,14 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
     ) -> None:
         pass
 
-    def _render(self, item: Any) -> None:
-        if isinstance(item, LTPage):
-            self._render_page(item)
-        elif isinstance(item, LTTextBox):
-            self._render_textbox(item)
-        elif isinstance(item, LTText):
-            self._render_text(item)
+    def _render(self, item: LTComponent) -> None:
+        match item:
+            case LTPage():
+                self._render_page(item)
+            case LTTextBox():
+                self._render_textbox(item)
+            case _:
+                pass
 
     def _render_page(self, ltpage: LTPage) -> None:
         self._write('<page id="%s">\n' % ltpage.pageid)
@@ -127,27 +123,37 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
     def _render_textbox(self, lttextbox: LTTextBox) -> None:
         state = TextboxState(False, 0.0, None, "", "")
 
-        def render_textbox_child(child: Any) -> None:
-            if isinstance(child, LTTextLine):
-                for grandchild in child:
-                    render_textbox_child(grandchild)
-            elif isinstance(child, LTChar):
-                if not state.within_section:
-                    enter_text_section(child)
-                    state.text += child.get_text()
-                elif text_section_continues(child):
-                    state.text += child.get_text()
-                else:
-                    exit_text_section()
-                    enter_text_section(child)
-                    state.text += child.get_text()
-            elif isinstance(child, LTAnno):
-                if not state.within_section:
-                    pass
-                elif text_section_continues(child):
-                    state.text += child.get_text()
-                else:
-                    exit_text_section()
+        def render_textbox_child(child: LTTextLine | LTChar | LTAnno) -> None:
+            match child:
+                case LTTextLine():
+                    render_textline(child)
+                case LTChar():
+                    render_char(child)
+                case LTAnno():
+                    render_anno(child)
+
+        def render_textline(lttextline: LTTextLine) -> None:
+            for child in lttextline:
+                render_textbox_child(child)
+
+        def render_char(ltchar: LTChar) -> None:
+            if not state.within_section:
+                enter_text_section(ltchar)
+                state.text += ltchar.get_text()
+            elif text_section_continues(ltchar):
+                state.text += ltchar.get_text()
+            else:
+                exit_text_section()
+                enter_text_section(ltchar)
+                state.text += ltchar.get_text()
+
+        def render_anno(ltanno: LTAnno) -> None:
+            if not state.within_section:
+                pass
+            elif text_section_continues(ltanno):
+                state.text += ltanno.get_text()
+            else:
+                exit_text_section()
 
         def enter_text_section(item: LTChar) -> None:
             state.within_section = True
@@ -156,7 +162,7 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
             state.bbox = bbox2str(item.bbox)
             state.text = ""
 
-        def text_section_continues(item: Union[LTChar, LTAnno]) -> bool:
+        def text_section_continues(item: LTChar | LTAnno) -> bool:
             if isinstance(item, LTAnno):
                 return True
             return (
@@ -187,13 +193,6 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
             render_textbox_child(child)
 
         exit_text_section()
-
-    def _render_text(self, lttext: LTText) -> None:
-        text = self._clean_content_text(lttext.get_text())
-        if text:
-            self._write("<text>")
-            self._write(enc(text))
-            self._write("</text>\n")
 
     def _write(self, text: str) -> None:
         text_bytes = text.encode(self.codec)

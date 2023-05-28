@@ -1,6 +1,5 @@
 import json
 from hashlib import sha256
-from typing import List
 
 from ..configs import BaseLayerConfig
 
@@ -15,5 +14,5 @@ def create_file_name_from_path(path: str, ext: str, prefix: str = "") -> str:
     return f"{prefix}{sha256(path.encode()).hexdigest()}.{ext}"
 
 
-def create_file_name_from_paths(paths: List[str], ext: str, prefix: str = "") -> str:
+def create_file_name_from_paths(paths: list[str], ext: str, prefix: str = "") -> str:
     return f"{prefix}{sha256(json.dumps(sorted(paths)).encode()).hexdigest()}.{ext}"

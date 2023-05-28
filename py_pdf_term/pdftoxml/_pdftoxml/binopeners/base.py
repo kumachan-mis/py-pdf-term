@@ -15,9 +15,9 @@ class BaseBinaryOpener(metaclass=ABCMeta):
         Args
         ----
             file:
-                A path to a file.
+                Path to a file.
             mode:
-                A mode to open the file.
+                Mode to open the file.
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.open()")

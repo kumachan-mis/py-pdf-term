@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.candidates import PDFCandidateTermList
 
@@ -13,7 +12,7 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
@@ -22,21 +21,21 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
     @abstractmethod
     def load(
         self, pdf_path: str, config: CandidateLayerConfig
-    ) -> Union[PDFCandidateTermList, None]:
+    ) -> PDFCandidateTermList | None:
         """Load candidate terms from a cache file.
 
         Args
         ----
             pdf_path:
-                The path to a PDF file to load candidate terms.
+                Path to a PDF file to load candidate terms.
             config:
-                The configuration for the candidate layer. The configuration is used to
+                Configuration for the candidate layer. The configuration is used to
                 determine the cache file path.
 
         Returns
         -------
-            Union[PDFCandidateTermList, None]:
-                The loaded candidate terms. If there is no cache file, this method
+            PDFCandidateTermList | None:
+                Loaded candidate terms. If there is no cache file, this method
                 returns None.
         """
 
@@ -51,9 +50,9 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
         Args
         ----
             candidates:
-                The candidate terms to store.
+                Candidate terms to store.
             config:
-                The configuration for the candidate layer. The configuration is used to
+                Configuration for the candidate layer. The configuration is used to
                 determine the cache file path.
         """
 
@@ -66,9 +65,9 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
         Args
         ----
             pdf_path:
-                The path to a PDF file to remove a cache file.
+                Path to a PDF file to remove a cache file.
             config:
-                The configuration for the candidate layer. The configuration is used to
+                Configuration for the candidate layer. The configuration is used to
                 determine the cache file path.
         """
 

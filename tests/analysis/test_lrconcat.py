@@ -1,5 +1,3 @@
-from typing import Dict
-
 from py_pdf_term.analysis import TermLeftRightFrequencyAnalyzer
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
@@ -57,7 +55,7 @@ def test_lr_freq() -> None:
             ],
         )
     )
-    expected_left_freq: Dict[str, Dict[str, int]] = {
+    expected_left_freq: dict[str, dict[str, int]] = {
         "processor": {"set": 1, "signal": 1, "network": 1, "core": 1, "end": 1},
         "unit": {"processing": 3, "point": 1},
         "processing": {"central": 1, "graphic": 1, "physics": 1},
@@ -81,7 +79,7 @@ def test_lr_freq() -> None:
         "end": dict(),
         "-": dict(),
     }
-    expected_right_freq: Dict[str, Dict[str, int]] = {
+    expected_right_freq: dict[str, dict[str, int]] = {
         "processor": dict(),
         "unit": dict(),
         "processing": {"unit": 3},

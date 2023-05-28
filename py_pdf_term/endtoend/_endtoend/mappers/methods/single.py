@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any
 
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.methods import (
@@ -13,9 +13,9 @@ from ..base import BaseMapper
 
 
 class SingleDomainRankingMethodMapper(
-    BaseMapper[Type[BaseSingleDomainRankingMethod[Any]]]
+    BaseMapper[type[BaseSingleDomainRankingMethod[Any]]]
 ):
-    """A mapper to find single-domain ranking method classes."""
+    """Mapper to find single-domain ranking method classes."""
 
     @classmethod
     def default_mapper(cls) -> "SingleDomainRankingMethodMapper":

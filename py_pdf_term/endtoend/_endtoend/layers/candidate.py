@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
@@ -22,51 +20,51 @@ from .xml import XMLLayer
 
 
 class CandidateLayer:
-    """A layer to extract candidate terms using XMLLayer.
+    """Layer to extract candidate terms using XMLLayer.
 
     Args
     ----
         xml_layer:
-            a layer to create textful XML elements from a PDF file.
+            Layer to create textful XML elements from a PDF file.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         lang_tokenizer_mapper:
-            a mapper to find language tokenizer classes from configuration. If None, the
+            Mapper to find language tokenizer classes from configuration. If None, the
             default mapper is used.
         token_classifier_mapper:
-            a mapper to find token classifier classes from configuration. If None, the
+            Mapper to find token classifier classes from configuration. If None, the
             default mapper is used.
         token_filter_mapper:
-            a mapper to find token filter classes from configuration. If None, the
+            Mapper to find token filter classes from configuration. If None, the
             default mapper is used.
         term_filter_mapper:
-            a mapper to find term filter classes from configuration. If None, the
+            Mapper to find term filter classes from configuration. If None, the
             default mapper is used.
         splitter_mapper:
-            a mapper to find splitter classes from configuration. If None, the default
+            Mapper to find splitter classes from configuration. If None, the default
             mapper is used.
         augmenter_mapper:
-            a mapper to find augmenter classes from configuration. If None, the default
+            Mapper to find augmenter classes from configuration. If None, the default
             mapper is used.
         cache_mapper:
-            a mapper to find cache class from configuration. If None, the default mapper
+            Mapper to find cache class from configuration. If None, the default mapper
             is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
     def __init__(
         self,
         xml_layer: XMLLayer,
-        config: Optional[CandidateLayerConfig] = None,
-        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
-        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
-        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
-        splitter_mapper: Optional[SplitterMapper] = None,
-        augmenter_mapper: Optional[AugmenterMapper] = None,
-        cache_mapper: Optional[CandidateLayerCacheMapper] = None,
+        config: CandidateLayerConfig | None = None,
+        lang_tokenizer_mapper: LanguageTokenizerMapper | None = None,
+        token_classifier_mapper: TokenClassifierMapper | None = None,
+        token_filter_mapper: CandidateTokenFilterMapper | None = None,
+        term_filter_mapper: CandidateTermFilterMapper | None = None,
+        splitter_mapper: SplitterMapper | None = None,
+        augmenter_mapper: AugmenterMapper | None = None,
+        cache_mapper: CandidateLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         if config is None:
@@ -115,15 +113,15 @@ class CandidateLayer:
         Args
         ----
             domain_pdfs:
-                a list of PDF files in a domain.
+                List of PDF files in a domain.
 
         Returns
         -------
             DomainCandidateTermList:
-                a list of candidate terms in a domain.
+                List of candidate terms in a domain.
         """
 
-        pdf_candidates_list: List[PDFCandidateTermList] = []
+        pdf_candidates_list: list[PDFCandidateTermList] = []
         for pdf_path in domain_pdfs.pdf_paths:
             pdf_candidates = self.create_pdf_candidates(pdf_path)
             pdf_candidates_list.append(pdf_candidates)
@@ -136,12 +134,12 @@ class CandidateLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file.
+                Path to a PDF file.
 
         Returns
         -------
             PDFCandidateTermList:
-                a list of candidate terms in a PDF file.
+                List of candidate terms in a PDF file.
         """
 
         pdf_candidates = self._cache.load(pdf_path, self._config)
@@ -160,7 +158,7 @@ class CandidateLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file to remove a cache file.
+                Path to a PDF file to remove a cache file.
         """
 
         self._cache.remove(pdf_path, self._config)

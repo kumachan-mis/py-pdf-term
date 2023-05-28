@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from .base import BaseSingleDomainRankingMethod
 from .collectors import HITSRankingDataCollector
@@ -7,16 +7,16 @@ from .rankingdata import HITSRankingData
 
 
 class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):
-    """A ranking method by HITS algorithm.
+    """Ranking method by HITS algorithm.
 
     Args
     ----
         threshold:
-            The threshold to determine convergence. If the difference between
+            Threshold to determine convergence. If the difference between
             original auth/hub values and new auth/hub values is less than this
             threshold, the algorithm is considered to be converged. The default is 1e-8.
         max_loop:
-            The maximum number of loops to run the algorithm. If the algorithm
+            Maximum number of loops to run the algorithm. If the algorithm
             does not converge within this number of loops, it is forced to stop. The
             default is 1000.
     """
@@ -27,5 +27,5 @@ class HITSMethod(BaseSingleDomainRankingMethod[HITSRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> HITSRankingData:
+    def collect_data_from_dict(cls, obj: dict[str, Any]) -> HITSRankingData:
         return HITSRankingData(**obj)

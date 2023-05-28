@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any
 
 from py_pdf_term._common.consts import PACKAGE_NAME
 
@@ -13,8 +13,8 @@ from ...caches import (
 from ..base import BaseMapper
 
 
-class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]]):
-    """A mapper to find method layer ranking cache classes."""
+class MethodLayerRankingCacheMapper(BaseMapper[type[BaseMethodLayerRankingCache]]):
+    """Mapper to find method layer ranking cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "MethodLayerRankingCacheMapper":
@@ -27,8 +27,8 @@ class MethodLayerRankingCacheMapper(BaseMapper[Type[BaseMethodLayerRankingCache]
         return default_mapper
 
 
-class MethodLayerDataCacheMapper(BaseMapper[Type[BaseMethodLayerDataCache[Any]]]):
-    """A mapper to find method layer data cache classes."""
+class MethodLayerDataCacheMapper(BaseMapper[type[BaseMethodLayerDataCache[Any]]]):
+    """Mapper to find method layer data cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "MethodLayerDataCacheMapper":

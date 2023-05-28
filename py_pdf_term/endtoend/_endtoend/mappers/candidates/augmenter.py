@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.augmenters import (
     BaseAugmenter,
@@ -10,8 +8,8 @@ from py_pdf_term.candidates.augmenters import (
 from ..base import BaseMapper
 
 
-class AugmenterMapper(BaseMapper[Type[BaseAugmenter]]):
-    """A mapper to find augmenter classes."""
+class AugmenterMapper(BaseMapper[type[BaseAugmenter]]):
+    """Mapper to find augmenter classes."""
 
     @classmethod
     def default_mapper(cls) -> "AugmenterMapper":

@@ -1,5 +1,5 @@
 from io import BytesIO
-from typing import BinaryIO, Optional
+from typing import BinaryIO
 from xml.etree.ElementTree import fromstring
 
 from pdfminer.layout import LAParams
@@ -12,16 +12,16 @@ from .textful import TextfulXMLConverter
 
 
 class PDFtoXMLConverter:
-    """A converter from PDF to textful XML format.
+    """Converter from PDF to textful XML format.
 
     Args
     ----
         bin_opener:
-            A binary opener to open PDF and XML files. If None, StandardBinaryOpener is
+            Binary opener to open PDF and XML files. If None, StandardBinaryOpener is
             used, which opens files with the standard open function in Python.
     """
 
-    def __init__(self, bin_opener: Optional[BaseBinaryOpener] = None):  # type: ignore
+    def __init__(self, bin_opener: BaseBinaryOpener | None = None) -> None:
         if bin_opener is None:
             bin_opener = StandardBinaryOpener()
 
@@ -32,23 +32,23 @@ class PDFtoXMLConverter:
         pdf_path: str,
         xml_path: str,
         nfc_norm: bool = True,
-        include_pattern: Optional[str] = None,
-        exclude_pattern: Optional[str] = None,
+        include_pattern: str | None = None,
+        exclude_pattern: str | None = None,
     ) -> PDFnXMLPath:
         """Convert a PDF file to a textful XML file.
 
         Args
         ----
             pdf_path:
-                A path to a PDF file.
+                Path to a PDF file.
             xml_path:
-                A path to a XML file to output.
+                Path to a XML file to output.
             nfc_norm:
                 If True, normalize text to NFC, otherwise keep original.
             include_pattern:
-                A regular expression pattern of text to include in the output.
+                Regular expression pattern of text to include in the output.
             exclude_pattern:
-                A regular expression pattern of text to exclude from the output
+                Regular expression pattern of text to exclude from the output
                 (overrides include_pattern).
 
         Returns
@@ -67,21 +67,21 @@ class PDFtoXMLConverter:
         self,
         pdf_path: str,
         nfc_norm: bool = True,
-        include_pattern: Optional[str] = None,
-        exclude_pattern: Optional[str] = None,
+        include_pattern: str | None = None,
+        exclude_pattern: str | None = None,
     ) -> PDFnXMLElement:
         """Convert a PDF file to a textful XML element.
 
         Args
         ----
             pdf_path:
-                A path to a PDF file.
+                Path to a PDF file.
             nfc_norm:
                 If True, normalize text to NFC, otherwise keep original.
             include_pattern:
-                A regular expression pattern of text to include in the output.
+                Regular expression pattern of text to include in the output.
             exclude_pattern:
-                A regular expression pattern of text to exclude from the output
+                Regular expression pattern of text to exclude from the output
                 (overrides include_pattern).
 
         Returns
@@ -102,8 +102,8 @@ class PDFtoXMLConverter:
         pdf_io: BinaryIO,
         xml_io: BinaryIO,
         nfc_norm: bool,
-        include_pattern: Optional[str],
-        exclude_pattern: Optional[str],
+        include_pattern: str | None,
+        exclude_pattern: str | None,
     ) -> None:
         manager = PDFResourceManager()
         laparams = LAParams(char_margin=2.0, line_margin=0.5, word_margin=0.2)

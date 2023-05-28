@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Type
+from typing import Any
 
 from pytest import mark, raises
 from pytest_mock import MockerFixture
@@ -202,7 +202,7 @@ def test_single_data_file_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseSingleDomainRankingMethod[Any]],
+    method_class: type[BaseSingleDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_terms = mocker.spy(method_class, "rank_terms")
@@ -253,7 +253,7 @@ def test_multi_data_file_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseMultiDomainRankingMethod[Any]],
+    method_class: type[BaseMultiDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_domain_terms = mocker.spy(method_class, "rank_domain_terms")
@@ -319,7 +319,7 @@ def test_single_ranking_file_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseSingleDomainRankingMethod[Any]],
+    method_class: type[BaseSingleDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_terms = mocker.spy(method_class, "rank_terms")
@@ -370,7 +370,7 @@ def test_multi_ranking_file_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseMultiDomainRankingMethod[Any]],
+    method_class: type[BaseMultiDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_domain_terms = mocker.spy(method_class, "rank_domain_terms")
@@ -436,7 +436,7 @@ def test_single_no_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseSingleDomainRankingMethod[Any]],
+    method_class: type[BaseSingleDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_terms = mocker.spy(method_class, "rank_terms")
@@ -488,7 +488,7 @@ def test_multi_no_cache(
     tmp_path: Path,
     mocker: MockerFixture,
     method: str,
-    method_class: Type[BaseMultiDomainRankingMethod[Any]],
+    method_class: type[BaseMultiDomainRankingMethod[Any]],
 ) -> None:
     spied_collect_data = mocker.spy(method_class, "collect_data")
     spied_rank_domain_terms = mocker.spy(method_class, "rank_domain_terms")
@@ -626,7 +626,7 @@ def test_multi_no_cache(
 def test_single_invalid_config(
     tmp_path: Path,
     invalid_config: SingleDomainMethodLayerConfig,
-    expected_exception: Type[Exception],
+    expected_exception: type[Exception],
 ) -> None:
     raises(
         expected_exception,
@@ -666,7 +666,7 @@ def test_single_invalid_config(
 def test_multi_invalid_config(
     tmp_path: Path,
     invalid_config: MultiDomainMethodLayerConfig,
-    expected_exception: Type[Exception],
+    expected_exception: type[Exception],
 ) -> None:
     raises(
         expected_exception,

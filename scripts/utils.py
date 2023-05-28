@@ -1,7 +1,7 @@
 import json
 import os
 from glob import iglob
-from typing import Iterable, Iterator, List, Optional
+from typing import Iterable, Iterator
 
 from py_pdf_term import DomainPDFList
 from py_pdf_term.candidates import DomainCandidateTermList, PDFCandidateTermList
@@ -22,7 +22,7 @@ def relpath_from_basedir(path: str) -> str:
     return os.path.relpath(path, BASE_DIR)
 
 
-def generate_pdf_path(domain: Optional[str] = None) -> Iterator[str]:
+def generate_pdf_path(domain: str | None = None) -> Iterator[str]:
     if domain is None:
         return iglob(os.path.join(PDF_DIR, "**", "*.pdf"), recursive=True)
     else:
@@ -59,7 +59,7 @@ def pdf_to_techterm_path(pdf_path: str, method_name: str) -> str:
     )
 
 
-def get_domains() -> List[str]:
+def get_domains() -> list[str]:
     return list(
         filter(
             lambda dir_name: not dir_name.startswith(".")
@@ -78,7 +78,7 @@ def generate_domain_candidates(
     domains: Iterable[str],
 ) -> Iterator[DomainCandidateTermList]:
     for domain in domains:
-        pdfs: List[PDFCandidateTermList] = []
+        pdfs: list[PDFCandidateTermList] = []
         json_path_pattern = os.path.join(CANDIDATE_DIR, domain, "**", "*.json")
         for json_path in iglob(json_path_pattern, recursive=True):
             with open(json_path, "r") as f:
@@ -102,7 +102,7 @@ def generate_domain_styling_scores(
     domains: Iterable[str],
 ) -> Iterator[DomainStylingScoreList]:
     for domain in domains:
-        pdfs: List[PDFStylingScoreList] = []
+        pdfs: list[PDFStylingScoreList] = []
         json_path_pattern = os.path.join(STYLINGS_DIR, domain, "**", "*.json")
         for json_path in iglob(json_path_pattern, recursive=True):
             with open(json_path, "r") as f:

@@ -24,29 +24,29 @@ def textnode_ncolor(textnode: Element, default: str = str((0.0, 0.0, 0.0))) -> s
     if raw_ncolor is None:
         return default
 
-    match = re.fullmatch(FLOAT_REGEX, raw_ncolor)
-    if match:
-        color = float(match[0])
+    regex_match = re.fullmatch(FLOAT_REGEX, raw_ncolor)
+    if regex_match:
+        color = float(regex_match[0])
         return str((color, color, color))
 
-    match = re.fullmatch(BRACKET_MONO_REGEX, raw_ncolor)
-    if match:
-        color = float(match[1])
+    regex_match = re.fullmatch(BRACKET_MONO_REGEX, raw_ncolor)
+    if regex_match:
+        color = float(regex_match[1])
         return str((color, color, color))
 
-    match = re.fullmatch(PAREN_MONO_REGEX, raw_ncolor)
-    if match:
-        color = float(match[1])
+    regex_match = re.fullmatch(PAREN_MONO_REGEX, raw_ncolor)
+    if regex_match:
+        color = float(regex_match[1])
         return str((color, color, color))
 
-    match = re.fullmatch(BRACKET_TRI_REGEX, raw_ncolor)
-    if match:
-        color = float(match[1]), float(match[2]), float(match[3])
+    regex_match = re.fullmatch(BRACKET_TRI_REGEX, raw_ncolor)
+    if regex_match:
+        color = float(regex_match[1]), float(regex_match[2]), float(regex_match[3])
         return str(color)
 
-    match = re.fullmatch(PAREN_TRI_REGEX, raw_ncolor)
-    if match:
-        color = float(match[1]), float(match[2]), float(match[3])
+    regex_match = re.fullmatch(PAREN_TRI_REGEX, raw_ncolor)
+    if regex_match:
+        color = float(regex_match[1]), float(regex_match[2]), float(regex_match[3])
         return str(color)
 
     return default

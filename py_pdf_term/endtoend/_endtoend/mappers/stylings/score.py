@@ -1,13 +1,11 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.stylings.scores import BaseStylingScore, ColorScore, FontsizeScore
 
 from ..base import BaseMapper
 
 
-class StylingScoreMapper(BaseMapper[Type[BaseStylingScore]]):
-    """A mapper to find styling score classes."""
+class StylingScoreMapper(BaseMapper[type[BaseStylingScore]]):
+    """Mapper to find styling score classes."""
 
     @classmethod
     def default_mapper(cls) -> "StylingScoreMapper":

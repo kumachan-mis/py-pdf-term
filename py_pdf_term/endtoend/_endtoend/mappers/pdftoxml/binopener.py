@@ -1,13 +1,11 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.pdftoxml.binopeners import BaseBinaryOpener, StandardBinaryOpener
 
 from ..base import BaseMapper
 
 
-class BinaryOpenerMapper(BaseMapper[Type[BaseBinaryOpener]]):
-    """A mapper to find binary opener classes."""
+class BinaryOpenerMapper(BaseMapper[type[BaseBinaryOpener]]):
+    """Mapper to find binary opener classes."""
 
     @classmethod
     def default_mapper(cls) -> "BinaryOpenerMapper":

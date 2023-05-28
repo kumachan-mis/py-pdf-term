@@ -8,7 +8,7 @@ from .base import BaseStylingScore
 
 
 class FontsizeScore(BaseStylingScore):
-    """A styling score for font size. The larger the font size is, the higher the score
+    """Styling score for font size. The larger the font size is, the higher the score
     is. The score is normalized by the mean and the standard deviation of font sizes in
     the page.
 

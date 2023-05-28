@@ -1,5 +1,3 @@
-from typing import Dict
-
 from py_pdf_term._common.utils import extended_log10
 from py_pdf_term.candidates import PageCandidateTermList
 from py_pdf_term.tokenizers import Term
@@ -8,7 +6,7 @@ from .base import BaseStylingScore
 
 
 class ColorScore(BaseStylingScore):
-    """A styling score for font color. The more rarely the color appears in the page,
+    """Styling score for font color. The more rarely the color appears in the page,
     the higher the score is.
 
     Args
@@ -22,7 +20,7 @@ class ColorScore(BaseStylingScore):
 
         self._num_candidates = len(page_candidates.candidates)
 
-        self._color_freq: Dict[str, int] = dict()
+        self._color_freq: dict[str, int] = dict()
         for candidate in page_candidates.candidates:
             self._color_freq[candidate.ncolor] = (
                 self._color_freq.get(candidate.ncolor, 0) + 1

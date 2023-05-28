@@ -1,9 +1,6 @@
-# write test for MethodLayerDataFileCache, MethodLayerDataNoCache,
-# MethodLayerRankingFileCache, MethodLayerRankingNoCache
-
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.configs import (
@@ -24,14 +21,14 @@ from py_pdf_term.methods.rankingdata import BaseRankingData
 class TestRankingData(BaseRankingData):
     __test__ = False
 
-    freq_dict: Dict[str, int]
+    freq_dict: dict[str, int]
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "TestRankingData":
+    def from_dict(cls, obj: dict[str, Any]) -> "TestRankingData":
         return TestRankingData(**obj)
 
 
-def test_data_file_cache(tmp_path: Path):
+def test_data_file_cache(tmp_path: Path) -> None:
     cache = MethodLayerDataFileCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
@@ -58,7 +55,7 @@ def test_data_file_cache(tmp_path: Path):
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
 
-def test_data_file_cache_multiple(tmp_path: Path):
+def test_data_file_cache_multiple(tmp_path: Path) -> None:
     cache = MethodLayerDataFileCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths1 = ["test1-1.pdf", "test1-2.pdf"]
@@ -87,7 +84,7 @@ def test_data_file_cache_multiple(tmp_path: Path):
     assert cache.load(pdf_paths2, config, TestRankingData.from_dict) is None
 
 
-def test_data_no_cache(tmp_path: Path):
+def test_data_no_cache(tmp_path: Path) -> None:
     cache = MethodLayerDataNoCache[TestRankingData](tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
@@ -110,7 +107,7 @@ def test_data_no_cache(tmp_path: Path):
     assert cache.load(pdf_paths, config, TestRankingData.from_dict) is None
 
 
-def test_ranking_file_cache(tmp_path: Path):
+def test_ranking_file_cache(tmp_path: Path) -> None:
     cache = MethodLayerRankingFileCache(tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]
@@ -147,7 +144,7 @@ def test_ranking_file_cache(tmp_path: Path):
     assert cache.load(pdf_paths, config) is None
 
 
-def test_ranking_file_cache_multiple(tmp_path: Path):
+def test_ranking_file_cache_multiple(tmp_path: Path) -> None:
     cache = MethodLayerRankingFileCache(tmp_path.as_posix())
 
     pdf_paths1 = ["test1-1.pdf", "test1-2.pdf"]
@@ -190,7 +187,7 @@ def test_ranking_file_cache_multiple(tmp_path: Path):
     assert cache.load(pdf_paths2, config) is None
 
 
-def test_ranking_no_cache(tmp_path: Path):
+def test_ranking_no_cache(tmp_path: Path) -> None:
     cache = MethodLayerRankingNoCache(tmp_path.as_posix())
 
     pdf_paths = ["test1.pdf", "test2.pdf"]

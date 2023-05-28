@@ -1,5 +1,4 @@
 import re
-from typing import Optional
 from unicodedata import normalize
 
 from py_pdf_term._common.consts import FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHARS
@@ -10,10 +9,7 @@ ASCII_FULL2HALF_TABLE = str.maketrans(FULLWIDTH_ASCII_CHARS, HALFWIDTH_ASCII_CHA
 
 
 def clean_content_text(
-    text: str,
-    nfc_norm: bool,
-    include_pattern: Optional[str],
-    exclude_pattern: Optional[str],
+    text: str, nfc_norm: bool, include_pattern: str | None, exclude_pattern: str | None
 ) -> str:
     text = ERROR.sub("", text)
     text = SPACES.sub(" ", text).strip()

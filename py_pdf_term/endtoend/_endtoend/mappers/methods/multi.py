@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any
 
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.methods import BaseMultiDomainRankingMethod, MDPMethod, TFIDFMethod
@@ -7,9 +7,9 @@ from ..base import BaseMapper
 
 
 class MultiDomainRankingMethodMapper(
-    BaseMapper[Type[BaseMultiDomainRankingMethod[Any]]]
+    BaseMapper[type[BaseMultiDomainRankingMethod[Any]]]
 ):
-    """A mapper to find multi-domain ranking method classes."""
+    """Mapper to find multi-domain ranking method classes."""
 
     @classmethod
     def default_mapper(cls) -> "MultiDomainRankingMethodMapper":

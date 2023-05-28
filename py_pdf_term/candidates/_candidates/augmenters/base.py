@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import List
 
 from py_pdf_term.tokenizers import Term
 
@@ -18,18 +17,18 @@ class BaseAugmenter(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def augment(self, term: Term) -> List[Term]:
+    def augment(self, term: Term) -> list[Term]:
         """Augment a candidate term.
 
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------
-            List[Term]:
-                A list of augmented terms. The first term is the original term.
+            list[Term]:
+                List of augmented terms. The first term is the original term.
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.augment()")

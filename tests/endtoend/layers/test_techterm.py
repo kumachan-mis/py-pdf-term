@@ -1,5 +1,4 @@
 import json
-from typing import List, Type
 
 from pytest import mark, raises
 
@@ -76,7 +75,7 @@ class TestMultiDomainMethodLayer(MultiDomainMethodLayer):
         pass
 
     def create_term_ranking(
-        self, domain: str, multi_domain_pdfs: List[DomainPDFList]
+        self, domain: str, multi_domain_pdfs: list[DomainPDFList]
     ) -> MethodTermRanking:
         with open(PyPDFTermFixture.METHOD_PATH, "r") as f:
             obj = json.load(f)
@@ -232,7 +231,7 @@ def test_multi_full_config_more(config: TechnicalTermLayerConfig) -> None:
     ],
 )
 def test_single_invalid_config(
-    invalid_config: TechnicalTermLayerConfig, expected_exception: Type[Exception]
+    invalid_config: TechnicalTermLayerConfig, expected_exception: type[Exception]
 ) -> None:
     raises(
         expected_exception,
@@ -263,7 +262,7 @@ def test_single_invalid_config(
     ],
 )
 def test_multi_invalid_config(
-    invalid_config: TechnicalTermLayerConfig, expected_exception: Type[Exception]
+    invalid_config: TechnicalTermLayerConfig, expected_exception: type[Exception]
 ) -> None:
     raises(
         expected_exception,

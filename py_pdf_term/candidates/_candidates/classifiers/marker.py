@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.tokenizers import Term
 
 from .base import BaseTokenClassifier
@@ -8,16 +6,16 @@ from .japanese import JapaneseTokenClassifier
 
 
 class MeaninglessMarker:
-    """The marker class to mark meaningless tokens in a term.
+    """Marker class to mark meaningless tokens in a term.
 
     Args
     ----
         classifiers:
-            A list of token classifiers to mark meaningless tokens.
+            List of token classifiers to mark meaningless tokens.
             If None, JapaneseTokenClassifier and EnglishTokenClassifier are used.
     """
 
-    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+    def __init__(self, classifiers: list[BaseTokenClassifier] | None = None) -> None:
         if classifiers is None:
             classifiers = [
                 JapaneseTokenClassifier(),
@@ -32,12 +30,12 @@ class MeaninglessMarker:
         Args
         ----
             term:
-                A term to be marked.
+                Term to be marked.
 
         Returns
         -------
             Term:
-                A term with meaningless tokens marked.
+                Term with meaningless tokens marked.
         """
 
         for token in term.tokens:

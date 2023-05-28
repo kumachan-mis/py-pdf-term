@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import List, Optional
+
 
 from py_pdf_term.techterms import PDFTechnicalTermList, TechnicalTermExtractor
 
@@ -17,18 +17,18 @@ class BaseTechnicalTermLayer(metaclass=ABCMeta):
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         styling_layer:
-            a layer to calculate styling scores.
+            Layer to calculate styling scores.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
     """
 
     def __init__(
         self,
         candidate_layer: CandidateLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         if config is None:
             config = TechnicalTermLayerConfig()
@@ -44,20 +44,20 @@ class BaseTechnicalTermLayer(metaclass=ABCMeta):
 
 
 class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
-    """A technical term layer to extract technical terms from candidate terms using
+    """Technical term layer to extract technical terms from candidate terms using
     candidate layer, single domain method layer and styling layer.
 
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         method_layer:
-            a layer to calculate term ranking which does not require cross-domain
+            Layer to calculate term ranking which does not require cross-domain
             information.
         styling_layer:
-            a layer to calculate styling scores.
+            Layer to calculate styling scores.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
     """
 
     def __init__(
@@ -65,7 +65,7 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
         candidate_layer: CandidateLayer,
         method_layer: SingleDomainMethodLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         super().__init__(candidate_layer, styling_layer, config)
 
@@ -79,15 +79,15 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
         Args
         ----
             pdf_path:
-                a PDF path to extract technical terms.
+                PDF path to extract technical terms.
             domain_pdfs:
-                a list of PDF paths in a domain. This is used to calculate term ranking.
+                List of PDF paths in a domain. This is used to calculate term ranking.
                 This must contain the PDF path to extract technical terms.
 
         Returns
         -------
             PDFTechnicalTermList:
-                a list of technical terms extracted from the PDF file.
+                List of technical terms extracted from the PDF file.
         """
 
         pdf_candidates = self._candidate_layer.create_pdf_candidates(pdf_path)
@@ -101,19 +101,19 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
 
 
 class MultiDomainTechnicalTermLayer(BaseTechnicalTermLayer):
-    """A technical term layer to extract technical terms from candidate terms using
+    """Technical term layer to extract technical terms from candidate terms using
     candidate layer, multi domain method layer and styling layer.
 
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         method_layer:
-            a layer to calculate term ranking which requires cross-domain information.
+            Layer to calculate term ranking which requires cross-domain information.
         styling_layer:
-            a layer to calculate styling scores.
+            Layer to calculate styling scores.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
     """
 
     def __init__(
@@ -121,31 +121,31 @@ class MultiDomainTechnicalTermLayer(BaseTechnicalTermLayer):
         candidate_layer: CandidateLayer,
         method_layer: MultiDomainMethodLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         super().__init__(candidate_layer, styling_layer, config)
 
         self._method_layer = method_layer
 
     def create_pdf_techterms(
-        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+        self, domain: str, pdf_path: str, multi_domain_pdfs: list[DomainPDFList]
     ) -> PDFTechnicalTermList:
         """Extract technical terms from a PDF file in a domain.
 
         Args
         ----
             domain:
-                a domain to extract technical terms.
+                Domain to extract technical terms.
             pdf_path:
-                a PDF path to extract technical terms. This PDF file is in the domain.
+                PDF path to extract technical terms. This PDF file is in the domain.
             multi_domain_pdfs:
-                a list of PDF paths in each domain. The PDF file in the domain must be
+                List of PDF paths in each domain. The PDF file in the domain must be
                 included in this list.
 
         Returns
         -------
             PDFTechnicalTermList:
-                a list of technical terms extracted from the PDF file.
+                List of technical terms extracted from the PDF file.
         """
 
         pdf_candidates = self._candidate_layer.create_pdf_candidates(pdf_path)

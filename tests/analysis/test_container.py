@@ -1,5 +1,3 @@
-from typing import Dict, Set
-
 from py_pdf_term.analysis import ContainerTermsAnalyzer
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
@@ -58,7 +56,7 @@ def test_container() -> None:
         )
     )
 
-    expected_container_terms: Dict[str, Set[str]] = {
+    expected_container_terms: dict[str, set[str]] = {
         "processor": {
             "application-specific instruction set processor",
             "digital signal processor",

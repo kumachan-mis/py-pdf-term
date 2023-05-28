@@ -1,7 +1,6 @@
 import os
 from glob import glob
 from shutil import rmtree
-from typing import Union
 from xml.etree.ElementTree import ParseError, fromstring, tostring
 
 from py_pdf_term.pdftoxml import PDFnXMLElement
@@ -17,15 +16,13 @@ class XMLLayerFileCache(BaseXMLLayerCache):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
         self._cache_dir = cache_dir
 
-    def load(
-        self, pdf_path: str, config: XMLLayerConfig
-    ) -> Union[PDFnXMLElement, None]:
+    def load(self, pdf_path: str, config: XMLLayerConfig) -> PDFnXMLElement | None:
         dir_name = create_dir_name_from_config(config)
         file_name = create_file_name_from_path(pdf_path, "xml")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)

@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.stylings import PDFStylingScoreList
 
@@ -13,7 +12,7 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
 
     """
 
@@ -23,21 +22,21 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
     @abstractmethod
     def load(
         self, pdf_path: str, config: StylingLayerConfig
-    ) -> Union[PDFStylingScoreList, None]:
+    ) -> PDFStylingScoreList | None:
         """Load styling scores from a cache file.
 
         Args
         ----
             pdf_path:
-                The path to a PDF file to load styling scores.
+                Path to a PDF file to load styling scores.
             config:
-                The configuration for the styling layer. The configuration is used to
+                Configuration for the styling layer. The configuration is used to
                 determine the cache file path.
 
         Returns
         -------
-            Union[PDFStylingScoreList, None]:
-                The loaded styling scores. If there is no cache file, this method
+            PDFStylingScoreList | None:
+                Loaded styling scores. If there is no cache file, this method
                 returns None.
         """
 
@@ -52,9 +51,9 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
         Args
         ----
             styling_scores:
-                The styling scores to store.
+                Styling scores to store.
             config:
-                The configuration for the styling layer. The configuration is used to
+                Configuration for the styling layer. The configuration is used to
                 determine the cache file path.
         """
 
@@ -67,9 +66,9 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
         Args
         ----
             pdf_path:
-                The path to a PDF file to remove a cache file.
+                Path to a PDF file to remove a cache file.
             config:
-                The configuration for the styling layer. The configuration is used to
+                Configuration for the styling layer. The configuration is used to
                 determine the cache file path.
         """
 

@@ -21,7 +21,7 @@ class BaseRankingDataCollector(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
 
         Returns
         -------

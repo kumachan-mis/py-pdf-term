@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.filters import (
     BaseCandidateTermFilter,
@@ -19,8 +17,8 @@ from py_pdf_term.candidates.filters import (
 from ..base import BaseMapper
 
 
-class CandidateTokenFilterMapper(BaseMapper[Type[BaseCandidateTokenFilter]]):
-    """A mapper to find candidate token filter classes."""
+class CandidateTokenFilterMapper(BaseMapper[type[BaseCandidateTokenFilter]]):
+    """Mapper to find candidate token filter classes."""
 
     @classmethod
     def default_mapper(cls) -> "CandidateTokenFilterMapper":
@@ -33,8 +31,8 @@ class CandidateTokenFilterMapper(BaseMapper[Type[BaseCandidateTokenFilter]]):
         return default_mapper
 
 
-class CandidateTermFilterMapper(BaseMapper[Type[BaseCandidateTermFilter]]):
-    """A mapper to find candidate term filter classes."""
+class CandidateTermFilterMapper(BaseMapper[type[BaseCandidateTermFilter]]):
+    """Mapper to find candidate term filter classes."""
 
     @classmethod
     def default_mapper(cls) -> "CandidateTermFilterMapper":

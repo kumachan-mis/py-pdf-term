@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Type
 from unittest.mock import ANY
 
 from pytest import mark, raises
@@ -133,7 +132,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 def test_invalid_config(
     tmp_path: Path,
     invalid_config: XMLLayerConfig,
-    expected_exception: Type[Exception],
+    expected_exception: type[Exception],
 ) -> None:
     raises(
         expected_exception,

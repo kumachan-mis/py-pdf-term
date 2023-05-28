@@ -10,7 +10,7 @@ PHONETIC_REGEX = ALPHABET_REGEX
 
 
 class EnglishConcatenationFilter(BaseEnglishCandidateTermFilter):
-    """A candidate term filter to filter out invalidly concatenated English terms."""
+    """Candidate term filter to filter out invalidly concatenated English terms."""
 
     def __init__(self) -> None:
         self._classifier = EnglishTokenClassifier()

@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.pdftoxml import PDFnXMLElement
 
@@ -13,30 +12,28 @@ class BaseXMLLayerCache(metaclass=ABCMeta):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
         pass
 
     @abstractmethod
-    def load(
-        self, pdf_path: str, config: XMLLayerConfig
-    ) -> Union[PDFnXMLElement, None]:
+    def load(self, pdf_path: str, config: XMLLayerConfig) -> PDFnXMLElement | None:
         """Load XML elements from a cache file.
 
         Args
         ----
             pdf_path:
-                The path to a PDF file to load XML elements.
+                Path to a PDF file to load XML elements.
             config:
-                The configuration for the XML layer. The configuration is used to
+                Configuration for the XML layer. The configuration is used to
                 determine the cache file path.
 
         Returns
         -------
-            Union[PDFnXMLElement, None]:
-                The loaded XML elements. If there is no cache file, this method returns
+            PDFnXMLElement | None:
+                Loaded XML elements. If there is no cache file, this method returns
                 None.
         """
 
@@ -51,7 +48,7 @@ class BaseXMLLayerCache(metaclass=ABCMeta):
             pdfnxml:
                 The XML elements to store.
             config:
-                The configuration for the XML layer. The configuration is used to
+                Configuration for the XML layer. The configuration is used to
                 determine the cache file path.
         """
 
@@ -64,9 +61,9 @@ class BaseXMLLayerCache(metaclass=ABCMeta):
         Args
         ----
             pdf_path:
-                The path to a PDF file to remove a cache file.
+                Path to a PDF file to remove a cache file.
             config:
-                The configuration for the XML layer. The configuration is used to
+                Configuration for the XML layer. The configuration is used to
                 determine the cache file path.
         """
 

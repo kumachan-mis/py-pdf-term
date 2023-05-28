@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List
 
 from .base import BaseLayerConfig
 
@@ -11,14 +10,14 @@ class StylingLayerConfig(BaseLayerConfig):
     Args
     ----
         styling_scores:
-            a list of styling score class names. The default scores are
+            List of styling score class names. The default scores are
             "py_pdf_term.FontsizeScore" and "py_pdf_term.ColorScore".
         cache:
-            a cache class name. The default cache is
+            Cache class name. The default cache is
             "py_pdf_term.StylingLayerFileCache".
     """
 
-    styling_scores: List[str] = field(
+    styling_scores: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.FontsizeScore",
             "py_pdf_term.ColorScore",

@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_pdf_term.stylings import PDFStylingScoreList
 
 from ...configs import StylingLayerConfig
@@ -7,7 +5,7 @@ from .base import BaseStylingLayerCache
 
 
 class StylingLayerNoCache(BaseStylingLayerCache):
-    """A styling layer cache that does not store and load styling scores.
+    """Styling layer cache that does not store and load styling scores.
 
     Args
     ----
@@ -20,7 +18,7 @@ class StylingLayerNoCache(BaseStylingLayerCache):
 
     def load(
         self, pdf_path: str, config: StylingLayerConfig
-    ) -> Union[PDFStylingScoreList, None]:
+    ) -> PDFStylingScoreList | None:
         pass
 
     def store(

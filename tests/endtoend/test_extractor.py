@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List
 
 from pytest import mark, raises
 
@@ -151,7 +150,7 @@ def test_invalid_argument_single_domain_extractor(
     ],
 )
 def test_invalid_argument_multi_domain_extractor(
-    tmp_path: Path, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+    tmp_path: Path, domain: str, pdf_path: str, multi_domain_pdfs: list[DomainPDFList]
 ) -> None:
     extractor = PyPDFTermMultiDomainExtractor(cache_dir=tmp_path.as_posix())
     raises(ValueError, lambda: extractor.extract(domain, pdf_path, multi_domain_pdfs))

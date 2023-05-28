@@ -6,7 +6,7 @@ from .base import BaseRankingDataCollector
 
 
 class TFIDFRankingDataCollector(BaseRankingDataCollector[TFIDFRankingData]):
-    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    """Collector of metadata to rank candidate terms in domain-specific PDF documents
     by TF-IDF algorithm.
     """
 

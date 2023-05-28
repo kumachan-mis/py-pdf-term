@@ -4,7 +4,7 @@ from .base import BaseBinaryOpener
 
 
 class StandardBinaryOpener(BaseBinaryOpener):
-    """A file opener with binary mode using the standard open function in Python."""
+    """File opener with binary mode using the standard open function in Python."""
 
     def __init__(self) -> None:
         super().__init__()

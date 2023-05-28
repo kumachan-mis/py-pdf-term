@@ -18,7 +18,7 @@ class BaseCandidateTermFilter(metaclass=ABCMeta):
         Args
         ----
             term:
-                A term to be tested.
+                Term to be tested.
 
 
         Returns
@@ -36,7 +36,7 @@ class BaseCandidateTermFilter(metaclass=ABCMeta):
         Args
         ----
             scoped_term:
-                A scoped term to be tested.
+                Scoped term to be tested.
 
         Returns
         -------

@@ -1,5 +1,4 @@
 from math import log10
-from typing import List
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term._common.utils import extended_log10
@@ -12,7 +11,7 @@ from .base import BaseMultiDomainRanker
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
-    """A term ranker by TF-IDF algorithm."""
+    """Term ranker by TF-IDF algorithm."""
 
     def __init__(self) -> None:
         pass
@@ -20,7 +19,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: list[TFIDFRankingData],
     ) -> MethodTermRanking:
         domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict()
         ranking_data = next(
@@ -44,7 +43,7 @@ class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
         self,
         candidate: Term,
         ranking_data: TFIDFRankingData,
-        ranking_data_list: List[TFIDFRankingData],
+        ranking_data_list: list[TFIDFRankingData],
     ) -> ScoredTerm:
         candidate_lemma = candidate.lemma()
 

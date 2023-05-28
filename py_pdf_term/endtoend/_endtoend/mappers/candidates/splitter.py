@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.splitters import (
     BaseSplitter,
@@ -10,8 +8,8 @@ from py_pdf_term.candidates.splitters import (
 from ..base import BaseMapper
 
 
-class SplitterMapper(BaseMapper[Type[BaseSplitter]]):
-    """A mapper to find splitter classes."""
+class SplitterMapper(BaseMapper[type[BaseSplitter]]):
+    """Mapper to find splitter classes."""
 
     @classmethod
     def default_mapper(cls) -> "SplitterMapper":

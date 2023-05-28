@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.tokenizers import Term, Token
 
 from .term import (
@@ -17,17 +15,17 @@ from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFi
 
 
 class FilterCombiner:
-    """A combiner of token filters and term filters.
+    """Combiner of token filters and term filters.
 
     Args
     ----
         token_filters:
-            A list of token filters to filter tokens. If None, the default token filters
+            List of token filters to filter tokens. If None, the default token filters
             are used. The default token filters are JapaneseTokenFilter and
             EnglishTokenFilter.
 
         term_filters:
-            A list of term filters to filter candidate terms. If None, the default term
+            List of term filters to filter candidate terms. If None, the default term
             filters are used. The default term filters are JapaneseConcatenationFilter,
             EnglishConcatenationFilter, JapaneseSymbolLikeFilter,
             EnglishSymbolLikeFilter, JapaneseProperNounFilter,
@@ -36,8 +34,8 @@ class FilterCombiner:
 
     def __init__(
         self,
-        token_filters: Optional[List[BaseCandidateTokenFilter]] = None,
-        term_filters: Optional[List[BaseCandidateTermFilter]] = None,
+        token_filters: list[BaseCandidateTokenFilter] | None = None,
+        term_filters: list[BaseCandidateTermFilter] | None = None,
     ) -> None:
         if token_filters is None:
             token_filters = [
@@ -59,15 +57,15 @@ class FilterCombiner:
         self._token_filters = token_filters
         self._term_filters = term_filters
 
-    def is_partof_candidate(self, tokens: List[Token], idx: int) -> bool:
+    def is_partof_candidate(self, tokens: list[Token], idx: int) -> bool:
         """Test if a token can be part of a candidate term using token filters.
 
         Args
         ----
             tokens:
-                A list of tokens.
+                List of tokens.
             idx:
-                An index of the token to be tested.
+                Index of the token to be tested.
 
         Returns
         -------
@@ -92,7 +90,7 @@ class FilterCombiner:
         Args
         ----
             term:
-                A term to be tested.
+                Term to be tested.
 
         Returns
         -------

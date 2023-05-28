@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any
 
 from py_pdf_term._common.data import ScoredTerm
 
@@ -18,16 +18,16 @@ class MethodTermRanking:
     """
 
     domain: str
-    ranking: List[ScoredTerm]
+    ranking: list[ScoredTerm]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "domain": self.domain,
             "ranking": list(map(lambda term: term.to_dict(), self.ranking)),
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "MethodTermRanking":
+    def from_dict(cls, obj: dict[str, Any]) -> "MethodTermRanking":
         return cls(
             obj["domain"],
             list(map(lambda item: ScoredTerm.from_dict(item), obj["ranking"])),
