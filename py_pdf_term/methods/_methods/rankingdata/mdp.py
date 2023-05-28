@@ -8,7 +8,7 @@ from .base import BaseRankingData
 class MDPRankingData(BaseRankingData):
     """Data of technical terms of a domain for MDP algorithm.
 
-     Args
+    Args
     ----
         domain:
             Domain name. (e.g., "natural language processing")
