@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.tokenizers import Term
 
 from .base import BaseSplitter
@@ -13,18 +11,18 @@ class SplitterCombiner:
     Args
     ----
         splitters:
-            A list of splitters to split terms. The splitters are applied in order.
+            List of splitters to split terms. The splitters are applied in order.
             If None, the default splitters are used. The default splitters are
             SymbolNameSplitter and RepeatSplitter.
     """
 
-    def __init__(self, splitters: Optional[List[BaseSplitter]] = None) -> None:
+    def __init__(self, splitters: list[BaseSplitter] | None = None) -> None:
         if splitters is None:
             splitters = [SymbolNameSplitter(), RepeatSplitter()]
 
         self._splitters = splitters
 
-    def split(self, term: Term) -> List[Term]:
+    def split(self, term: Term) -> list[Term]:
         """Split a wrongly concatenated term.
 
         Args
@@ -34,14 +32,14 @@ class SplitterCombiner:
 
         Returns
         -------
-            List[Term]:
-                A list of split terms.
+            list[Term]:
+                List of split terms.
         """
 
         splitted_terms = [term]
 
         for splitter in self._splitters:
-            start: List[Term] = []
+            start: list[Term] = []
             splitted_terms = sum(map(splitter.split, splitted_terms), start)
 
         return splitted_terms

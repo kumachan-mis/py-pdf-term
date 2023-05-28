@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Dict, Generic, List, Union
+from typing import Any, Callable, Generic
 
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
@@ -23,9 +23,9 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
     @abstractmethod
     def load(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         config: BaseMethodLayerConfig,
-    ) -> Union[MethodTermRanking, None]:
+    ) -> MethodTermRanking | None:
         """Load term rankings from a cache file.
 
         Args
@@ -40,7 +40,7 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
 
         Returns
         -------
-            Union[MethodTermRanking, None]:
+            MethodTermRanking | None:
                 The loaded term rankings. If there is no cache file, this method returns
                 None.
         """
@@ -50,7 +50,7 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
     @abstractmethod
     def store(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         term_ranking: MethodTermRanking,
         config: BaseMethodLayerConfig,
     ) -> None:
@@ -72,7 +72,7 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.store()")
 
     @abstractmethod
-    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
+    def remove(self, pdf_paths: list[str], config: BaseMethodLayerConfig) -> None:
         """Remove cache file.
 
         Args
@@ -105,10 +105,10 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
     @abstractmethod
     def load(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         config: BaseMethodLayerConfig,
-        from_dict: Callable[[Dict[str, Any]], RankingData],
-    ) -> Union[RankingData, None]:
+        from_dict: Callable[[dict[str, Any]], RankingData],
+    ) -> RankingData | None:
         """Load metadata to generate term rankings from a cache file.
 
         Args
@@ -125,7 +125,7 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
 
         Returns
         -------
-            Union[RankingData, None]:
+            RankingData | None:
                 The loaded metadata to generate term rankings. If there is no cache
                 file, this method returns None. The returned metadata is converted to
                 a RankingData object by the from_dict function.
@@ -136,7 +136,7 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
     @abstractmethod
     def store(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         ranking_data: RankingData,
         config: BaseMethodLayerConfig,
     ) -> None:
@@ -157,7 +157,7 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.store()")
 
     @abstractmethod
-    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
+    def remove(self, pdf_paths: list[str], config: BaseMethodLayerConfig) -> None:
         """Remove cache file.
 
         Args

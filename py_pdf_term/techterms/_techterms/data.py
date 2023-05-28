@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any
 
 from py_pdf_term._common.data import ScoredTerm
 
@@ -17,16 +17,16 @@ class PageTechnicalTermList:
     """
 
     page_num: int
-    terms: List[ScoredTerm]
+    terms: list[ScoredTerm]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "page_num": self.page_num,
             "terms": list(map(lambda term: term.to_dict(), self.terms)),
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "PageTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> "PageTechnicalTermList":
         page_num, terms = obj["page_num"], obj["terms"]
         return cls(page_num, list(map(lambda item: ScoredTerm.from_dict(item), terms)))
 
@@ -44,16 +44,16 @@ class PDFTechnicalTermList:
     """
 
     pdf_path: str
-    pages: List[PageTechnicalTermList]
+    pages: list[PageTechnicalTermList]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "pdf_path": self.pdf_path,
             "pages": list(map(lambda page: page.to_dict(), self.pages)),
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "PDFTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> "PDFTechnicalTermList":
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -74,16 +74,16 @@ class DomainTechnicalTermList:
     """
 
     domain: str
-    pdfs: List[PDFTechnicalTermList]
+    pdfs: list[PDFTechnicalTermList]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "domain": self.domain,
             "pdfs": list(map(lambda pdf: pdf.to_dict(), self.pdfs)),
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "DomainTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> "DomainTechnicalTermList":
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

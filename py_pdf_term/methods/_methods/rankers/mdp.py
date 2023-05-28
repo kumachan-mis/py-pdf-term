@@ -1,5 +1,4 @@
 from sys import float_info
-from typing import List
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term._common.utils import extended_log10
@@ -20,7 +19,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data_list: List[MDPRankingData],
+        ranking_data_list: list[MDPRankingData],
     ) -> MethodTermRanking:
         domain_candidates_dict = domain_candidates.to_nostyle_candidates_dict(
             to_str=lambda candidate: candidate.lemma()
@@ -52,7 +51,7 @@ class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
         self,
         candidate: Term,
         ranking_data: MDPRankingData,
-        other_ranking_data_list: List[MDPRankingData],
+        other_ranking_data_list: list[MDPRankingData],
     ) -> ScoredTerm:
         candidate_lemma = candidate.lemma()
         score = min(

@@ -7,7 +7,7 @@ from py_pdf_term.pdftoxml import PDFnXMLElement, PDFtoXMLConverter
 from ..fixtures import PyPDFTermFixture
 
 
-def test_convert_as_file(tmp_path: Path):
+def test_convert_as_file(tmp_path: Path) -> None:
     converter = PDFtoXMLConverter()
     xml_path = path.join(tmp_path.as_posix(), PyPDFTermFixture.XML_NAME)
 

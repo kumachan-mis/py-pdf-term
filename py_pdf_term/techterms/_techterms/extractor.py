@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import (
     DomainCandidateTermList,
@@ -39,7 +37,7 @@ class TechnicalTermExtractor:
 
         self._max_num_terms = max_num_terms
         self._acceptance_rate = acceptance_rate
-        self._cache: Optional[Dict[str, float]] = None
+        self._cache: dict[str, float] | None = None
 
     def extract_from_domain(
         self,
@@ -62,7 +60,7 @@ class TechnicalTermExtractor:
         Returns
         -------
             DomainTechnicalTermList:
-                A list of technical terms in PDF files in a domain. The terms are sorted
+                List of technical terms in PDF files in a domain. The terms are sorted
                 in appearance order, not in score order.
         """
 
@@ -103,7 +101,7 @@ class TechnicalTermExtractor:
         Returns
         -------
             PDFTechnicalTermList:
-                A list of technical terms in a PDF file. The terms are sorted in
+                List of technical terms in a PDF file. The terms are sorted in
                 appearance order, not in score order.
         """
 

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable
 
 from py_pdf_term.methods import MethodTermRanking
 from py_pdf_term.methods._methods.rankingdata import RankingData
@@ -21,20 +21,20 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
 
     def load(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         config: BaseMethodLayerConfig,
-    ) -> Union[MethodTermRanking, None]:
+    ) -> MethodTermRanking | None:
         pass
 
     def store(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         term_ranking: MethodTermRanking,
         config: BaseMethodLayerConfig,
     ) -> None:
         pass
 
-    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
+    def remove(self, pdf_paths: list[str], config: BaseMethodLayerConfig) -> None:
         pass
 
 
@@ -53,19 +53,19 @@ class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
 
     def load(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         config: BaseMethodLayerConfig,
-        from_dict: Callable[[Dict[str, Any]], RankingData],
-    ) -> Union[RankingData, None]:
+        from_dict: Callable[[dict[str, Any]], RankingData],
+    ) -> RankingData | None:
         pass
 
     def store(
         self,
-        pdf_paths: List[str],
+        pdf_paths: list[str],
         ranking_data: RankingData,
         config: BaseMethodLayerConfig,
     ) -> None:
         pass
 
-    def remove(self, pdf_paths: List[str], config: BaseMethodLayerConfig) -> None:
+    def remove(self, pdf_paths: list[str], config: BaseMethodLayerConfig) -> None:
         pass

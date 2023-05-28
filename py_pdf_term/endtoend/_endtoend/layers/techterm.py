@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import List, Optional
+
 
 from py_pdf_term.techterms import PDFTechnicalTermList, TechnicalTermExtractor
 
@@ -28,7 +28,7 @@ class BaseTechnicalTermLayer(metaclass=ABCMeta):
         self,
         candidate_layer: CandidateLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         if config is None:
             config = TechnicalTermLayerConfig()
@@ -65,7 +65,7 @@ class SingleDomainTechnicalTermLayer(BaseTechnicalTermLayer):
         candidate_layer: CandidateLayer,
         method_layer: SingleDomainMethodLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         super().__init__(candidate_layer, styling_layer, config)
 
@@ -121,14 +121,14 @@ class MultiDomainTechnicalTermLayer(BaseTechnicalTermLayer):
         candidate_layer: CandidateLayer,
         method_layer: MultiDomainMethodLayer,
         styling_layer: StylingLayer,
-        config: Optional[TechnicalTermLayerConfig] = None,
+        config: TechnicalTermLayerConfig | None = None,
     ) -> None:
         super().__init__(candidate_layer, styling_layer, config)
 
         self._method_layer = method_layer
 
     def create_pdf_techterms(
-        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+        self, domain: str, pdf_path: str, multi_domain_pdfs: list[DomainPDFList]
     ) -> PDFTechnicalTermList:
         """Extract technical terms from a PDF file in a domain.
 

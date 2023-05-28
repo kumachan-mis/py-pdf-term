@@ -1,11 +1,9 @@
-from typing import Dict, List, Optional
-
 from .data import ScoredTerm
 
 
 def ranking_to_dict(
-    ranking: List[ScoredTerm], rate: Optional[float] = None
-) -> Dict[str, float]:
+    ranking: list[ScoredTerm], rate: float | None = None
+) -> dict[str, float]:
     if rate is None:
         return {item.term: item.score for item in ranking}
 

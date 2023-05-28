@@ -2,7 +2,6 @@ import json
 import os
 from glob import glob
 from shutil import rmtree
-from typing import Union
 
 from py_pdf_term.candidates import PDFCandidateTermList
 
@@ -26,7 +25,7 @@ class CandidateLayerFileCache(BaseCandidateLayerCache):
 
     def load(
         self, pdf_path: str, config: CandidateLayerConfig
-    ) -> Union[PDFCandidateTermList, None]:
+    ) -> PDFCandidateTermList | None:
         dir_name = create_dir_name_from_config(config)
         file_name = create_file_name_from_path(pdf_path, "json")
         cache_file_path = os.path.join(self._cache_dir, dir_name, file_name)

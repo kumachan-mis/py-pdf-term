@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from .base import BaseRankingData
 
@@ -23,6 +22,6 @@ class TFIDFRankingData(BaseRankingData):
     """
 
     domain: str
-    term_freq: Dict[str, int]
-    doc_freq: Dict[str, int]
+    term_freq: dict[str, int]
+    doc_freq: dict[str, int]
     num_docs: int

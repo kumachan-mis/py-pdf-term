@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.tokenizers import (
     BaseLanguageTokenizer,
@@ -10,7 +8,7 @@ from py_pdf_term.tokenizers import (
 from ..base import BaseMapper
 
 
-class LanguageTokenizerMapper(BaseMapper[Type[BaseLanguageTokenizer]]):
+class LanguageTokenizerMapper(BaseMapper[type[BaseLanguageTokenizer]]):
     """A mapper to find language tokenizer classes."""
 
     @classmethod

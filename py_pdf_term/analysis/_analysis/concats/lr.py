@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizers import Term
@@ -24,8 +23,8 @@ class DomainLeftRightFrequency:
     """
 
     domain: str
-    left_freq: Dict[str, Dict[str, int]]
-    right_freq: Dict[str, Dict[str, int]]
+    left_freq: dict[str, dict[str, int]]
+    right_freq: dict[str, dict[str, int]]
 
 
 class TermLeftRightFrequencyAnalyzer:

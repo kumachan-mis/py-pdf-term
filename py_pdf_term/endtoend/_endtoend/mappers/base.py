@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from typing import Dict, Generic, List, TypeVar, Union
+from typing import Generic, TypeVar
 
 MappedValue = TypeVar("MappedValue")
 
@@ -10,7 +10,7 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
     """Base class for mappers to find mapped values from names."""
 
     def __init__(self) -> None:
-        self._map: Dict[str, MappedValue] = dict()
+        self._map: dict[str, MappedValue] = dict()
 
     def add(self, name: str, value: MappedValue) -> None:
         """Add a new mapping from name to value.
@@ -51,7 +51,7 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
 
         return self._map[name]
 
-    def find_or_none(self, name: str) -> Union[MappedValue, None]:
+    def find_or_none(self, name: str) -> MappedValue | None:
         """Find a mapped value from name. If not found, return None.
 
 
@@ -67,7 +67,7 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
 
         return self._map.get(name)
 
-    def bulk_find(self, names: List[str]) -> List[MappedValue]:
+    def bulk_find(self, names: list[str]) -> list[MappedValue]:
         """Find mapped values from names. If there is no mapped value for a name, raise
         KeyError.
 
@@ -84,7 +84,7 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
 
         return list(map(lambda name: self._map[name], names))
 
-    def bulk_find_or_none(self, names: List[str]) -> List[Union[MappedValue, None]]:
+    def bulk_find_or_none(self, names: list[str]) -> list[MappedValue | None]:
         """Find mapped values from names. If there is no mapped value for a name, return
         None.
 

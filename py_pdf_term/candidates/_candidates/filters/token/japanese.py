@@ -1,5 +1,4 @@
 import re
-from typing import List
 
 from py_pdf_term._common.consts import ENGLISH_REGEX, JAPANESE_REGEX, NUMBER_REGEX
 from py_pdf_term.tokenizers import Token
@@ -21,7 +20,7 @@ class JapaneseTokenFilter(BaseCandidateTokenFilter):
             self._regex.fullmatch(token_str) is not None or token_str == "-"
         )
 
-    def is_partof_candidate(self, tokens: List[Token], idx: int) -> bool:
+    def is_partof_candidate(self, tokens: list[Token], idx: int) -> bool:
         scoped_token = tokens[idx]
         num_tokens = len(tokens)
 

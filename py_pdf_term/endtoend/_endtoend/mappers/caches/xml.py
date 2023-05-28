@@ -1,12 +1,10 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 
 from ...caches import BaseXMLLayerCache, XMLLayerFileCache, XMLLayerNoCache
 from ..base import BaseMapper
 
 
-class XMLLayerCacheMapper(BaseMapper[Type[BaseXMLLayerCache]]):
+class XMLLayerCacheMapper(BaseMapper[type[BaseXMLLayerCache]]):
     """A mapper to find XML layer cache classes."""
 
     @classmethod

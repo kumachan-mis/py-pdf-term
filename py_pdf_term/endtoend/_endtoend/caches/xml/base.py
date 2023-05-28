@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.pdftoxml import PDFnXMLElement
 
@@ -20,9 +19,7 @@ class BaseXMLLayerCache(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def load(
-        self, pdf_path: str, config: XMLLayerConfig
-    ) -> Union[PDFnXMLElement, None]:
+    def load(self, pdf_path: str, config: XMLLayerConfig) -> PDFnXMLElement | None:
         """Load XML elements from a cache file.
 
         Args
@@ -35,7 +32,7 @@ class BaseXMLLayerCache(metaclass=ABCMeta):
 
         Returns
         -------
-            Union[PDFnXMLElement, None]:
+            PDFnXMLElement | None:
                 The loaded XML elements. If there is no cache file, this method returns
                 None.
         """

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Set
+from typing import Any
 
 from .base import BaseRankingData
 
@@ -22,10 +22,10 @@ class MCValueRankingData(BaseRankingData):
     """
 
     domain: str
-    term_freq: Dict[str, int]
-    container_terms: Dict[str, Set[str]]
+    term_freq: dict[str, int]
+    container_terms: dict[str, set[str]]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         container_terms = {
             term: list(containers) for term, containers in self.container_terms.items()
         }
@@ -36,7 +36,7 @@ class MCValueRankingData(BaseRankingData):
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "MCValueRankingData":
+    def from_dict(cls, obj: dict[str, Any]) -> "MCValueRankingData":
         container_terms = {
             term: set(containers) for term, containers in obj["container_terms"].items()
         }

@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Optional
+
 
 from py_pdf_term.tokenizers import Term
 
@@ -24,12 +24,12 @@ class BaseSplitter(metaclass=ABCMeta):
     Args
     ----
         classifiers:
-            A list of token classifiers to classify tokens into specific categories.
+            List of token classifiers to classify tokens into specific categories.
             If None, the default classifiers are used. The default classifiers are
             JapaneseTokenClassifier and EnglishTokenClassifier.
     """
 
-    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+    def __init__(self, classifiers: list[BaseTokenClassifier] | None = None) -> None:
         if classifiers is None:
             classifiers = [
                 JapaneseTokenClassifier(),
@@ -39,7 +39,7 @@ class BaseSplitter(metaclass=ABCMeta):
         self._classifiers = classifiers
 
     @abstractmethod
-    def split(self, term: Term) -> List[Term]:
+    def split(self, term: Term) -> list[Term]:
         """Split a wrongly concatenated term.
 
         Args
@@ -49,7 +49,7 @@ class BaseSplitter(metaclass=ABCMeta):
 
         Returns
         -------
-            List[Term]:
-                A list of split terms.
+            list[Term]:
+                List of split terms.
         """
         raise NotImplementedError(f"{self.__class__.__name__}.split()")

@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.stylings import PDFStylingScoreList
 
@@ -23,7 +22,7 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
     @abstractmethod
     def load(
         self, pdf_path: str, config: StylingLayerConfig
-    ) -> Union[PDFStylingScoreList, None]:
+    ) -> PDFStylingScoreList | None:
         """Load styling scores from a cache file.
 
         Args
@@ -36,7 +35,7 @@ class BaseStylingLayerCache(metaclass=ABCMeta):
 
         Returns
         -------
-            Union[PDFStylingScoreList, None]:
+            PDFStylingScoreList | None:
                 The loaded styling scores. If there is no cache file, this method
                 returns None.
         """

@@ -1,6 +1,6 @@
 import re
 from dataclasses import asdict, dataclass
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar
 
 from py_pdf_term._common.consts import NOSPACE_REGEX
 
@@ -43,23 +43,23 @@ class Token:
     def __str__(self) -> str:
         return self.surface_form
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "Token":
+    def from_dict(cls, obj: dict[str, Any]) -> "Token":
         return cls(**obj)
 
 
 @dataclass(frozen=True)
 class Term:
-    tokens: List[Token]
+    tokens: list[Token]
     fontsize: float = 0.0
     ncolor: str = ""
     augmented: bool = False
 
     @property
-    def lang(self) -> Union[str, None]:
+    def lang(self) -> str | None:
         if not self.tokens:
             return None
 
@@ -82,7 +82,7 @@ class Term:
             "", " ".join(map(lambda token: token.lemma, self.tokens))
         )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "tokens": list(map(lambda token: token.to_dict(), self.tokens)),
             "fontsize": self.fontsize,
@@ -91,7 +91,7 @@ class Term:
         }
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> "Term":
+    def from_dict(cls, obj: dict[str, Any]) -> "Term":
         return cls(
             list(map(lambda item: Token.from_dict(item), obj["tokens"])),
             obj.get("fontsize", 0),

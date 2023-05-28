@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from math import sqrt
-from typing import Dict
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term._common.utils import extended_log10
@@ -26,8 +25,8 @@ class HITSAuthHubData:
             value becomes. The initial hub value is 1.0.
     """
 
-    token_auth: Dict[str, float]
-    token_hub: Dict[str, float]
+    token_auth: dict[str, float]
+    token_hub: dict[str, float]
 
 
 class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
@@ -73,10 +72,10 @@ class HITSRanker(BaseSingleDomainRanker[HITSRankingData]):
         return MethodTermRanking(domain_candidates.domain, ranking)
 
     def _create_auth_hub_data(self, ranking_data: HITSRankingData) -> HITSAuthHubData:
-        token_auth: Dict[str, float] = {
+        token_auth: dict[str, float] = {
             token_lemma: 1.0 for token_lemma in ranking_data.left_freq
         }
-        token_hub: Dict[str, float] = {
+        token_hub: dict[str, float] = {
             token_lemma: 1.0 for token_lemma in ranking_data.right_freq
         }
 

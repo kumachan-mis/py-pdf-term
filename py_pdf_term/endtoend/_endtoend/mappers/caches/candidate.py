@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 
 from ...caches import (
@@ -10,7 +8,7 @@ from ...caches import (
 from ..base import BaseMapper
 
 
-class CandidateLayerCacheMapper(BaseMapper[Type[BaseCandidateLayerCache]]):
+class CandidateLayerCacheMapper(BaseMapper[type[BaseCandidateLayerCache]]):
     """A mapper to find candidate layer cache classes."""
 
     @classmethod

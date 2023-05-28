@@ -1,5 +1,4 @@
 from abc import ABCMeta
-from typing import Type
 
 from pytest import raises
 
@@ -27,11 +26,11 @@ class TestUserDefinedMappedValue(BaseTestMappedValue):
         super().__init__("UserDefined")
 
 
-class TestMapper(BaseMapper[Type[BaseTestMappedValue]]):
+class TestMapper(BaseMapper[type[BaseTestMappedValue]]):
     __test__ = False
 
     @classmethod
-    def default_mapper(cls) -> BaseMapper[Type[BaseTestMappedValue]]:
+    def default_mapper(cls) -> BaseMapper[type[BaseTestMappedValue]]:
         mapper = cls()
         mapper.add("py_pdf_term.TestDefaultMappedValue", TestDefaultMappedValue)
         return mapper

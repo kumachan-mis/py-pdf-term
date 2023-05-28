@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict, Set
 
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizers import Term
@@ -22,7 +21,7 @@ class DomainContainerTerms:
     """
 
     domain: str
-    container_terms: Dict[str, Set[str]]
+    container_terms: dict[str, set[str]]
 
 
 class ContainerTermsAnalyzer:

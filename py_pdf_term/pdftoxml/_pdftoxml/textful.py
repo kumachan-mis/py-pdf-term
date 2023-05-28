@@ -1,14 +1,11 @@
 from dataclasses import dataclass
-from typing import Any, BinaryIO, Optional, Sequence, Tuple, Union
+from typing import Any, BinaryIO, Sequence
 
-from pdfminer.converter import (
-    Matrix,
-    PathSegment,
-    PDFConverter,
-    PDFGraphicState,
-    PDFStream,
-    Rect,
-)
+from pdfminer.converter import PDFConverter
+from pdfminer.utils import Matrix, PathSegment, Rect, bbox2str, enc
+from pdfminer.pdfinterp import PDFGraphicState, PDFResourceManager
+from pdfminer.pdftypes import PDFStream
+
 from pdfminer.layout import (
     LAParams,
     LTAnno,
@@ -18,19 +15,17 @@ from pdfminer.layout import (
     LTTextBox,
     LTTextLine,
 )
-from pdfminer.pdfinterp import PDFResourceManager
-from pdfminer.utils import bbox2str, enc
 
 from .utils import clean_content_text
 
-NColor = Union[float, Tuple[float, float, float], Tuple[float, float, float, float]]
+NColor = float | tuple[float, float, float] | tuple[float, float, float, float]
 
 
 @dataclass
 class TextboxState:
     within_section: bool
     size: float
-    ncolor: Optional[NColor]
+    ncolor: NColor | None
     bbox: str
     text: str
 
@@ -65,10 +60,10 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
         outfp: BinaryIO,
         codec: str = "utf-8",
         pageno: int = 1,
-        laparams: Optional[LAParams] = None,
+        laparams: LAParams | None = None,
         nfc_norm: bool = True,
-        include_pattern: Optional[str] = None,
-        exclude_pattern: Optional[str] = None,
+        include_pattern: str | None = None,
+        exclude_pattern: str | None = None,
     ) -> None:
         super().__init__(rsrcmgr, outfp, codec, pageno, laparams)
 
@@ -156,7 +151,7 @@ class TextfulXMLConverter(PDFConverter[BinaryIO]):
             state.bbox = bbox2str(item.bbox)
             state.text = ""
 
-        def text_section_continues(item: Union[LTChar, LTAnno]) -> bool:
+        def text_section_continues(item: LTChar | LTAnno) -> bool:
             if isinstance(item, LTAnno):
                 return True
             return (

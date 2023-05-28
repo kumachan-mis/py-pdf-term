@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Generic, List
+from typing import Generic
 
 from py_pdf_term.candidates import DomainCandidateTermList
 
@@ -26,7 +26,7 @@ class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
             ranking_data:
                 Metadata to rank candidate terms in PDF documents.
 
@@ -51,14 +51,14 @@ class BaseMultiDomainRanker(Generic[RankingData], metaclass=ABCMeta):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data_list: List[RankingData],
+        ranking_data_list: list[RankingData],
     ) -> MethodTermRanking:
         """Rank candidate terms in domain-specific PDF documents.
 
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
             ranking_data_list:
                 List of metadata to rank candidate terms in PDF documents for each
                 domain.

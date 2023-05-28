@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict, Set
 
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizers import Term
@@ -24,8 +23,8 @@ class DomainTermOccurrence:
     """
 
     domain: str
-    term_freq: Dict[str, int]
-    doc_term_freq: Dict[str, int]
+    term_freq: dict[str, int]
+    doc_term_freq: dict[str, int]
 
 
 @dataclass(frozen=True)
@@ -45,8 +44,8 @@ class _DomainTermOccurrence:
     """
 
     domain: str
-    term_freq: Dict[str, int]
-    doc_term_set: Dict[str, Set[int]]
+    term_freq: dict[str, int]
+    doc_term_set: dict[str, set[int]]
 
 
 class TermOccurrenceAnalyzer:

@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_pdf_term.stylings import PDFStylingScoreList
 
 from ...configs import StylingLayerConfig
@@ -20,7 +18,7 @@ class StylingLayerNoCache(BaseStylingLayerCache):
 
     def load(
         self, pdf_path: str, config: StylingLayerConfig
-    ) -> Union[PDFStylingScoreList, None]:
+    ) -> PDFStylingScoreList | None:
         pass
 
     def store(

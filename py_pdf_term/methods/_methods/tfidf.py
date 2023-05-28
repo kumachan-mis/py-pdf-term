@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from .base import BaseMultiDomainRankingMethod
 from .collectors import TFIDFRankingDataCollector
@@ -15,5 +15,5 @@ class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
         super().__init__(collector, ranker)
 
     @classmethod
-    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> TFIDFRankingData:
+    def collect_data_from_dict(cls, obj: dict[str, Any]) -> TFIDFRankingData:
         return TFIDFRankingData(**obj)

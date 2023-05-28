@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List
 
 from .base import BaseLayerConfig
 
@@ -18,7 +17,7 @@ class StylingLayerConfig(BaseLayerConfig):
             "py_pdf_term.StylingLayerFileCache".
     """
 
-    styling_scores: List[str] = field(
+    styling_scores: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.FontsizeScore",
             "py_pdf_term.ColorScore",

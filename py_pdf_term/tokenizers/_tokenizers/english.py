@@ -1,5 +1,5 @@
 import re
-from typing import Any, List
+from typing import Any
 
 import en_core_web_sm
 
@@ -15,7 +15,7 @@ class EnglishTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return EnglishTokenizer._regex.search(text) is not None
 
-    def tokenize(self, scoped_text: str) -> List[Token]:
+    def tokenize(self, scoped_text: str) -> list[Token]:
         scoped_text = EnglishTokenizer._symbol_regex.sub(r" \1 ", scoped_text)
         return list(map(self._create_token, EnglishTokenizer._model(scoped_text)))
 

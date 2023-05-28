@@ -1,6 +1,6 @@
 import re
 from itertools import accumulate
-from typing import Any, List
+from typing import Any
 
 import ja_core_news_sm
 
@@ -19,7 +19,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     def inscope(self, text: str) -> bool:
         return JapaneseTokenizer._regex.search(text) is not None
 
-    def tokenize(self, scoped_text: str) -> List[Token]:
+    def tokenize(self, scoped_text: str) -> list[Token]:
         scoped_text = SPACES.sub(" ", scoped_text).strip()
         orginal_space_pos = {
             match.start() - offset

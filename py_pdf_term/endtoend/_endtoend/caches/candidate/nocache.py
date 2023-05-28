@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_pdf_term.candidates import PDFCandidateTermList
 
 from ...configs import CandidateLayerConfig
@@ -20,7 +18,7 @@ class CandidateLayerNoCache(BaseCandidateLayerCache):
 
     def load(
         self, pdf_path: str, config: CandidateLayerConfig
-    ) -> Union[PDFCandidateTermList, None]:
+    ) -> PDFCandidateTermList | None:
         pass
 
     def store(

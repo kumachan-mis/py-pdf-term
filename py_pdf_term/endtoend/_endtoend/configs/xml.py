@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+
 
 from .base import BaseLayerConfig
 
@@ -25,7 +25,7 @@ class XMLLayerConfig(BaseLayerConfig):
     """
 
     bin_opener: str = "py_pdf_term.StandardBinaryOpener"
-    include_pattern: Optional[str] = None
-    exclude_pattern: Optional[str] = None
+    include_pattern: str | None = None
+    exclude_pattern: str | None = None
     nfc_norm: bool = True
     cache: str = "py_pdf_term.XMLLayerFileCache"

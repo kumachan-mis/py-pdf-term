@@ -6,7 +6,7 @@ from py_pdf_term.endtoend.caches import StylingLayerFileCache, StylingLayerNoCac
 from py_pdf_term.stylings import PageStylingScoreList, PDFStylingScoreList
 
 
-def test_file_cache(tmp_path: Path):
+def test_file_cache(tmp_path: Path) -> None:
     cache = StylingLayerFileCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"
@@ -53,7 +53,7 @@ def test_file_cache(tmp_path: Path):
     assert cache.load(pdf_path, config) is None
 
 
-def test_file_cache_multiple(tmp_path: Path):
+def test_file_cache_multiple(tmp_path: Path) -> None:
     cache = StylingLayerFileCache(tmp_path.as_posix())
 
     pdf_path1 = "test1.pdf"
@@ -106,7 +106,7 @@ def test_file_cache_multiple(tmp_path: Path):
     assert cache.load(pdf_path2, config) is None
 
 
-def test_no_cache(tmp_path: Path):
+def test_no_cache(tmp_path: Path) -> None:
     cache = StylingLayerNoCache(tmp_path.as_posix())
 
     pdf_path = "test.pdf"

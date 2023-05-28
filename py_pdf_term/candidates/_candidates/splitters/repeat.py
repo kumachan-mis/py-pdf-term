@@ -1,5 +1,3 @@
-from typing import List, Optional, Tuple
-
 from py_pdf_term.tokenizers import Term
 
 from ..classifiers import BaseTokenClassifier
@@ -13,15 +11,15 @@ class RepeatSplitter(BaseSplitter):
     Args
     ----
         classifiers:
-            A list of token classifiers to classify tokens into specific categories.
+            List of token classifiers to classify tokens into specific categories.
             If None, the default classifiers are used. The default classifiers are
             JapaneseTokenClassifier and EnglishTokenClassifier.
     """
 
-    def __init__(self, classifiers: Optional[List[BaseTokenClassifier]] = None) -> None:
+    def __init__(self, classifiers: list[BaseTokenClassifier] | None = None) -> None:
         super().__init__(classifiers=classifiers)
 
-    def split(self, term: Term) -> List[Term]:
+    def split(self, term: Term) -> list[Term]:
         if self._contains_connector_token(term):
             return [term]
 
@@ -42,8 +40,8 @@ class RepeatSplitter(BaseSplitter):
             )
         )
 
-    def _backward_split(self, term: Term) -> Tuple[Term, List[Term]]:
-        splitted_terms: List[Term] = []
+    def _backward_split(self, term: Term) -> tuple[Term, list[Term]]:
+        splitted_terms: list[Term] = []
         head = term.tokens
         fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 
@@ -64,8 +62,8 @@ class RepeatSplitter(BaseSplitter):
         splitted_terms.reverse()
         return Term(head, fontsize, ncolor, augmented), splitted_terms
 
-    def _forward_split(self, term: Term) -> Tuple[List[Term], Term]:
-        splitted_terms: List[Term] = []
+    def _forward_split(self, term: Term) -> tuple[list[Term], Term]:
+        splitted_terms: list[Term] = []
         tail = term.tokens
         fontsize, ncolor, augmented = term.fontsize, term.ncolor, term.augmented
 

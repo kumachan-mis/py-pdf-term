@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from .base import BaseRankingData
 
@@ -24,6 +23,6 @@ class FLRRankingData(BaseRankingData):
     """
 
     domain: str
-    term_freq: Dict[str, int]
-    left_freq: Dict[str, Dict[str, int]]
-    right_freq: Dict[str, Dict[str, int]]
+    term_freq: dict[str, int]
+    left_freq: dict[str, dict[str, int]]
+    right_freq: dict[str, dict[str, int]]

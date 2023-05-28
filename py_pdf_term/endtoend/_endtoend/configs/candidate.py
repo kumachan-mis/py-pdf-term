@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List
 
 from .base import BaseLayerConfig
 
@@ -41,25 +40,25 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_pdf_term.CandidateLayerFileCache".
     """
 
-    lang_tokenizers: List[str] = field(
+    lang_tokenizers: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseTokenizer",
             "py_pdf_term.EnglishTokenizer",
         ]
     )
-    token_classifiers: List[str] = field(
+    token_classifiers: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseTokenClassifier",
             "py_pdf_term.EnglishTokenClassifier",
         ]
     )
-    token_filters: List[str] = field(
+    token_filters: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseTokenFilter",
             "py_pdf_term.EnglishTokenFilter",
         ]
     )
-    term_filters: List[str] = field(
+    term_filters: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseConcatenationFilter",
             "py_pdf_term.EnglishConcatenationFilter",
@@ -71,13 +70,13 @@ class CandidateLayerConfig(BaseLayerConfig):
             "py_pdf_term.EnglishNumericFilter",
         ]
     )
-    splitters: List[str] = field(
+    splitters: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.SymbolNameSplitter",
             "py_pdf_term.RepeatSplitter",
         ]
     )
-    augmenters: List[str] = field(
+    augmenters: list[str] = field(
         default_factory=lambda: [
             "py_pdf_term.JapaneseConnectorTermAugmenter",
             "py_pdf_term.EnglishConnectorTermAugmenter",

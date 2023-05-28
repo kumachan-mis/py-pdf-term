@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, Generic, Iterator, List, Optional
+from typing import Any, Generic, Iterator
 
 from py_pdf_term.candidates import DomainCandidateTermList
 
@@ -34,14 +34,14 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     def rank_terms(
         self,
         domain_candidates: DomainCandidateTermList,
-        ranking_data: Optional[RankingData] = None,
+        ranking_data: RankingData | None = None,
     ) -> MethodTermRanking:
         """Rank candidate terms in PDF documents in a domain.
 
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
             ranking_data:
                 Metadata to rank candidate terms in PDF documents. If this argument is
                 not None, this method skips collecting metadata and uses this argument
@@ -80,7 +80,7 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
 
         Returns
         -------
@@ -94,7 +94,7 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> RankingData:
+    def collect_data_from_dict(cls, obj: dict[str, Any]) -> RankingData:
         """Collect metadata to rank candidate terms in PDF documents from a dictionary.
         This method is used to load cached metadata.
 
@@ -137,15 +137,15 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
     def rank_terms(
         self,
-        domain_candidates_list: List[DomainCandidateTermList],
-        ranking_data_list: Optional[List[RankingData]] = None,
+        domain_candidates_list: list[DomainCandidateTermList],
+        ranking_data_list: list[RankingData] | None = None,
     ) -> Iterator[MethodTermRanking]:
         """Rank candidate terms in PDF documents in multiple domains.
 
         Args
         ----
             domain_candidates_list:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
             ranking_data_list:
                 Metadata to rank candidate terms in PDF documents. If this argument is
                 not None, this method skips collecting metadata and uses this argument
@@ -169,8 +169,8 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     def rank_domain_terms(
         self,
         domain: str,
-        domain_candidates_list: List[DomainCandidateTermList],
-        ranking_data_list: Optional[List[RankingData]] = None,
+        domain_candidates_list: list[DomainCandidateTermList],
+        ranking_data_list: list[RankingData] | None = None,
     ) -> MethodTermRanking:
         """Rank candidate terms in PDF documents in a domain.
 
@@ -179,7 +179,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
             domain:
                 A domain to rank candidate terms in PDF documents.
             domain_candidates_list:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
             ranking_data_list:
                 Metadata to rank candidate terms in PDF documents. If this argument is
                 not None, this method skips collecting metadata and uses this argument
@@ -225,7 +225,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             domain_candidates:
-                A list of candidate terms in domain-specific PDF documents.
+                List of candidate terms in domain-specific PDF documents.
         """
 
         ranking_data = self._data_collector.collect(domain_candidates)
@@ -233,7 +233,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def collect_data_from_dict(cls, obj: Dict[str, Any]) -> RankingData:
+    def collect_data_from_dict(cls, obj: dict[str, Any]) -> RankingData:
         """Collect metadata to rank candidate terms in PDF documents from a dictionary.
         This method is used to load cached metadata.
 

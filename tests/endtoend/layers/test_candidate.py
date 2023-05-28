@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List, Optional, Type
 from xml.etree.ElementTree import parse
 
 from pytest import mark, raises
@@ -57,7 +56,7 @@ class TestTokenClassifier(EnglishTokenClassifier):
 class TestCandidateTokenFilter(EnglishTokenFilter):
     __test__ = False
 
-    def is_partof_candidate(self, tokens: List[Token], idx: int) -> bool:
+    def is_partof_candidate(self, tokens: list[Token], idx: int) -> bool:
         return str(tokens[idx]) != "architecture"
 
 
@@ -71,7 +70,7 @@ class TestCandidateTermFilter(BaseEnglishCandidateTermFilter):
 class TestSplitter(BaseSplitter):
     __test__ = False
 
-    def split(self, term: Term) -> List[Term]:
+    def split(self, term: Term) -> list[Term]:
         if term.tokens and str(term.tokens[-1]) == "Layer":
             return [
                 Term(term.tokens[:-1], term.fontsize, term.ncolor, term.augmented),
@@ -83,7 +82,7 @@ class TestSplitter(BaseSplitter):
 class TestAugmenter(BaseAugmenter):
     __test__ = False
 
-    def augment(self, term: Term) -> List[Term]:
+    def augment(self, term: Term) -> list[Term]:
         if term.tokens and str(term.tokens[-1]) == "use":
             return [
                 Term(term.tokens[:-1], term.fontsize, term.ncolor, term.augmented),
@@ -167,7 +166,7 @@ def test_full_config(tmp_path: Path) -> None:
 
     domain_candidates = candidate_layer.create_domain_candidates(domain_pdfs)
 
-    def find_candidate_by_text(text: str, candidates: List[Term]) -> Optional[Term]:
+    def find_candidate_by_text(text: str, candidates: list[Term]) -> Term | None:
         return next(filter(lambda t: str(t) == text, candidates), None)
 
     assert domain_candidates.domain == "test"
@@ -449,7 +448,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 def test_invalid_config(
     tmp_path: Path,
     invalid_config: CandidateLayerConfig,
-    expected_exception: Type[Exception],
+    expected_exception: type[Exception],
 ) -> None:
     raises(
         expected_exception,

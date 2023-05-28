@@ -1,5 +1,3 @@
-from typing import Optional
-
 from py_pdf_term.stylings import PDFStylingScoreList, StylingScorer
 
 from ..caches import DEFAULT_CACHE_DIR
@@ -29,9 +27,9 @@ class StylingLayer:
     def __init__(
         self,
         candidate_layer: CandidateLayer,
-        config: Optional[StylingLayerConfig] = None,
-        styling_score_mapper: Optional[StylingScoreMapper] = None,
-        cache_mapper: Optional[StylingLayerCacheMapper] = None,
+        config: StylingLayerConfig | None = None,
+        styling_score_mapper: StylingScoreMapper | None = None,
+        cache_mapper: StylingLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         if config is None:

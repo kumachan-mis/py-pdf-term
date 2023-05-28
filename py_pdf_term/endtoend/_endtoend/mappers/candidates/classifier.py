@@ -1,5 +1,3 @@
-from typing import Type
-
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.classifiers import (
     BaseTokenClassifier,
@@ -10,7 +8,7 @@ from py_pdf_term.candidates.classifiers import (
 from ..base import BaseMapper
 
 
-class TokenClassifierMapper(BaseMapper[Type[BaseTokenClassifier]]):
+class TokenClassifierMapper(BaseMapper[type[BaseTokenClassifier]]):
     """A mapper to find token classifier classes."""
 
     @classmethod

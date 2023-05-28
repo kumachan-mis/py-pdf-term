@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from typing import Type
 
 from pytest import mark, raises
 from pytest_mock import MockerFixture
@@ -145,7 +144,7 @@ def test_no_cache(tmp_path: Path, mocker: MockerFixture) -> None:
 def test_invalid_config(
     tmp_path: Path,
     invalid_config: StylingLayerConfig,
-    expected_exception: Type[Exception],
+    expected_exception: type[Exception],
 ) -> None:
     raises(
         expected_exception,

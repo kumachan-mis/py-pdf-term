@@ -1,5 +1,4 @@
 from os import path
-from typing import List, Optional
 
 from py_pdf_term import PDFTechnicalTermList
 from py_pdf_term._common.data import ScoredTerm
@@ -63,7 +62,7 @@ class PyPDFTermFixture:
 
     @classmethod
     def assert_pdf_candidates(cls, pdf_candidates: PDFCandidateTermList) -> None:
-        def find_candidate_by_text(text: str, candidates: List[Term]) -> Optional[Term]:
+        def find_candidate_by_text(text: str, candidates: list[Term]) -> Term | None:
             return next(filter(lambda t: str(t) == text, candidates), None)
 
         assert pdf_candidates.pdf_path == cls.PDF_PATH
@@ -182,7 +181,7 @@ class PyPDFTermFixture:
 
     @classmethod
     def assert_pdf_stylings(cls, pdf_stylings: PDFStylingScoreList) -> None:
-        def ranking_is_ordered(ranking: List[ScoredTerm]) -> bool:
+        def ranking_is_ordered(ranking: list[ScoredTerm]) -> bool:
             return all(
                 map(
                     lambda i: ranking[i].score >= ranking[i + 1].score,
@@ -190,7 +189,7 @@ class PyPDFTermFixture:
                 )
             )
 
-        def get_high_scored_terms(ranking: List[ScoredTerm]) -> set[str]:
+        def get_high_scored_terms(ranking: list[ScoredTerm]) -> set[str]:
             threshold = ranking[int(0.7 * len(ranking))].score
             return set(
                 map(lambda t: t.term, filter(lambda t: t.score >= threshold, ranking))

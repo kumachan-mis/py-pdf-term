@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional, Type
-
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.candidates import (
     DomainCandidateTermList,
@@ -23,7 +21,7 @@ class StylingScorer:
     """
 
     def __init__(
-        self, styling_score_clses: Optional[List[Type[BaseStylingScore]]] = None
+        self, styling_score_clses: list[type[BaseStylingScore]] | None = None
     ) -> None:
         if styling_score_clses is None:
             styling_score_clses = [FontsizeScore, ColorScore]
@@ -43,7 +41,7 @@ class StylingScorer:
         Returns
         -------
             DomainStylingScoreList:
-                A list of styling scores for each candidate term in a domain. The
+                List of styling scores for each candidate term in a domain. The
                 scores are sorted in descending order.
         """
 
@@ -65,7 +63,7 @@ class StylingScorer:
         Returns
         -------
             PDFStylingScoreList:
-                A list of styling scores for each candidate term in a PDF file. The
+                List of styling scores for each candidate term in a PDF file. The
                 scores are sorted in descending order.
         """
 
@@ -77,14 +75,14 @@ class StylingScorer:
     def _score_page_candidates(
         self, page_candidates: PageCandidateTermList
     ) -> PageStylingScoreList:
-        styling_scores: Dict[str, float] = {
+        styling_scores: dict[str, float] = {
             candidate.lemma(): 1.0 for candidate in page_candidates.candidates
         }
 
         for styling_score_cls in self._styling_score_clses:
             styling_score = styling_score_cls(page_candidates)
 
-            scores: Dict[str, float] = dict()
+            scores: dict[str, float] = dict()
             for candidate in page_candidates.candidates:
                 candidate_lemma = candidate.lemma()
                 score = styling_score.calculate_score(candidate)

@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from typing import Callable, List
+from typing import Callable
 
 from py_pdf_term.tokenizers import Term, Token
 
@@ -19,7 +19,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
     def __init__(self, is_separator: Callable[[Token], bool]) -> None:
         self._is_separator = is_separator
 
-    def augment(self, term: Term) -> List[Term]:
+    def augment(self, term: Term) -> list[Term]:
         """Augment a candidate term by separating tokens.
 
         Args
@@ -29,8 +29,8 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
 
         Returns
         -------
-            List[Term]:
-                A list of augmented terms. If a term consists of
+            list[Term]:
+                List of augmented terms. If a term consists of
                 "A separator B separator C", the list contains the following terms:
                 "A separator B separator C", "A separator B," "B separator C",
                 "A", "B", "C".
@@ -44,7 +44,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
         )
         num_positions = len(separation_positions)
 
-        augmented_terms: List[Term] = []
+        augmented_terms: list[Term] = []
         for length in range(1, num_positions - 1):
             for idx in range(num_positions - length):
                 i = separation_positions[idx]
@@ -65,7 +65,7 @@ class JapaneseConnectorTermAugmenter(BaseSeparationAugmenter):
         classifier = JapaneseTokenClassifier()
         super().__init__(classifier.is_connector_term)
 
-    def augment(self, term: Term) -> List[Term]:
+    def augment(self, term: Term) -> list[Term]:
         """Augment a candidate term by separating tokens based on Japanese connector
         terms.
 
@@ -76,8 +76,8 @@ class JapaneseConnectorTermAugmenter(BaseSeparationAugmenter):
 
         Returns
         -------
-            List[Term]:
-                A list of augmented terms.
+            list[Term]:
+                List of augmented terms.
                 If a given term is not a Japanese term, the list is empty.
         """
 
@@ -96,7 +96,7 @@ class EnglishConnectorTermAugmenter(BaseSeparationAugmenter):
         classifier = EnglishTokenClassifier()
         super().__init__(classifier.is_connector_term)
 
-    def augment(self, term: Term) -> List[Term]:
+    def augment(self, term: Term) -> list[Term]:
         """Augment a candidate term by separating tokens based on English connector
         terms.
 
@@ -107,8 +107,8 @@ class EnglishConnectorTermAugmenter(BaseSeparationAugmenter):
 
         Returns
         -------
-            List[Term]:
-                A list of augmented terms.
+            list[Term]:
+                List of augmented terms.
                 If a given term is not an English term, the list is empty.
         """
 

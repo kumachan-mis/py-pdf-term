@@ -1,5 +1,3 @@
-from typing import Optional
-
 from py_pdf_term.pdftoxml import PDFnXMLElement, PDFtoXMLConverter
 
 from ..caches import DEFAULT_CACHE_DIR
@@ -27,9 +25,9 @@ class XMLLayer:
 
     def __init__(
         self,
-        config: Optional[XMLLayerConfig] = None,
-        bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
-        cache_mapper: Optional[XMLLayerCacheMapper] = None,
+        config: XMLLayerConfig | None = None,
+        bin_opener_mapper: BinaryOpenerMapper | None = None,
+        cache_mapper: XMLLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         if config is None:

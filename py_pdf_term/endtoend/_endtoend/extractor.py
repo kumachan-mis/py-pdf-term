@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.techterms import PDFTechnicalTermList
 
 from .caches import DEFAULT_CACHE_DIR
@@ -137,25 +135,25 @@ class PyPDFTermSingleDomainExtractor:
 
     def __init__(
         self,
-        xml_config: Optional[XMLLayerConfig] = None,
-        candidate_config: Optional[CandidateLayerConfig] = None,
-        method_config: Optional[SingleDomainMethodLayerConfig] = None,
-        styling_config: Optional[StylingLayerConfig] = None,
-        techterm_config: Optional[TechnicalTermLayerConfig] = None,
-        bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
-        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
-        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
-        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
-        splitter_mapper: Optional[SplitterMapper] = None,
-        augmenter_mapper: Optional[AugmenterMapper] = None,
-        method_mapper: Optional[SingleDomainRankingMethodMapper] = None,
-        styling_score_mapper: Optional[StylingScoreMapper] = None,
-        xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
-        candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
-        method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
-        method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
-        styling_cache_mapper: Optional[StylingLayerCacheMapper] = None,
+        xml_config: XMLLayerConfig | None = None,
+        candidate_config: CandidateLayerConfig | None = None,
+        method_config: SingleDomainMethodLayerConfig | None = None,
+        styling_config: StylingLayerConfig | None = None,
+        techterm_config: TechnicalTermLayerConfig | None = None,
+        bin_opener_mapper: BinaryOpenerMapper | None = None,
+        lang_tokenizer_mapper: LanguageTokenizerMapper | None = None,
+        token_classifier_mapper: TokenClassifierMapper | None = None,
+        token_filter_mapper: CandidateTokenFilterMapper | None = None,
+        term_filter_mapper: CandidateTermFilterMapper | None = None,
+        splitter_mapper: SplitterMapper | None = None,
+        augmenter_mapper: AugmenterMapper | None = None,
+        method_mapper: SingleDomainRankingMethodMapper | None = None,
+        styling_score_mapper: StylingScoreMapper | None = None,
+        xml_cache_mapper: XMLLayerCacheMapper | None = None,
+        candidate_cache_mapper: CandidateLayerCacheMapper | None = None,
+        method_ranking_cache_mapper: MethodLayerRankingCacheMapper | None = None,
+        method_data_cache_mapper: MethodLayerDataCacheMapper | None = None,
+        styling_cache_mapper: StylingLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         xml_layer = XMLLayer(
@@ -328,25 +326,25 @@ class PyPDFTermMultiDomainExtractor:
 
     def __init__(
         self,
-        xml_config: Optional[XMLLayerConfig] = None,
-        candidate_config: Optional[CandidateLayerConfig] = None,
-        method_config: Optional[MultiDomainMethodLayerConfig] = None,
-        styling_config: Optional[StylingLayerConfig] = None,
-        techterm_config: Optional[TechnicalTermLayerConfig] = None,
-        bin_opener_mapper: Optional[BinaryOpenerMapper] = None,
-        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
-        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
-        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
-        splitter_mapper: Optional[SplitterMapper] = None,
-        augmenter_mapper: Optional[AugmenterMapper] = None,
-        method_mapper: Optional[MultiDomainRankingMethodMapper] = None,
-        styling_score_mapper: Optional[StylingScoreMapper] = None,
-        xml_cache_mapper: Optional[XMLLayerCacheMapper] = None,
-        candidate_cache_mapper: Optional[CandidateLayerCacheMapper] = None,
-        method_ranking_cache_mapper: Optional[MethodLayerRankingCacheMapper] = None,
-        method_data_cache_mapper: Optional[MethodLayerDataCacheMapper] = None,
-        styling_cache_mapper: Optional[StylingLayerCacheMapper] = None,
+        xml_config: XMLLayerConfig | None = None,
+        candidate_config: CandidateLayerConfig | None = None,
+        method_config: MultiDomainMethodLayerConfig | None = None,
+        styling_config: StylingLayerConfig | None = None,
+        techterm_config: TechnicalTermLayerConfig | None = None,
+        bin_opener_mapper: BinaryOpenerMapper | None = None,
+        lang_tokenizer_mapper: LanguageTokenizerMapper | None = None,
+        token_classifier_mapper: TokenClassifierMapper | None = None,
+        token_filter_mapper: CandidateTokenFilterMapper | None = None,
+        term_filter_mapper: CandidateTermFilterMapper | None = None,
+        splitter_mapper: SplitterMapper | None = None,
+        augmenter_mapper: AugmenterMapper | None = None,
+        method_mapper: MultiDomainRankingMethodMapper | None = None,
+        styling_score_mapper: StylingScoreMapper | None = None,
+        xml_cache_mapper: XMLLayerCacheMapper | None = None,
+        candidate_cache_mapper: CandidateLayerCacheMapper | None = None,
+        method_ranking_cache_mapper: MethodLayerRankingCacheMapper | None = None,
+        method_data_cache_mapper: MethodLayerDataCacheMapper | None = None,
+        styling_cache_mapper: StylingLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         xml_layer = XMLLayer(
@@ -392,7 +390,7 @@ class PyPDFTermMultiDomainExtractor:
         self._techterm_layer = techterm_layer
 
     def extract(
-        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+        self, domain: str, pdf_path: str, multi_domain_pdfs: list[DomainPDFList]
     ) -> PDFTechnicalTermList:
         """Extract technical terms from a PDF file.
 
@@ -423,7 +421,7 @@ class PyPDFTermMultiDomainExtractor:
         return pdf_techterms
 
     def _validate(
-        self, domain: str, pdf_path: str, multi_domain_pdfs: List[DomainPDFList]
+        self, domain: str, pdf_path: str, multi_domain_pdfs: list[DomainPDFList]
     ) -> None:
         if domain == "":
             raise ValueError("domain name must not be empty")

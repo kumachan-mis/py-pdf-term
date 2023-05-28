@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from py_pdf_term.candidates import PDFCandidateTermList
 
@@ -22,7 +21,7 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
     @abstractmethod
     def load(
         self, pdf_path: str, config: CandidateLayerConfig
-    ) -> Union[PDFCandidateTermList, None]:
+    ) -> PDFCandidateTermList | None:
         """Load candidate terms from a cache file.
 
         Args
@@ -35,7 +34,7 @@ class BaseCandidateLayerCache(metaclass=ABCMeta):
 
         Returns
         -------
-            Union[PDFCandidateTermList, None]:
+            PDFCandidateTermList | None:
                 The loaded candidate terms. If there is no cache file, this method
                 returns None.
         """

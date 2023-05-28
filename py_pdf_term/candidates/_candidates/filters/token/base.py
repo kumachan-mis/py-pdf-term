@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import List
 
 from py_pdf_term.tokenizers import Token
 
@@ -29,13 +28,13 @@ class BaseCandidateTokenFilter(metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.inscope()")
 
     @abstractmethod
-    def is_partof_candidate(self, tokens: List[Token], idx: int) -> bool:
+    def is_partof_candidate(self, tokens: list[Token], idx: int) -> bool:
         """Test if a token can be part of a candidate term.
 
         Args
         ----
             tokens:
-                A list of tokens.
+                List of tokens.
             idx:
                 An index of the token to be tested.
 

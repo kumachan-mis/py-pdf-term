@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from py_pdf_term.candidates import (
     CandidateTermExtractor,
     DomainCandidateTermList,
@@ -59,14 +57,14 @@ class CandidateLayer:
     def __init__(
         self,
         xml_layer: XMLLayer,
-        config: Optional[CandidateLayerConfig] = None,
-        lang_tokenizer_mapper: Optional[LanguageTokenizerMapper] = None,
-        token_classifier_mapper: Optional[TokenClassifierMapper] = None,
-        token_filter_mapper: Optional[CandidateTokenFilterMapper] = None,
-        term_filter_mapper: Optional[CandidateTermFilterMapper] = None,
-        splitter_mapper: Optional[SplitterMapper] = None,
-        augmenter_mapper: Optional[AugmenterMapper] = None,
-        cache_mapper: Optional[CandidateLayerCacheMapper] = None,
+        config: CandidateLayerConfig | None = None,
+        lang_tokenizer_mapper: LanguageTokenizerMapper | None = None,
+        token_classifier_mapper: TokenClassifierMapper | None = None,
+        token_filter_mapper: CandidateTokenFilterMapper | None = None,
+        term_filter_mapper: CandidateTermFilterMapper | None = None,
+        splitter_mapper: SplitterMapper | None = None,
+        augmenter_mapper: AugmenterMapper | None = None,
+        cache_mapper: CandidateLayerCacheMapper | None = None,
         cache_dir: str = DEFAULT_CACHE_DIR,
     ) -> None:
         if config is None:
@@ -123,7 +121,7 @@ class CandidateLayer:
                 a list of candidate terms in a domain.
         """
 
-        pdf_candidates_list: List[PDFCandidateTermList] = []
+        pdf_candidates_list: list[PDFCandidateTermList] = []
         for pdf_path in domain_pdfs.pdf_paths:
             pdf_candidates = self.create_pdf_candidates(pdf_path)
             pdf_candidates_list.append(pdf_candidates)
