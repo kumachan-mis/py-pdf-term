@@ -6,7 +6,7 @@ from .japanese import JapaneseTokenClassifier
 
 
 class MeaninglessMarker:
-    """The marker class to mark meaningless tokens in a term.
+    """Marker class to mark meaningless tokens in a term.
 
     Args
     ----
@@ -30,12 +30,12 @@ class MeaninglessMarker:
         Args
         ----
             term:
-                A term to be marked.
+                Term to be marked.
 
         Returns
         -------
             Term:
-                A term with meaningless tokens marked.
+                Term with meaningless tokens marked.
         """
 
         for token in term.tokens:

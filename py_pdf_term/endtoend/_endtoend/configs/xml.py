@@ -11,17 +11,17 @@ class XMLLayerConfig(BaseLayerConfig):
     Args
     ----
         bin_opener:
-            a binary opener class name. The default opener is
+            Binary opener class name. The default opener is
             "py_pdf_term.StandardBinaryOpener".
         include_pattern:
-            A regular expression pattern of text to include in the output.
+            Regular expression pattern of text to include in the output.
         exclude_pattern:
-            A regular expression pattern of text to exclude from the output (overrides
+            Regular expression pattern of text to exclude from the output (overrides
             include_pattern).
         nfc_norm:
             If True, normalize text to NFC, otherwise keep original.
         cache:
-            a cache class name. The default cache is "py_pdf_term.XMLLayerFileCache".
+            Cache class name. The default cache is "py_pdf_term.XMLLayerFileCache".
     """
 
     bin_opener: str = "py_pdf_term.StandardBinaryOpener"

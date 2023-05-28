@@ -16,10 +16,10 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     Args
     ----
         data_collector:
-            A collector of metadata to rank candidate terms in domain-specific PDF
+            Collector of metadata to rank candidate terms in domain-specific PDF
             documents.
         ranker:
-            A ranker of candidate terms in PDF documents by an algorithm which does not
+            Ranker of candidate terms in PDF documents by an algorithm which does not
             require cross-domain information.
     """
 
@@ -50,7 +50,7 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Returns
         -------
             MethodTermRanking:
-                A ranking result of candidate terms in PDF documents.
+                Ranking result of candidate terms in PDF documents.
         """
 
         if ranking_data is None:
@@ -101,7 +101,7 @@ class BaseSingleDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             obj:
-                A dictionary which contains metadata to rank candidate terms in PDF
+                Dictionary which contains metadata to rank candidate terms in PDF
                 documents in a domain.
 
         Returns
@@ -120,10 +120,10 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
     Args
     ----
         data_collector:
-            A collector of metadata to rank candidate terms in domain-specific PDF
+            Collector of metadata to rank candidate terms in domain-specific PDF
             documents.
         ranker:
-            A ranker of candidate terms in PDF documents by an algorithm which requires
+            Ranker of candidate terms in PDF documents by an algorithm which requires
             cross-domain information.
     """
 
@@ -154,7 +154,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Yields
         ------
             MethodTermRanking:
-                A ranking result of candidate terms in PDF documents.
+                Ranking result of candidate terms in PDF documents.
         """
 
         if ranking_data_list is None:
@@ -177,7 +177,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             domain:
-                A domain to rank candidate terms in PDF documents.
+                Domain to rank candidate terms in PDF documents.
             domain_candidates_list:
                 List of candidate terms in domain-specific PDF documents.
             ranking_data_list:
@@ -188,7 +188,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Returns
         -------
             MethodTermRanking:
-                A ranking result of candidate terms in PDF documents.
+                Ranking result of candidate terms in PDF documents.
         """
 
         domain_candidates = next(
@@ -240,7 +240,7 @@ class BaseMultiDomainRankingMethod(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             obj:
-                A dictionary which contains metadata to rank candidate terms in PDF
+                Dictionary which contains metadata to rank candidate terms in PDF
                 documents in a domain.
 
         Returns

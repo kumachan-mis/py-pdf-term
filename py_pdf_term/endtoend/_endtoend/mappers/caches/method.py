@@ -14,7 +14,7 @@ from ..base import BaseMapper
 
 
 class MethodLayerRankingCacheMapper(BaseMapper[type[BaseMethodLayerRankingCache]]):
-    """A mapper to find method layer ranking cache classes."""
+    """Mapper to find method layer ranking cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "MethodLayerRankingCacheMapper":
@@ -28,7 +28,7 @@ class MethodLayerRankingCacheMapper(BaseMapper[type[BaseMethodLayerRankingCache]
 
 
 class MethodLayerDataCacheMapper(BaseMapper[type[BaseMethodLayerDataCache[Any]]]):
-    """A mapper to find method layer data cache classes."""
+    """Mapper to find method layer data cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "MethodLayerDataCacheMapper":

@@ -18,16 +18,16 @@ class SingleDomainMethodLayerConfig(BaseMethodLayerConfig):
 
     Args:
         method:
-            a single-domain method class name. The default method is
+            Single-domain method class name. The default method is
             "py_pdf_term.FLRHMethod".
         hyper_params:
-            hyper parameters for the method. The default hyper parameters are
+            Hyper parameters for the method. The default hyper parameters are
             empty.
         ranking_cache:
-            a ranking cache class name. The default cache is
+            Ranking cache class name. The default cache is
             "py_pdf_term.MethodLayerRankingFileCache".
         data_cache:
-            a data cache class name. The default cache is
+            Data cache class name. The default cache is
             "py_pdf_term.MethodLayerDataFileCache".
     """
 
@@ -41,16 +41,16 @@ class MultiDomainMethodLayerConfig(BaseMethodLayerConfig):
     Args
     ----
         method:
-            a multi-domain method class name. The default method is
+            Multi-domain method class name. The default method is
             "py_pdf_term.TFIDFMethod".
         hyper_params:
-            hyper parameters for the method. The default hyper parameters are
+            Hyper parameters for the method. The default hyper parameters are
             empty.
         ranking_cache:
-            a ranking cache class name. The default cache is
+            Ranking cache class name. The default cache is
             "py_pdf_term.MethodLayerRankingFileCache".
         data_cache:
-            a data cache class name. The default cache is
+            Data cache class name. The default cache is
             "py_pdf_term.MethodLayerDataFileCache".
     """
 

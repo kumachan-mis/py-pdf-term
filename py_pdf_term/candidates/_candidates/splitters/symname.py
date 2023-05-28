@@ -9,7 +9,7 @@ from .base import BaseSplitter
 
 
 class SymbolNameSplitter(BaseSplitter):
-    """A splitter to split down a symbol at the end of a term. For example, given
+    """Splitter to split down a symbol at the end of a term. For example, given
     "Programming Language 2", this splitter splits it into "Programming Language" and
     "2", and then "2" is ignored as a meaningless term.
 

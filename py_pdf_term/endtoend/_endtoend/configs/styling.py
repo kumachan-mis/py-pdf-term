@@ -10,10 +10,10 @@ class StylingLayerConfig(BaseLayerConfig):
     Args
     ----
         styling_scores:
-            a list of styling score class names. The default scores are
+            List of styling score class names. The default scores are
             "py_pdf_term.FontsizeScore" and "py_pdf_term.ColorScore".
         cache:
-            a cache class name. The default cache is
+            Cache class name. The default cache is
             "py_pdf_term.StylingLayerFileCache".
     """
 

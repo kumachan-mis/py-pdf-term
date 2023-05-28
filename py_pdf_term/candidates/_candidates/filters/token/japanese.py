@@ -7,7 +7,7 @@ from .base import BaseCandidateTokenFilter
 
 
 class JapaneseTokenFilter(BaseCandidateTokenFilter):
-    """A candidate token filter to filter out Japanese tokens which cannot be part of
+    """Candidate token filter to filter out Japanese tokens which cannot be part of
     candidate terms.
     """
 

@@ -16,7 +16,7 @@ from .utils import ranking_to_dict
 
 
 class TechnicalTermExtractor:
-    """A technical term extrator based on ranking method scores and styling scores.
+    """Technical term extrator based on ranking method scores and styling scores.
 
     Args
     ----
@@ -24,7 +24,7 @@ class TechnicalTermExtractor:
             Maximum number of terms in a page of a PDF file to be extracted. The N-best
             candidates are extracted as technical terms. The default value is 10.
         acceptance_rate:
-            The acceptance rate of the ranking method scores. The candidates whose
+            Acceptance rate of the ranking method scores. The candidates whose
             ranking method scores are lower than the acceptance rate are filtered out
             even if they are in the N-best candidates. The default value is 0.75.
     """

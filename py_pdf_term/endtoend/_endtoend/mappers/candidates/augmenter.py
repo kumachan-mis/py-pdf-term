@@ -9,7 +9,7 @@ from ..base import BaseMapper
 
 
 class AugmenterMapper(BaseMapper[type[BaseAugmenter]]):
-    """A mapper to find augmenter classes."""
+    """Mapper to find augmenter classes."""
 
     @classmethod
     def default_mapper(cls) -> "AugmenterMapper":

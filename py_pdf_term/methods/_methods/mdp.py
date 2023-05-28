@@ -7,7 +7,7 @@ from .rankingdata import MDPRankingData
 
 
 class MDPMethod(BaseMultiDomainRankingMethod[MDPRankingData]):
-    """A ranking method by MDP algorithm."""
+    """Ranking method by MDP algorithm."""
 
     def __init__(self) -> None:
         collector = MDPRankingDataCollector()

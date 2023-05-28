@@ -5,7 +5,7 @@ from .base import BaseCandidateLayerCache
 
 
 class CandidateLayerNoCache(BaseCandidateLayerCache):
-    """A candidate layer cache that does not store and load candidate terms.
+    """Candidate layer cache that does not store and load candidate terms.
 
     Args
     ----

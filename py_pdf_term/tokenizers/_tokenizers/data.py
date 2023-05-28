@@ -9,7 +9,7 @@ GARBAGE_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?=\S)|(?<=\S) (?={NOSPACE_RE
 
 @dataclass
 class Token:
-    """A token in a text.
+    """Token in a text.
 
     Args
     ----

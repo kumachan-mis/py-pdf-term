@@ -5,7 +5,7 @@ from .separation import EnglishConnectorTermAugmenter, JapaneseConnectorTermAugm
 
 
 class AugmenterCombiner:
-    """A combiner of augmenters of a candidate term.
+    """Combiner of augmenters of a candidate term.
 
     Args
     ----
@@ -30,7 +30,7 @@ class AugmenterCombiner:
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------

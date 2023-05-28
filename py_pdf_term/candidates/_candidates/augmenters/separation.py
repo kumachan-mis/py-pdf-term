@@ -13,7 +13,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
     Args
     ----
         is_separator:
-            A function to test whether a token is a separator or not.
+            Function to test whether a token is a separator or not.
     """
 
     def __init__(self, is_separator: Callable[[Token], bool]) -> None:
@@ -25,7 +25,7 @@ class BaseSeparationAugmenter(BaseAugmenter, metaclass=ABCMeta):
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------
@@ -72,7 +72,7 @@ class JapaneseConnectorTermAugmenter(BaseSeparationAugmenter):
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------
@@ -103,7 +103,7 @@ class EnglishConnectorTermAugmenter(BaseSeparationAugmenter):
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------

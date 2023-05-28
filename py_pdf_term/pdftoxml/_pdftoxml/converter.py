@@ -12,12 +12,12 @@ from .textful import TextfulXMLConverter
 
 
 class PDFtoXMLConverter:
-    """A converter from PDF to textful XML format.
+    """Converter from PDF to textful XML format.
 
     Args
     ----
         bin_opener:
-            A binary opener to open PDF and XML files. If None, StandardBinaryOpener is
+            Binary opener to open PDF and XML files. If None, StandardBinaryOpener is
             used, which opens files with the standard open function in Python.
     """
 
@@ -40,15 +40,15 @@ class PDFtoXMLConverter:
         Args
         ----
             pdf_path:
-                A path to a PDF file.
+                Path to a PDF file.
             xml_path:
-                A path to a XML file to output.
+                Path to a XML file to output.
             nfc_norm:
                 If True, normalize text to NFC, otherwise keep original.
             include_pattern:
-                A regular expression pattern of text to include in the output.
+                Regular expression pattern of text to include in the output.
             exclude_pattern:
-                A regular expression pattern of text to exclude from the output
+                Regular expression pattern of text to exclude from the output
                 (overrides include_pattern).
 
         Returns
@@ -75,13 +75,13 @@ class PDFtoXMLConverter:
         Args
         ----
             pdf_path:
-                A path to a PDF file.
+                Path to a PDF file.
             nfc_norm:
                 If True, normalize text to NFC, otherwise keep original.
             include_pattern:
-                A regular expression pattern of text to include in the output.
+                Regular expression pattern of text to include in the output.
             exclude_pattern:
-                A regular expression pattern of text to exclude from the output
+                Regular expression pattern of text to exclude from the output
                 (overrides include_pattern).
 
         Returns

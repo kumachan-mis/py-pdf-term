@@ -20,37 +20,37 @@ from .xml import XMLLayer
 
 
 class CandidateLayer:
-    """A layer to extract candidate terms using XMLLayer.
+    """Layer to extract candidate terms using XMLLayer.
 
     Args
     ----
         xml_layer:
-            a layer to create textful XML elements from a PDF file.
+            Layer to create textful XML elements from a PDF file.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         lang_tokenizer_mapper:
-            a mapper to find language tokenizer classes from configuration. If None, the
+            Mapper to find language tokenizer classes from configuration. If None, the
             default mapper is used.
         token_classifier_mapper:
-            a mapper to find token classifier classes from configuration. If None, the
+            Mapper to find token classifier classes from configuration. If None, the
             default mapper is used.
         token_filter_mapper:
-            a mapper to find token filter classes from configuration. If None, the
+            Mapper to find token filter classes from configuration. If None, the
             default mapper is used.
         term_filter_mapper:
-            a mapper to find term filter classes from configuration. If None, the
+            Mapper to find term filter classes from configuration. If None, the
             default mapper is used.
         splitter_mapper:
-            a mapper to find splitter classes from configuration. If None, the default
+            Mapper to find splitter classes from configuration. If None, the default
             mapper is used.
         augmenter_mapper:
-            a mapper to find augmenter classes from configuration. If None, the default
+            Mapper to find augmenter classes from configuration. If None, the default
             mapper is used.
         cache_mapper:
-            a mapper to find cache class from configuration. If None, the default mapper
+            Mapper to find cache class from configuration. If None, the default mapper
             is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
@@ -113,12 +113,12 @@ class CandidateLayer:
         Args
         ----
             domain_pdfs:
-                a list of PDF files in a domain.
+                List of PDF files in a domain.
 
         Returns
         -------
             DomainCandidateTermList:
-                a list of candidate terms in a domain.
+                List of candidate terms in a domain.
         """
 
         pdf_candidates_list: list[PDFCandidateTermList] = []
@@ -134,12 +134,12 @@ class CandidateLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file.
+                Path to a PDF file.
 
         Returns
         -------
             PDFCandidateTermList:
-                a list of candidate terms in a PDF file.
+                List of candidate terms in a PDF file.
         """
 
         pdf_candidates = self._cache.load(pdf_path, self._config)
@@ -158,7 +158,7 @@ class CandidateLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file to remove a cache file.
+                Path to a PDF file to remove a cache file.
         """
 
         self._cache.remove(pdf_path, self._config)

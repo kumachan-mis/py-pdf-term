@@ -14,7 +14,7 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
@@ -31,17 +31,17 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to load term rankings. The order of
+                Paths to PDF files in a domain to load term rankings. The order of
                 the paths is important. The order should be the same as that when the
                 store method is called.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
 
         Returns
         -------
             MethodTermRanking | None:
-                The loaded term rankings. If there is no cache file, this method returns
+                Loaded term rankings. If there is no cache file, this method returns
                 None.
         """
 
@@ -59,13 +59,13 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to store term rankings. The order of
+                Paths to PDF files in a domain to store term rankings. The order of
                 the paths is important. The order should be the same as that when the
                 load method to be called.
             term_ranking:
-                The term rankings to store.
+                Term rankings to store.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
         """
 
@@ -78,11 +78,11 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to remove cache files. The order of
+                Paths to PDF files in a domain to remove cache files. The order of
                 the paths is important. The order should be the same as that when the
                 store method called.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
         """
 
@@ -96,7 +96,7 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
@@ -114,19 +114,19 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to load metadata. The order of the
+                Paths to PDF files in a domain to load metadata. The order of the
                 paths is important. The order should be the same as that when the store
                 method is called.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
             from_dict:
-                The function to convert a dictionary to a RankingData object.
+                Function to convert a dictionary to a RankingData object.
 
         Returns
         -------
             RankingData | None:
-                The loaded metadata to generate term rankings. If there is no cache
+                Loaded metadata to generate term rankings. If there is no cache
                 file, this method returns None. The returned metadata is converted to
                 a RankingData object by the from_dict function.
         """
@@ -145,13 +145,13 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to store metadata. The order of the
+                Paths to PDF files in a domain to store metadata. The order of the
                 paths is important. The order should be the same as that when the load
                 method to be called.
             ranking_data:
-                The metadata to generate term rankings to store.
+                Metadata to generate term rankings to store.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
         """
         raise NotImplementedError(f"{self.__class__.__name__}.store()")
@@ -163,11 +163,11 @@ class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                The paths to PDF files in a domain to remove cache files. The order of
+                Paths to PDF files in a domain to remove cache files. The order of
                 the paths is important. The order should be the same as that when the
                 store method called.
             config:
-                The configuration for the method layer. The configuration is used to
+                Configuration for the method layer. The configuration is used to
                 determine the cache file path.
         """
 

@@ -7,7 +7,7 @@ from .base import BaseCandidateTokenFilter
 
 
 class EnglishTokenFilter(BaseCandidateTokenFilter):
-    """A candidate token filter to filter out English tokens which cannot be part of
+    """Candidate token filter to filter out English tokens which cannot be part of
     candidate terms.
     """
 

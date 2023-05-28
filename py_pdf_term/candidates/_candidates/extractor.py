@@ -13,7 +13,7 @@ from .utils import textnode_fontsize, textnode_ncolor, textnode_text
 
 
 class CandidateTermExtractor:
-    """A term extractor which extracts candidate terms from a XML file.
+    """Term extractor which extracts candidate terms from a XML file.
 
     Args
     ----
@@ -99,7 +99,7 @@ class CandidateTermExtractor:
         Args
         ----
             domain:
-                A domain name of PDF files.
+                Domain name of PDF files.
             pdfnxmls:
                 List of pairs of paths to PDF and XML files in a domain.
 
@@ -118,7 +118,7 @@ class CandidateTermExtractor:
         Args
         ----
             pdfnxml:
-                A pair of paths to a PDF and XML file.
+                Pair of paths to a PDF and XML file.
 
         Returns
         -------
@@ -138,7 +138,7 @@ class CandidateTermExtractor:
         Args
         ----
             domain:
-                A domain name of PDF files.
+                Domain name of PDF files.
             pdfnxmls:
                 List of pairs of paths to PDF and XML elements in a domain.
 
@@ -157,7 +157,7 @@ class CandidateTermExtractor:
         Args
         ----
             pdfnxml:
-                A pair of path to a PDF and XML elements.
+                Pair of path to a PDF and XML elements.
 
         Returns
         -------
@@ -176,11 +176,11 @@ class CandidateTermExtractor:
         Args
         ----
             text:
-                A text to extract candidate terms.
+                Text to extract candidate terms.
             fontsize:
-                A font size of output terms.
+                Font size of output terms.
             ncolor:
-                A color of output terms.
+                Color of output terms.
 
         Returns
         -------

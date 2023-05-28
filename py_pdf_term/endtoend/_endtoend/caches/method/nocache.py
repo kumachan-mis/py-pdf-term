@@ -8,7 +8,7 @@ from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
 
 class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
-    """A method layer ranking cache that does not store and load term rankings.
+    """Method layer ranking cache that does not store and load term rankings.
 
     Args
     ----
@@ -39,7 +39,7 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
 
 
 class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
-    """A method layer data cache that does not store and load metadata to generate term
+    """Method layer data cache that does not store and load metadata to generate term
     rankings.
 
     Args

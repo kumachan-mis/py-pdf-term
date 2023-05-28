@@ -9,7 +9,7 @@ from ..base import BaseMapper
 
 
 class LanguageTokenizerMapper(BaseMapper[type[BaseLanguageTokenizer]]):
-    """A mapper to find language tokenizer classes."""
+    """Mapper to find language tokenizer classes."""
 
     @classmethod
     def default_mapper(cls) -> "LanguageTokenizerMapper":

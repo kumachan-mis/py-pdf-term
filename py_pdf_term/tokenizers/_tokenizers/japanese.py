@@ -14,7 +14,7 @@ DELIM_SPACE = re.compile(rf"(?<={NOSPACE_REGEX}) (?={NOSPACE_REGEX})")
 
 
 class JapaneseTokenizer(BaseLanguageTokenizer):
-    """A tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
+    """Tokenizer for Japanese. This tokenizer uses SpaCy's ja_core_news_sm model."""
 
     def inscope(self, text: str) -> bool:
         return JapaneseTokenizer._regex.search(text) is not None

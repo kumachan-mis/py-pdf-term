@@ -23,7 +23,7 @@ class BaseAugmenter(metaclass=ABCMeta):
         Args
         ----
             term:
-                A candidate term to be augmented.
+                Candidate term to be augmented.
 
         Returns
         -------

@@ -15,7 +15,7 @@ PHONETIC_REGEX = rf"(?:{HIRAGANA_REGEX}|{KATAKANA_REGEX}|{ALPHABET_REGEX})"
 
 
 class JapaneseSymbolLikeFilter(BaseJapaneseCandidateTermFilter):
-    """A candidate term filter to filter out symbol-like Japanese terms."""
+    """Candidate term filter to filter out symbol-like Japanese terms."""
 
     def __init__(self) -> None:
         self._classifier = JapaneseTokenClassifier()

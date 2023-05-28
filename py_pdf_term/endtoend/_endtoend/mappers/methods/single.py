@@ -15,7 +15,7 @@ from ..base import BaseMapper
 class SingleDomainRankingMethodMapper(
     BaseMapper[type[BaseSingleDomainRankingMethod[Any]]]
 ):
-    """A mapper to find single-domain ranking method classes."""
+    """Mapper to find single-domain ranking method classes."""
 
     @classmethod
     def default_mapper(cls) -> "SingleDomainRankingMethodMapper":

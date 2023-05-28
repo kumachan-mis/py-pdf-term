@@ -9,7 +9,7 @@ from .base import BaseSingleDomainRanker
 
 
 class FLRRanker(BaseSingleDomainRanker[FLRRankingData]):
-    """A term ranker by FLR algorithm."""
+    """Term ranker by FLR algorithm."""
 
     def __init__(self) -> None:
         pass

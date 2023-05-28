@@ -16,7 +16,7 @@ class BaseCandidateTokenFilter(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
 
         Returns

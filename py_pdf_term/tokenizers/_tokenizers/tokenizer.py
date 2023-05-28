@@ -5,7 +5,7 @@ from .japanese import JapaneseTokenizer
 
 
 class Tokenizer:
-    """A tokenizer for multiple languages. This tokenizer uses SpaCy.
+    """Tokenizer for multiple languages. This tokenizer uses SpaCy.
 
     Args
     ----
@@ -30,7 +30,7 @@ class Tokenizer:
         Args
         ----
             text:
-                A text to tokenize.
+                Text to tokenize.
 
         Returns
         -------

@@ -18,7 +18,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
         Returns
         -------
@@ -35,7 +35,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+               Token to be tested.
 
         Returns
         -------
@@ -54,7 +54,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
         Returns
         -------
@@ -73,7 +73,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
         Returns
         -------
@@ -90,7 +90,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
         Returns
         -------
@@ -111,7 +111,7 @@ class BaseTokenClassifier(metaclass=ABCMeta):
         Args
         ----
             token:
-                A token to be tested.
+                Token to be tested.
 
         Returns
         -------

@@ -6,7 +6,7 @@ from .base import BaseRankingDataCollector
 
 
 class HITSRankingDataCollector(BaseRankingDataCollector[HITSRankingData]):
-    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    """Collector of metadata to rank candidate terms in domain-specific PDF documents
     by HITS algorithm.
     """
 

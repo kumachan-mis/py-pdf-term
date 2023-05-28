@@ -5,7 +5,7 @@ from ..base import BaseMapper
 
 
 class BinaryOpenerMapper(BaseMapper[type[BaseBinaryOpener]]):
-    """A mapper to find binary opener classes."""
+    """Mapper to find binary opener classes."""
 
     @classmethod
     def default_mapper(cls) -> "BinaryOpenerMapper":

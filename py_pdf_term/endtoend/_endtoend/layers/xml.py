@@ -6,20 +6,20 @@ from ..mappers import BinaryOpenerMapper, XMLLayerCacheMapper
 
 
 class XMLLayer:
-    """A layer to create textful XML elements from a PDF file.
+    """Layer to create textful XML elements from a PDF file.
 
     Args
     ----
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         bin_opener_mapper:
-            a mapper to find binary opener classes from configuration. If None, the
+            Mapper to find binary opener classes from configuration. If None, the
             default mapper is used.
         cache_mapper:
-            a mapper to find cache class from configuration. If None, the default mapper
+            Mapper to find cache class from configuration. If None, the default mapper
             is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
@@ -51,11 +51,11 @@ class XMLLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file.
+                Path to a PDF file.
 
         Returns
         -------
-            a PDFnXMLElement created from the PDF file.
+            PDFnXMLElement created from the PDF file.
         """
 
         pdfnxml = None
@@ -79,7 +79,7 @@ class XMLLayer:
         Args
         ----
             pdf_path:
-                a path to a PDF file.
+                Path to a PDF file.
         """
 
         self._cache.remove(pdf_path, self._config)

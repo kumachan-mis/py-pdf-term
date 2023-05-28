@@ -7,19 +7,19 @@ from .candidate import CandidateLayer
 
 
 class StylingLayer:
-    """A layer to calclate styling scores from a PDF file using candidate layer.
+    """Layer to calclate styling scores from a PDF file using candidate layer.
 
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         styling_score_mapper:
-            a mapper to find styling score classes from configuration. If None, the
+            Mapper to find styling score classes from configuration. If None, the
             default mapper is used.
         cache_mapper:
-            a mapper to find cache class from configuration. If None, the default mapper
+            Mapper to find cache class from configuration. If None, the default mapper
             is used.
 
     """
@@ -54,12 +54,12 @@ class StylingLayer:
         Args
         ----
             pdf_path:
-                a PDF file path to calculate styling scores.
+                PDF file path to calculate styling scores.
 
         Returns
         -------
             PDFStylingScoreList:
-                a list of styling scores for each page in the PDF file.
+                List of styling scores for each page in the PDF file.
         """
 
         styling_scores = self._cache.load(pdf_path, self._config)
@@ -78,7 +78,7 @@ class StylingLayer:
         Args
         ----
             pdf_path:
-                a PDF file path to remove a cache file.
+                PDF file path to remove a cache file.
         """
 
         self._cache.remove(pdf_path, self._config)

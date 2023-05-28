@@ -9,7 +9,7 @@ from ..base import BaseMapper
 
 
 class SplitterMapper(BaseMapper[type[BaseSplitter]]):
-    """A mapper to find splitter classes."""
+    """Mapper to find splitter classes."""
 
     @classmethod
     def default_mapper(cls) -> "SplitterMapper":

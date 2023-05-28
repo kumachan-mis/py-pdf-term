@@ -45,7 +45,7 @@ class BaseSplitter(metaclass=ABCMeta):
         Args
         ----
             term:
-                A wrongly concatenated term to be split.
+                Wrongly concatenated term to be split.
 
         Returns
         -------

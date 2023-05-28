@@ -11,7 +11,7 @@ from .base import BaseMultiDomainRanker
 
 
 class MDPRanker(BaseMultiDomainRanker[MDPRankingData]):
-    """A term ranker by MDP algorithm."""
+    """Term ranker by MDP algorithm."""
 
     def __init__(self) -> None:
         pass

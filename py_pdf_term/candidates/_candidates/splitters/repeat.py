@@ -5,7 +5,7 @@ from .base import BaseSplitter
 
 
 class RepeatSplitter(BaseSplitter):
-    """A splitter to split a term by repeated tokens. For example, "quick sort merge
+    """Splitter to split a term by repeated tokens. For example, "quick sort merge
     sort heap sort" is split into "quick sort", "merge sort", and "heap sort".
 
     Args

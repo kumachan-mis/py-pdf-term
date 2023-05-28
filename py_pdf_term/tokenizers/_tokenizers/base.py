@@ -15,7 +15,7 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         Args
         ----
             text:
-                A text to test.
+                Text to test.
 
         Returns
         -------
@@ -33,7 +33,7 @@ class BaseLanguageTokenizer(metaclass=ABCMeta):
         Args
         ----
             scoped_text:
-                A text to tokenize. This text is expected to be in the scope of the
+                Text to tokenize. This text is expected to be in the scope of the
                 language tokenizer.
 
         Returns

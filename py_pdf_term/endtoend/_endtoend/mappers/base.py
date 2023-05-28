@@ -18,9 +18,9 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             name:
-                a name to find the mapped value.
+                Name to find the mapped value.
             value:
-                a mapped value to be found from the name.
+                Mapped value to be found from the name.
         """
 
         self._map[name] = value
@@ -31,7 +31,7 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             name:
-                a name to remove the mapped value.
+                Name to remove the mapped value.
         """
 
         del self._map[name]
@@ -42,11 +42,11 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             name:
-                a name to find the mapped value.
+                Name to find the mapped value.
 
         Returns
         -------
-            a mapped value found from the name.
+            Mapped value found from the name.
         """
 
         return self._map[name]
@@ -58,11 +58,11 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             name:
-                a name to find the mapped value.
+                Name to find the mapped value.
 
         Returns
         -------
-            a mapped value found from the name. None if not found.
+            Mapped value found from the name. None if not found.
         """
 
         return self._map.get(name)
@@ -74,11 +74,11 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             names:
-                names to find the mapped values.
+                Names to find the mapped values.
 
         Returns
         -------
-            mapped values found from the names. The order of the mapped values is the
+            Mapped values found from the names. The order of the mapped values is the
             same as the order of the names.
         """
 
@@ -91,11 +91,11 @@ class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
         Args
         ----
             names:
-                names to find the mapped values.
+                Names to find the mapped values.
 
         Returns
         -------
-            mapped values found from the names. The order of the mapped values is the
+            Mapped values found from the names. The order of the mapped values is the
             same as the order of the names. None if there is no mapped value for a name.
         """
 

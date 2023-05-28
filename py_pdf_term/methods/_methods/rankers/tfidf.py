@@ -11,7 +11,7 @@ from .base import BaseMultiDomainRanker
 
 
 class TFIDFRanker(BaseMultiDomainRanker[TFIDFRankingData]):
-    """A term ranker by TF-IDF algorithm."""
+    """Term ranker by TF-IDF algorithm."""
 
     def __init__(self) -> None:
         pass

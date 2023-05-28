@@ -5,7 +5,7 @@ from ..base import BaseMapper
 
 
 class StylingLayerCacheMapper(BaseMapper[type[BaseStylingLayerCache]]):
-    """A mapper to find styling layer cache classes."""
+    """Mapper to find styling layer cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "StylingLayerCacheMapper":

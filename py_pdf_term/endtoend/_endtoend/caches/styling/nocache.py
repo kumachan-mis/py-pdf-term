@@ -5,7 +5,7 @@ from .base import BaseStylingLayerCache
 
 
 class StylingLayerNoCache(BaseStylingLayerCache):
-    """A styling layer cache that does not store and load styling scores.
+    """Styling layer cache that does not store and load styling scores.
 
     Args
     ----

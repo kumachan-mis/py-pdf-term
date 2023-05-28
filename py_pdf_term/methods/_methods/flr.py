@@ -7,7 +7,7 @@ from .rankingdata import FLRRankingData
 
 
 class FLRMethod(BaseSingleDomainRankingMethod[FLRRankingData]):
-    """A ranking method by FLR algorithm."""
+    """Ranking method by FLR algorithm."""
 
     def __init__(self) -> None:
         collector = FLRRankingDataCollector()

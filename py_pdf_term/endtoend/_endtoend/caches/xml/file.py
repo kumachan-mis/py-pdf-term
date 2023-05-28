@@ -16,7 +16,7 @@ class XMLLayerFileCache(BaseXMLLayerCache):
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:

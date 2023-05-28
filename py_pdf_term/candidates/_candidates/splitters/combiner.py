@@ -6,7 +6,7 @@ from .symname import SymbolNameSplitter
 
 
 class SplitterCombiner:
-    """A combiner of splitters.
+    """Combiner of splitters.
 
     Args
     ----
@@ -28,7 +28,7 @@ class SplitterCombiner:
         Args
         ----
             term:
-                A wrongly concatenated term to be split.
+                Wrongly concatenated term to be split.
 
         Returns
         -------

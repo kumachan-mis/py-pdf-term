@@ -15,7 +15,7 @@ from .token import BaseCandidateTokenFilter, EnglishTokenFilter, JapaneseTokenFi
 
 
 class FilterCombiner:
-    """A combiner of token filters and term filters.
+    """Combiner of token filters and term filters.
 
     Args
     ----
@@ -65,7 +65,7 @@ class FilterCombiner:
             tokens:
                 List of tokens.
             idx:
-                An index of the token to be tested.
+                Index of the token to be tested.
 
         Returns
         -------
@@ -90,7 +90,7 @@ class FilterCombiner:
         Args
         ----
             term:
-                A term to be tested.
+                Term to be tested.
 
         Returns
         -------

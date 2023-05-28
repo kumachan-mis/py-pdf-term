@@ -10,7 +10,7 @@ PHONETIC_REGEX = ALPHABET_REGEX
 
 
 class EnglishSymbolLikeFilter(BaseEnglishCandidateTermFilter):
-    """A candidate term filter to filter out symbol-like English terms."""
+    """Candidate term filter to filter out symbol-like English terms."""
 
     def __init__(self) -> None:
         self._classifier = EnglishTokenClassifier()

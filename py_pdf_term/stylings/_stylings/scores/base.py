@@ -25,7 +25,7 @@ class BaseStylingScore(metaclass=ABCMeta):
         Args
         ----
             candidate:
-                A candidate term to calculate the styling score. This term is expected
+                Candidate term to calculate the styling score. This term is expected
                 to be included in the list of candidate terms passed to the constructor.
 
         Returns

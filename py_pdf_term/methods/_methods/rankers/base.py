@@ -33,7 +33,7 @@ class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
         Returns
         -------
             MethodTermRanking:
-                A ranking result of candidate terms in PDF documents.
+                Ranking result of candidate terms in PDF documents.
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.rank_terms()")
@@ -66,7 +66,7 @@ class BaseMultiDomainRanker(Generic[RankingData], metaclass=ABCMeta):
         Returns
         -------
             MethodTermRanking:
-                A ranking result of candidate terms in PDF documents.
+                Ranking result of candidate terms in PDF documents.
         """
 
         raise NotImplementedError(f"{self.__class__.__name__}.rank_terms()")

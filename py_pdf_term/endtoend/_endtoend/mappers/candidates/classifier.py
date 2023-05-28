@@ -9,7 +9,7 @@ from ..base import BaseMapper
 
 
 class TokenClassifierMapper(BaseMapper[type[BaseTokenClassifier]]):
-    """A mapper to find token classifier classes."""
+    """Mapper to find token classifier classes."""
 
     @classmethod
     def default_mapper(cls) -> "TokenClassifierMapper":

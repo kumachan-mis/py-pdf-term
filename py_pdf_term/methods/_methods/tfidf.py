@@ -7,7 +7,7 @@ from .rankingdata import TFIDFRankingData
 
 
 class TFIDFMethod(BaseMultiDomainRankingMethod[TFIDFRankingData]):
-    """A ranking method by TF-IDF algorithm."""
+    """Ranking method by TF-IDF algorithm."""
 
     def __init__(self) -> None:
         collector = TFIDFRankingDataCollector()

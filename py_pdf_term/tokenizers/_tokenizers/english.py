@@ -10,7 +10,7 @@ from .data import Token
 
 
 class EnglishTokenizer(BaseLanguageTokenizer):
-    """A tokenizer for English. This tokenizer uses SpaCy's en_core_web_sm model."""
+    """Tokenizer for English. This tokenizer uses SpaCy's en_core_web_sm model."""
 
     def inscope(self, text: str) -> bool:
         return EnglishTokenizer._regex.search(text) is not None

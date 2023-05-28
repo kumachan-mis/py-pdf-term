@@ -6,7 +6,7 @@ from .base import BaseRankingDataCollector
 
 
 class MDPRankingDataCollector(BaseRankingDataCollector[MDPRankingData]):
-    """A collector of metadata to rank candidate terms in domain-specific PDF documents
+    """Collector of metadata to rank candidate terms in domain-specific PDF documents
     by MDP algorithm.
     """
 

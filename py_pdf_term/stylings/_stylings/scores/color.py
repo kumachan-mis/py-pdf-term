@@ -6,7 +6,7 @@ from .base import BaseStylingScore
 
 
 class ColorScore(BaseStylingScore):
-    """A styling score for font color. The more rarely the color appears in the page,
+    """Styling score for font color. The more rarely the color appears in the page,
     the higher the score is.
 
     Args

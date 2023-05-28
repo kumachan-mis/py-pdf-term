@@ -10,13 +10,13 @@ from .scores import BaseStylingScore, ColorScore, FontsizeScore
 
 
 class StylingScorer:
-    """A scorer for styling scores. The styling scores are combined by multiplication of
+    """Scorer for styling scores. The styling scores are combined by multiplication of
     each score.
 
     Args
     ----
         styling_score_clses:
-            styling scorers to be combined. If None, the default scorers are used.
+            Styling scorers to be combined. If None, the default scorers are used.
             The default scorers are FontsizeScore and ColorScore.
     """
 

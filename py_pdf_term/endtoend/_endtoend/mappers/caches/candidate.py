@@ -9,7 +9,7 @@ from ..base import BaseMapper
 
 
 class CandidateLayerCacheMapper(BaseMapper[type[BaseCandidateLayerCache]]):
-    """A mapper to find candidate layer cache classes."""
+    """Mapper to find candidate layer cache classes."""
 
     @classmethod
     def default_mapper(cls) -> "CandidateLayerCacheMapper":

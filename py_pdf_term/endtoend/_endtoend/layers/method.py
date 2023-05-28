@@ -27,17 +27,17 @@ class BaseMethodLayer(metaclass=ABCMeta):
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         ranking_cache_mapper:
-            a mapper to find ranking cache classes from configuration. If None, the
+            Mapper to find ranking cache classes from configuration. If None, the
             default mapper is used.
         data_cache_mapper:
-            a mapper to find data cache classes from configuration. If None, the default
+            Mapper to find data cache classes from configuration. If None, the default
             mapper is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
@@ -69,7 +69,7 @@ class BaseMethodLayer(metaclass=ABCMeta):
         Args
         ----
             pdf_paths:
-                a list of PDF paths in a domain to remove a cache file.
+                List of PDF paths in a domain to remove a cache file.
         """
 
         self._ranking_cache.remove(pdf_paths, self._config)
@@ -77,26 +77,26 @@ class BaseMethodLayer(metaclass=ABCMeta):
 
 
 class SingleDomainMethodLayer(BaseMethodLayer):
-    """A method layer to calculate term ranking with an algorithm which does not require
+    """Method layer to calculate term ranking with an algorithm which does not require
     cross-domain information using candidate terms.
 
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         method_mapper:
-            a mapper to find ranking method classes from configuration. If None, the
+            Mapper to find ranking method classes from configuration. If None, the
             default mapper is used.
         ranking_cache_mapper:
-            a mapper to find ranking cache classes from configuration. If None, the
+            Mapper to find ranking cache classes from configuration. If None, the
             default mapper is used.
         data_cache_mapper:
-            a mapper to find data cache classes from configuration. If None, the default
+            Mapper to find data cache classes from configuration. If None, the default
             mapper is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
@@ -127,12 +127,12 @@ class SingleDomainMethodLayer(BaseMethodLayer):
         Args
         ----
             domain_pdfs:
-                a list of PDFs in a domain to extract term ranking.
+                List of PDFs in a domain to extract term ranking.
 
         Returns
         -------
             MethodTermRanking:
-                a term ranking costructed from candidate terms.
+                Term ranking costructed from candidate terms.
         """
 
         term_ranking = self._ranking_cache.load(domain_pdfs.pdf_paths, self._config)
@@ -164,26 +164,26 @@ class SingleDomainMethodLayer(BaseMethodLayer):
 
 
 class MultiDomainMethodLayer(BaseMethodLayer):
-    """A method layer to calculate term ranking with an algorithm which requires
+    """Method layer to calculate term ranking with an algorithm which requires
     cross-domain information using candidate terms.
 
     Args
     ----
         candidate_layer:
-            a layer to extract candidate terms.
+            Layer to extract candidate terms.
         config:
-            a configuration for this layer. If None, the default configuration is used.
+            Configuration for this layer. If None, the default configuration is used.
         method_mapper:
-            a mapper to find ranking method classes from configuration. If None, the
+            Mapper to find ranking method classes from configuration. If None, the
             default mapper is used.
         ranking_cache_mapper:
-            a mapper to find ranking cache classes from configuration. If None, the
+            Mapper to find ranking cache classes from configuration. If None, the
             default mapper is used.
         data_cache_mapper:
-            a mapper to find data cache classes from configuration. If None, the default
+            Mapper to find data cache classes from configuration. If None, the default
             mapper is used.
         cache_dir:
-            a directory path to store cache files. If None, the default directory is
+            Directory path to store cache files. If None, the default directory is
             used.
     """
 
@@ -218,14 +218,14 @@ class MultiDomainMethodLayer(BaseMethodLayer):
         Args
         ----
             domain:
-                a domain to construct term ranking.
+                Domain to construct term ranking.
             multi_domain_pdfs:
-                a list of PDFs in each domain.
+                List of PDFs in each domain.
 
         Returns
         -------
             MethodTermRanking:
-                a term ranking costructed from candidate terms in the given domain.
+                Term ranking costructed from candidate terms in the given domain.
         """
 
         target_domain_pdfs = next(

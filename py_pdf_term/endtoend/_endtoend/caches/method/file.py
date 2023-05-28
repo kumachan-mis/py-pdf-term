@@ -13,12 +13,12 @@ from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
 
 
 class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
-    """A method layer ranking cache that stores and loads term rankings to/from a file.
+    """Method layer ranking cache that stores and loads term rankings to/from a file.
 
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
@@ -77,13 +77,13 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
 
 
 class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
-    """A method layer data cache that stores and loads metadata to to generate term
+    """Method layer data cache that stores and loads metadata to to generate term
     rankings to/from a file.
 
     Args
     ----
         cache_dir:
-            The directory path to store cache files.
+            Directory path to store cache files.
     """
 
     def __init__(self, cache_dir: str) -> None:
