@@ -22,9 +22,9 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     def tokenize(self, scoped_text: str) -> list[Token]:
         scoped_text = SPACES.sub(" ", scoped_text).strip()
         orginal_space_pos = {
-            match.start() - offset
-            for offset, match in enumerate(re.finditer(r" ", scoped_text))
-            if DELIM_SPACE.match(scoped_text, match.start()) is not None
+            regex_match.start() - offset
+            for offset, regex_match in enumerate(re.finditer(r" ", scoped_text))
+            if DELIM_SPACE.match(scoped_text, regex_match.start()) is not None
         }
 
         scoped_text = DELIM_SPACE.sub("", scoped_text)

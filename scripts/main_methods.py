@@ -1,9 +1,12 @@
 import json
 import os
 from argparse import ArgumentParser
+from dataclasses import dataclass
+from typing import Any
 
 from py_pdf_term.methods import (
     BaseSingleDomainRankingMethod,
+    BaseMultiDomainRankingMethod,
     FLRHMethod,
     FLRMethod,
     HITSMethod,
@@ -16,7 +19,14 @@ from scripts.utils import generate_domain_candidates, get_domains, relpath_from_
 
 script_name = os.path.basename(__file__)
 
-if __name__ == "__main__":
+
+@dataclass(frozen=True)
+class CommandLineArguments:
+    method_name: str
+    method: BaseSingleDomainRankingMethod[Any] | BaseMultiDomainRankingMethod[Any]
+
+
+def parse_command_line_argments() -> CommandLineArguments:
     parser = ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--mcvalue", help="use MC-Value method", action="store_true")
@@ -28,56 +38,70 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.mcvalue:
-        method_name = "mcvalue"
-        method = MCValueMethod()
+        return CommandLineArguments("mcvalue", MCValueMethod())
     elif args.tfidf:
-        method_name = "tfidf"
-        method = TFIDFMethod()
+        return CommandLineArguments("tfidf", TFIDFMethod())
     elif args.flr:
-        method_name = "flr"
-        method = FLRMethod()
+        return CommandLineArguments("flr", FLRMethod())
     elif args.hits:
-        method_name = "hits"
-        method = HITSMethod()
+        return CommandLineArguments("hits", HITSMethod())
     elif args.flrh:
-        method_name = "flrh"
-        method = FLRHMethod()
+        return CommandLineArguments("flrh", FLRHMethod())
     elif args.mdp:
-        method_name = "mdp"
-        method = MDPMethod()
+        return CommandLineArguments("mdp", MDPMethod())
     else:
         raise RuntimeError("unreachable statement")
 
+
+def run_single_domain_method(
+    method_name: str, method: BaseSingleDomainRankingMethod[Any]
+) -> None:
     file_name = f"{method_name}.json"
     domains = get_domains()
     domain_candidates_list = generate_domain_candidates(domains)
 
-    if isinstance(method, BaseSingleDomainRankingMethod):
-        for candidates in domain_candidates_list:
-            ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
-            print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
+    for candidates in domain_candidates_list:
+        ranking_path = os.path.join(METHODS_DIR, candidates.domain, file_name)
+        print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
 
-            term_ranking = method.rank_terms(candidates)
+        term_ranking = method.rank_terms(candidates)
 
-            ranking_dir_name = os.path.dirname(ranking_path)
-            os.makedirs(ranking_dir_name, exist_ok=True)
+        ranking_dir_name = os.path.dirname(ranking_path)
+        os.makedirs(ranking_dir_name, exist_ok=True)
 
-            with open(ranking_path, "w") as ranking_file:
-                dict_obj = term_ranking.to_dict()
-                json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
+        with open(ranking_path, "w") as ranking_file:
+            dict_obj = term_ranking.to_dict()
+            json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
 
-    else:
-        print(f"{script_name}: preprocessing ...")
 
-        domain_candidates_list = list(domain_candidates_list)
-        term_ranking_list = method.rank_terms(domain_candidates_list)
-        for term_ranking in term_ranking_list:
-            ranking_path = os.path.join(METHODS_DIR, term_ranking.domain, file_name)
-            print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
+def run_multi_domain_method(
+    method_name: str, method: BaseMultiDomainRankingMethod[Any]
+) -> None:
+    file_name = f"{method_name}.json"
+    domains = get_domains()
+    domain_candidates_list = generate_domain_candidates(domains)
 
-            ranking_dir_name = os.path.dirname(ranking_path)
-            os.makedirs(ranking_dir_name, exist_ok=True)
+    print(f"{script_name}: preprocessing ...")
 
-            with open(ranking_path, "w") as ranking_file:
-                dict_obj = term_ranking.to_dict()
-                json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
+    domain_candidates_list = list(domain_candidates_list)
+    term_ranking_list = method.rank_terms(domain_candidates_list)
+    for term_ranking in term_ranking_list:
+        ranking_path = os.path.join(METHODS_DIR, term_ranking.domain, file_name)
+        print(f"{script_name}: creating {relpath_from_basedir(ranking_path)} ...")
+
+        ranking_dir_name = os.path.dirname(ranking_path)
+        os.makedirs(ranking_dir_name, exist_ok=True)
+
+        with open(ranking_path, "w") as ranking_file:
+            dict_obj = term_ranking.to_dict()
+            json.dump(dict_obj, ranking_file, ensure_ascii=False, indent=2)
+
+
+if __name__ == "__main__":
+    args = parse_command_line_argments()
+
+    match args.method:
+        case BaseSingleDomainRankingMethod():
+            run_single_domain_method(args.method_name, args.method)
+        case BaseMultiDomainRankingMethod():
+            run_multi_domain_method(args.method_name, args.method)

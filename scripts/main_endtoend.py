@@ -110,9 +110,10 @@ def run_multi_domain_extractor(args: CommandLineArguments) -> None:
 if __name__ == "__main__":
     args = parse_command_line_argments()
 
-    if args.method_type == "single":
-        run_single_domain_extractor(args)
-    elif args.method_type == "multi":
-        run_multi_domain_extractor(args)
-    else:
-        raise RuntimeError("unreachable statement")
+    match args.method_type:
+        case "single":
+            run_single_domain_extractor(args)
+        case "multi":
+            run_multi_domain_extractor(args)
+        case _:
+            raise RuntimeError("unreachable statement")
