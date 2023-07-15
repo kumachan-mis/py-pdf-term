@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-pdf-term"
-version = "1.0.2"
+version = "1.1.0"
 description = "A fully-configurable terminology extraction module written in Python"
 authors = ["Yuya Suwa"]
 license = "MIT License"
@@ -12,26 +12,26 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 "pdfminer.six" = "^20221105"
-spacy = "^3.5.3"
+spacy = "^3.6.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
+black = "^23.7.0"
 flake8 = "^6.0.0"
 flake8-quotes = "^3.3.2"
 ghp-import = "^2.1.0"
 isort = "^5.12.0"
 pep8-naming = "^0.13.3"
-pre-commit = "^3.3.2"
-pytest-mock = "^3.10.0"
-pytest = "^7.3.1"
+pre-commit = "^3.3.3"
+pytest-mock = "^3.11.1"
+pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 Sphinx = "^7.0.1"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz"
 
 [tool.poetry.group.dev.dependencies.ja_core_news_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.5.0/ja_core_news_sm-3.5.0.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.6.0/ja_core_news_sm-3.6.0.tar.gz"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
