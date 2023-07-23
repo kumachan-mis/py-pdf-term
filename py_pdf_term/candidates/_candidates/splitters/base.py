@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-
 from py_pdf_term.tokenizers import Term
 
 from ..classifiers import (

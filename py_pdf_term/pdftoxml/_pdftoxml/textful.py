@@ -2,19 +2,18 @@ from dataclasses import dataclass
 from typing import BinaryIO, Sequence
 
 from pdfminer.converter import PDFConverter
-from pdfminer.utils import Matrix, PathSegment, Rect, bbox2str, enc
-from pdfminer.pdfinterp import PDFGraphicState, PDFResourceManager
-from pdfminer.pdftypes import PDFStream
-
 from pdfminer.layout import (
     LAParams,
     LTAnno,
     LTChar,
+    LTComponent,
     LTPage,
     LTTextBox,
     LTTextLine,
-    LTComponent,
 )
+from pdfminer.pdfinterp import PDFGraphicState, PDFResourceManager
+from pdfminer.pdftypes import PDFStream
+from pdfminer.utils import Matrix, PathSegment, Rect, bbox2str, enc
 
 from .utils import clean_content_text
 
