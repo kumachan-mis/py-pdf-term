@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from typing import Any
 
 from py_pdf_term.methods import (
-    BaseSingleDomainRankingMethod,
     BaseMultiDomainRankingMethod,
+    BaseSingleDomainRankingMethod,
     FLRHMethod,
     FLRMethod,
     HITSMethod,

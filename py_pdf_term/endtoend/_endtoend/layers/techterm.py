@@ -1,6 +1,5 @@
 from abc import ABCMeta
 
-
 from py_pdf_term.techterms import PDFTechnicalTermList, TechnicalTermExtractor
 
 from ..configs import TechnicalTermLayerConfig
