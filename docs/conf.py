@@ -32,6 +32,4 @@ html_theme_options = {
     "sidebar_width": "300px",
     "github_user": "kumachan-mis",
     "github_repo": "py-pdf-term",
-    "github_button": False,
-    "github_banner": True,
 }
