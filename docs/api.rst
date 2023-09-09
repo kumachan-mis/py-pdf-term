@@ -37,10 +37,10 @@ py_pdf_term.pdftoxml package
    :show-inheritance:
 
 
-py_pdf_term.tokenizer package
------------------------------
+py_pdf_term.tokenizers package
+------------------------------
 
-.. automodule:: py_pdf_term.tokenizer
+.. automodule:: py_pdf_term.tokenizers
    :members:
    :undoc-members:
    :show-inheritance:
