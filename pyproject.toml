@@ -12,7 +12,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 "pdfminer.six" = "^20221105"
-spacy = "^3.6.1"
+spacy = "^3.7.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.1"
@@ -28,10 +28,10 @@ pytest-cov = "^4.1.0"
 Sphinx = "^7.2.6"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz"
 
 [tool.poetry.group.dev.dependencies.ja_core_news_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.6.0/ja_core_news_sm-3.6.0.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.7.0/ja_core_news_sm-3.7.0.tar.gz"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
