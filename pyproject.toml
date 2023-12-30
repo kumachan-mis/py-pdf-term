@@ -11,7 +11,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-"pdfminer.six" = "^20221105"
+"pdfminer.six" = ">=20221105,<20231229"
 spacy = "^3.7.2"
 
 [tool.poetry.group.dev.dependencies]

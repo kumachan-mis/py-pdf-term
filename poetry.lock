@@ -982,13 +982,13 @@ files = [
 
 [[package]]
 name = "pdfminer-six"
-version = "20221105"
+version = "20231228"
 description = "PDF parser and analyzer"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "pdfminer.six-20221105-py3-none-any.whl", hash = "sha256:1eaddd712d5b2732f8ac8486824533514f8ba12a0787b3d5fe1e686cd826532d"},
-    {file = "pdfminer.six-20221105.tar.gz", hash = "sha256:8448ab7b939d18b64820478ecac5394f482d7a79f5f7eaa7703c6c959c175e1d"},
+    {file = "pdfminer.six-20231228-py3-none-any.whl", hash = "sha256:e8d3c3310e6fbc1fe414090123ab01351634b4ecb021232206c4c9a8ca3e3b8f"},
+    {file = "pdfminer.six-20231228.tar.gz", hash = "sha256:6004da3ad1a7a4d45930cb950393df89b068e73be365a6ff64a838d37bcb08c4"},
 ]
 
 [package.dependencies]
@@ -2057,4 +2057,4 @@ wasabi = ">=0.9.1,<1.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "9b11bec6ff597eb8df509c74f0ccef29c34a54277ee087369c79b05cfafb2cde"
+content-hash = "f4e225fc5e500e0f965431cfbb11a77e20f2a464d06a6265b10e8b9d222810bf"
