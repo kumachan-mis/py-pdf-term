@@ -6,3 +6,6 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/reusable-test.yml
+  ghpages:
+    needs: [test]
+    uses: ./.github/workflows/reusable-ghpages.yml
