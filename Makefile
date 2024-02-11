@@ -20,10 +20,7 @@ lint-fix:
 	poetry run flake8 py_pdf_term tests scripts
 
 poetryversion:
-	poetry version $(version) 
-
-publish-docs: build-docs
-	poetry run ghp-import -p build
+	poetry version $(version)
 
 serve-docs: build-docs
 	poetry run python -m http.server --bind 127.0.0.1 9000 --directory build
