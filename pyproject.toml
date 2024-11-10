@@ -11,7 +11,7 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-"pdfminer.six" = "^20231228"
+"pdfminer.six" = "^20240706"
 spacy = "^3.7.6"
 
 [tool.poetry.group.dev.dependencies]
@@ -19,19 +19,19 @@ black = "^24.8.0"
 flake8 = "^7.1.1"
 flake8-quotes = "^3.4.0"
 isort = "^5.13.2"
-pep8-naming = "^0.13.3"
+pep8-naming = "^0.14.1"
 pre-commit = "^3.8.0"
 pytest-mock = "^3.14.0"
 pytest = "^8.3.3"
-pytest-cov = "^4.1.0"
-Sphinx = "^7.4.7"
+pytest-cov = "^6.0.0"
+Sphinx = "^8.1.3"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz"
 
 [tool.poetry.group.dev.dependencies.ja_core_news_sm]
-url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.7.0/ja_core_news_sm-3.7.0.tar.gz"
+url = "https://github.com/explosion/spacy-models/releases/download/ja_core_news_sm-3.8.0/ja_core_news_sm-3.8.0.tar.gz"
 
 [build-system]
-requires = ["poetry-core>=1.7.0"]
+requires = ["poetry-core>=1.8.0"]
 build-backend = "poetry.core.masonry.api"
