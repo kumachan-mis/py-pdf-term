@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any, TypeVar
+from typing import Any, Self
 
 
 @dataclass(frozen=True)
@@ -18,8 +18,5 @@ class BaseRankingData:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "BaseRankingData":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(**obj)
-
-
-RankingData = TypeVar("RankingData", bound=BaseRankingData)

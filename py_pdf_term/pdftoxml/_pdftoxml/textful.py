@@ -17,7 +17,7 @@ from pdfminer.utils import Matrix, PathSegment, Rect, bbox2str, enc
 
 from .utils import clean_content_text
 
-NColor = float | tuple[float, float, float] | tuple[float, float, float, float]
+type NColor = float | tuple[float, float, float] | tuple[float, float, float, float]
 
 
 @dataclass

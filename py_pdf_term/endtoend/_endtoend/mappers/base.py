@@ -1,12 +1,9 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from typing import Generic, TypeVar
-
-MappedValue = TypeVar("MappedValue")
 
 
-class BaseMapper(Generic[MappedValue], metaclass=ABCMeta):
+class BaseMapper[MappedValue](metaclass=ABCMeta):
     """Base class for mappers to find mapped values from names."""
 
     def __init__(self) -> None:

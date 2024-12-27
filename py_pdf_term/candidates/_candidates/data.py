@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any, Callable, Self
 
 from py_pdf_term.tokenizers import Term
 
@@ -40,7 +40,7 @@ class PageCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PageCandidateTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         page_num, candidates = obj["page_num"], obj["candidates"]
         return cls(
             page_num,
@@ -88,7 +88,7 @@ class PDFCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PDFCandidateTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -136,7 +136,7 @@ class DomainCandidateTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "DomainCandidateTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

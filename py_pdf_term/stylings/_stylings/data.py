@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any
+from typing import Any, Self
 
 from py_pdf_term._common.data import ScoredTerm
 
@@ -24,7 +24,7 @@ class PageStylingScoreList:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PageStylingScoreList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         page_num, ranking = obj["page_num"], obj["ranking"]
         return cls(
             page_num,
@@ -54,7 +54,7 @@ class PDFStylingScoreList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PDFStylingScoreList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -84,7 +84,7 @@ class DomainStylingScoreList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "DomainStylingScoreList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

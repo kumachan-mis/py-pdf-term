@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass, field
-from typing import Any
+from typing import Any, Self
 
 from .base import BaseRankingData
 
@@ -33,6 +33,6 @@ class MDPRankingData(BaseRankingData):
         return obj
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "MDPRankingData":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         obj.pop("num_terms", None)
         return cls(**obj)

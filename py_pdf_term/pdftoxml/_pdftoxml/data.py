@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any
+from typing import Any, Self
 from xml.etree.ElementTree import Element, fromstring, tostring
 
 
@@ -22,7 +22,7 @@ class PDFnXMLPath:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PDFnXMLPath":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(**obj)
 
 
@@ -55,5 +55,5 @@ class PDFnXMLElement:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PDFnXMLElement":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(obj["pdf_path"], fromstring(obj["xml_root"]))

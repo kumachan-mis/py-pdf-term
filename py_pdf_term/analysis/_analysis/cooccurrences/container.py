@@ -34,7 +34,9 @@ class ContainerTermsAnalyzer:
     """
 
     def __init__(self, ignore_augmented: bool = True) -> None:
-        self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
+        self._runner = AnalysisRunner[DomainContainerTerms](
+            ignore_augmented=ignore_augmented
+        )
 
     def analyze(
         self, domain_candidates: DomainCandidateTermList
@@ -63,9 +65,9 @@ class ContainerTermsAnalyzer:
             candidate: Term,
         ) -> None:
             candidate_lemma = candidate.lemma()
-            container_terms.container_terms[
-                candidate_lemma
-            ] = container_terms.container_terms.get(candidate_lemma, set())
+            container_terms.container_terms[candidate_lemma] = (
+                container_terms.container_terms.get(candidate_lemma, set())
+            )
 
             num_tokens = len(candidate.tokens)
             for i in range(num_tokens):
@@ -85,9 +87,9 @@ class ContainerTermsAnalyzer:
                         subcandidate_lemma, set()
                     )
                     container_term_set.add(candidate_lemma)
-                    container_terms.container_terms[
-                        subcandidate_lemma
-                    ] = container_term_set
+                    container_terms.container_terms[subcandidate_lemma] = (
+                        container_term_set
+                    )
 
         container_terms = self._runner.run_through_candidates(
             domain_candidates,

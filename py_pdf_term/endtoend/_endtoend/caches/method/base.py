@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Generic
+from typing import Any, Callable
 
 from py_pdf_term.methods import MethodTermRanking
-from py_pdf_term.methods._methods.rankingdata import RankingData
+from py_pdf_term.methods._methods.rankingdata import BaseRankingData
 
 from ...configs import BaseMethodLayerConfig
 
@@ -89,7 +89,7 @@ class BaseMethodLayerRankingCache(metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.remove()")
 
 
-class BaseMethodLayerDataCache(Generic[RankingData], metaclass=ABCMeta):
+class BaseMethodLayerDataCache[RankingData: BaseRankingData](metaclass=ABCMeta):
     """Base class for method layer data caches. A method layer data cache is expected
     to store and load metadata to generate term rankings per a domain of PDF files.
 

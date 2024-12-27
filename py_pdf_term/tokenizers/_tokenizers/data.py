@@ -1,6 +1,6 @@
 import re
 from dataclasses import asdict, dataclass
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Self
 
 from py_pdf_term._common.consts import NOSPACE_REGEX
 
@@ -47,7 +47,7 @@ class Token:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "Token":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(**obj)
 
 
@@ -91,7 +91,7 @@ class Term:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "Term":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(
             list(map(lambda item: Token.from_dict(item), obj["tokens"])),
             obj.get("fontsize", 0),

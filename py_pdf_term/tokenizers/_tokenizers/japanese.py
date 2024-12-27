@@ -70,7 +70,7 @@ class JapaneseTokenizer(BaseLanguageTokenizer):
     @classmethod
     def class_init(cls) -> None:
         model = ja_core_news_sm.load()  # pyright: ignore[reportUnknownMemberType]
-        enable_pipes = []
+        enable_pipes: list[str] = []
         model.select_pipes(enable=enable_pipes)
         JapaneseTokenizer._model = model
 

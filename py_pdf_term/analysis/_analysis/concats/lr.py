@@ -38,7 +38,9 @@ class TermLeftRightFrequencyAnalyzer:
 
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
-        self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
+        self._runner = AnalysisRunner[DomainLeftRightFrequency](
+            ignore_augmented=ignore_augmented
+        )
 
     def analyze(
         self, domain_candidates: DomainCandidateTermList
