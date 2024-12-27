@@ -58,7 +58,9 @@ class TermOccurrenceAnalyzer:
     """
 
     def __init__(self, ignore_augmented: bool = True) -> None:
-        self._runner = AnalysisRunner(ignore_augmented=ignore_augmented)
+        self._runner = AnalysisRunner[_DomainTermOccurrence](
+            ignore_augmented=ignore_augmented
+        )
 
     def analyze(
         self, domain_candidates: DomainCandidateTermList

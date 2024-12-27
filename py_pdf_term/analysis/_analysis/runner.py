@@ -1,12 +1,10 @@
-from typing import Callable, TypeVar
+from typing import Callable
 
 from py_pdf_term.candidates import DomainCandidateTermList
 from py_pdf_term.tokenizers import Term
 
-AnalysisResult = TypeVar("AnalysisResult")
 
-
-class AnalysisRunner:
+class AnalysisRunner[AnalysisResult]:
     def __init__(self, ignore_augmented: bool = True) -> None:
         self._ignore_augmented = ignore_augmented
 

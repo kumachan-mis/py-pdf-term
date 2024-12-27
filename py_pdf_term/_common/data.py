@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any
+from typing import Any, Self
 
 
 @dataclass(frozen=True)
@@ -14,5 +14,5 @@ class ScoredTerm:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "ScoredTerm":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         return cls(**obj)

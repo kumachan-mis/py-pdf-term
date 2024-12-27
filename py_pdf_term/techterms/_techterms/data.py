@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Self
 
 from py_pdf_term._common.data import ScoredTerm
 
@@ -26,7 +26,7 @@ class PageTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PageTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         page_num, terms = obj["page_num"], obj["terms"]
         return cls(page_num, list(map(lambda item: ScoredTerm.from_dict(item), terms)))
 
@@ -53,7 +53,7 @@ class PDFTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "PDFTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         pdf_path, pages = obj["pdf_path"], obj["pages"]
         return cls(
             pdf_path,
@@ -83,7 +83,7 @@ class DomainTechnicalTermList:
         }
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "DomainTechnicalTermList":
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
         domain, pdfs = obj["domain"], obj["pdfs"]
         return cls(
             domain,

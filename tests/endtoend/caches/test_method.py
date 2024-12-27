@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Self
 
 from py_pdf_term._common.data import ScoredTerm
 from py_pdf_term.configs import (
@@ -24,8 +24,8 @@ class TestRankingData(BaseRankingData):
     freq_dict: dict[str, int]
 
     @classmethod
-    def from_dict(cls, obj: dict[str, Any]) -> "TestRankingData":
-        return TestRankingData(**obj)
+    def from_dict(cls, obj: dict[str, Any]) -> Self:
+        return cls(**obj)
 
 
 def test_data_file_cache(tmp_path: Path) -> None:

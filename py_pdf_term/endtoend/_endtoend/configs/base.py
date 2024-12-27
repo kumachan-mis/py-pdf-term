@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any, TypeVar
+from typing import Any
 
 CACHE_CONFIGS = ["cache", "data_cache", "ranking_cache"]
 
@@ -18,8 +18,7 @@ class BaseLayerConfig:
         return config_dict
 
     @classmethod
-    def from_dict(cls: type["LayerConfig"], obj: dict[str, Any]) -> "LayerConfig":
+    def from_dict[
+        LayerConfig
+    ](cls: type[LayerConfig], obj: dict[str, Any]) -> LayerConfig:
         return cls(**obj)
-
-
-LayerConfig = TypeVar("LayerConfig", bound=BaseLayerConfig)

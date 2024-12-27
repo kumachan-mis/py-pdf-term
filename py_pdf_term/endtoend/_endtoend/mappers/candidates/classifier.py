@@ -1,3 +1,5 @@
+from typing import Self
+
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.classifiers import (
     BaseTokenClassifier,
@@ -12,10 +14,10 @@ class TokenClassifierMapper(BaseMapper[type[BaseTokenClassifier]]):
     """Mapper to find token classifier classes."""
 
     @classmethod
-    def default_mapper(cls) -> "TokenClassifierMapper":
+    def default_mapper(cls) -> Self:
         default_mapper = cls()
 
-        classifier_clses = [
+        classifier_clses: list[type[BaseTokenClassifier]] = [
             JapaneseTokenClassifier,
             EnglishTokenClassifier,
         ]

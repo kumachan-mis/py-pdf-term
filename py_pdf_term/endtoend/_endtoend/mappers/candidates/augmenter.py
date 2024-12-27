@@ -1,3 +1,5 @@
+from typing import Self
+
 from py_pdf_term._common.consts import PACKAGE_NAME
 from py_pdf_term.candidates.augmenters import (
     BaseAugmenter,
@@ -12,10 +14,10 @@ class AugmenterMapper(BaseMapper[type[BaseAugmenter]]):
     """Mapper to find augmenter classes."""
 
     @classmethod
-    def default_mapper(cls) -> "AugmenterMapper":
+    def default_mapper(cls) -> Self:
         default_mapper = cls()
 
-        augmenter_clses = [
+        augmenter_clses: list[type[BaseAugmenter]] = [
             JapaneseConnectorTermAugmenter,
             EnglishConnectorTermAugmenter,
         ]

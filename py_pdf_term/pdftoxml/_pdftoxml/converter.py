@@ -117,8 +117,8 @@ class PDFtoXMLConverter:
         )
         page_interpreter = PDFPageInterpreter(manager, converter)
 
-        pages = PDFPage.get_pages(pdf_io)  # type: ignore
+        pages = PDFPage.get_pages(pdf_io)
         converter.write_header()
         for page in pages:
-            page_interpreter.process_page(page)  # type: ignore
+            page_interpreter.process_page(page)
         converter.write_footer()

@@ -1,7 +1,7 @@
 from typing import Any, Callable
 
 from py_pdf_term.methods import MethodTermRanking
-from py_pdf_term.methods._methods.rankingdata import RankingData
+from py_pdf_term.methods._methods.rankingdata import BaseRankingData
 
 from ...configs import BaseMethodLayerConfig
 from .base import BaseMethodLayerDataCache, BaseMethodLayerRankingCache
@@ -38,7 +38,9 @@ class MethodLayerRankingNoCache(BaseMethodLayerRankingCache):
         pass
 
 
-class MethodLayerDataNoCache(BaseMethodLayerDataCache[RankingData]):
+class MethodLayerDataNoCache[RankingData: BaseRankingData](
+    BaseMethodLayerDataCache[RankingData]
+):
     """Method layer data cache that does not store and load metadata to generate term
     rankings.
 

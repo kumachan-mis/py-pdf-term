@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractmethod
-from typing import Generic
 
 from py_pdf_term.candidates import DomainCandidateTermList
 
-from ..rankingdata.base import RankingData
+from ..rankingdata.base import BaseRankingData
 
 
-class BaseRankingDataCollector(Generic[RankingData], metaclass=ABCMeta):
+class BaseRankingDataCollector[RankingData: BaseRankingData](metaclass=ABCMeta):
     """Base class for ranking data collectors. This class is used to collect metadata
     to rank candidate terms in domain-specific PDF documents.
     """

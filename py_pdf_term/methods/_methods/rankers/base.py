@@ -1,13 +1,12 @@
 from abc import ABCMeta, abstractmethod
-from typing import Generic
 
 from py_pdf_term.candidates import DomainCandidateTermList
 
 from ..data import MethodTermRanking
-from ..rankingdata.base import RankingData
+from ..rankingdata.base import BaseRankingData
 
 
-class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
+class BaseSingleDomainRanker[RankingData: BaseRankingData](metaclass=ABCMeta):
     """Base class for term rankers with an algorithm which does not require cross-domain
     information.
     """
@@ -39,7 +38,7 @@ class BaseSingleDomainRanker(Generic[RankingData], metaclass=ABCMeta):
         raise NotImplementedError(f"{self.__class__.__name__}.rank_terms()")
 
 
-class BaseMultiDomainRanker(Generic[RankingData], metaclass=ABCMeta):
+class BaseMultiDomainRanker[RankingData: BaseRankingData](metaclass=ABCMeta):
     """Base class for term rankers with an algorithm which requires cross-domain
     information.
     """
