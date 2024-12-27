@@ -1,4 +1,4 @@
-from .base import BaseRankingData, RankingData
+from .base import BaseRankingData
 from .flr import FLRRankingData
 from .flrh import FLRHRankingData
 from .hits import HITSRankingData
@@ -14,6 +14,5 @@ __all__ = [
     "HITSRankingData",
     "MCValueRankingData",
     "MDPRankingData",
-    "RankingData",
     "TFIDFRankingData",
 ]

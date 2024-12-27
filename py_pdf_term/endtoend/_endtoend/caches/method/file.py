@@ -5,7 +5,7 @@ from shutil import rmtree
 from typing import Any, Callable
 
 from py_pdf_term.methods import MethodTermRanking
-from py_pdf_term.methods._methods.rankingdata import RankingData
+from py_pdf_term.methods._methods.rankingdata import BaseRankingData
 
 from ...configs import BaseMethodLayerConfig
 from ..util import create_dir_name_from_config, create_file_name_from_paths
@@ -76,7 +76,9 @@ class MethodLayerRankingFileCache(BaseMethodLayerRankingCache):
             rmtree(cache_dir_path)
 
 
-class MethodLayerDataFileCache(BaseMethodLayerDataCache[RankingData]):
+class MethodLayerDataFileCache[RankingData: BaseRankingData](
+    BaseMethodLayerDataCache[RankingData]
+):
     """Method layer data cache that stores and loads metadata to to generate term
     rankings to/from a file.
 
