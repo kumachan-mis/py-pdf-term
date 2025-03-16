@@ -16,15 +16,15 @@ spacy = "^3.8.4"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
-flake8 = "^7.1.1"
+flake8 = "^7.1.2"
 flake8-quotes = "^3.4.0"
 isort = "^5.13.2"
 pep8-naming = "^0.14.1"
 pre-commit = "^3.8.0"
 pytest-mock = "^3.14.0"
-pytest = "^8.3.4"
+pytest = "^8.3.5"
 pytest-cov = "^6.0.0"
-Sphinx = "^8.1.3"
+Sphinx = "^8.2.3"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
 url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz"
