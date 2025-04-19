@@ -12,18 +12,18 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
 "pdfminer.six" = "^20240706"
-spacy = "^3.8.4"
+spacy = "^3.8.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
-flake8 = "^7.1.2"
+flake8 = "^7.2.0"
 flake8-quotes = "^3.4.0"
 isort = "^5.13.2"
 pep8-naming = "^0.14.1"
 pre-commit = "^3.8.0"
 pytest-mock = "^3.14.0"
 pytest = "^8.3.5"
-pytest-cov = "^6.0.0"
+pytest-cov = "^6.1.1"
 Sphinx = "^8.2.3"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]

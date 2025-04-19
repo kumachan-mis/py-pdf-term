@@ -2,7 +2,7 @@
   "[python]": {
     "editor.rulers": [88],
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "ms-python.vscode-pylance"
   },
   "python.terminal.activateEnvironment": false,
   "python.autoComplete.extraPaths": [
