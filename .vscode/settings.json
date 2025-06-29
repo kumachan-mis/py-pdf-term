@@ -6,11 +6,11 @@
   },
   "python.terminal.activateEnvironment": false,
   "python.autoComplete.extraPaths": [
-    ".venv/lib/python3.12/site-packages",
+    ".venv/lib/python3.13/site-packages",
   ],
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.extraPaths": [
-    ".venv/lib/python3.12/site-packages"
+    ".venv/lib/python3.13/site-packages"
   ],
   "python.languageServer": "Pylance",
   "python.testing.pytestArgs": [
