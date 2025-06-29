@@ -10,20 +10,20 @@ repository = "https://github.com/kumachan-mis/py-pdf-term"
 keywords = ["terminology extraction", "technical term", "pdf"]
 
 [tool.poetry.dependencies]
-python = ">=3.12,<3.13"
+python = ">=3.13,<3.14"
 "pdfminer.six" = "^20240706"
-spacy = "^3.8.5"
+spacy = "^3.8.7"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
-flake8 = "^7.2.0"
+flake8 = "^7.3.0"
 flake8-quotes = "^3.4.0"
 isort = "^5.13.2"
 pep8-naming = "^0.14.1"
 pre-commit = "^3.8.0"
-pytest-mock = "^3.14.0"
-pytest = "^8.3.5"
-pytest-cov = "^6.1.1"
+pytest-mock = "^3.14.1"
+pytest = "^8.4.1"
+pytest-cov = "^6.2.1"
 Sphinx = "^8.2.3"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
