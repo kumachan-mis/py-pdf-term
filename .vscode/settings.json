@@ -22,8 +22,4 @@
   "[json]": {
     "editor.formatOnSave": true
   },
-
-  "plantuml.fileExtensions": ".pu,.puml,.plantuml",
-  "plantuml.render": "PlantUMLServer",
-  "plantuml.server": "https://www.plantuml.com/plantuml",
 }
