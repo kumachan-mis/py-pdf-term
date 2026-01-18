@@ -11,20 +11,20 @@ keywords = ["terminology extraction", "technical term", "pdf"]
 
 [tool.poetry.dependencies]
 python = ">=3.13,<3.14"
-"pdfminer.six" = "^20250506"
-spacy = "^3.8.7"
+"pdfminer.six" = "^20260107"
+spacy = "^3.8.11"
 
 [tool.poetry.group.dev.dependencies]
-black = "^25.9.0"
+black = "^26.1.0"
 flake8 = "^7.3.0"
 flake8-quotes = "^3.4.0"
-isort = "^6.1.0"
+isort = "^7.0.0"
 pep8-naming = "^0.15.1"
-pre-commit = "^4.3.0"
+pre-commit = "^4.5.1"
 pytest-mock = "^3.15.1"
-pytest = "^8.4.2"
+pytest = "^9.0.2"
 pytest-cov = "^7.0.0"
-Sphinx = "^8.2.3"
+Sphinx = "^9.1.0"
 
 [tool.poetry.group.dev.dependencies.en_core_web_sm]
 url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz"
